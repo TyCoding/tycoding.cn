@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="SpringMVC,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SpringMVC实现文件的上传和下载相对于JavaWeb阶段我们使用过servlet实现文件上传和下载操作；而SpringMVC实现了对上传操作的直接支持，提供了multipart解析器。MultipartFile提供了一些对文件操作的方法，使得文件上传变得更简单。无论上传还是下载都是进行二进制流的转换，下面我们以案例的形式了解一下如何使用SpringMVC实现文件的上传操作。">
+<meta name="keywords" content="SpringMVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC之文件上传和下载">
+<meta property="og:url" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="SpringMVC实现文件的上传和下载相对于JavaWeb阶段我们使用过servlet实现文件上传和下载操作；而SpringMVC实现了对上传操作的直接支持，提供了multipart解析器。MultipartFile提供了一些对文件操作的方法，使得文件上传变得更简单。无论上传还是下载都是进行二进制流的转换，下面我们以案例的形式了解一下如何使用SpringMVC实现文件的上传操作。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-0.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-4.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-5.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-7.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-8.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-9.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-10.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC之文件上传和下载">
+<meta name="twitter:description" content="SpringMVC实现文件的上传和下载相对于JavaWeb阶段我们使用过servlet实现文件上传和下载操作；而SpringMVC实现了对上传操作的直接支持，提供了multipart解析器。MultipartFile提供了一些对文件操作的方法，使得文件上传变得更简单。无论上传还是下载都是进行二进制流的转换，下面我们以案例的形式了解一下如何使用SpringMVC实现文件的上传操作。">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/6-0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/">
+
+
+
+
+
+  <title>SpringMVC之文件上传和下载 | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/05/31/ssm/Spring-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringMVC之文件上传和下载</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-31T00:00:00+08:00">
+                2018-05-31
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>SpringMVC实现文件的上传和下载</strong><br>相对于JavaWeb阶段我们使用过servlet实现文件上传和下载操作；而SpringMVC实现了对上传操作的直接支持，提供了<code>multipart</code>解析器。<code>MultipartFile</code>提供了一些对文件操作的方法，使得文件上传变得更简单。无论上传还是下载都是进行二进制流的转换，下面我们以案例的形式了解一下如何使用SpringMVC实现文件的上传操作。</p>
+<a id="more"></a>
+
+<h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="了解"><a href="#了解" class="headerlink" title="了解"></a>了解</h3><ol>
+<li>文件上传我们首先要考虑的就是把文件上传到哪里？是上传到工程目录下，还是上传到本地磁盘中？</li>
+<li>因为上传的文件一般都是二进制文件，所以我们需要通过某种方式对表单提交进行编码。通过将<code>enctype</code>设置为<code>multipart/form-data</code>，每个输入域都将作为POST请求的不同部分进行提交（默认提交的表单中数据存储格式是<code>名字-值</code>，显然是不适合类似文件上传那种二进制数据的）。</li>
+<li>Spring提供了对<code>multipart</code>数据的解析器<code>CommonsMultipartResolver</code>（<code>MultipartResolver</code>接口的实现类），但是这个解析器是基于<code>Apache Commons FileUpload</code>技术的，所以需要<code>commons-filrUpload.jar</code>支持。</li>
+</ol>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>除了我们之前使用的Spring以及SpringMVC的先关jar依赖包，还需要导入以下jar文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">commons-fileupload.jar</span><br><span class="line">commons-io.jar</span><br></pre></td></tr></table></figure>
+
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>首先我们看一下项目结构：<br><img src="/2018/05/31/ssm/Spring-6/6-0.png" alt><br>注意：这里我使用的配置是：IDEA + tomcat + Maven，对于maven项目我们要清楚项目编译后的文件都放在<code>target</code>目录下。</p>
+<ol>
+<li>修改我们的<code>save.jsp</code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">isELIgnored</span>=<span class="string">"false"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span></span></span><br><span class="line"><span class="tag">    <span class="attr">String</span> <span class="attr">path</span> = <span class="string">request.getContextPath();</span></span></span><br><span class="line"><span class="tag">    <span class="attr">String</span> <span class="attr">basePath</span> = <span class="string">request.getScheme()</span> + "<span class="attr">:</span>//" + <span class="attr">request.getServerName</span>() + "<span class="attr">:</span>" + <span class="attr">request.getServerPort</span>() + <span class="attr">path</span>;</span></span><br><span class="line"><span class="tag">%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>表单<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"&lt;%=basePath%&gt;/user/save"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">    username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    profile image:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"image"</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>解释：</strong><br>注意在上面<code>&lt;%%&gt;</code>中的Java代码是获取本项目的相对路径，相当于<code>&lt;%=pageContext.request.ContextPath%&gt;</code>。接下来我们将表单<code>&lt;form&gt;</code>标签中设置属性<code>enctype=&quot;multipart/form-data&quot;</code>。</p>
+<ol start="2">
+<li><code>Controller</code>层<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//保存用户</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/save"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(@RequestParam String username, @RequestParam String password, @RequestParam(value=<span class="string">"image"</span>,required = <span class="keyword">false</span>)</span>MultipartFile image, HttpServletRequest request, Model model) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取文件在服务器上的储存位置</span></span><br><span class="line">    String path = request.getSession().getServletContext().getRealPath(<span class="string">"resources/upload"</span>);</span><br><span class="line">    File filePath = <span class="keyword">new</span> File(path);</span><br><span class="line">    System.out.println(<span class="string">"文件保存路径："</span> + path);</span><br><span class="line">    <span class="keyword">if</span> (!filePath.exists() &amp;&amp; !filePath.isDirectory()) &#123;</span><br><span class="line">        System.out.println(<span class="string">"目录不存在，创建目录："</span> + filePath);</span><br><span class="line">        filePath.mkdir();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取原始文件名称</span></span><br><span class="line">    String originalFileName = image.getOriginalFilename();</span><br><span class="line">    System.out.println(<span class="string">"原始文件名称："</span> + originalFileName);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取文件类型，以最后一个`.`作为标识</span></span><br><span class="line">    String type = originalFileName.substring(originalFileName.lastIndexOf(<span class="string">"."</span>) + <span class="number">1</span>);</span><br><span class="line">    System.out.println(<span class="string">"文件类型："</span> + type);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置文件新名字</span></span><br><span class="line">    String fileName = System.currentTimeMillis() + <span class="string">"."</span> + type;</span><br><span class="line">    System.out.println(<span class="string">"文件新名称："</span> + fileName);</span><br><span class="line">    <span class="comment">//在指定路径创建一个文件</span></span><br><span class="line">    File targetFile = <span class="keyword">new</span> File(path, fileName);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将文件保存到服务器指定位置</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        image.transferTo(targetFile);</span><br><span class="line">        model.addAttribute(<span class="string">"message"</span>, <span class="string">"保存数据成功"</span>);</span><br><span class="line">        userService.save(username,password,<span class="string">"resources/upload/"</span> + fileName);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"view/success"</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        System.out.println(<span class="string">"保存文件错误..."</span>);</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"view/error"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>Controller层就比较复杂了，因为对于本案例而言文件上传操作的主要代码都在Controller层，而Service和Dao层仅是执行保存操作。我们首先了解一下文件操作的API方法：</p>
+<blockquote>
+<ol>
+<li>request.getSession().getServletContext().getRealPath(String s)：获取本项目下指定目录的绝对路径。</li>
+<li>MultipartFile.getOriginalFilename()：获取被<code>MultipartFile</code>绑定的上传参数的原始名称 </li>
+<li>System.currentTimeMillis()：获取自1970年1月1日0时起到现在时间的毫秒数。</li>
+<li>MultipartFile.transferTo()： 在指定的磁盘路径下生成一个新的文件。</li>
+</ol>
+</blockquote>
+<ul>
+<li>jsp中的form表单将数据提交到这个映射方法，那么我们就要接受jsp中传递的参数，要注意的就是绑定<code>image</code>参数是<code>MultipartFile</code>数据类型。</li>
+<li>下面就要定义一个上传文件的保存目录，本例中使用<code>request.getSession().getServletContext().getRealPath()</code>获取到的是本项目的绝对路径，而<code>getRealPath(&quot;resources/upload&quot;)</code>是针对此项目的相对路径，如此时的文件保存路径其实是：<code>/Users/ty/Documents/Java/Learn/ssm/target/TyCoding/resources/upload</code>。</li>
+<li>如果指定路径下的文件夹存在，就将上传的文件写入进这个文件夹中，如果此文件夹不存在，就调用<code>mkdir()</code>方法创建此文件夹。</li>
+<li>上述一切都准备就绪，最后会调用Service层的<code>save()</code>方法将表单数据保存到数据库中。（<strong>注意：</strong>在调用的<code>save()</code>方法中我们会看到实际写入进数据库中的上传文件的路径其实仅是相对此项目的相对路径（即相对于<code>webapp</code>）。</li>
+</ul>
+<ol start="4">
+<li>最后我们要在Spring配置文件中注册这个multipart解析器：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置支持文件上传 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"multipartResolver"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.multipart.commons.CommonsMultipartResolver"</span> <span class="attr">p:maxUploadSize</span>=<span class="string">"500000"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><code>maxUploadSize</code>是设置上传文件的大小，可以更改。</p>
+<p>下面我们看一下实际效果：<br><img src="/2018/05/31/ssm/Spring-6/6-1.png" alt><br>点击提交按钮，访问后台映射方法：<br><img src="/2018/05/31/ssm/Spring-6/6-2.png" alt><br>可以看到已经获取到表中的数据，并准备调用Service层保存数据，那么我们看一下最后的Dao层将数据存入进数据库的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImp</span> <span class="keyword">extends</span> <span class="title">JdbcDaoSupport</span> <span class="keyword">implements</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(String username, String password, String image)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//使用Spring提供的JDBC模板可以直接执行SQL语句</span></span><br><span class="line">        <span class="keyword">this</span>.getJdbcTemplate().update(<span class="string">"insert into user(id,username,password,image) values(?,?,?,?)"</span>,<span class="keyword">null</span>,username,password,image);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后数据保存成功，跳转到成功页面：<br><img src="/2018/05/31/ssm/Spring-6/6-3.png" alt><br><img src="/2018/05/31/ssm/Spring-6/6-4.png" alt><br><img src="/2018/05/31/ssm/Spring-6/6-5.png" alt><br>看一下此文件在工程中的位置：<br><img src="/2018/05/31/ssm/Spring-6/6-6.png" alt><br>看一下储存到数据库中数据：<br><img src="/2018/05/31/ssm/Spring-6/6-7.png" alt></p>
+<ol start="4">
+<li>最后我们看一下通过SQL语句：<code>select * from user</code>，将查询到的数据回显到页面上：<br><code>list.jsp</code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>id<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>username<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>password<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>avatar<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:forEach</span> <span class="attr">items</span>=<span class="string">"$&#123;userList&#125;"</span> <span class="attr">var</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;user.id&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;user.username&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;user.password&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&lt;%=basePath%&gt;/$&#123;user.image&#125;"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"80"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">c:forEach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><img src="/2018/05/31/ssm/Spring-6/6-8.png" alt></p>
+<p><strong>答疑：</strong></p>
+<ol>
+<li>我们设置的<code>getRealPath(&quot;resources/upload&quot;)</code>不该是相对于工程的路径吗？（也就是在<code>webapp</code>下）。为什么上传的文件会保存到<code>target</code>目录下？<br>答：我们要明白Tomcat下运行的项目实际是编译后的class文件，即此maven项目中的<code>target</code>文件夹中的数据。那么我们设置的文件上传路径其实是在此编译后的文件夹中的相对路径（<code>TyCoding</code>是我设置的<code>artifact id</code>）</li>
+<li>为什么我们保存到数据中的路径是项目的相对路径？<br>答：要知道在Tomcat下运行项目，我们访问的图片路径是需要在<code>localhost:8080</code>下的路径，也就是当前项目的相对路径，所以我们如果保存一个带盘符的绝对路径是肯定不能访问到的。</li>
+</ol>
+<h1 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h1><h2 id="准备-1"><a href="#准备-1" class="headerlink" title="准备"></a>准备</h2><h3 id="了解-1"><a href="#了解-1" class="headerlink" title="了解"></a>了解</h3><p>文件上传我们这里设计的思路是：在页面设置一个可点击的连接（比如<code>&lt;a&gt;</code>），点击即可下载，而我们需要在其<code>href</code>属性中拼接要下载的文件的名称，然后通过这个请求路径，Controller层的映射方法接收到你要下载的文件名称，然后根据指定的下载文件的路径查询到这个文件的名称，然后将文件转换成二进制流，然后让客户端读取这个二进制流写入到本机中从而实现下载。</p>
+<ol>
+<li><code>ResponseEntity&lt;byte[]&gt;</code>: SpringMVC提供的用于实现响应头、文件数据（以字节储存）、状态封装都一起返回给浏览器实现文件的下载。</li>
+<li><code>header.setContentDispositionFormData()</code>: 告诉浏览器要以指定的数据类型打开这个文件</li>
+<li><code>FileUtils.readFileToByteArray()</code>: 使用FileUtils工具类强制将指定文件数据转换成byte字节流的形式。</li>
+</ol>
+<h2 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h2><ol>
+<li>首先我们更改上面的<code>save.jsp</code>页面,新增一个下载的连接：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>文件下载<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&lt;%=basePath%&gt;/user/download?fileName=图片.jpg"</span>&gt;</span>点击我下载图片<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>如上所示，我们在请求路径中拼接了<code>fileName</code>参数值是<code>图片.jpg</code>那么后台接收到这个参数值，就会查询指定位置的文件。</p>
+<ol start="2">
+<li>然后看一下Controller的请求<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//文件下载</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/download"</span>)</span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;<span class="keyword">byte</span>[]&gt; download(HttpServletRequest request, <span class="meta">@RequestParam</span>(value=<span class="string">"fileName"</span>,required = <span class="keyword">false</span>) String fileName) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//下载路径</span></span><br><span class="line">        String path = request.getServletContext().getRealPath(<span class="string">"/resources/upload/"</span>);</span><br><span class="line">        File file = <span class="keyword">new</span> File(path + File.separator + fileName);</span><br><span class="line">        HttpHeaders headers = <span class="keyword">new</span> HttpHeaders();</span><br><span class="line">        <span class="comment">//解决文件名中文乱码问题</span></span><br><span class="line">        String downloadFileName = <span class="keyword">new</span> String(fileName.getBytes(<span class="string">"UTF-8"</span>),<span class="string">"iso-8859-1"</span>);</span><br><span class="line">        <span class="comment">//告诉浏览器以"attachment"方式打开文件</span></span><br><span class="line">        headers.setContentDispositionFormData(<span class="string">"attachment"</span>,downloadFileName);</span><br><span class="line">        <span class="comment">//设置请求头的媒体格式类型为 application/octet-stream(二进制流数据)</span></span><br><span class="line">        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity&lt;<span class="keyword">byte</span>[]&gt;(FileUtils.readFileToByteArray(file),headers,HttpStatus.CREATED);</span><br><span class="line">    &#125; <span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        System.out.println(<span class="string">"文件下载出错..."</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>首先要指定映射方法的返回数据类型是<code>ResponseEntity&lt;byte[]&gt;</code>，首先要规定一个下载文件的目录路径，需要下载文件时，就会中这个路径中查询需要下载的文件，如果找不到指定文件，那么就进catch里面。<br><code>File.separator</code>用来分隔同一个路径字符串中的目录，相当于<code>/</code>。找到了指定路径下的文件后，需要解决中文乱码问题，然后告诉浏览器要以<code>attachment</code>的方式打开这个文件。<br>最后这只<code>ContentType</code>媒体格式类型，最后使用<code>FileUtils</code>的<code>readFileToByteArray</code>将文件数据转换成二进制字节流，连同设置好的响应数据格式一同返回给浏览器，实现文件的下载。</p>
+<p>最后看一下实际的效果：<br><img src="/2018/05/31/ssm/Spring-6/6-9.png" alt><br><img src="/2018/05/31/ssm/Spring-6/6-10.png" alt></p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringMVC/" rel="tag"># SpringMVC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/01/ssm/maven/" rel="prev" title="使用IDEA搭建一个maven项目">
+                使用IDEA搭建一个maven项目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传"><span class="nav-number">1.</span> <span class="nav-text">文件上传</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解"><span class="nav-number">1.1.1.</span> <span class="nav-text">了解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">1.1.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">1.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件下载"><span class="nav-number">2.</span> <span class="nav-text">文件下载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备-1"><span class="nav-number">2.1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">了解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例-1"><span class="nav-number">2.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">3.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">4.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

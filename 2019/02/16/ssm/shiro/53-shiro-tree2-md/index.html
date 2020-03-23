@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="shiro,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ElementUI - Tree在上一篇文章中我们介绍了Java后端如何构建一棵Tree树，并将数据返回给前端，前端Vue.js + ElementUI 又是如何渲染出来. 博文地址：Shiro权限管理项目中，如何构建权限菜单？ 这次呢，我们谈如何使用ElementUI中的Tree组件，用于部门、角色、菜单的修改添加上，以’部门管理’举例，效果如下：">
+<meta name="keywords" content="shiro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElementUI+Shiro构建权限Tree">
+<meta property="og:url" content="http://www.tycoding.cn/2019/02/16/ssm/shiro/53-shiro-tree2-md/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="ElementUI - Tree在上一篇文章中我们介绍了Java后端如何构建一棵Tree树，并将数据返回给前端，前端Vue.js + ElementUI 又是如何渲染出来. 博文地址：Shiro权限管理项目中，如何构建权限菜单？ 这次呢，我们谈如何使用ElementUI中的Tree组件，用于部门、角色、菜单的修改添加上，以’部门管理’举例，效果如下：">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2019/02/16/ssm/shiro/53-shiro-tree2-md/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/02/16/ssm/shiro/53-shiro-tree2-md/2.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ElementUI+Shiro构建权限Tree">
+<meta name="twitter:description" content="ElementUI - Tree在上一篇文章中我们介绍了Java后端如何构建一棵Tree树，并将数据返回给前端，前端Vue.js + ElementUI 又是如何渲染出来. 博文地址：Shiro权限管理项目中，如何构建权限菜单？ 这次呢，我们谈如何使用ElementUI中的Tree组件，用于部门、角色、菜单的修改添加上，以’部门管理’举例，效果如下：">
+<meta name="twitter:image" content="http://www.tycoding.cn/2019/02/16/ssm/shiro/53-shiro-tree2-md/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2019/02/16/ssm/shiro/53-shiro-tree2-md/">
+
+
+
+
+
+  <title>ElementUI+Shiro构建权限Tree | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/02/16/ssm/shiro/53-shiro-tree2-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ElementUI+Shiro构建权限Tree</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-16T14:41:46+08:00">
+                2019-02-16
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ElementUI-Tree"><a href="#ElementUI-Tree" class="headerlink" title="ElementUI - Tree"></a>ElementUI - Tree</h1><p>在上一篇文章中我们介绍了Java后端如何构建一棵Tree树，并将数据返回给前端，前端Vue.js + ElementUI 又是如何渲染出来.</p>
+<p>博文地址：<a href="https://tycoding.cn/2019/01/30/ssm/shiro/shiro-tree/" target="_blank" rel="noopener">Shiro权限管理项目中，如何构建权限菜单？</a></p>
+<p>这次呢，我们谈如何使用ElementUI中的Tree组件，用于部门、角色、菜单的修改添加上，以’部门管理’举例，效果如下：</p>
+<p><img src="/2019/02/16/ssm/shiro/53-shiro-tree2-md/1.png" alt></p>
+<a id="more"></a>
+
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li><p>首先请阅读ElementUI Tree组件官方文档：<a href="http://element-cn.eleme.io/#/zh-CN/component/tree" target="_blank" rel="noopener">传送门</a></p>
+</li>
+<li><p>其次请阅读我的上篇文章：<a href="https://tycoding.cn/2019/01/30/ssm/shiro/shiro-tree/" target="_blank" rel="noopener">Shiro权限管理项目中，如何构建权限菜单？</a></p>
+</li>
+</ul>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h2><h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><p>在写后端接口数据前（当然如何写在上篇文章也有提到），我们先绘出前端界面：</p>
+<blockquote>
+<p>首先是Tree组件</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form</span> <span class="attr">ref</span>=<span class="string">"form"</span> <span class="attr">:model</span>=<span class="string">"form"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">"parentId"</span> <span class="attr">v-model</span>=<span class="string">"form.parentId"</span> <span class="attr">label</span>=<span class="string">"上级部门"</span> <span class="attr">label-width</span>=<span class="string">"120px"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-tree</span> <span class="attr">:data</span>=<span class="string">"roleTree"</span> <span class="attr">ref</span>=<span class="string">"tree"</span> <span class="attr">highlight-current</span> <span class="attr">show-checkbox</span> <span class="attr">check-strictly</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">:default-checked-keys</span>=<span class="string">"form.parentId"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">:default-expanded-keys</span>=<span class="string">"form.parentId"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">node-key</span>=<span class="string">"id"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">:props</span>=<span class="string">"treeProps"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-tree</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Tips</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">prop</td>
+<td align="left">本例中用户表单校验</td>
+</tr>
+<tr>
+<td align="left">v-model</td>
+<td align="left">双向绑定，格式为数组</td>
+</tr>
+<tr>
+<td align="left">:data</td>
+<td align="left">封装tree数据的数组，用于渲染树形结构</td>
+</tr>
+<tr>
+<td align="left">show-checkbox</td>
+<td align="left">显示勾选框</td>
+</tr>
+<tr>
+<td align="left">check-strictly</td>
+<td align="left">严格模式，父子节点无关系，不联动勾选</td>
+</tr>
+<tr>
+<td align="left">node-key</td>
+<td align="left">指定每个节点的key，最好就为节点的id值</td>
+</tr>
+<tr>
+<td align="left">:default-checked-keys</td>
+<td align="left">默认选中的项，参数为封装了<code>node-key</code>的数组</td>
+</tr>
+<tr>
+<td align="left">:default-expanded-keys</td>
+<td align="left">默认展开的项，参数为封装了<code>node-key</code>的数组</td>
+</tr>
+<tr>
+<td align="left">:props</td>
+<td align="left">Tree树节点的配置选项</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>其次是Vue.js部分</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    data: &#123;</span><br><span class="line">        <span class="comment">//模态框状态标识</span></span><br><span class="line">        dialogVisible: <span class="literal">false</span>,</span><br><span class="line">        dialogTitle: <span class="string">''</span>,</span><br><span class="line">        roleTree: [], <span class="comment">//部门Tree</span></span><br><span class="line">        treeProps: &#123;</span><br><span class="line">            children: <span class="string">'children'</span>,</span><br><span class="line">            label: <span class="string">'name'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//form表单对象</span></span><br><span class="line">        form: &#123;</span><br><span class="line">            id: <span class="string">''</span>,</span><br><span class="line">            name: <span class="string">''</span>,</span><br><span class="line">            parentId: [],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        <span class="comment">//触发保存按钮：添加、更新</span></span><br><span class="line">        handleSave(id) &#123;</span><br><span class="line">            <span class="keyword">this</span>.clearForm();</span><br><span class="line">            <span class="comment">//获取Dept列表</span></span><br><span class="line">            <span class="keyword">this</span>.$http.get(api.system.dept.roleTree).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.roleTree = response.body.data;</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">if</span> (id == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.dialogTitle = <span class="string">'新增部门'</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.dialogTitle = <span class="string">'修改部门'</span></span><br><span class="line">                <span class="keyword">this</span>.$http.get(api.system.dept.findById(id)).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">this</span>.form = response.body.data;</span><br><span class="line">                    <span class="keyword">if</span> (response.body.data.parentId == <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="keyword">this</span>.form.parentId = []</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">this</span>.form.parentId = [response.body.data.parentId]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.dialogVisible = <span class="literal">true</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        clearForm() &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.$refs.form != <span class="literal">undefined</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.$refs.form.resetFields();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.form.id = <span class="string">''</span></span><br><span class="line">            <span class="keyword">this</span>.form.name = <span class="string">''</span></span><br><span class="line">            <span class="keyword">this</span>.form.parentId = []</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong></p>
+<p>代码基本如上了，需要注意以下几点：</p>
+<ul>
+<li><p><code>roleTree</code>是绑定tree数据的数组，通过调用后端接口将response的tree数据赋值给<code>roleTree</code></p>
+</li>
+<li><p><code>treeProps</code>是配置tree节点属性，比如上<code>children: &#39;children&#39;</code>就是规定Tree组件的子节点名称为<code>children</code>，方便tree组件去识别后端的tree结构，具体看后端返回的数据格式</p>
+</li>
+<li><p>本例中<code>form</code>中的<code>parentId</code>既是Tree组件双向绑定的参数，也是<code>default-xx-keys</code>Tree组件默认选中和展开的参数，格式为<code>node-key</code>中多个key的数组，比如[key1,key2]</p>
+</li>
+<li><p>我这里新增和修改公用了一个model，如果是新增就直接展示mode即可(先获取Tree数据)，如果是修改，还要调用<code>findById</code>查询当前行的数据。</p>
+</li>
+<li><p>注意在<code>findById</code>的<code>then</code>中还进行了<code>this.form.parentId = [response.body.data.parentId]</code>，目的是将后端的<code>parentId</code>字符串转换为<code>[key]</code>数组，具体视后端tree数据格式，因为这里规定一个部门自能有一个上级部门，所以后端的<code>parentId</code>为String</p>
+</li>
+</ul>
+<h4 id="结"><a href="#结" class="headerlink" title="结"></a>结</h4><p>到这里前端的数据渲染部分已基本完成（注意我粘贴的代码中省略了一部分），下面看一下Tree组件的数据结构，即<code>roleTree</code>：</p>
+<p><img src="/2019/02/16/ssm/shiro/53-shiro-tree2-md/2.png" alt></p>
+<h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>上面可以看到Tree组件的数据格式，后端的任务就是获取数据库中的记录并封装为Tree树的结构返回给前端。</p>
+<p>因为在 <a href="https://tycoding.cn/2019/01/30/ssm/shiro/shiro-tree/" target="_blank" rel="noopener">Shiro权限管理项目中，如何构建权限菜单？</a> 一文中已经介绍了如何将数据库中的记录封装为Tree树结构，这里不过多解释，直接上代码：</p>
+<p><strong>service层实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeptServiceImpl</span> <span class="keyword">extends</span> <span class="title">BaseServiceImpl</span>&lt;<span class="title">Dept</span>&gt; <span class="keyword">implements</span> <span class="title">DeptService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DeptMapper deptMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Tree&lt;Dept&gt;&gt; tree() &#123;</span><br><span class="line">        List&lt;Dept&gt; list = queryList(<span class="keyword">new</span> Dept());</span><br><span class="line">        List&lt;Tree&lt;Dept&gt;&gt; treeList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.forEach(dept -&gt; &#123;</span><br><span class="line">            Tree&lt;Dept&gt; tree = <span class="keyword">new</span> Tree&lt;&gt;();</span><br><span class="line">            tree.setId(dept.getId());</span><br><span class="line">            tree.setParentId(dept.getParentId());</span><br><span class="line">            tree.setName(dept.getName());</span><br><span class="line">            treeList.add(tree);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> TreeUtils.build(treeList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Dept&gt; <span class="title">queryList</span><span class="params">(Dept dept)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Example example = <span class="keyword">new</span> Example(Dept.class);</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(dept.getName())) &#123;</span><br><span class="line">                example.createCriteria().andCondition(<span class="string">"name"</span>, dept.getName());</span><br><span class="line">            &#125;</span><br><span class="line">            example.setOrderByClause(<span class="string">"create_time"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.selectByExample(example);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="结-1"><a href="#结-1" class="headerlink" title="结"></a>结</h4><p>后端的代码我们在 <a href="https://tycoding.cn/2019/01/30/ssm/shiro/shiro-tree/" target="_blank" rel="noopener">Shiro权限管理项目中，如何构建权限菜单？</a> 中解释过了，这里不再讲解</p>
+<h2 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h2><h3 id="前端-1"><a href="#前端-1" class="headerlink" title="前端"></a>前端</h3><h4 id="实现Tree组件单选"><a href="#实现Tree组件单选" class="headerlink" title="实现Tree组件单选"></a>实现Tree组件单选</h4><blockquote>
+<p>修改html</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form</span> <span class="attr">ref</span>=<span class="string">"form"</span> <span class="attr">:model</span>=<span class="string">"form"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">"parentId"</span> <span class="attr">v-model</span>=<span class="string">"form.parentId"</span> <span class="attr">label</span>=<span class="string">"上级部门"</span> <span class="attr">label-width</span>=<span class="string">"120px"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-tree</span> <span class="attr">:data</span>=<span class="string">"roleTree"</span> <span class="attr">ref</span>=<span class="string">"tree"</span> <span class="attr">highlight-current</span> <span class="attr">show-checkbox</span> <span class="attr">check-strictly</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">:default-checked-keys</span>=<span class="string">"form.parentId"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">:default-expanded-keys</span>=<span class="string">"form.parentId"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">node-key</span>=<span class="string">"id"</span></span></span><br><span class="line"><span class="tag">                 @<span class="attr">check-change</span>=<span class="string">"checkChange"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">:props</span>=<span class="string">"treeProps"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-tree</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改Vue.js部分</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Tree控件节点选中状态改变触发的事件</span></span><br><span class="line">checkChange(data, node, self) &#123;</span><br><span class="line">    <span class="keyword">if</span> (node) &#123;</span><br><span class="line">        <span class="keyword">this</span>.form.parentId = [data.id];</span><br><span class="line">        <span class="keyword">this</span>.$refs.tree.setCheckedNodes([data.id])</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.$refs.tree.getCheckedKeys().length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.form.parentId = [];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong></p>
+<p><code>@check-change</code>是节点选中状态改变触发的事件。</p>
+<p>因为这里我们讲编辑功能，必然涉及对节点的编辑（比如修改父级节点、修改关联权限节点）。在本例中主要是修改部门的上级节点，又因为我们规定一个节点最多有一个上级节点，那么Tree组件的勾选节点应该变为<strong>单选</strong>，而官方的Tree组件都是多选的，所以看到上面我们新增的<code>checkChange()</code>方法中的实现，目的就是实现单选。</p>
+<p><code>checkChange(data, node, self)</code>方法中参数<code>data</code>是勾选（取消勾选）节点的tree数据（包含其所有子节点的数据）；<code>node</code>是当前触发节点是否被选中；<code>self</code>是当前节点本身是否被选中。</p>
+<p><strong>坑</strong></p>
+<p><code>setCheckNodes()</code>是设置Tree组件选中的节点，<code>getCheckedKeys()</code>是获取Tree组件当前选中的节点。实现单选，就是实现：A节点选中，再勾选B节点时，先清空已勾选节点，再用<code>setCheckNodes()</code>手动设置Tree组件勾选节点；这样就实现了单选（选中B，就取消A勾选状态）。<br>而<code>setCheckNodes()</code>方法会触发<code>checkChange()</code>方法，所以要判断<code>this.$refs.tree.getCheckedKeys().length</code>。</p>
+<p>注意Tree组件中的<code>:default-checked-keys</code>的参数也是<code>form.parentId</code>所以我们要时刻保证<code>parentId</code>是一个数组（尽管后端需要的是String），所以仅需要在<code>save()</code>保存更改的时候再修改<code>parentId</code>为String，并且修改完成后要立即把<code>parentId</code>变为数组。</p>
+<p><strong>But</strong></p>
+<p>以上都是在努力把Tree组件改为单选，But，如果你业务需要多选就不需要上述<code>checkChange()</code>方法中的判断了。</p>
+<h4 id="保存更改"><a href="#保存更改" class="headerlink" title="保存更改"></a>保存更改</h4><blockquote>
+<p>HTML触发保存按钮</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"primary"</span> @<span class="attr">click</span>=<span class="string">"save('form')"</span>&gt;</span>确 定<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>你可能会注意到<code>save(&#39;form&#39;)</code>中<code>&#39;form&#39;</code>是什么鬼？其实他是<code>&lt;el-form&gt;</code>中的<code>prop=&quot;form&quot;</code>，目的是为了实现表单校验功能，具体看官方文档：<a href="http://element-cn.eleme.io/#/zh-CN/component/form" target="_blank" rel="noopener">传送门</a></p>
+<blockquote>
+<p>Vue.js中新增<code>save</code>方法</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//保存</span></span><br><span class="line">save(form) &#123;</span><br><span class="line">    <span class="keyword">this</span>.$refs[form].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">            <span class="keyword">this</span>.dialogVisible = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">this</span>.form.parentId = <span class="keyword">this</span>.form.parentId[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.form.id == <span class="literal">null</span> || <span class="keyword">this</span>.form.id == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//添加</span></span><br><span class="line">                <span class="keyword">this</span>.$http.post(api.system.dept.add, <span class="built_in">JSON</span>.stringify(<span class="keyword">this</span>.form)).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (response.body.code == <span class="number">200</span>) &#123;</span><br><span class="line">                        <span class="keyword">this</span>._notify(response.body.msg, <span class="string">'success'</span>)</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">this</span>._notify(response.body.msg, <span class="string">'error'</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">this</span>.clearForm();</span><br><span class="line">                    <span class="keyword">this</span>.init()</span><br><span class="line">                    <span class="keyword">this</span>.search(<span class="keyword">this</span>.pageConf.pageCode, <span class="keyword">this</span>.pageConf.pageSize)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//修改</span></span><br><span class="line">                <span class="keyword">this</span>.$http.post(api.system.dept.update, <span class="built_in">JSON</span>.stringify(<span class="keyword">this</span>.form)).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (response.body.code == <span class="number">200</span>) &#123;</span><br><span class="line">                        <span class="keyword">this</span>._notify(response.body.msg, <span class="string">'success'</span>)</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">this</span>._notify(response.body.msg, <span class="string">'error'</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">this</span>.clearForm();</span><br><span class="line">                    <span class="keyword">this</span>.init()</span><br><span class="line">                    <span class="keyword">this</span>.search(<span class="keyword">this</span>.pageConf.pageCode, <span class="keyword">this</span>.pageConf.pageSize)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="后端-1"><a href="#后端-1" class="headerlink" title="后端"></a>后端</h3><p>上面对部门的添加和修改节点其实都比较简单些，直接将前端数据保存进数据库即可，这里我们将一下节点的删除：</p>
+<h4 id="节点删除"><a href="#节点删除" class="headerlink" title="节点删除"></a>节点删除</h4><p>节点删除，主要涉及：</p>
+<ul>
+<li><p>根据ID删除此id对应的数据库中的记录</p>
+</li>
+<li><p>如果此表于其他表有关联（比如 角色按钮关联表），还需要根据id删除其关联表中的记录。（此处的关联不是外键关联）</p>
+</li>
+<li><p>修改此节点的父级节点ID，比如B节点的父级简单是A，删除了A，B节点应该是A节点那一级</p>
+</li>
+</ul>
+<p>举例：改变父级节点，<code>service</code>层实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(List&lt;Long&gt; ids)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.batchDelete(ids, <span class="string">"id"</span>, Dept.class);</span><br><span class="line">    <span class="keyword">this</span>.deptMapper.changeTopNode(ids);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>deptMapper</code>的mapper.xml如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"changeTopNode"</span>&gt;</span></span><br><span class="line">    update tb_dept</span><br><span class="line">    set parent_id = 0</span><br><span class="line">    where id in (select a.id</span><br><span class="line">    from (select id from tb_dept where parent_id in</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"id"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">close</span>=<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">        #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">    ) a);</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<ul>
+<li><code>ids</code>是一个<code>List&lt;Long&gt;</code>集合，目的是实现批量删除功能。在Mybatis中遍历集合就要用<code>&lt;foreach&gt;</code></li>
+</ul>
+<p>将上面</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> tb_dept <span class="keyword">where</span> parent_id <span class="keyword">in</span></span><br><span class="line">&lt;foreach collection=<span class="string">"list"</span> item=<span class="string">"id"</span> <span class="keyword">index</span>=<span class="string">"index"</span> <span class="keyword">open</span>=<span class="string">"("</span> <span class="keyword">close</span>=<span class="string">")"</span> separator=<span class="string">","</span>&gt;</span><br><span class="line">    <span class="comment">#&#123;id&#125;</span></span><br><span class="line">&lt;/foreach&gt;</span><br></pre></td></tr></table></figure>
+
+<p>拆分，大概就是这样一段SQL：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> tb_dept <span class="keyword">where</span> parent_id <span class="keyword">in</span> (<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.id <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> tb_menu <span class="keyword">where</span> parent_id <span class="keyword">in</span> (<span class="number">1</span>, <span class="number">2</span>)) a;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> tb_menu <span class="keyword">where</span> parent_id <span class="keyword">in</span> (<span class="number">1</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上述两种方式都能查询出来parent_id是(1,2)的记录行的id值。而第一种方式是先生成一张临时表a，再查询id值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> tb_menu</span><br><span class="line"><span class="keyword">set</span> parent_id = <span class="number">0</span></span><br><span class="line"><span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="keyword">select</span> a.id</span><br><span class="line">             <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> tb_menu <span class="keyword">where</span> parent_id <span class="keyword">in</span> (<span class="number">1</span>, <span class="number">2</span>)) a);</span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> tb_menu</span><br><span class="line"><span class="keyword">set</span> parent_id = <span class="number">0</span></span><br><span class="line"><span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> tb_menu <span class="keyword">where</span> parent_id <span class="keyword">in</span> (<span class="number">1</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<p>若执行后者会报错：<code>You can&#39;t specify target table &#39;tb_menu&#39; for update in FROM clause</code>，
+百度查到是由于mysql不能对一张表查询到某些值就同时更新这张表，通过生成一张临时表来避免这个问题</p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shiro/" rel="tag"># shiro</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/30/ssm/shiro/shiro-tree/" rel="next" title="Shiro权限管理项目中，如何构建权限菜单？">
+                <i class="fa fa-chevron-left"></i> Shiro权限管理项目中，如何构建权限菜单？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/16/ssm/shiro/54-shiro-session/" rel="prev" title="Shiro在线会话管理">
+                Shiro在线会话管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ElementUI-Tree"><span class="nav-number">1.</span> <span class="nav-text">ElementUI - Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.1.</span> <span class="nav-text">准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染"><span class="nav-number">2.1.</span> <span class="nav-text">渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前端"><span class="nav-number">2.1.1.</span> <span class="nav-text">前端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端"><span class="nav-number">2.1.2.</span> <span class="nav-text">后端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结-1"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑"><span class="nav-number">2.2.</span> <span class="nav-text">编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前端-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">前端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现Tree组件单选"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">实现Tree组件单选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存更改"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">保存更改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">后端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#节点删除"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">节点删除</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">3.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">4.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

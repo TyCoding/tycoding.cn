@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="springboot,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="继上一篇文章：SpringBoot实现Java高并发秒杀系统之DAO层开发 我们创建了SpringBoot项目并熟悉了秒杀系统的表设计，下面我们将讲解一下秒杀系统的核心部分：Service业务层的开发。 Service层又称为业务层，在Spring阶段主要是由@Service注解标记的一层，包含Service业务接口的开发和业务接口实现类的开发，这里我们将讲解如何优雅的设计业务层接口以及针对秒杀系">
+<meta name="keywords" content="springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot实现Java高并发秒杀系统之Service层开发（二）">
+<meta property="og:url" content="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="继上一篇文章：SpringBoot实现Java高并发秒杀系统之DAO层开发 我们创建了SpringBoot项目并熟悉了秒杀系统的表设计，下面我们将讲解一下秒杀系统的核心部分：Service业务层的开发。 Service层又称为业务层，在Spring阶段主要是由@Service注解标记的一层，包含Service业务接口的开发和业务接口实现类的开发，这里我们将讲解如何优雅的设计业务层接口以及针对秒杀系">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/3.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot实现Java高并发秒杀系统之Service层开发（二）">
+<meta name="twitter:description" content="继上一篇文章：SpringBoot实现Java高并发秒杀系统之DAO层开发 我们创建了SpringBoot项目并熟悉了秒杀系统的表设计，下面我们将讲解一下秒杀系统的核心部分：Service业务层的开发。 Service层又称为业务层，在Spring阶段主要是由@Service注解标记的一层，包含Service业务接口的开发和业务接口实现类的开发，这里我们将讲解如何优雅的设计业务层接口以及针对秒杀系">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/">
+
+
+
+
+
+  <title>SpringBoot实现Java高并发秒杀系统之Service层开发（二） | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot实现Java高并发秒杀系统之Service层开发（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-13T08:59:41+08:00">
+                2018-10-13
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>继上一篇文章：<a href="http://tycoding.cn/2018/10/12/ssm/seckill-dao/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之DAO层开发</a> 我们创建了SpringBoot项目并熟悉了秒杀系统的表设计，下面我们将讲解一下秒杀系统的核心部分：Service业务层的开发。</p>
+<p>Service层又称为业务层，在Spring阶段主要是由<code>@Service</code>注解标记的一层，包含Service业务接口的开发和业务接口实现类的开发，这里我们将讲解如何优雅的设计业务层接口以及针对秒杀系统业务层的优化技术等和针对高并发的解决方案。</p>
+<p>本项目的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill" target="_blank" rel="noopener">springboot-seckill</a>  如果觉得不错可以star一下哦(#^.^#)</p>
+<a id="more"></a>
+
+<p>本项目一共分为四个模块来讲解，具体的开发教程请看我的博客文章：</p>
+<ul>
+<li><p><a href="http://tycoding.cn/2018/10/12/ssm/seckill-dao/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之DAO层开发（一）</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/10/13/ssm/seckill-service/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之Service层开发（二）</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/10/14/ssm/seckill-web/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之Web层开发（三）</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/10/15/ssm/seckill/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之并发优化（四）</a></p>
+</li>
+</ul>
+<h1 id="Service接口的设计"><a href="#Service接口的设计" class="headerlink" title="Service接口的设计"></a>Service接口的设计</h1><p>之前我们写好了DAO层的接口，这里我们要开始着手编写业务层接口，然后编写业务层接口的实现类并编写业务层的核心逻辑。</p>
+<p>设计业务层接口，应该站在<strong>使用者</strong>角度上设计，如我们应该做到：</p>
+<ul>
+<li><p>1.定义业务方法的颗粒度要细。</p>
+</li>
+<li><p>2.方法的参数要明确简练，不建议使用类似Map这种类型，让使用者可以封装进Map中一堆参数而传递进来，尽量精确到哪些参数。</p>
+</li>
+<li><p>3.方法的return返回值，除了应该明确返回值类型，还应该指明方法执行可能产生的异常(RuntimeException)，并应该手动封装一些通用的异常处理机制。</p>
+</li>
+</ul>
+<p>类比DAO层接口的定义，我这里先给出完整的<code>SeckillService.java</code>的定义（注意：在DAO层（Mapper）中我们定义了两个接口<code>SeckillMapper</code>和<code>SeckillOrderMapper</code>，但是Service层接口为1个）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SeckillService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取所有的秒杀商品列表</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;Seckill&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取某一条商品秒杀信息</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> seckillId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Seckill <span class="title">findById</span><span class="params">(<span class="keyword">long</span> seckillId)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 秒杀开始时输出暴露秒杀的地址</span></span><br><span class="line"><span class="comment">     * 否者输出系统时间和秒杀时间</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> seckillId</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Exposer <span class="title">exportSeckillUrl</span><span class="params">(<span class="keyword">long</span> seckillId)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行秒杀的操作</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> seckillId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userPhone</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> money</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> md5</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">SeckillExecution <span class="title">executeSeckill</span><span class="params">(<span class="keyword">long</span> seckillId, BigDecimal money, <span class="keyword">long</span> userPhone, String md5)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> SeckillException, RepeatKillException, SeckillCloseException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我将依次讲解一下为什么接口会这样设计？接口方法的返回值是怎样定义的？</p>
+<h2 id="findById和findAll方法"><a href="#findById和findAll方法" class="headerlink" title="findById和findAll方法"></a>findById和findAll方法</h2><p>这两个方法就简单很多：</p>
+<ul>
+<li><p>findById(): 顾名思义根据ID主键查询。按照接口的设计我们需要指定参数是<code>seckillId</code>(秒杀商品的ID值。注意：这里定义为<code>long</code>类型，不要定义为包装类类型，因为包装类类型不能直接进行大小比较，必须转换为基本类型才能进行值大小比较）；返回值自然是查询到的商品表数据级<code>Seckill</code>实体类了。</p>
+</li>
+<li><p>findAll(): 顾名思义是查询数据库中所有的秒杀商品表的数据，因为记录数不止一条，所以一般就用List集合接收，并制定泛型是<code>List&lt;Seckill&gt;</code>，表示从数据库中查询到的列表数据都是Seckill实体类对应的数据，并以Seckill实体类的结构将列表数据封装到List集合中。</p>
+</li>
+</ul>
+<h2 id="exportSeckillUrl方法"><a href="#exportSeckillUrl方法" class="headerlink" title="exportSeckillUrl方法"></a>exportSeckillUrl方法</h2><p><code>exportSeckillUrl()</code>方法可有的讲了，他是<strong>暴露接口</strong>用到的方法，目的就是<strong>获取秒杀商品抢购的地址</strong>。</p>
+<blockquote>
+<p>1.为什么要单独创建一个方法来获取秒杀地址？</p>
+</blockquote>
+<p>在之前我们做的后端项目中，跳转到某个详情页一般都是：根据ID查询该详情数据，然后将页面跳转到详情页并将数据直接渲染到页面上。但是秒杀系统不同，它也不能就这样简单的定义，要知道秒杀技术的难点就是如何应对高并发？同一件商品，比如瞬间有十万的用户访问，而还存在各种黄牛，有各种工具去抢购这个商品，那么此时肯定不止10万的访问量的，并且开发者要尽量的保证每个用户抢购的公平性，也就是不能让一个用户抢购一堆数量的此商品。</p>
+<p>这就是我们常说的<strong>接口防刷</strong>问题。因此单独定义一个获取秒杀接口的方法是有必要的。</p>
+<blockquote>
+<p>2.如何做到接口防刷？</p>
+</blockquote>
+<p>接口方法：<code>Exposer exportSeckillUrl(long seckillId);</code>从参数列表中很易明白：就是根据该商品的ID获取到这个商品的秒杀url地址；但是返回值类型<code>Exposer</code>是什么呢？</p>
+<p>思考一下如何做到<strong>接口防刷？</strong> </p>
+<ol>
+<li><p>首先要保证该商品处于秒杀状态。也就是1.秒杀开始时间要&lt;当前时间；2.秒杀截止时间要&gt;当前时间。</p>
+</li>
+<li><p>要保证一个用户只能抢购到一件该商品，应做到商品秒杀接口对应同一用户只能有唯一的一个URL秒杀地址，不同用户间秒杀地址应是不同的，且配合订单表<code>seckill_order</code>中<em>联合主键</em>的配置实现。</p>
+</li>
+</ol>
+<p>针对上面的两条分析，我们给出<code>Exposer</code>的设计（要注意此类定义在<code>/dto/</code>路径下表明此类是我们手动封装的结果属性，它类似JavaBean但又不属于，仅用来封装秒杀状态的结果，目的是提高代码的重用率）：</p>
+<p>此例源码请看：<a href="https://github.com/TyCoding/springboot-seckill/tree/master/src/main/java/cn/tycoding/dto" target="_blank" rel="noopener">GitHub</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exposer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//是否开启秒杀</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> exposed;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//加密措施，避免用户通过抓包拿到秒杀地址</span></span><br><span class="line">    <span class="keyword">private</span> String md5;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//ID</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> seckillId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//系统当前时间（毫秒）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> now;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//秒杀开启时间</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> start;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//秒杀结束时间</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> end;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Exposer</span><span class="params">(<span class="keyword">boolean</span> exposed, String md5, <span class="keyword">long</span> seckillId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.exposed = exposed;</span><br><span class="line">        <span class="keyword">this</span>.md5 = md5;</span><br><span class="line">        <span class="keyword">this</span>.seckillId = seckillId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Exposer</span><span class="params">(<span class="keyword">boolean</span> exposed, Long seckillId, <span class="keyword">long</span> now, <span class="keyword">long</span> start, <span class="keyword">long</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.exposed = exposed;</span><br><span class="line">        <span class="keyword">this</span>.seckillId = seckillId;</span><br><span class="line">        <span class="keyword">this</span>.now = now;</span><br><span class="line">        <span class="keyword">this</span>.start = start;</span><br><span class="line">        <span class="keyword">this</span>.end = end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Exposer</span><span class="params">(<span class="keyword">boolean</span> exposed, <span class="keyword">long</span> seckillId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.exposed = exposed;</span><br><span class="line">        <span class="keyword">this</span>.seckillId = seckillId;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上我们封装的结果类可以满足我们的需求：1.首先指明商品当前秒杀状态：秒杀未开始、秒杀进行中、秒杀已结束；2.如果秒杀未开始返回false和相关时间用于前端展示秒杀倒计时；3。如果秒杀已经结束就返回false和当前商品的ID；3.如果秒杀正在进行中就返回该商品的秒杀地址（md5混合值，避免用户抓包拿到秒杀地址）。</p>
+<h2 id="executeSeckill方法"><a href="#executeSeckill方法" class="headerlink" title="executeSeckill方法"></a>executeSeckill方法</h2><p>这里我们再回顾一下秒杀系统的业务分析：</p>
+<p><img src="/2018/10/13/ssm/seckill-service/1.png" alt></p>
+<p>可以看到，秒杀的业务逻辑很清晰，用户抢购了商品业务层需要完成：1.减库存；2.储存用户秒杀订单明细。而因为储存订单明细应该是在用户成功秒杀到订单后才执行的操作，所以并不需要定义在Service接口中。那么我们就看一下用户针对库存的业务分析：</p>
+<p><img src="/2018/10/13/ssm/seckill-service/2.png" alt></p>
+<p>可以看到针对库存业务其实还是两个操作：1.减库存；2.记录购买明细。但是其中涉及到很多事物操作和性能优化问题我们放在后面讲。这里我们将这两个操作合并为一个接口方法：执行秒杀的操作。</p>
+<p>所以再看一下我们对<code>exexuteSeckill()</code>方法的定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">SeckillExecution <span class="title">executeSeckill</span><span class="params">(<span class="keyword">long</span> seckillId, BigDecimal money, <span class="keyword">long</span> userPhone, String md5)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> SeckillException, RepeatKillException, SeckillCloseException</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>1.分析参数列表</p>
+</blockquote>
+<p>由于<code>executeSeckill()</code>方法涉及：1.减库存；2.记录购买明细。因为我们的项目不涉及复杂的数据，所以没有太多的明细参数（用<code>money</code>替代）。那么当前参数分别有何作用？</p>
+<ul>
+<li><p><code>seckillId</code>和<code>userPhone</code>用于在insert订单明细时进行防重复秒杀；只要有相同的<code>seckillId</code>和<code>userPhone</code>就一定主键冲突报错。</p>
+</li>
+<li><p><code>seckillId</code>和<code>md5</code>用于组成秒杀接口地址的一部分，当用户点击抢购时获取到之前暴露的秒杀地址中的md5值和当前传入的md5值进行比较，如果匹配再进行下一步操作。</p>
+</li>
+</ul>
+<blockquote>
+<p>2.分析返回值类型</p>
+</blockquote>
+<p>和在设计<code>exportSeckillUrl</code>接口方法时一样，针对秒杀操作也应该包含很多返回数据，比如：秒杀结束、秒杀成功、秒杀系统异常…信息，我们也将这些信息用类封装在dto文件夹中。于是我们的返回值<code>SeckillExecution</code>类定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillExecution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long seckillId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//秒杀执行结果状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> state;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//状态表示</span></span><br><span class="line">    <span class="keyword">private</span> String stateInfo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//秒杀成功的订单对象</span></span><br><span class="line">    <span class="keyword">private</span> SeckillOrder seckillOrder;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillExecution</span><span class="params">(Long seckillId, <span class="keyword">int</span> state, String stateInfo, SeckillOrder seckillOrder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.seckillId = seckillId;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">        <span class="keyword">this</span>.stateInfo = stateInfo;</span><br><span class="line">        <span class="keyword">this</span>.seckillOrder = seckillOrder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillExecution</span><span class="params">(Long seckillId, <span class="keyword">int</span> state, String stateInfo)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.seckillId = seckillId;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">        <span class="keyword">this</span>.stateInfo = stateInfo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>state</code>用于-1,0,1这种状态的表示，这些数字分别被赋予不同的含义，后面讲到。<code>stateInfo</code>表示<code>state</code>状态数字的中文解释，比如：秒杀成功、秒杀结束、秒杀系统异常等信息。</p>
+<blockquote>
+<p>3.分析异常</p>
+</blockquote>
+<p>减库存操作和插入购买明细操作都会产生很多未知异常（RuntimeException），比如秒杀结束、重复秒杀等。除了要返回这些异常信息，还有一个非常重要的操作就是捕获这些RuntimeException，从而避免系统直接报错。</p>
+<p>针对秒杀关闭的异常，我们定义<code>SeckillCloseException.java</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillCloseException</span> <span class="keyword">extends</span> <span class="title">SeckillException</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillCloseException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillCloseException</span><span class="params">(String message, Throwable cause)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message, cause);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>针对重复秒杀的异常，我们定义<code>RepeatKillException.java</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RepeatKillException</span> <span class="keyword">extends</span> <span class="title">SeckillException</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RepeatKillException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RepeatKillException</span><span class="params">(String message, Throwable cause)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message, cause);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同时，系统还可能出现其他位置异常，所以我们还需要定义一个异常继承所有异常的父类Exception:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillException</span><span class="params">(String message, Throwable cause)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message, cause);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="ServiceImpl实现类的设计"><a href="#ServiceImpl实现类的设计" class="headerlink" title="ServiceImpl实现类的设计"></a>ServiceImpl实现类的设计</h1><p>我们在<code>src/cn/tycoding/service/impl</code>下创建Service接口的实现类： <a href="https://github.com/TyCoding/springboot-seckill/blob/master/src/main/java/cn/tycoding/service/impl/SeckillServiceImpl.java" target="_blank" rel="noopener">SeckillServiceImpl.java</a></p>
+<p>在开始讲解之前我们先理解几个概念：</p>
+<blockquote>
+<p>1.为什么我们的系统需要事务？</p>
+</blockquote>
+<p>举个栗子：比如a在购买商品A的同时，售卖该商品的商家突然调低了A商品的价格，但此瞬时价格调整还没有更新到数据库用户购买的订单就已经提交了，那么用户不就多掏了钱吗？又比如a购买的商品后库存数量减少的sql还没有更新到数据库，此时瞬间b用户看到还有商品就点击购买了，而此时商品的库存数量其实已经为0了，这样就造成了超卖。</p>
+<p>针对上面两个栗子，我们必须要给出解决方案，不然就太坑了。</p>
+<blockquote>
+<p>2.什么是事务？</p>
+</blockquote>
+<p>在软件开发领域，<strong>全有或全无的操作称为事务(transaction)。</strong>事务有四个特性，即ACID：</p>
+<ul>
+<li><strong>原子性</strong>：原子性确保事务中所有操作全部发生或全部不发生。</li>
+<li><strong>一致性</strong>：一旦事务完成（不管成功还是失败），系统必须却把它所建模的业务处于一致的状态。</li>
+<li><strong>隔离性</strong>：事务允许多个用户对相同的数据进行操作，每个用户的操作不会与其他用户纠缠在一起。</li>
+<li><strong>持久性</strong>：一旦事务完成，事务的结果应该持久化，这样就能从任何的系统崩溃中恢复过来。</li>
+</ul>
+<p><strong>事务常见的问题：</strong></p>
+<ul>
+<li><strong>更新丢失</strong>：当多个事务选择同一行操作，并且都是基于最初的选定的值，由于每个事务都不知道其他事务的存在，就会发生更新覆盖的问题。</li>
+<li><strong>脏读</strong>：事务A读取了事务B已经修改但为提交的数据。若事务B回滚数据，事务A的数据存在不一致的问题。</li>
+<li><strong>不可重复读</strong>：书屋A第一次读取最初数据，第二次读取事务B已经提交的修改或删除的数据。导致两次数据读取不一致。不符合事务的隔离性。</li>
+<li><strong>幻读</strong>：事务A根据相同条件第二次查询到的事务B提交的新增数据，两次数据结果不一致，不符合事务的隔离性。</li>
+</ul>
+<blockquote>
+<p>3.Spring对事务的控制</p>
+</blockquote>
+<p>Spring框架针对事务提供了很多事务管理解决方案。我们这里只说常用的：<strong>声明式事务</strong>。声明式事务通过传播行为、隔离级别、只读提示、事务超时及回滚规则来进行定义。我们这里讲用Spring提供的注解式事务方法：<code>@Transaction</code>。</p>
+<p>使用注解式事务的优点：开发团队达到一致的约定，明确标注事务方法的编程风格。</p>
+<p>使用事务控制需要注意：</p>
+<ol>
+<li>保证事务方法的执行时间尽可能短，不要穿插其他的网络操作PRC/HTTP请求（可以将这些请求剥离出来）。</li>
+<li>不是所有的放阿飞都需要事务控制，如只有一条修改操作、只读操作等是不需要事务控制的。</li>
+</ol>
+<p><strong>注意</strong></p>
+<p>Spring默认只对运行期异常（RuntimeException）进行事务回滚操作，对于编译异常Spring是不进行回滚的，所以对于需要进行事务控制的方法尽量将可能抛出的异常都转换成运行期异常。这也是我们我什么要在Service接口中手动封装一些RuntimeException信息的一个重要原因。</p>
+<h2 id="exportSeckillUrl方法-1"><a href="#exportSeckillUrl方法-1" class="headerlink" title="exportSeckillUrl方法"></a>exportSeckillUrl方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillServiceImpl</span> <span class="keyword">implements</span> <span class="title">SeckillService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置盐值字符串，随便定义，用于混淆MD5值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String salt = <span class="string">"sjajaspu-i-2jrfm;sd"</span>;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SeckillMapper seckillMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SeckillOrderMapper seckillOrderMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Exposer <span class="title">exportSeckillUrl</span><span class="params">(<span class="keyword">long</span> seckillId)</span> </span>&#123;</span><br><span class="line">        Seckill seckill = seckillMapper.findById(seckillId);</span><br><span class="line">        <span class="keyword">if</span> (seckill == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//说明没有查询到</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">false</span>, seckillId);</span><br><span class="line">        &#125;</span><br><span class="line">        Date startTime = seckill.getStartTime();</span><br><span class="line">        Date endTime = seckill.getEndTime();</span><br><span class="line">        <span class="comment">//获取系统时间</span></span><br><span class="line">        Date nowTime = <span class="keyword">new</span> Date();</span><br><span class="line">        <span class="keyword">if</span> (nowTime.getTime() &lt; startTime.getTime() || nowTime.getTime() &gt; endTime.getTime()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">false</span>, seckillId, nowTime.getTime(), startTime.getTime(), endTime.getTime());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//转换特定字符串的过程，不可逆的算法</span></span><br><span class="line">        String md5 = getMD5(seckillId);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">true</span>, md5, seckillId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成MD5值</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getMD5</span><span class="params">(Long seckillId)</span> </span>&#123;</span><br><span class="line">        String base = seckillId + <span class="string">"/"</span> + salt;</span><br><span class="line">        String md5 = DigestUtils.md5DigestAsHex(base.getBytes());</span><br><span class="line">        <span class="keyword">return</span> md5;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>exportSeckillUrl()</code>还是比较清晰的，主要逻辑：根据传进来的<code>seckillId</code>查询<code>seckill</code>表中对应数据，如果没有查询到就直接返回<code>Exposer(false,seckillId)</code>标识没有查询到该商品的秒杀接口信息，可能是用户非法输入的数据；如果查询到了，就获取秒杀开始时间和秒杀结束时间以及new一个当前系统时间进行判断当前秒杀商品是否正在进行秒杀活动，还没有开始或已经结束都直接返回<code>Exposer</code>；如果上面两个条件都符合了就证明该商品存在且正在秒杀活动中，那么我们需要暴露秒杀接口地址。</p>
+<p>因为我们要做到接口防刷的功能，所以需要生成一串md5值作为秒杀接口中一部分。而Spring提供了一个工具类<code>DigestUtils</code>用于生成MD5值，且又由于要做到更安全所以我们采用md5+盐的加密方式生成一传md5加密数据作为秒杀URL地址的一部分发送给Controller。</p>
+<h2 id="executeSeckill方法-1"><a href="#executeSeckill方法-1" class="headerlink" title="executeSeckill方法"></a>executeSeckill方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> SeckillExecution <span class="title">executeSeckill</span><span class="params">(<span class="keyword">long</span> seckillId, BigDecimal money, <span class="keyword">long</span> userPhone, String md5)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> SeckillException, RepeatKillException, SeckillCloseException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (md5 == <span class="keyword">null</span> || !md5.equals(getMD5(seckillId))) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> SeckillException(<span class="string">"seckill data rewrite"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//执行秒杀逻辑：1.减库存；2.储存秒杀订单</span></span><br><span class="line">    Date nowTime = <span class="keyword">new</span> Date();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//记录秒杀订单信息</span></span><br><span class="line">        <span class="keyword">int</span> insertCount = seckillOrderMapper.insertOrder(seckillId, money, userPhone);</span><br><span class="line">        <span class="comment">//唯一性：seckillId,userPhone，保证一个用户只能秒杀一件商品</span></span><br><span class="line">        <span class="keyword">if</span> (insertCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//重复秒杀</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RepeatKillException(<span class="string">"seckill repeated"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//减库存</span></span><br><span class="line">            <span class="keyword">int</span> updateCount = seckillMapper.reduceStock(seckillId, nowTime);</span><br><span class="line">            <span class="keyword">if</span> (updateCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//没有更新记录，秒杀结束</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> SeckillCloseException(<span class="string">"seckill is closed"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//秒杀成功</span></span><br><span class="line">                SeckillOrder seckillOrder = seckillOrderMapper.findById(seckillId);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, seckillOrder);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (SeckillCloseException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RepeatKillException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        logger.error(e.getMessage(), e);</span><br><span class="line">        <span class="comment">//所有编译期异常，转换为运行期异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> SeckillException(<span class="string">"seckill inner error:"</span> + e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>executeSeckill</code>方法相对复杂一些，主要涉及两个业务操作：1.减库存（调用<code>reduceStock()</code>）；2.记录订单明细（调用<code>insertOrder()</code>）。我们以一张图来描述一下主要逻辑：</p>
+<p><img src="/2018/10/13/ssm/seckill-service/3.png" alt></p>
+<p>由此我抛出以下问答：</p>
+<blockquote>
+<p>1.insertCount和updateCount哪来？</p>
+</blockquote>
+<p>在之前我们写项目中可能对于insert和update的操作直接设置返回值类型为void，虽然Mybatis的<code>&lt;insert&gt;</code>和<code>&lt;update&gt;</code>语句都没有<code>resultType</code>属性，但是并不带表其没有返回值，默认的返回值是0或1…表示该条SQL影响的行数，如果为0就表示该SQL没有影响数据库，但是为了避免系统遇到错误的SQL返回错误信息而不是直接报错，我们可以在书写SQL时：<code>insert ignore into xxx</code>即用<code>ignore</code>参数，当Mybatis执行该SQL发生异常时直接返回0表示更新失败而不是系统报错。</p>
+<blockquote>
+<p>2.为什么先记录秒杀订单信息操作再执行减库存操作？</p>
+</blockquote>
+<p>这里涉及了一个简单的Java并发优化操作，详细内容优化方式请看：<a href>SpringBoot实现Java高并发秒杀系统之系统优化</a></p>
+<blockquote>
+<p>3.上例中用到的<code>SeckillStatEnum</code>是什么？</p>
+</blockquote>
+<p>之前我们讲<code>exportSeckillUrl</code>时在<code>/dto/</code>中创建了类<code>Exposer</code>；在讲<code>executeSeckill</code>的时候创建了<code>SeckillExecution</code>类，他们都是用来封装返回的结果信息的，不是说他们是必须的，而是用这种方式会更规范且代码看起来更加整洁，而且我们的代码的重用率会更高。</p>
+<p>于是，当用户秒杀成功后其实需要返回一句话<code>秒杀成功</code>即可，但是我们单独提取到了一个枚举类中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> SeckillStatEnum &#123;</span><br><span class="line">    SUCCESS(<span class="number">1</span>, <span class="string">"秒杀成功"</span>),</span><br><span class="line">    END(<span class="number">0</span>, <span class="string">"秒杀结束"</span>),</span><br><span class="line">    REPEAT_KILL(-<span class="number">1</span>,<span class="string">"重复秒杀"</span>),</span><br><span class="line">    INNER_ERROR(-<span class="number">2</span>, <span class="string">"系统异常"</span>),</span><br><span class="line">    DATA_REWRITE(-<span class="number">3</span>, <span class="string">"数据串改"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> state;</span><br><span class="line">    <span class="keyword">private</span> String stateInfo;</span><br><span class="line"></span><br><span class="line">    SeckillStatEnum(<span class="keyword">int</span> state, String stateInfo) &#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">        <span class="keyword">this</span>.stateInfo = stateInfo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getState</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getStateInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stateInfo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SeckillStatEnum <span class="title">stateOf</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (SeckillStatEnum state : values())&#123;</span><br><span class="line">            <span class="keyword">if</span> (state.getState() == index)&#123;</span><br><span class="line">                <span class="keyword">return</span> state;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体枚举的语法不再讲，简单来说就是将这些通用的返回结果提取出来，且枚举这种类型更适合当前方法的返回值特点。除了创建这个枚举对象，还需要修改<code>SeckillExecution</code>的源代码，这里不再贴出。</p>
+<blockquote>
+<p>4.为什么要cache这么多异常？</p>
+</blockquote>
+<p>前面我们已经提到了Spring默认只对运行期异常进行事务回滚操作，对于编译期异常时不进行回滚的，所以这也是我们为什么一直强调要手动创建异常类。</p>
+<p>这里就是要将所有编译期异常转换为运行期异常，因为我们定义的所有异常最终都是继承RuntimeException。</p>
+<p>此例具体代码请看：<a href="https://github.com/TyCoding/springboot-seckill/blob/master/src/main/java/cn/tycoding/service/impl/SeckillServiceImpl.java" target="_blank" rel="noopener">GitHub</a></p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/springboot/" rel="tag"># springboot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/12/ssm/seckill-dao/" rel="next" title="SpringBoot实现Java高并发秒杀系统之DAO层开发（一）">
+                <i class="fa fa-chevron-left"></i> SpringBoot实现Java高并发秒杀系统之DAO层开发（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/14/ssm/seckill-web/" rel="prev" title="SpringBoot实现Java高并发秒杀系统之Web层开发（三）">
+                SpringBoot实现Java高并发秒杀系统之Web层开发（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Service接口的设计"><span class="nav-number">1.</span> <span class="nav-text">Service接口的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#findById和findAll方法"><span class="nav-number">1.1.</span> <span class="nav-text">findById和findAll方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exportSeckillUrl方法"><span class="nav-number">1.2.</span> <span class="nav-text">exportSeckillUrl方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#executeSeckill方法"><span class="nav-number">1.3.</span> <span class="nav-text">executeSeckill方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ServiceImpl实现类的设计"><span class="nav-number">2.</span> <span class="nav-text">ServiceImpl实现类的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#exportSeckillUrl方法-1"><span class="nav-number">2.1.</span> <span class="nav-text">exportSeckillUrl方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#executeSeckill方法-1"><span class="nav-number">2.2.</span> <span class="nav-text">executeSeckill方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">3.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">4.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

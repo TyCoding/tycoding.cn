@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="vue,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="过滤器之前我们学习了Vue的 vue基本指令 进阶学习，我们需要了解Vue的过滤器：Vue.js允许你自定义过滤器，可被用作一些常见元素的格式化。过滤器可以用在两个地方：mustache插值和v-bind表达式。 用法：  1&amp;#123;&amp;#123; 过滤器名称 | function &amp;#125;&amp;#125;">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue过滤器和vue-resource">
+<meta property="og:url" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="过滤器之前我们学习了Vue的 vue基本指令 进阶学习，我们需要了解Vue的过滤器：Vue.js允许你自定义过滤器，可被用作一些常见元素的格式化。过滤器可以用在两个地方：mustache插值和v-bind表达式。 用法：  1&amp;#123;&amp;#123; 过滤器名称 | function &amp;#125;&amp;#125;">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/4.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/5.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/7.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/8.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/lifecycle.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue过滤器和vue-resource">
+<meta name="twitter:description" content="过滤器之前我们学习了Vue的 vue基本指令 进阶学习，我们需要了解Vue的过滤器：Vue.js允许你自定义过滤器，可被用作一些常见元素的格式化。过滤器可以用在两个地方：mustache插值和v-bind表达式。 用法：  1&amp;#123;&amp;#123; 过滤器名称 | function &amp;#125;&amp;#125;">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/07/22/vue/vue-2/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/07/22/vue/vue-2/">
+
+
+
+
+
+  <title>Vue过滤器和vue-resource | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/22/vue/vue-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue过滤器和vue-resource</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-22T22:02:36+08:00">
+                2018-07-22
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h1><p>之前我们学习了Vue的 <a href="http://tycoding.cn/2018/07/21/vue-1/#more" target="_blank" rel="noopener">vue基本指令</a> 进阶学习，我们需要了解Vue的过滤器：Vue.js允许你自定义过滤器，可被用作一些常见元素的格式化。过滤器可以用在两个地方：mustache插值<code></code>和<code>v-bind</code>表达式。</p>
+<p>用法： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; 过滤器名称 | function &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><strong>定义：</strong></p>
+<p>Vue提供了两种方式创建过滤器：</p>
+<ul>
+<li><p>1、全局过滤器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.filter('过滤器名称', function()&#123;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、私有过滤器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">new Vue()(&#123;</span><br><span class="line">	el: '',</span><br><span class="line">	data: &#123;&#125;,</span><br><span class="line">	methods: &#123;&#125;,</span><br><span class="line">	filters: &#123;</span><br><span class="line">		过滤器名称: function()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="全局过滤器"><a href="#全局过滤器" class="headerlink" title="全局过滤器"></a>全局过滤器</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123; msg | myFilters('时光') &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"></span><br><span class="line">Vue.filter('myFilters', function(data, pattern)&#123;</span><br><span class="line">	if(pattern == '时光')&#123;</span><br><span class="line">		var old = data.substring(0,4);</span><br><span class="line">		return old + ',时光路口。';</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong><br>如上：Vue提供的全局过滤器，直接使用<code>Vue</code>调用，而不是定义在<code>Vue实例</code>中</p>
+<ul>
+<li><code>Vue.filter()</code>中第一个参数是过滤器名称，第二个参数是<code>function(){}</code></li>
+<li><code>function(){}</code>中还有两个参数，第一个参数是原始的值，第二个参数是你想给过滤器方法传递的值。</li>
+</ul>
+<h2 id="私有过滤器"><a href="#私有过滤器" class="headerlink" title="私有过滤器"></a>私有过滤器</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123; msg | myFilters('时光') &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"></span><br><span class="line">var vm2 = new Vue(&#123;</span><br><span class="line">	el: '#app2',</span><br><span class="line">	data: &#123;</span><br><span class="line">		msg: '银河街角！'</span><br><span class="line">	&#125;,</span><br><span class="line">	methods: &#123;&#125;,</span><br><span class="line">	filters: &#123;</span><br><span class="line"></span><br><span class="line">		myFilters: function(data, pattern) &#123;</span><br><span class="line">			if(pattern == '时光')&#123;</span><br><span class="line">				var old = data.substring(0,4);</span><br><span class="line">				return old + ',时光路口。';</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>私有过滤器和全局过滤器用法基本相同，仅仅是作用于不同而已。</p>
+<h1 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h1><h2 id="按键修饰符"><a href="#按键修饰符" class="headerlink" title="按键修饰符"></a>按键修饰符</h2><p>在我们搜索商品时，在一些网站中我们直接回车后立即进行搜索，而不是点击搜索按钮才会搜索，那么这个功能怎么实现呢？</p>
+<p>那么我们就需要了解Vue中提供的<strong>按键修饰符</strong><br>用法： <code>@keyup.按键别名 = &quot;要调用的方法名&quot;</code></p>
+<p><strong>按键别名</strong></p>
+<blockquote>
+<p>.enter<br>.tab<br>.esc<br>.delete<br>…</p>
+</blockquote>
+<p><strong>实例</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> @<span class="attr">keyup.enter</span>=<span class="string">"open"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">	open()&#123;</span><br><span class="line">		alert("弹出");</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义按键修饰符</strong><br>如果Vue提供的按键修饰符不能满足你的需求，你也可以使用Vue提供的自定义按键修饰符来实现，因为每个键盘的按键都对应了一个键盘码值，比如F2对应的键盘码值是：113：</p>
+<p>用法： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; @keyup.f2=&quot;open&quot;&gt;</span><br><span class="line"></span><br><span class="line">Vue.config.keyCodes.f2 = 113;	</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">	open()&#123;</span><br><span class="line">		alert(&quot;弹出&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取文本焦点"><a href="#获取文本焦点" class="headerlink" title="获取文本焦点"></a>获取文本焦点</h2><p>获取文本焦点使用了focus属性，那么我们需要定义一个<code>v-focus</code>指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(&apos;focus&apos;, &#123;</span><br><span class="line">	bind: function(el) &#123;&#125;,</span><br><span class="line">	inserted: function(el) &#123;&#125;,</span><br><span class="line">	updated: function(el) &#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>如上，使用<code>Vue.directive()</code>实现定义全局指令，需要注意以下几点：</p>
+<ul>
+<li>1、在directive()方法中包含两个参数：<pre><code>- 参数1：指令的名称，注意，在定义的时候指令名称不需要加v-前缀，但是在使用的时候需要加v-前缀。</code></pre><ul>
+<li>参数2：是一个对象，这个对象包含一些指令相关的函数，这些函数可以在特定的阶段，执行相关的操作。</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'focus'</span>, &#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用的时候使用： v-focus</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2、在directive()函数的第二个参数中（对象）中又包含了三个实例方法：<ul>
+<li>bind: 当指令绑定到元素上的时候，会立即执行这个bind函数，只执行一次；但是需要知道元素绑定了这个指令，若涉及对DOM操作的，并不会立即执行，因为元素不会立即插入到DOM中。所以涉及对元素进行DOM相关操作的，不要定义到这个方法中。</li>
+<li>inserted: 当元素插入到DOM的时候，会立即执行，并只触发一次。</li>
+<li>updated: 当VNode更新的时候，会指定updated，可能触发多次。</li>
+</ul>
+</li>
+</ul>
+<p><strong>实例：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'focus'</span>, &#123;</span><br><span class="line">	bind: <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>&#123;</span><br><span class="line">		el.focus()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">&lt;input type=<span class="string">"text"</span> v-focus /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如上，其中<code>bind</code>函数的第一个参数永远是<code>el</code>，它表示绑定的那个元素，是一个原生的JS对象；这里我们调用了JS的focus方法</p>
+<h3 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h3><p>指令定义函数提供了几个钩子函数（可选）：</p>
+<blockquote>
+<p>bind<br>inserted<br>update<br>componentUpdated: 所在组件的VNode及其孩子的VNode全部更新的时候调用<br>unbind: 只调用一次，指令与元素解除绑定时调用</p>
+</blockquote>
+<p><strong>钩子函数参数</strong><br>在上面使用<code>directive()</code>函数的时候我们已经介绍了一些常用的钩子函数，那么既然是函数，就可能需要进行传参，那么为了实现钩子函数传参，Vue提供了几个参数属性来实现对钩子函数参数的一些操作：</p>
+<ul>
+<li><p><code>el:</code> 指令所绑定的元素，可以用来直接操作DOM。</p>
+</li>
+<li><p><code>binding:</code> 一个对象，包含以下属性：</p>
+<ul>
+<li>name: 指令名，不包含<code>v-</code>前缀</li>
+<li>value: 指令的绑定值，如<code>v-focus=&quot;1 + 1&quot;</code>，那么value=2。</li>
+<li>expression: 绑定值的字符串形式，如<code>v-focus=&quot;1+1&quot;</code>，那么experssion的值是<code>1+1</code>。</li>
+<li>…</li>
+</ul>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<p><strong>实例：</strong></p>
+<p>实现在文本框中输入的数据颜色要为蓝色</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> v-color=<span class="string">"'blue'"</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义设置颜色的指令</span></span><br><span class="line">Vue.directive(<span class="string">'color'</span>, &#123;</span><br><span class="line">	bind: <span class="function"><span class="keyword">function</span>(<span class="params">el, binding</span>)</span>&#123;</span><br><span class="line">		el.style.color = binding.value</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>其中因为设计要获取值的操作，所以使用<code>binding</code>这个对象钩子函数参数来使用接收，那么：</p>
+<ol>
+<li>这个<code>el</code>就表示当前这个<code>&lt;input&gt;</code>文本框对象</li>
+<li>这个<code>bniding</code>就表示<code>v-color=&quot;&#39;blue&#39;&quot;</code>指令传递的参数<code>blue</code>（因为使用<code>&#39;&#39;</code>单引号即不是字符串）</li>
+<li><code>biding-value</code>就是获取到<code>v-color</code>指令绑定的参数值是：<code>blue</code>，通过<code>el.style.color</code>表示设置这个文本框样式中的颜色属性</li>
+</ol>
+<h3 id="定义私有指令"><a href="#定义私有指令" class="headerlink" title="定义私有指令"></a>定义私有指令</h3><p>使用<strong>私有指令</strong>和<strong>全局指令</strong>的用法基本相同，我们参考上面讲过的<strong>私有过滤器</strong>和<strong>全局过滤器</strong>就能猜想到<strong>私有指令</strong>的用法：</p>
+<p><strong>实例</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;p v-fontsize=<span class="string">"'50px'"</span>&gt;私有指令&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">	el: '',</span></span><br><span class="line"><span class="regexp">	data: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">	methods: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">	filters: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">	directives: &#123;</span></span><br><span class="line"><span class="regexp">		'fontsize': &#123;</span></span><br><span class="line"><span class="regexp">			bind: function(el, binding)&#123;</span></span><br><span class="line"><span class="regexp">				el.style.fontSize = binding.value</span></span><br><span class="line"><span class="regexp">			&#125;</span></span><br><span class="line"><span class="regexp">		&#125;</span></span><br><span class="line"><span class="regexp">	&#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义指令的简写形式</strong><br>对于仅仅使用<code>bind</code>和<code>update</code>钩子函数的操作，可以进行下列的简写形式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;p v-fontsize=<span class="string">"'50px'"</span>&gt;私有指令&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">	el: '',</span></span><br><span class="line"><span class="regexp">	data: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">	methods: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">	filters: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">	directives: &#123;</span></span><br><span class="line"><span class="regexp">		'fontsize': function(el, binding)&#123;</span></span><br><span class="line"><span class="regexp">			el.style.fontSize = binding.value</span></span><br><span class="line"><span class="regexp">		&#125;</span></span><br><span class="line"><span class="regexp">	&#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="综合案例"><a href="#综合案例" class="headerlink" title="综合案例"></a>综合案例</h1><p>实现将列表数据渲染到表格中，并实现添加功能案例（包含上面讲到的所有技术的<strong>实例</strong>）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line">    table &#123;</span><br><span class="line">        min-height: 25px;</span><br><span class="line">        line-height: 25px;</span><br><span class="line">        text-align: center;</span><br><span class="line">        border-collapse: collapse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    table,</span><br><span class="line">    table tr th,</span><br><span class="line">    table tr td &#123;</span><br><span class="line">        border: 1px solid #0094ff;</span><br><span class="line">        padding: 11px;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        id:</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"id"</span> <span class="attr">v-focus</span> <span class="attr">v-color</span>=<span class="string">"'blue'"</span>&gt;</span> username:</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"username"</span> @<span class="attr">keyup.enter</span>=<span class="string">"add"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"添加"</span> @<span class="attr">click</span>=<span class="string">"add"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">th</span>&gt;</span>id<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">th</span>&gt;</span>name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">th</span>&gt;</span>date<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">th</span>&gt;</span>fun<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span> <span class="attr">v-for</span>=<span class="string">"user in list"</span> <span class="attr">:key</span>=<span class="string">"user.id"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123;user.id&#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123;user.username&#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123;user.time | dataFormat('') &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> @<span class="attr">click</span>=<span class="string">"del(user.id)"</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>未使用过滤器：&#123;&#123; new Date() &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>使用全局过滤器：&#123;&#123; new Date() | dataFormat('') &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app2"</span>&gt;</span></span><br><span class="line">        使用私有过滤器：&#123;&#123; dt | dataFormat('')&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-fontsize</span>=<span class="string">"'50px'"</span>&gt;</span>私有指令<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"../lib/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 自定义文本框获取焦点指令</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// Vue.directive()定义全局指令，包含两个参数：</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 参数1：指令的名称，注意，在定义的时候指令的名称不需要加v-前缀，但是在使用的时候需要加v-focus</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 参数2：是一个对象，这个对象中包含一些指令相关的函数，这些函数可以在特定的阶段，执行相关的操作</span></span></span><br><span class="line"><span class="javascript">    Vue.directive(<span class="string">'focus'</span>, &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 注意，在下面的函数中，第一个参数永远是el，表示被绑定了指令的那个元素，这个el参数是一个原生JS对象</span></span></span><br><span class="line"><span class="javascript">        bind: <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>&#123; <span class="comment">//每当指令绑定到元素上的时候，会立即执行这个bind函数，只执行一次</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 注意：在元素绑定了指令时，还没有插入到DOM中去，这时候调用focus方法是没有作用的，因为一个元素，只有插入到DOM之后，才能获取焦点</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// el.focus()</span></span></span><br><span class="line">        &#125;,</span><br><span class="line"><span class="javascript">        inserted: <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>&#123; <span class="comment">// inserted表示元素插入到DOM中的时候，会执行,触发一次</span></span></span><br><span class="line">            el.focus()</span><br><span class="line">        &#125;,</span><br><span class="line"><span class="javascript">        updated: <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>&#123; <span class="comment">// 当VNode更新的是否，会执行updated，可触发多次</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// 自定义设置颜色的指令</span></span></span><br><span class="line"><span class="javascript">    Vue.directive(<span class="string">'color'</span>, &#123;</span></span><br><span class="line"><span class="javascript">        bind: <span class="function"><span class="keyword">function</span>(<span class="params">el, binding</span>) </span>&#123;</span></span><br><span class="line">            el.style.color = binding.value</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// 自定义按键</span></span></span><br><span class="line">    Vue.config.keyCodes.f2 = 113;</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// 演示私有过滤器</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vm2 = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app2'</span>,</span></span><br><span class="line">        data: &#123;</span><br><span class="line"><span class="javascript">            dt: <span class="keyword">new</span> <span class="built_in">Date</span>(),</span></span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            open() &#123;</span><br><span class="line"><span class="javascript">                alert(<span class="string">"弹出"</span>);</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        filters: &#123;</span><br><span class="line"><span class="javascript">            dataFormat: <span class="function"><span class="keyword">function</span>(<span class="params">data, pattern</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 获取当前日期</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> dt = <span class="keyword">new</span> <span class="built_in">Date</span>(data);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                <span class="comment">// 获取年月日</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> y = dt.getFullYear();</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> m = dt.getMonth() + <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> d = dt.getDate();</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (pattern.toLowerCase() == <span class="string">'yyyy-mm-dd'</span>) &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;y&#125;</span>-<span class="subst">$&#123;m&#125;</span>-<span class="subst">$&#123;d&#125;</span>`</span>;</span></span><br><span class="line"><span class="javascript">                &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> hh = dt.getHours();</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> mm = dt.getMinutes();</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> ss = dt.getSeconds();</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                    <span class="comment">// es6中提供的 yyyy-mm-dd hh:mm:ss 的简写形式</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;y&#125;</span>-<span class="subst">$&#123;m&#125;</span>-<span class="subst">$&#123;d&#125;</span> <span class="subst">$&#123;hh&#125;</span>:<span class="subst">$&#123;mm&#125;</span>:<span class="subst">$&#123;ss&#125;</span>`</span> + <span class="string">'--&gt;私有'</span>;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line"><span class="javascript">        <span class="comment">// 自定义私有指令（简写形式）</span></span></span><br><span class="line">        directives: &#123;</span><br><span class="line"><span class="javascript">            <span class="string">'fontsize'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">el, binding</span>) </span>&#123;</span></span><br><span class="line">                el.style.fontSize = binding.value</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// 全局过滤器</span></span></span><br><span class="line"><span class="javascript">    Vue.filter(<span class="string">'dataFormat'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, pattern</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 获取当前日期</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> dt = <span class="keyword">new</span> <span class="built_in">Date</span>(data);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 获取年月日</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> y = dt.getFullYear();</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> m = dt.getMonth() + <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> d = dt.getDate();</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (pattern.toLowerCase() == <span class="string">'yyyy-mm-dd'</span>) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;y&#125;</span>-<span class="subst">$&#123;m&#125;</span>-<span class="subst">$&#123;d&#125;</span>`</span>;</span></span><br><span class="line"><span class="javascript">        &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> hh = dt.getHours();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> mm = dt.getMinutes();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> ss = dt.getSeconds();</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;y&#125;</span>-<span class="subst">$&#123;m&#125;</span>-<span class="subst">$&#123;d&#125;</span> <span class="subst">$&#123;hh&#125;</span>:<span class="subst">$&#123;mm&#125;</span>:<span class="subst">$&#123;ss&#125;</span>`</span>;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// 创建Vue实例</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line">        data: &#123;</span><br><span class="line"><span class="javascript">            id: <span class="string">''</span>,</span></span><br><span class="line"><span class="javascript">            username: <span class="string">''</span>,</span></span><br><span class="line">            list: [</span><br><span class="line"><span class="javascript">                &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">username</span>: <span class="string">'涂陌'</span>, <span class="attr">time</span>: <span class="keyword">new</span> <span class="built_in">Date</span>() &#125;,</span></span><br><span class="line"><span class="javascript">                &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">username</span>: <span class="string">'TyCoding'</span>, <span class="attr">time</span>: <span class="keyword">new</span> <span class="built_in">Date</span>() &#125;</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            add() &#123;</span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> user = &#123; <span class="attr">id</span>: <span class="keyword">this</span>.id, <span class="attr">username</span>: <span class="keyword">this</span>.username, <span class="attr">time</span>: <span class="keyword">new</span> <span class="built_in">Date</span>() &#125;;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">this</span>.list.push(user);</span></span><br><span class="line">            &#125;,</span><br><span class="line">            del(id) &#123;</span><br><span class="line"><span class="javascript">                <span class="comment">// some()是操作数组的方法，作用是循环数组，并当return true是就终止循环</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">// 其中的user理解为循环list元素的别名，i表示索引</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">this</span>.list.some(<span class="function">(<span class="params">user, i</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span> (user.id == id) &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">this</span>.list.splice(i, <span class="number">1</span>);</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">return</span> <span class="literal">true</span>;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/07/22/vue/vue-2/1.png" alt></p>
+<h1 id="Vue实例的生命周期"><a href="#Vue实例的生命周期" class="headerlink" title="Vue实例的生命周期"></a>Vue实例的生命周期</h1><ul>
+<li>什么是声明周期：从Vue实例创建、运行、到销毁期间，伴随着发生的事件的过程成为生命周期。</li>
+<li>生命周期钩子：就是声明周期事件的别名。</li>
+<li>主要的声明周期函数分类</li>
+</ul>
+<blockquote>
+<p>创建期间的声明周期函数：<br>    * beforeCreate: 实例刚在内存中被创建，此时，还没有初始化好data和methods属性。<br>    * created: 实例已经在内存中创建好，此时data和methods已经创建好，但还没有编译模板。<br>    * beforeMount: 此时已经完成了模板的编译，但是还没有挂载到页面上。<br>    * mounted: 此时，已经将编译好的模板，挂载到了页面指定的容器中。</p>
+<p>运行期间的声明周期函数:<br>    * beforeUpdate: 状态更新之前执行此函数，此时的data数据是最新的，但是此时还没有开始渲染DOM节点<br>    * updated: 实例更新完毕之后调用此函数，此时data中的状态值和界面上显示的数据都是最新的，界面已经被重新渲染好了。</p>
+<p>销毁期间的生命周期函数<br>    * beforeDestory: 实例销毁之前调用，在这一步，实例仍然可以使用。<br>    * destroyed: Vue实例销毁后调用，调用后，Vue实例指示的所有东西都会解除绑定，所有的事件监听器都会被移除，所所有的子实例也会被销毁。</p>
+</blockquote>
+<h2 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h2><p>此函数执行的时候，<code>data</code>和<code>methods</code>中的数据还没有初始化。</p>
+<p><img src="/2018/07/22/vue/vue-2/2.png" alt><br><img src="/2018/07/22/vue/vue-2/3.png" alt></p>
+<h2 id="created"><a href="#created" class="headerlink" title="created"></a>created</h2><p>此函数中，data和methods都已经初始化好了，如果需要调用<code>methods</code>中的方法或操作<code>data</code>中的值最早就在<code>created</code>函数中操作。</p>
+<p><img src="/2018/07/22/vue/vue-2/4.png" alt><br><img src="/2018/07/22/vue/vue-2/5.png" alt></p>
+<h2 id="beforeMount"><a href="#beforeMount" class="headerlink" title="beforeMount"></a>beforeMount</h2><p>此函数执行的时候，模板已经在内存中编译好了，但是尚未挂载到页面中去。</p>
+<p><img src="/2018/07/22/vue/vue-2/6.png" alt><br><img src="/2018/07/22/vue/vue-2/7.png" alt></p>
+<h2 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h2><p>只要执行完了<code>mounted</code>，表示整个Vue实例已经初始化完毕了，此时组件已经进入了运行阶段。</p>
+<p><img src="/2018/07/22/vue/vue-2/8.png" alt></p>
+<h2 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h2><p><img src="/2018/07/22/vue/vue-2/lifecycle.png" alt></p>
+<h1 id="vue-resource实现请求提交"><a href="#vue-resource实现请求提交" class="headerlink" title="vue-resource实现请求提交"></a>vue-resource实现请求提交</h1><p>作为一个后端开发者，我们需要的数据都应该是从数据库中取出来的，目前JSP页面越来越不常用，而更常用HTML页面，那么就体现出来类似Vue这种框架的好处了。</p>
+<p>下面我们就了解一下怎样使用Vue实现发送AJAX的请求：</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>首先使用Vue实现发送AJAX请求，我们需要导入一个包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue-resource.js</span><br></pre></td></tr></table></figure>
+
+<p><strong>Methods</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.$http.get(&apos;url&apos;, [options]).then(successCallback, errorCallback);</span><br><span class="line"></span><br><span class="line">this.$http.post(&apos;url&apos;, [body], [options]).then(successCallback, errorCallback);</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<ul>
+<li><code>this</code>表示的是当前Vue实例对象，而<code>vue-resource.js</code>提供了<code>$http</code>属性用来调用其内置的请求方法，并且<code>vue-resource.js</code>是基于<code>vue.js</code>的。</li>
+<li><code>options</code>是指可选的请求参数，就是你发送请求想要传递的参数。</li>
+<li><code>then</code>可以实现发送完请求后，通过其获取请求<strong>成功</strong>响应的数据</li>
+<li><code>then</code>中包含两个参数<code>successCallback</code>和<code>errorCallback</code>，这两个都是对象，我们可以通过其进行对相应数据的操作。</li>
+</ul>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"getInfo"</span>&gt;</span>点击我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">	el: '#app',</span><br><span class="line">	data: &#123;&#125;,</span><br><span class="line">	methods: &#123;</span><br><span class="line">		getInfo()&#123;</span><br><span class="line">			this.$http.get('url').then(result =&gt; &#123;</span><br><span class="line">				console.log(result.body);</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong><br>当我们请求成功后，可以通过<code>then</code>来获取请求成功响应的数据，而可以通过<code>.data</code>或<code>.body</code>来获取响应data，而我们通常使用<code>result.body</code>来获取具体响应的参数。注意其中的<code>result =&gt; {}</code>是ES6中的写法。</p>
+<h2 id="post请求"><a href="#post请求" class="headerlink" title="post请求"></a>post请求</h2><p><strong>注意：</strong> post请求常用于类似提交表单的功能，而对于提交表单，存在一个表单提交格式，默认是：<code>application/x-wwww-form-urlencoded</code> ；而通过Vue发起的post请求，默认没有表单格式，所以，有的服务器就处理不了。</p>
+<p>那么我们可以通过post方法的第三个参数：<code>{ emulateJSON: true }</code>来设置提交内容类型为普通表单数据格式。</p>
+<p><strong>实例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.$http.post(&apos;url&apos;, &#123;&#125;, &#123; emulateJSON: true &#125;).then(result =&gt; &#123;</span><br><span class="line">    console.log(result.body)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>其他请求方法与上面的雷同，具体方法请参考官方文档。</p>
+<h1 id="请求接口根域名配置"><a href="#请求接口根域名配置" class="headerlink" title="请求接口根域名配置"></a>请求接口根域名配置</h1><p>由于我们个人的项目可能是部署到本地的Tomcat服务器上的，可能不会涉及请求接口的域名配置，那么我们先看一个案例：</p>
+<p>发送post请求到服务器接口</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">	add()&#123;</span><br><span class="line">		this.$http.post('http://tycoding.cn/api/add', &#123;&#125;, &#123;emulateJSON: true&#125;).then(result =&gt; &#123;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上，当我们发送请求的时候，URL路径需要写上域名地址<code>http://tycoding.cn</code>，然后才是请求路径<code>/api/add</code>，那么我们每次发送ajax请求都会需要写这个域名地址，就会显得比较麻烦，所以<code>Vue-resource</code>给我们提供了一种设置默认请求<strong>根域名</strong>的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.http.options.root = &apos;http://tycoding.cn/&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>如上，就是一个全局的请求根域名配置。</p>
+<p><strong>注意</strong><br>仅了解了上面的配置可能请求还会404，那么我们需要知道：</p>
+<blockquote>
+<p>如果我们通过了全局配置请求接口的根域名，那么每次发送HTTP请求时，请求的URL路径应该以相对域名开头，即前面不能带<code>/</code>：
+    * 如果<code>this.$http.post(&#39;/xxx&#39;)</code>请求URL带了<code>/</code>，那么Vue就不会启用上面的全局请求根域名配置，就会404.<br>    * 如果前面不带<code>/</code>即：<code>this.$http.post(&#39;xxx&#39;)</code>，那么就会启用上面的全局请求根域名配置进行URL的拼接</p>
+</blockquote>
+<h2 id="全局配置表单提交格式选项"><a href="#全局配置表单提交格式选项" class="headerlink" title="全局配置表单提交格式选项"></a>全局配置表单提交格式选项</h2><p>上面讲到了如果使用<code>post</code>请求提交<strong>表单</strong>，那么你应该指定<code>{emulateJSON: true}</code>参数，那么每次进行post请求都指定又会显得很麻烦，那么<code>vue-resource</code>也给我们提供了一个全局配置的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.http.options.emulateJSON = true;</span><br></pre></td></tr></table></figure>
+
+<p>这样我们就不需要再post请求中再配置第三个参数了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">	add()&#123;</span><br><span class="line">		this.$http.post(&apos;http://tycoding.cn/api/add&apos;, &#123;&#125;).then(result =&gt; &#123;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h2><p>请求后台并即时渲染表格数据的案例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- html段 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"username"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"添加"</span> @<span class="attr">click</span>=<span class="string">"add"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">th</span>&gt;</span>编号<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">th</span>&gt;</span>用户名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">th</span>&gt;</span>操作<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">tr</span> <span class="attr">v-for</span>=<span class="string">"user in list"</span> <span class="attr">:key</span>=<span class="string">"user.id"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123;user.id&#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123;user.username&#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> @<span class="attr">click.pervent</span>=<span class="string">"del(user.id)"</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- javascript段 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">// 设置全局根域名</span></span></span><br><span class="line"><span class="javascript">Vue.http.options.root = <span class="string">'http://tycoding.cn/'</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="comment">//设置全局表单提交格式</span></span></span><br><span class="line"><span class="javascript">Vue.http.options.emulateJSON = <span class="literal">true</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="comment">// 实例化Vue</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">	el: <span class="string">''</span>,</span></span><br><span class="line">	data: &#123;</span><br><span class="line"><span class="javascript">		username: <span class="string">''</span>,</span></span><br><span class="line">		list: []</span><br><span class="line">	&#125;,</span><br><span class="line">	created: &#123;</span><br><span class="line"><span class="javascript">		<span class="comment">// 因为进入列表页面就需要在列表中显示出数据，那么就需要实现加载页面时自动加载findAll方法</span></span></span><br><span class="line"><span class="javascript">		<span class="comment">// 而之前我们已经知道了，Vue的声明周期中，最早可以操作methods和data中的数据的阶段是：created生命周期函数阶段。</span></span></span><br><span class="line"><span class="javascript">		<span class="comment">// 那么在这里调用findAll方法即可</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">this</span>.findAll();</span></span><br><span class="line">	&#125;,</span><br><span class="line">	methods: &#123;</span><br><span class="line"><span class="javascript">		<span class="comment">// 查询所有列表数据</span></span></span><br><span class="line">		findAll()&#123;</span><br><span class="line"><span class="javascript">			<span class="keyword">this</span>.$http.get(<span class="string">'api/findAll'</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">this</span>.list = result.body;</span></span><br><span class="line">			&#125;),</span><br><span class="line">		&#125;,</span><br><span class="line"></span><br><span class="line"><span class="javascript">		<span class="comment">// 添加功能</span></span></span><br><span class="line">		add()&#123;</span><br><span class="line"><span class="javascript">			<span class="keyword">this</span>.$http.post(<span class="string">'api/add'</span>, &#123;<span class="attr">username</span>: <span class="keyword">this</span>.username&#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span>(result.body.status == <span class="number">0</span>)&#123;</span></span><br><span class="line"><span class="javascript">					<span class="comment">// 如果状态码为0就表示请求成功，这个状态码的值根据实际定</span></span></span><br><span class="line"><span class="javascript">					<span class="comment">// 请求成功，即添加了一条新的数据，那么需要重新刷新列表（不然新数据不能及时的更新到页面上）</span></span></span><br><span class="line"><span class="javascript">					<span class="keyword">this</span>.findAll()</span></span><br><span class="line"><span class="javascript">				&#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">					alert(<span class="string">'添加失败'</span>);</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;,</span><br><span class="line"></span><br><span class="line"><span class="javascript">		<span class="comment">//删除功能</span></span></span><br><span class="line">		del(id)&#123;</span><br><span class="line"><span class="javascript">			<span class="keyword">this</span>.$http.get(<span class="string">'api/del'</span> + id).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span>(result.body.status == <span class="number">0</span>)&#123;</span></span><br><span class="line"><span class="javascript">					<span class="comment">//请求成功</span></span></span><br><span class="line"><span class="javascript">					<span class="comment">//刷新列表</span></span></span><br><span class="line"><span class="javascript">					<span class="keyword">this</span>.findAll();</span></span><br><span class="line"><span class="javascript">				&#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">					alert(<span class="string">'删除失败'</span>);</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如上我们已经完成了常见的几个功能，后面我们将会介绍基于<code>SpringMVC</code>框架，实现与Vue整合并重写增删改查功能。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><p>1、首先我们需要配置根域名，且具体的AJAX请求URL不能添加’/‘；如果是基于本地的Tomcat服务器的项目，可能不需要配置根域名，具体视情况而定</p>
+</li>
+<li><p>2、实现查询所有列表数据功能，<strong>思路</strong>是：1、发送AJAX请求数据；2、将响应的数据赋值给data中的list集合<code>this.list = result.body</code>。注意响应数据是存放到body中的，具体请F12查看浏览器请求头信息和响应头信息。</p>
+</li>
+<li><p>3、上面获取了数据库中的列表数据，我们需要渲染到页面上，那么点击进入列表页面，列表页面中应该立即显示数据库中的所有数据，即<code>findAll</code>方法应该在初始化页面的同时自动去调用，并将数据赋值给list列表。而我们之前讲过操作methods和data中参数的最早时机是<code>created</code>声明周期函数阶段，那么我们直接在<code>created</code>函数中调用<code>findAll</code>方法即可实现自动加载。</p>
+</li>
+<li><p>4、添加功能的<strong>思路</strong>：1、在<code>data</code>中先声明需要添加的参数；2、在表单中用<code>v-model</code>绑定需要添加的参数；3、点击添加功能按钮，绑定<code>@click</code>事件，在<code>methods</code>中写对应的方法；4、发送AJAX请求，并在URL中拼接需要添加的数据（通过this.username）获取绑定的参数；5、如果是post请求，还需要设置表单提交格式<code>{emulateJSON: true}</code>，而我们使用了全局配置就不需要再在post参数中指定了；6、如果添加成功，就调用<code>findAll</code>方法重新刷新列表</p>
+</li>
+<li><p>6、删除功能需要在绑定<code>@click</code>事件的时候将<code>id</code>传入。并且我们需要使用<code>@click.pervent</code>来阻止<code>&lt;a&gt;</code>标签的默认跳转。</p>
+</li>
+<li><p>7、上面仅是提供演示，具体操作由实际情况而定.</p>
+</li>
+</ul>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/21/vue/vue-1/" rel="next" title="初识Vue">
+                <i class="fa fa-chevron-left"></i> 初识Vue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/23/vue/vue-3/" rel="prev" title="Vue组件">
+                Vue组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤器"><span class="nav-number">1.</span> <span class="nav-text">过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全局过滤器"><span class="nav-number">1.1.</span> <span class="nav-text">全局过滤器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#私有过滤器"><span class="nav-number">1.2.</span> <span class="nav-text">私有过滤器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义指令"><span class="nav-number">2.</span> <span class="nav-text">自定义指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按键修饰符"><span class="nav-number">2.1.</span> <span class="nav-text">按键修饰符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取文本焦点"><span class="nav-number">2.2.</span> <span class="nav-text">获取文本焦点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#钩子函数"><span class="nav-number">2.2.1.</span> <span class="nav-text">钩子函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义私有指令"><span class="nav-number">2.2.2.</span> <span class="nav-text">定义私有指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综合案例"><span class="nav-number">3.</span> <span class="nav-text">综合案例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue实例的生命周期"><span class="nav-number">4.</span> <span class="nav-text">Vue实例的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#beforeCreate"><span class="nav-number">4.1.</span> <span class="nav-text">beforeCreate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#created"><span class="nav-number">4.2.</span> <span class="nav-text">created</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#beforeMount"><span class="nav-number">4.3.</span> <span class="nav-text">beforeMount</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mounted"><span class="nav-number">4.4.</span> <span class="nav-text">mounted</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图示"><span class="nav-number">4.5.</span> <span class="nav-text">图示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-resource实现请求提交"><span class="nav-number">5.</span> <span class="nav-text">vue-resource实现请求提交</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">5.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">5.2.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#post请求"><span class="nav-number">5.3.</span> <span class="nav-text">post请求</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#请求接口根域名配置"><span class="nav-number">6.</span> <span class="nav-text">请求接口根域名配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全局配置表单提交格式选项"><span class="nav-number">6.1.</span> <span class="nav-text">全局配置表单提交格式选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例-1"><span class="nav-number">6.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">7.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">8.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

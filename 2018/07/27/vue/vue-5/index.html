@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="vue,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Vue实现前后端分离项目的初体验 经过之前学习的Vue的知识：  vue基本指令 vue组件 vue-resource vue路由  其实我们已经可以开始实战运用到实际的Web项目中了，由于本人是Java后端开发的，所以后端是基于SpringMVC的。 以下我们将演示如何使用Vue组件实现一个用户登录系统。">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue实现前后端分离项目的初体验">
+<meta property="og:url" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="Vue实现前后端分离项目的初体验 经过之前学习的Vue的知识：  vue基本指令 vue组件 vue-resource vue路由  其实我们已经可以开始实战运用到实际的Web项目中了，由于本人是Java后端开发的，所以后端是基于SpringMVC的。 以下我们将演示如何使用Vue组件实现一个用户登录系统。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/4.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/5.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/7.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/8.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/9.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/10.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/11.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/15.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/12.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/13.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/14.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue实现前后端分离项目的初体验">
+<meta name="twitter:description" content="Vue实现前后端分离项目的初体验 经过之前学习的Vue的知识：  vue基本指令 vue组件 vue-resource vue路由  其实我们已经可以开始实战运用到实际的Web项目中了，由于本人是Java后端开发的，所以后端是基于SpringMVC的。 以下我们将演示如何使用Vue组件实现一个用户登录系统。">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/07/27/vue/vue-5/">
+
+
+
+
+
+  <title>Vue实现前后端分离项目的初体验 | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/27/vue/vue-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue实现前后端分离项目的初体验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-27T15:33:16+08:00">
+                2018-07-27
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>Vue实现前后端分离项目的初体验</strong></p>
+<p>经过之前学习的Vue的知识：</p>
+<ul>
+<li><a href="http://tycoding.cn/2018/07/21/vue-1/#more" target="_blank" rel="noopener">vue基本指令</a></li>
+<li><a href="http://tycoding.cn/2018/07/23/vue-3/#more" target="_blank" rel="noopener">vue组件</a></li>
+<li><a href="http://tycoding.cn/2018/07/22/vue-2/#more" target="_blank" rel="noopener">vue-resource</a></li>
+<li><a href="http://tycoding.cn/2018/07/23/vue-3/#more" target="_blank" rel="noopener">vue路由</a></li>
+</ul>
+<p>其实我们已经可以开始实战运用到实际的Web项目中了，由于本人是Java后端开发的，所以后端是基于SpringMVC的。</p>
+<p>以下我们将演示如何使用Vue组件实现一个用户登录系统。</p>
+<a id="more"></a>
+
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><blockquote>
+<p>后端基于spring、springMVC、mybatis框架</p>
+</blockquote>
+<p>对后端SSM框架搭建不熟悉的可以参考我的博文： <a href="http://tycoding.cn/2018/06/05/ssm-2/#more" target="_blank" rel="noopener">SSM项目整合</a></p>
+<h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><p>前端使用了wepack打包工具，利用了<code>vue.cli</code>脚手架快速搭建的项目。由于本人对一些技术也不是很熟悉，所以给大家提供些官方文档，<br>想要深入学习还是要仔细分析官方文档。传送门如下（也是本项目要用到的）：</p>
+<ul>
+<li><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node.js</a></li>
+<li><a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">vue.js</a></li>
+<li><a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">vue-cli</a></li>
+<li><a href="https://www.npmjs.com/package/vue-resource" target="_blank" rel="noopener">vue-resource</a></li>
+<li><a href="https://router.vuejs.org/" target="_blank" rel="noopener">vue-router</a></li>
+<li><a href="http://webpack.github.io/" target="_blank" rel="noopener">webpack</a></li>
+<li><a href="http://element.eleme.io/#/zh-CN" target="_blank" rel="noopener">element-ui</a></li>
+</ul>
+<p>以上技术都是比较常用的，<code>webpack</code>类似一个打包工具，它会将你项目中的Vue组件打包为一个庞大的<code>js</code>文件（当然我们是看不懂的），而我们的前端项目是部署在<code>node.js</code>提供的web容器中的。</p>
+<p>即前后端分离的实际效果是这样的：<br><img src="/2018/07/27/vue/vue-5/1.png" alt="index.html"></p>
+<p><img src="/2018/07/27/vue/vue-5/2.png" alt="index"></p>
+<p>有没有感觉很神奇，哈哈，反正我第一次见到的时候就是觉得很神奇，因为<code>html</code>中完全看不到任何js、css代码，但是却能渲染出来这么好看的页面。下面我们就讲一下，怎么实现这个过程吧！！</p>
+<br>
+
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>上面我们提到的技术，在本案例中都会遇到，后端的SSM框架请参考我的博客文档，介绍一下前端环境的搭建：</p>
+<p><strong>1、安装<code>node.js</code></strong></p>
+<p>具体安装流程还是要去看<code>node.js</code>官网。如果安装完成，请在终端输入<code>npm -v</code>查看是否安装成功。一般会出现类似如下版本号：</p>
+<blockquote>
+<p>v8.11.3</p>
+</blockquote>
+<p><strong>2、安装<code>VueCLI</code>脚手架</strong></p>
+<p><code>VueCLI</code>能够帮助我们快速搭建一个webpack的项目。</p>
+<p>在已经安装好<code>node.js</code>的前提上，在终端输入：<code>npm install vue-cli -g</code>开始安装VueCLI。如果安装完成，请在终端输入：<code>vue -V</code>，会出现如下版本信息：</p>
+<blockquote>
+<p>2.9.6</p>
+</blockquote>
+<p>具体安装流程可以参看：<a href="https://blog.csdn.net/qq_36711388/article/details/79405402" target="_blank" rel="noopener">博文</a></p>
+<p>由于<strong>VueCLI脚手架</strong>已经帮我们安装好了<code>webpack</code>、以及相关的node依赖包，所以我们不需要再手动安装了。</p>
+<h2 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h2><p>如果安装完成，我们可以看到出现如下目录结构：</p>
+<p><img src="/2018/07/27/vue/vue-5/3.png" alt></p>
+<h3 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h3><p>在终端项目路径下输入<code>npm run dev</code>命令；正常情况下，会出现如下信息：</p>
+<p><img src="/2018/07/27/vue/vue-5/4.png" alt></p>
+<p>在浏览器中输入指定的URL，会出现如下页面：</p>
+<p><img src="/2018/07/27/vue/vue-5/5.png" alt></p>
+<p>我们继续观察，打开项目中的<code>index.html</code></p>
+<p><img src="/2018/07/27/vue/vue-5/6.png" alt></p>
+<p>我们看到，这个HTML中没有任何代码，甚至没有引入js、css，但是页面中的视图是怎样渲染出来的呢？</p>
+<p>仔细看项目结构，我们能看到在<code>src/components/</code>下有一个<code>HelloWorld.vue</code>程序，我们页面中的程序就是通过这些<code>.vue</code>组件来渲染出来的。</p>
+<h3 id="打包项目"><a href="#打包项目" class="headerlink" title="打包项目"></a>打包项目</h3><p>如果我们想将项目部署到服务器上，你放一堆<code>.vue</code>程序，浏览器是无法解析出来的，所以我们需要了解一下<code>webpack</code>的打包命令：</p>
+<blockquote>
+<p>npm run build</p>
+</blockquote>
+<p><img src="/2018/07/27/vue/vue-5/7.png" alt></p>
+<p>正常情况下，会显示上图中的信息，表示打包成功了，会在项目根目录中生成一个叫<code>dist</code>的文件夹，里面是生成的静态项目：</p>
+<p><img src="/2018/07/27/vue/vue-5/8.png" alt></p>
+<p>我们双击<code>dist/index.html</code>，会看到和之前一样的页面，但是其中引入了一个<code>XX.js</code>文件</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>经过上面的步骤我们应该了解到了所谓前端分离的简易概念，其实在之前的博文： <a href="http://tycoding.cn/2018/07/23/vue-3/#more" target="_blank" rel="noopener">Vue组件</a> 我们已经了解到了Vue的模块化开发流程。配合<code>.vue</code>组件，其实思路还是相同的。</p>
+<h2 id="搭建前端"><a href="#搭建前端" class="headerlink" title="搭建前端"></a>搭建前端</h2><p>开始之前，我们首先要安装<code>vue-resource</code>（<code>element-ui</code>），执行：</p>
+<blockquote>
+<p>npm install vue-resource<br>npm install element-ui</p>
+</blockquote>
+<h3 id="第一步：修改main-js"><a href="#第一步：修改main-js" class="headerlink" title="第一步：修改main.js"></a>第一步：修改main.js</h3><p><code>main.js</code>文件是<code>webpack</code>的核心入口，我们需要在其中引入<code>Vue-resource</code>以及<code>router</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import VueResource from &apos;vue-resource&apos;</span><br><span class="line"></span><br><span class="line">import router from &apos;./router/index.js&apos;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在Vue实例中注册router</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">	router,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<p><img src="/2018/07/27/vue/vue-5/9.png" alt></p>
+<h3 id="第二步：修改router-index-js"><a href="#第二步：修改router-index-js" class="headerlink" title="第二步：修改router/index.js"></a>第二步：修改router/index.js</h3><p>这是有关Vue路由的配置，前面我们也已经讲过了vue的路由，这里不再多说，代码如下：</p>
+<p><img src="/2018/07/27/vue/vue-5/10.png" alt></p>
+<p>如上就配置了，如果你访问<code>localhost:8081/</code>，那么就会自动路由跳转到<code>login.vue</code>组件中，提示我们登录;其中的<code>/home</code>表示，如果登录成功，就跳转到<code>home.vue</code>组件中，相当于登录成功后跳转到后台页面。</p>
+<h3 id="第三步：创建login-vue"><a href="#第三步：创建login-vue" class="headerlink" title="第三步：创建login.vue"></a>第三步：创建login.vue</h3><p>在<code>src/components/</code>下创建<code>login.vue</code>组件。</p>
+<p>login组件中表单样式就不再讲了，我们主要看一下怎样利用<code>v-model</code>绑定表单数据，并请求后端</p>
+<p><strong>表单原型</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 登录表单 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-form</span> <span class="attr">:model</span>=<span class="string">"login"</span> <span class="attr">status-icon</span> <span class="attr">:rules</span>=<span class="string">"rule"</span> <span class="attr">ref</span>=<span class="string">"login"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">"username"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">prefix-icon</span>=<span class="string">"el-icon-ump-yonghu"</span> <span class="attr">v-model</span>=<span class="string">"login.username"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">auto-complete</span>=<span class="string">"off"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">"password"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">prefix-icon</span>=<span class="string">"el-icon-ump-mima"</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">v-model</span>=<span class="string">"login.password"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">auto-complete</span>=<span class="string">"off"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-checkbox</span> <span class="attr">class</span>=<span class="string">"check"</span> <span class="attr">v-model</span>=<span class="string">"checked"</span>&gt;</span>记住我<span class="tag">&lt;/<span class="name">el-checkbox</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">class</span>=<span class="string">"btn"</span> <span class="attr">type</span>=<span class="string">"primary"</span> @<span class="attr">click</span>=<span class="string">"submitForm('login')"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"tips"</span>&gt;</span>还没有账号？点我去注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的表单中，我们只需要关注三个点：</p>
+<ul>
+<li>v-model=”login.username”</li>
+<li>v-model=”login.password”</li>
+<li>@click=”submitForm(‘login’)”</li>
+</ul>
+<p>为什么不关注其他的？<br>注意，这个案例由于我使用了<code>element-ui</code>，从标签中就能看出来，其中涉及到了一些element-ui提供的js校验，我们只需要关注Vue的逻辑即可。</p>
+<p><strong>提交表单</strong></p>
+<p>关于上面提到的element-ui的校验部分<br><img src="/2018/07/27/vue/vue-5/11.png" alt></p>
+<p>表单提交方法部分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">    submitForm(login) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$refs[login].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">                <span class="comment">//提交表单</span></span><br><span class="line">                <span class="keyword">this</span>.$http.post(<span class="string">'http://127.0.0.1:8080/login.do'</span>, &#123;</span><br><span class="line">                    username: <span class="keyword">this</span>.login.username,</span><br><span class="line">                    password: <span class="keyword">this</span>.login.password</span><br><span class="line">                &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(result);</span><br><span class="line">                    <span class="keyword">if</span> (result.bodyText === <span class="string">'index'</span>) &#123;</span><br><span class="line">                        <span class="keyword">this</span>.$router.push(&#123; <span class="attr">path</span>: <span class="string">'home'</span> &#125;); <span class="comment">//跳转到home组件中</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">"登录失败"</span>);</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面就是我们要讲到的核心部分：请求后端的接口</p>
+<p><strong>解释：</strong></p>
+<ul>
+<li><p>首先需要注意的<code>this.$refs[login].validate((valid)){}</code>是element-ui提供的表单验证的逻辑，但是是结合vue.js的。因为我们若在不验证表单直接提交的时候，会在表单提交按钮中直接传<code>@click=&quot;submitForm(login)&quot;</code>，因为此时的<code>login</code>是一个<code>data</code>中已经声明的对象，其中包含两个参数：<code>username</code>,<code>password</code>。而element-ui提供的方式则会根据<code>.validate()</code>获取到<code>login</code>所包含的参数从而实现校验。</p>
+</li>
+<li><p>经过上面的校验，如果校验成功，那么将调用<code>this.$http.post()</code>进行提交post表单，这是<code>vue-resource</code>提供的方式，<a href="http://tycoding.cn/2018/07/22/vue-2/#more" target="_blank" rel="noopener">博文</a> 中我们也讲过。其中包含了两个参数，username,password。</p>
+</li>
+<li><p>请求成功，调用<code>.then()</code>回获取到成功的请求结果。判断请求的结果：我这里是从后端返回的参数（<code>return &quot;index&quot;</code>）中判断是否登录成功，如果能录成功，就应该跳转到<code>home</code>组件中。</p>
+</li>
+<li><p>调用<code>vue-router</code>中提供的<code>$router.push</code>方法，我们可以理解为向<code>Router</code>对象中添加了一条路由地址，其URL是：<code>path: &#39;home&#39;</code>，那么就表明了会跳转带名字叫<code>/home</code>的路径下，整好对应的是我们配置好的<code>home.vue</code>组件。</p>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li><p>最重要的就是跨域请求问题，本例中<code>node.js</code>提供的web服务器地址是：<code>127.0.0.1:8081</code>，但是我们后端Tomcat服务器的地址是：<code>127.0.0.1:8080</code>，而默认是不能在一个域中访问另一个域中的资源的，所以也就出现了跨域请求的概念。</p>
+</li>
+<li><p>其次重要的就是<code>$http.post()</code>的第一个参数：URL地址，不要写<code>locahost:</code>，不要写….  具体原因不是很清楚，不然请求还会报错为跨域请求。</p>
+</li>
+<li><p>解决跨域请求的方式也有很多，这里我提供一个比较简单的方式，只需要在后端的<code>web.xml</code>中提供一个允许跨域访问的过滤器就行了，后面会介绍。</p>
+</li>
+<li><p>还有就是之前我们就说过Vue中默认提交的post请求时不包含表单格式的，所以需要配置，我已经在<code>main.js</code>中写了<code>Vue.http.options.emulateJSON = true;</code>设置全局表单提交格式，所以在<code>post()</code>方法中就没有设置。</p>
+</li>
+</ul>
+<h3 id="第四部：创建home-vue"><a href="#第四部：创建home-vue" class="headerlink" title="第四部：创建home.vue"></a>第四部：创建home.vue</h3><p>在<code>src/components/</code>下创建<code>home.vue</code>组件</p>
+<p><img src="/2018/07/27/vue/vue-5/15.png" alt></p>
+<br>
+<br>
+
+<h2 id="搭建后端"><a href="#搭建后端" class="headerlink" title="搭建后端"></a>搭建后端</h2><p>经过上面介绍了前端搭建步骤后，搭建后端我们就相对熟悉了，我们的目标就是在controller中提供一个接口<code>login.do</code>让前端访问。</p>
+<h3 id="解决跨域请求"><a href="#解决跨域请求" class="headerlink" title="解决跨域请求"></a>解决跨域请求</h3><p>之前已经说了跨域请求很重要，不然我们写的所有请求都无法顺利访问后端接口。解决的方式如下：</p>
+<p><strong>配置</strong></p>
+<p>我们只需要在项目中的<code>web.xml</code>中配置如下代码即可。因为这个过滤器是tomcat提供的，所以我们并不需要导入任何jar包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--配置允许跨域访问--&gt;</span><br><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CorsFilter&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;org.apache.catalina.filters.CorsFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;CorsFilter&lt;/filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p>讲了那么多，终于到了Controller层，这里就比较简单了，就是根据获取到的参数判断数据库中有没有对应的用户，有就登录成功，否者亏登录失败。</p>
+<p><img src="/2018/07/27/vue/vue-5/12.png" alt></p>
+<p>由于我这里使用了shiro，需要将密码加密处理，所以没有直接传入到service层，当然思路是相同的。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>我这个<code>login.do</code>接口返回的是JSON字符串，前面使用了<code>@RestController</code>注解，不要误认为是返回的页面，那么就会404的。</li>
+<li>接受的参数要用<code>@RequestParam</code>注解标记，不然会接受不到前端传递的数据</li>
+</ul>
+<p><strong>请求成功</strong></p>
+<p><img src="/2018/07/27/vue/vue-5/13.png" alt></p>
+<p>跳转到home组件中：</p>
+<p><img src="/2018/07/27/vue/vue-5/14.png" alt></p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/vue/vue-4/" rel="next" title="Vue路由">
+                <i class="fa fa-chevron-left"></i> Vue路由
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/30/vue/vue-6/" rel="prev" title="Vue+ElementUI+SpringMVC实现分页">
+                Vue+ElementUI+SpringMVC实现分页 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#后端"><span class="nav-number">1.1.</span> <span class="nav-text">后端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端"><span class="nav-number">1.2.</span> <span class="nav-text">前端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#范例"><span class="nav-number">2.1.</span> <span class="nav-text">范例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动项目"><span class="nav-number">2.1.1.</span> <span class="nav-text">启动项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包项目"><span class="nav-number">2.1.2.</span> <span class="nav-text">打包项目</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">3.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建前端"><span class="nav-number">3.1.</span> <span class="nav-text">搭建前端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步：修改main-js"><span class="nav-number">3.1.1.</span> <span class="nav-text">第一步：修改main.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步：修改router-index-js"><span class="nav-number">3.1.2.</span> <span class="nav-text">第二步：修改router/index.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步：创建login-vue"><span class="nav-number">3.1.3.</span> <span class="nav-text">第三步：创建login.vue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四部：创建home-vue"><span class="nav-number">3.1.4.</span> <span class="nav-text">第四部：创建home.vue</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建后端"><span class="nav-number">3.2.</span> <span class="nav-text">搭建后端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决跨域请求"><span class="nav-number">3.2.1.</span> <span class="nav-text">解决跨域请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Controller"><span class="nav-number">3.2.2.</span> <span class="nav-text">Controller</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">4.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">5.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

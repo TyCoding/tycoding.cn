@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="solr,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Solr的安装与配置 多数搜索引擎应用都必须具有某种搜索功能，而搜索功能往往大量的消耗资源导致应用程序运行缓慢。为此，出现了各种用于构建搜索的应用程序，我们要学习的solr正是其中的一款开源搜索平台。 Apache Solr 是建立在Lucene(全文搜索引擎)之上，帮助我从大量的数据中寻找所需信息。不仅限于搜索，Solr也可用于储存目的。像其他NoSQL数据库一样，它是一种非关系数据储存和处理技">
+<meta name="keywords" content="solr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solr及Spring-Data-Solr入门学习">
+<meta property="og:url" content="http://www.tycoding.cn/2018/09/24/other/solr/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="Solr的安装与配置 多数搜索引擎应用都必须具有某种搜索功能，而搜索功能往往大量的消耗资源导致应用程序运行缓慢。为此，出现了各种用于构建搜索的应用程序，我们要学习的solr正是其中的一款开源搜索平台。 Apache Solr 是建立在Lucene(全文搜索引擎)之上，帮助我从大量的数据中寻找所需信息。不仅限于搜索，Solr也可用于储存目的。像其他NoSQL数据库一样，它是一种非关系数据储存和处理技">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/4.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/5.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/7.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/8.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/9.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/10.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Solr及Spring-Data-Solr入门学习">
+<meta name="twitter:description" content="Solr的安装与配置 多数搜索引擎应用都必须具有某种搜索功能，而搜索功能往往大量的消耗资源导致应用程序运行缓慢。为此，出现了各种用于构建搜索的应用程序，我们要学习的solr正是其中的一款开源搜索平台。 Apache Solr 是建立在Lucene(全文搜索引擎)之上，帮助我从大量的数据中寻找所需信息。不仅限于搜索，Solr也可用于储存目的。像其他NoSQL数据库一样，它是一种非关系数据储存和处理技">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/09/24/other/solr/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/09/24/other/solr/">
+
+
+
+
+
+  <title>Solr及Spring-Data-Solr入门学习 | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/09/24/other/solr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Solr及Spring-Data-Solr入门学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-24T16:09:09+08:00">
+                2018-09-24
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>Solr的安装与配置</strong></p>
+<p>多数搜索引擎应用都必须具有某种搜索功能，而搜索功能往往大量的消耗资源导致应用程序运行缓慢。为此，出现了各种用于构建搜索的应用程序，我们要学习的solr正是其中的一款开源搜索平台。</p>
+<p>Apache Solr 是建立在Lucene(全文搜索引擎)之上，帮助我从大量的数据中寻找所需信息。不仅限于搜索，Solr也可用于储存目的。像其他NoSQL数据库一样，它是一种非关系数据储存和处理技术。</p>
+<a id="more"></a>
+
+<p>下面我们开始喜闻乐见的手摸手教学，教你优雅的整合SSM框架和Solr搜索框架。</p>
+<ul>
+<li>项目开源地址： <a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">Github</a> </li>
+</ul>
+<p>项目中使用了SSM + Shiro + Redis + Solr + Vue.JS + ElementUI技术，优雅的整合了SSM框架阶段几个常见的企业框架；并用Vue.js + ElementUI写了超漂亮的前端页面；如果觉得可以，就点亮右上角star吧(#^.^#)。</p>
+<p>如果你对Shiro+用户-角色-权限整合不是很懂，你或许可以看下我的这个项目： <a href="https://github.com/TyCoding/shiro" target="_blank" rel="noopener">手摸手教你SSM整合Shiro框架后的开发</a>。</p>
+<p>日常学习记录，如果想支持我，希望能在Github上看到你点亮的星星(#^.^#)。</p>
+<br>
+
+
+<ul>
+<li>本例中使用的Solr和Tomcat我已经上传到了Github，仓库地址： <a href="https://github.com/TyCoding/solr-tomcat" target="_blank" rel="noopener">Tomcat搭建Solr运行环境，集成Ik 中文分词器</a></li>
+</ul>
+<br>
+
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>在 <a href="http://mirrors.hust.edu.cn/apache/lucene/solr/7.4.0/" target="_blank" rel="noopener">Apache Solr官网</a>  下载最新版的Solr，在 <a href="https://tomcat.apache.org/download-80.cgi" target="_blank" rel="noopener">Apache Tomcat官网</a> 下载Tomcat。</p>
+<p>解压solr，发现其中有如下目录结构</p>
+<p><img src="/2018/09/24/other/solr/1.png" alt></p>
+<p>新版本的Solr和老版本的不同，老版本中直接提供的是war文件，新版本则是提供了直接可运行的项目；其次需要导入项目中的的文件也有所不同的。下面我们介绍一下完整的配置和Solr项目的启动：</p>
+<ul>
+<li>1、将<code>solr-7.4.0/server/solr-webapp/</code>下的<code>webapp</code>文件夹拷贝到Tomcat下的<code>webapps</code>目录下（并重命名为solr）。</li>
+<li>2、将<code>solr-7.4.0/server/lib/ext/</code>下的所有Jar文件全部拷贝到Tomcat下<code>webapps/solr/WEB-INF/lib</code>目录下。</li>
+<li>3、将<code>solr-7.4.0/server/lib</code>下所有<code>metrics</code>开头的jar文件全部拷贝到<code>webapps/solr/WEB-INF/lib</code>目录下。</li>
+<li>4、将<code>solr/7.4.0/server/solr</code>文件夹复制到任意一个位置并重命名为<code>solrhome</code>。</li>
+<li>5、修改<code>tomcat/webapps/solr/WEB-INF/web.xml</code>文件的第41行，指定solrhome所在的目录。</li>
+</ul>
+<p><img src="/2018/09/24/other/solr/2.png" alt></p>
+<ul>
+<li>6、在<code>webapps/solr/WEB-INF/web.xml</code>下的第125行出添加注释，也就是注释<code>&lt;security-constraint&gt;&lt;/secirity-constraint&gt;</code>节点下的配置。</li>
+</ul>
+<p><img src="/2018/09/24/other/solr/3.png" alt></p>
+<ul>
+<li>7、启动Tomcat，在浏览器中访问<code>http://localhost:8080/solr/index.html</code>即可访问到<code>solr Admin</code></li>
+</ul>
+<p><img src="/2018/09/24/other/solr/4.png" alt></p>
+<p>如上所示，你会发现其左下角显示的是<code>No cores</code>，这和老版本的可能又有所差别，所以我们点击<code>No cores</code>，创建一个新的<code>cores</code>，那么会在我们指定的<code>solrhome</code>文件夹内产生一个<code>new_core</code>的空文件夹，并且页面会报错：<code>Can&#39;t find resource &#39;solrconfig.xml&#39; in xxx</code>，表示的就是在这个新core下的conf文件夹下没有找到solrconfig.xml文件：</p>
+<p><img src="/2018/09/24/other/solr/5.png" alt></p>
+<p><img src="/2018/09/24/other/solr/6.png" alt></p>
+<p>我们需要将复制来的<code>configsets/_default/conf</code>这个文件夹（或者<code>solr-7.4.0/server/solr/configsets/_default/conf</code>文件夹）复制到<code>solrhome/new_core/</code>文件夹下。</p>
+<ul>
+<li>8、重启Tomcat服务器，发现还是没有出现新的core，点击<code>No cores</code>那里点击<code>add core</code>，此时就会完整的创建一个新的core，在<code>solrhome/new_core</code>文件夹下会生成新的文件：</li>
+</ul>
+<p><img src="/2018/09/24/other/solr/7.png" alt></p>
+<ul>
+<li>至此Solr已经安装完成。</li>
+</ul>
+<br>
+
+<h1 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h1><p>上面我们成功的安装了solr，下面就要进行相关的配置。因为solr是一个开源的搜索平台，主要功能就是把用户输入的搜索信息分类汇总并进行数据库的查询，而中文众所周知语义比较复杂，而且中文所占的字节和英文也有所不同，所以就出现了中文分词器，实现模拟中文语义对数据进行分词衍化。IK Analyzer正是其中的一种分词器。</p>
+<p>IK Analyzer在solr工程中的配置如下：</p>
+<ul>
+<li>1、下载ikanalyzer相关配置文件，因为Maven仓库中的ikanalyzer版本太老，solr5以上的版本都不支持，所以这里提供一个新版本： <a href="https://pan.baidu.com/s/1YtfY_Ogp2REcOxds20tlGQ" target="_blank" rel="noopener">传送门</a></li>
+<li>2、将下载的jar文件copy到<code>webapps/solr/WEB-INF/lib</code>文件夹下</li>
+<li>3、在<code>webapps/solr/WEB-INF/</code>下创建<code>classes</code>文件夹，将上面下载的文件夹中的<code>ext.dic</code>、<code>IKAnalyzer.cfg.xml</code>、<code>stopword.dic</code>三个文件复制到<code>webapps/solr/WEB-INF/classes/</code>文件夹下。</li>
+<li>4、在<code>solrhome/conf/</code>目录下我们发现并没有schema.xml文件，这和老版本又有所不同，老版本直接生成好了schema.xml文件，在新版本中我们可以发现<code>/conf</code>文件夹中存在一个<code>managed-schema</code>文件，这个其实就是我们要的<code>schema.xml</code>文件。但是我们又不能直接用，具体原因参考 <a href="https://blog.csdn.net/jiangchao858/article/details/52518190" target="_blank" rel="noopener">博文</a></li>
+<li>5、直接将<code>managed-schema</code>文件重命名为<code>schema.xml</code>。并在<code>schema.xml</code>的最后添加<code>&lt;fieldType&gt;</code>节点：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fieldType</span> <span class="attr">name</span>=<span class="string">"text_ik"</span> <span class="attr">class</span>=<span class="string">"solr.TextField"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">analyzer</span> <span class="attr">class</span>=<span class="string">"org.wltea.analyzer.lucene.IKAnalyzer"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fieldType</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>6、重启Tomcat服务器，重新访问项目，点击<code>new_core</code>下的Schema功能，在select下拉框中输入<code>text_ik</code>如果出现刚创建的<code>text_ik</code>，说明IK中文分词器安装成功。</li>
+</ul>
+<p><img src="/2018/09/24/other/solr/8.png" alt></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>未使用分词器效果：</p>
+<p><img src="/2018/09/24/other/solr/9.png" alt></p>
+<p>使用了分词器的效果显而易见：</p>
+<p><img src="/2018/09/24/other/solr/10.png" alt></p>
+<br>
+
+<h2 id="配置域"><a href="#配置域" class="headerlink" title="配置域"></a>配置域</h2><p>solr和其他NoSQL数据库一样可以实现数据存储，所以我们可以以数据库的思想想象一下solr，之前我们新创建的<code>core</code>就类似一个数据库，那么下面要配置的<code>域</code>就相当于数据库的表字段，因此要手动的去定义系统中需要的字段Field（域）。</p>
+<p>通常我们创建的一种Field分别对应这一类数据，用户对同一种数据进行相同的操作。域常用的属性有：</p>
+<ul>
+<li>name: 指定域的名称</li>
+<li>type: 指定域的类型</li>
+<li>indexed: 是否索引</li>
+<li>stored: 是否储存</li>
+<li>required: 是否必须</li>
+<li>multiValued: 是否多值</li>
+</ul>
+<h3 id="域的介绍"><a href="#域的介绍" class="headerlink" title="域的介绍"></a>域的介绍</h3><p>如上面的介绍，<code>域</code>类似数据库中的表字段，而我们做项目时数据库的字段都是根据项目需求创建的，所以<code>域</code>也是如此，它是根据搜索平台需要搜索的信息对应的数据库表字段来创建的。</p>
+<p>比如，在淘宝商城购买商品，我们可能会搜索：1、品牌（对应数据库中<code>brand</code>字段）；2、价格（对应数据库中<code>price</code>字段）；3、商品介绍名称（对应数据库中<code>title</code>字段）等等…</p>
+<p>每一中域（字段）都用<code>&lt;field&gt;</code>字段设定，比如如上的搜索数据，我们可以设置为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"item_title"</span> <span class="attr">type</span>=<span class="string">"text_ik"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"item_price"</span> <span class="attr">type</span>=<span class="string">"pdouble"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"item_image"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"false"</span> <span class="attr">stored</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"item_category"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"item_seller"</span> <span class="attr">type</span>=<span class="string">"text_ik"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"item_brand"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在新版本的solr中，<code>type</code>属性不能单单设置为基本的数据类型名称了，具体用法要参考<code>schema.xml</code>文件中之前已存在的配置，例如：long要写成plong，double要写为pdouble，不然就会报错。</p>
+<p>注意：</p>
+<ul>
+<li><p>你会奇怪域的设定不就是根据用户搜索的数据分类来设定的吗，那为何还要指定indexed=”true”，原因：可能有些数据是不是用户输入的查询的，但是还是需要在用户搜索的同时检索出来。</p>
+</li>
+<li><p>你会奇怪为何要设定stored，原因：大多数域都是要进行存储的，但是也有不需要存储的，比如复制域。</p>
+</li>
+</ul>
+<h4 id="复制域"><a href="#复制域" class="headerlink" title="复制域"></a>复制域</h4><p>复制域的作用在于将某一个Field中的数据复制到另一个域中。<br>由于用户输入的数据可能是查询的价格，也可能是商品的title，又或者是商品的品牌等… 我们无法预测用户要查询的是什么，由此出现了搜索引擎平台，帮助我们对查询数据进行分类。<br>所以，solr的目标是实现两种不同的域可以在同一个域中查询（发送一次请求），而<code>复制域</code>的出现正可解决这一问题。</p>
+<p>如此，我们为上面要查询的字段设定复制域：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"item_keywords"</span> <span class="attr">type</span>=<span class="string">"text_ik"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"false"</span> <span class="attr">multiValued</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">copyField</span> <span class="attr">source</span>=<span class="string">"item_title"</span> <span class="attr">dest</span>=<span class="string">"item_keywords"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">copyField</span> <span class="attr">source</span>=<span class="string">"item_category"</span> <span class="attr">dest</span>=<span class="string">"item_keywords"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">copyField</span> <span class="attr">source</span>=<span class="string">"item_seller"</span> <span class="attr">dest</span>=<span class="string">"item_keywords"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中的<code>source</code>属性值要和<code>&lt;field&gt;</code>中的<code>name</code>保持一致。</p>
+<h4 id="动态域"><a href="#动态域" class="headerlink" title="动态域"></a>动态域</h4><p>在项目中，商品的数据可能会动态的添加或减少，比如原来没有的数据，但是后来又完善添加上去了，那么就需要动态的配置从而实现用户能及时查询到。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dynamicField</span> <span class="attr">name</span>=<span class="string">"item_conf_*"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="Spring-Data-Solr入门"><a href="#Spring-Data-Solr入门" class="headerlink" title="Spring Data Solr入门"></a>Spring Data Solr入门</h1><p>经过上面的安装和配置大家应该已经知道如何配置Solr，那么就会思考一个问题了：这个solr项目和我们实际的项目查询有什么关系呢？是怎么结合的呢？</p>
+<p>solr官方提供了<code>solrj API</code>，就是一个jar文件，我们可以通过solr官方提供的接口来实现本地项目和solr项目的交互；而这里我们要介绍的是Spring Data Solr，它是Spring Data家族对solrj进行封装后的框架。</p>
+<ul>
+<li>注意<br>上面我们在Tomcat中部署的solr项目是不需要再进行位置上的变动的，也就是他必须是已经在Tomcat中部署好的，而我们自己的项目启动时不能再使用8080端口（因为solr本身就占用了Tomcat的端口，而我们的项目是可以改变运行端口的，总之两者无论是不是在同一个Tomcat服务器中部署都不能使用同一端口）。我们通过配置文件就能访问到这个指定端口的solr项目（Tomcat必须是启动着的），通过Spring Data Solr提供的接口就能实现交互：<br>所谓交互 –&gt; 等价于查询solr中以存在的数据，然后将结果返回： <ul>
+<li>用户查询，请求接口将查询条件交给solr（通过Spring Data Solr提供的接口访问Solr服务），solr对自身已存在的数据进行查找</li>
+</ul>
+</li>
+</ul>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="导入jar文件"><a href="#导入jar文件" class="headerlink" title="导入jar文件"></a>导入jar文件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-solr<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><p>既然是Spring家族的框架，当然要进行配置使用了，创建<code>spring-solr.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:solr</span>=<span class="string">"http://www.springframework.org/schema/data/solr"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/data/solr</span></span></span><br><span class="line"><span class="tag"><span class="string">  		http://www.springframework.org/schema/data/solr/spring-solr-1.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">		http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">		http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- solr服务器地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">solr:solr-server</span> <span class="attr">id</span>=<span class="string">"solrServer"</span> <span class="attr">url</span>=<span class="string">"http://127.0.0.1:8080/solr/new_core"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- solr模板，使用solr模板可对索引库进行CRUD的操作 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"solrTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.solr.core.SolrTemplate"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"solrServer"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意：</li>
+</ul>
+<p>一定要注意solr配置中solr服务器地址的配置，这个<code>url</code>一定是<code>solr项目访问地址</code> + <code>/core</code>实例名称组合的路径。一般我们新建的core实例名称就是<code>new_core</code>。</p>
+<h3 id="为实体类属性添加-Field注解"><a href="#为实体类属性添加-Field注解" class="headerlink" title="为实体类属性添加@Field注解"></a>为实体类属性添加@Field注解</h3><p>上面完成了基本的环境配置，下面则需要为实体类中属性添加<code>@Field</code>注解标识。</p>
+<p>一般我们定义的实体类属性名称和数据库的字段名称相似，但是，如果使用了Solr搜索，每次查询数据将不再查询数据库，那么Solr怎么获取到你要查询的是商品的title还是price呢？</p>
+<p>这里就需要使用<code>@Field</code>注解，保证实体类属性名称和Solr索引库中定义的<code>Field</code>域名称对应，如果当前属性名称和Solr索引库域Field名称相同，就添加<code>@Field</code>名称，如果不相同就添加<code>@Field(&quot;域名称&quot;)</code>注解。</p>
+<p>这里我们这样定义实体类 <a href="https://github.com/TyCoding/ssm-redis-solr/blob/master/src/main/java/cn/tycoding/entity/Goods.java" target="_blank" rel="noopener">Goods</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Goods</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Field</span></span><br><span class="line">    <span class="keyword">private</span> Long id; <span class="comment">//商品ID</span></span><br><span class="line">    <span class="meta">@Field</span>(<span class="string">"item_title"</span>)</span><br><span class="line">    <span class="keyword">private</span> String title; <span class="comment">//商品标题</span></span><br><span class="line">    <span class="meta">@Field</span>(<span class="string">"item_price"</span>)</span><br><span class="line">    <span class="keyword">private</span> String price; <span class="comment">//商品价格</span></span><br><span class="line">    <span class="meta">@Field</span>(<span class="string">"item_image"</span>)</span><br><span class="line">    <span class="keyword">private</span> String image; <span class="comment">//商品图片</span></span><br><span class="line">    <span class="meta">@Field</span>(<span class="string">"item_category"</span>)</span><br><span class="line">    <span class="keyword">private</span> String category; <span class="comment">//商品类别</span></span><br><span class="line">    <span class="meta">@Field</span>(<span class="string">"item_brand"</span>)</span><br><span class="line">    <span class="keyword">private</span> String brand; <span class="comment">//商品品牌</span></span><br><span class="line">    <span class="meta">@Field</span>(<span class="string">"item_seller"</span>)</span><br><span class="line">    <span class="keyword">private</span> String seller; <span class="comment">//商品卖家</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意：温馨提示一下，大家创建实体类的时候尽量养成一个习惯：实现Serializable序列化接口。不序列化迟早会遇到问题。</li>
+</ul>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>本例详细代码请参看: <a href="https://github.com/TyCoding/ssm-redis-solr/blob/master/test/TestSolrTemplate.java" target="_blank" rel="noopener">Github</a></p>
+<ol>
+<li><p>由于我们创建的是测试类，需要使用<code>@RunWith</code>和<code>@ContextConfiguration</code>注解加载配置文件。</p>
+</li>
+<li><p>在测试类中用注入Spring Data Solr操作Solr索引库的核心类<code>SolrTemplate</code></p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> SolrTemplate solrTemplate;</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Goods goods = <span class="keyword">new</span> Goods(<span class="number">1L</span>, <span class="string">"IPhone SE"</span>, <span class="string">"120"</span>, <span class="string">"手机"</span>, <span class="string">"Apple"</span>, <span class="string">"Apple"</span>);</span><br><span class="line">    solrTemplate.saveBean(goods);</span><br><span class="line">    solrTemplate.commit(); <span class="comment">//提交</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现数据的添加：</p>
+<ol>
+<li>实例化一个实体类，并添加数据。</li>
+<li>调用<code>solrTemplate</code>的<code>saveBean()</code>方法；这个<code>saveBean()</code>是用来添加普通对象类型数据到Solr索引库的，如果是List集合这种类型，使用<code>saveBeans()</code>方法。</li>
+<li>调用<code>solrTemplate</code>的<code>commit()</code>方法，提交更改；类似于我们请求数据库时需要关闭连接一样，必须调用<code>commit()</code>方法才能保存修改。</li>
+</ol>
+<h3 id="按主键查询"><a href="#按主键查询" class="headerlink" title="按主键查询"></a>按主键查询</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindById</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Goods goods = solrTemplate.getById(<span class="number">1</span>, Goods.class);</span><br><span class="line">    System.out.println(<span class="string">"--------"</span> + goods.getTitle());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="按主键删除"><a href="#按主键删除" class="headerlink" title="按主键删除"></a>按主键删除</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDeleteById</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    solrTemplate.deleteById(<span class="string">"1"</span>);</span><br><span class="line">    solrTemplate.commit(); <span class="comment">//提交</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="批量插入数据"><a href="#批量插入数据" class="headerlink" title="批量插入数据"></a>批量插入数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAddList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Goods&gt; list = <span class="keyword">new</span> ArrayList&lt;Goods&gt;();</span><br><span class="line">    <span class="comment">//循环插入100条数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">        Goods goods = <span class="keyword">new</span> Goods(i + <span class="number">1L</span>, <span class="string">"华为Mate"</span> + i, String.valueOf(<span class="number">2000</span> + i), <span class="string">"手机"</span>, <span class="string">"手机"</span>, <span class="string">"华为专卖店"</span>);</span><br><span class="line">        list.add(goods);</span><br><span class="line">    &#125;</span><br><span class="line">    solrTemplate.saveBeans(list); <span class="comment">//添加集合对象，调用saveBeans()；添加普通对象类型数据，使用saveBean();</span></span><br><span class="line">    solrTemplate.commit(); <span class="comment">//提交</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPageQuery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Query query = <span class="keyword">new</span> SimpleQuery(<span class="string">"*:*"</span>);</span><br><span class="line">    query.setOffset(<span class="number">20</span>); <span class="comment">//开始索引（默认0）</span></span><br><span class="line">    query.setRows(<span class="number">20</span>); <span class="comment">//每页记录数（默认10）</span></span><br><span class="line">    ScoredPage&lt;Goods&gt; page = solrTemplate.queryForPage(query, Goods.class);</span><br><span class="line">    System.out.println(<span class="string">"总记录数："</span> + page.getTotalElements());</span><br><span class="line">    List&lt;Goods&gt; list = page.getContent();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面使用<code>new SimpleQuery</code>方式是声明一个Query实例，而<code>(&quot;*:*&quot;)</code>表示查询Solr索引库中的所有数据。Solr默认查询的数据是前十条记录，也就是即便使用了<code>(&quot;*:*&quot;)</code>查询，也仅仅是查询到十条记录。<br>不过Solr提供了分页查询的方法：<code>setOffset()</code>设置开始索引位置，<code>setRows()</code>设置结束索引位置（默认10）；调用<code>solrTemplate.queryForPage(query, clazz)</code>即是分页查询。</p>
+<p>分页查询到的结果存储在<code>page</code>对象中，使用<code>page.getTotalElements()</code>可以获取到查询的总记录数，使用<code>page.getContent()</code>获取到查询的数据。</p>
+<h3 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPageQueryMutil</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Query query = <span class="keyword">new</span> SimpleQuery(<span class="string">"*:*"</span>);</span><br><span class="line">    Criteria criteria = <span class="keyword">new</span> Criteria(<span class="string">"item_title"</span>).contains(<span class="string">"2"</span>);</span><br><span class="line">    criteria = criteria.and(<span class="string">"item_title"</span>).contains(<span class="string">"5"</span>);</span><br><span class="line">    query.addCriteria(criteria);</span><br><span class="line"></span><br><span class="line">    ScoredPage&lt;Goods&gt; page = solrTemplate.queryForPage(query, Goods.class);</span><br><span class="line">    System.out.println(<span class="string">"总记录数："</span> + page.getTotalElements());</span><br><span class="line">    List&lt;Goods&gt; list = page.getContent();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上，使用分页插件需要实例化<code>Criteria</code>类添加查询条件，查询是根据<code>schema.xml</code>中定义的<code>Field</code>域名称查询的，相当于根据数据库的字段名称查询一样。</p>
+<h3 id="删除所有"><a href="#删除所有" class="headerlink" title="删除所有"></a>删除所有</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteAll</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Query query = <span class="keyword">new</span> SimpleQuery(<span class="string">"*:*"</span>);</span><br><span class="line">    solrTemplate.delete(query);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/solr/" rel="tag"># solr</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/18/ssm/shiro/ssm-shiro/" rel="next" title="SSM框架整合Shiro后的开发">
+                <i class="fa fa-chevron-left"></i> SSM框架整合Shiro后的开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/24/other/redis/" rel="prev" title="Redis及Spring-Data-Redis入门学习">
+                Redis及Spring-Data-Redis入门学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中文分词器"><span class="nav-number">2.</span> <span class="nav-text">中文分词器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">2.1.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置域"><span class="nav-number">2.2.</span> <span class="nav-text">配置域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#域的介绍"><span class="nav-number">2.2.1.</span> <span class="nav-text">域的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复制域"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">复制域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态域"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">动态域</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Data-Solr入门"><span class="nav-number">3.</span> <span class="nav-text">Spring Data Solr入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">3.1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入jar文件"><span class="nav-number">3.1.1.</span> <span class="nav-text">导入jar文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建配置文件"><span class="nav-number">3.1.2.</span> <span class="nav-text">创建配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为实体类属性添加-Field注解"><span class="nav-number">3.1.3.</span> <span class="nav-text">为实体类属性添加@Field注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">3.2.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加"><span class="nav-number">3.2.1.</span> <span class="nav-text">添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按主键查询"><span class="nav-number">3.2.2.</span> <span class="nav-text">按主键查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按主键删除"><span class="nav-number">3.2.3.</span> <span class="nav-text">按主键删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量插入数据"><span class="nav-number">3.2.4.</span> <span class="nav-text">批量插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页查询"><span class="nav-number">3.2.5.</span> <span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件查询"><span class="nav-number">3.2.6.</span> <span class="nav-text">条件查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除所有"><span class="nav-number">3.2.7.</span> <span class="nav-text">删除所有</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">4.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">5.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

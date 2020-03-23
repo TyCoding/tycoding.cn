@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="shiro,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="权限框架Shiro学习之表结构设计 Shiro是一款优秀的开源安全框架，学习Shiro大家可以参考张开涛老师的博客:跟我学Shiro，当然也可参考我之前的笔记：Shiro实现身份认证、Shiro实现授权。 在学习完基础的Shiro入门知识，我们可以动手写一个小Demo了，这次我们将以一个用户-角色-权限管理的Demo来进一步学习Shiro。">
+<meta name="keywords" content="shiro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shiro实现权限管理之表结构设计">
+<meta property="og:url" content="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="权限框架Shiro学习之表结构设计 Shiro是一款优秀的开源安全框架，学习Shiro大家可以参考张开涛老师的博客:跟我学Shiro，当然也可参考我之前的笔记：Shiro实现身份认证、Shiro实现授权。 在学习完基础的Shiro入门知识，我们可以动手写一个小Demo了，这次我们将以一个用户-角色-权限管理的Demo来进一步学习Shiro。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/4.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/5.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shiro实现权限管理之表结构设计">
+<meta name="twitter:description" content="权限框架Shiro学习之表结构设计 Shiro是一款优秀的开源安全框架，学习Shiro大家可以参考张开涛老师的博客:跟我学Shiro，当然也可参考我之前的笔记：Shiro实现身份认证、Shiro实现授权。 在学习完基础的Shiro入门知识，我们可以动手写一个小Demo了，这次我们将以一个用户-角色-权限管理的Demo来进一步学习Shiro。">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/">
+
+
+
+
+
+  <title>Shiro实现权限管理之表结构设计 | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Shiro实现权限管理之表结构设计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-15T21:43:28+08:00">
+                2018-09-15
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>权限框架Shiro学习之表结构设计</strong></p>
+<p>Shiro是一款优秀的开源安全框架，学习Shiro大家可以参考张开涛老师的博客:<a href="http://jinnianshilongnian.iteye.com/blog/2049092" target="_blank" rel="noopener">跟我学Shiro</a>，当然也可参考我之前的笔记：<a href="http://tycoding.cn/2018/07/07/ssm/shiro/shiro-2/" target="_blank" rel="noopener">Shiro实现身份认证</a>、<a href="http://tycoding.cn/2018/07/08/ssm/shiro/shiro-3/" target="_blank" rel="noopener">Shiro实现授权</a>。</p>
+<p>在学习完基础的Shiro入门知识，我们可以动手写一个小Demo了，这次我们将以一个用户-角色-权限管理的Demo来进一步学习Shiro。</p>
+<a id="more"></a>
+
+<h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><h2 id="表设计"><a href="#表设计" class="headerlink" title="表设计"></a>表设计</h2><p>开发用户-角色-权限管理系统，首先我们需要知道<code>用户-角色-权限</code>管理系统的表结构设计。</p>
+<p>在<code>用户-角色-权限</code>管理系统找那个一般会涉及5张表，分别为：</p>
+<ul>
+<li>1.<code>sys_users</code>用户表</li>
+<li>2.<code>sys_roles</code>角色表</li>
+<li>3.<code>sys_permissions</code>权限表（或资源表）</li>
+<li>4.<code>sys_users_roles</code>用户-角色关联表 </li>
+<li>5.<code>sys_roles_permissions</code>角色-权限关联表（或角色-资源关联表）</li>
+</ul>
+<p><strong>详细的建表信息如下</strong></p>
+<ul>
+<li><code>sys_users</code></li>
+</ul>
+<p><img src="/2018/09/15/ssm/shiro/shiro-database/1.png" alt></p>
+<p><strong>解释</strong><br>用户表中至少包含以上的字段，主键id、用户名username、密码password、盐值salt（因为密码是经过Shiro加密的，需要通过盐值校验，由Shiro生成，不需要用户手动填写）、角色列表roleId（这个字段不是必须的，仅实现在展示用户信息的时候能同时展示用户当前角色）、是否锁定locked（决定当前账户是否是锁定的）。<br>创建新的用户，仅需要输入用户名和密码即可，盐值由Shiro生成，角色列表和是否锁定都可以在后期管理。</p>
+<p>其中是否锁定字段类型为<code>tinyint(1)</code>，设置这种类型，数据库中实际存储的是int类型数据，一般是0和1，在使用Mybatis取这个字段的数据时，Mybatis会自动将<code>tinyint(1)</code>字段值为0的转换成false，将字段值为1以上的转换为true。</p>
+<ul>
+<li><code>sys_roles</code></li>
+</ul>
+<p><img src="/2018/09/15/ssm/shiro/shiro-database/2.png" alt></p>
+<p><strong>解释</strong><br>角色表中role角色名称一般为存储着类似<code>user:create</code>这种格式，Shiro在Realm中校验用户身份的时候会通过<code>role</code>这个字段值进行校验；<code>description</code>是此角色的描述信息，比如<code>用户创建</code>。
+其中<code>pid</code>表示父节点，就是说，当前的角色可能有上级节点，比如<code>老师</code>，这个角色可能就有父节点<code>计科教师</code>，如果存在父节点，这个字段值就是父级节点的ID，根据这个ID，在展示数据的时候就很方便的展示出其在哪个父节点下。<br><code>available</code>表示当前节点是否锁定，同样是<code>tinyint(1)</code>类型，如果为false就说明没有锁定。</p>
+<ul>
+<li><code>sys_users_roles</code></li>
+</ul>
+<p><img src="/2018/09/15/ssm/shiro/shiro-database/3.png" alt></p>
+<p><strong>解释</strong><br>用户角色表就比较简单了，仅仅包含了主键<code>id</code>、用户ID<code>user_id</code>、角色ID<code>role_id</code>；这张表主要描述指定用户与角色间的依赖关系。其中用户表与角色表是一对多的关系，一个用户可以拥有多个角色。</p>
+<ul>
+<li><code>sys_permissions</code></li>
+</ul>
+<p><img src="/2018/09/15/ssm/shiro/shiro-database/4.png" alt></p>
+<p><strong>解释</strong><br>权限表和角色表类似，其中不同的字段是<code>rid</code>，这个字段表示此权限关联的角色的id值，当然不是必要的，但是后端角色更新时用到了，后面会介绍。</p>
+<ul>
+<li><code>sys_roles_permissions</code></li>
+</ul>
+<p><img src="/2018/09/15/ssm/shiro/shiro-database/5.png" alt></p>
+<p><strong>解释</strong><br>角色-权限表和用户-角色表类似，包含了主键<code>id</code>、角色ID<code>role_id</code>、权限ID<code>permission_id</code>，主要描述角色和权限间的依赖关系，同样，角色和权限间也是一对多的关系，一个角色会关联多个权限。</p>
+<br>
+
+<h2 id="schema-sql"><a href="#schema-sql" class="headerlink" title="schema.sql"></a>schema.sql</h2><p>上述表设计的源码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- create database shiro default character set utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> sys_users;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> sys_roles;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> sys_permissions;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> sys_users_roles;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> sys_roles_permissions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sys_users (</span><br><span class="line">  <span class="keyword">id</span> <span class="built_in">bigint</span> auto_increment <span class="keyword">comment</span> <span class="string">'编号'</span>,</span><br><span class="line">  username <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">comment</span> <span class="string">'用户名'</span>,</span><br><span class="line">  <span class="keyword">password</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">comment</span> <span class="string">'密码'</span>,</span><br><span class="line">  <span class="keyword">salt</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">comment</span> <span class="string">'盐值'</span>,</span><br><span class="line">  role_id <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">comment</span> <span class="string">'角色列表'</span>,</span><br><span class="line">  <span class="keyword">locked</span> <span class="built_in">bool</span> <span class="keyword">default</span> <span class="literal">false</span> <span class="keyword">comment</span> <span class="string">'是否锁定'</span>,</span><br><span class="line">  <span class="keyword">constraint</span> pk_sys_users primary <span class="keyword">key</span>(<span class="keyword">id</span>)</span><br><span class="line">) <span class="keyword">charset</span>=utf8 <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">unique</span> <span class="keyword">index</span> idx_sys_users_username <span class="keyword">on</span> sys_users(username);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sys_roles (</span><br><span class="line">  <span class="keyword">id</span> <span class="built_in">bigint</span> auto_increment <span class="keyword">comment</span> <span class="string">'角色编号'</span>,</span><br><span class="line">  <span class="keyword">role</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">comment</span> <span class="string">'角色名称'</span>,</span><br><span class="line">  description <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">comment</span> <span class="string">'角色描述'</span>,</span><br><span class="line">  pid <span class="built_in">bigint</span> <span class="keyword">comment</span> <span class="string">'父节点'</span>,</span><br><span class="line">  available <span class="built_in">bool</span> <span class="keyword">default</span> <span class="literal">false</span> <span class="keyword">comment</span> <span class="string">'是否锁定'</span>,</span><br><span class="line">  <span class="keyword">constraint</span> pk_sys_roles primary <span class="keyword">key</span>(<span class="keyword">id</span>)</span><br><span class="line">) <span class="keyword">charset</span>=utf8 <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">unique</span> <span class="keyword">index</span> idx_sys_roles_role <span class="keyword">on</span> sys_roles(<span class="keyword">role</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sys_permissions (</span><br><span class="line">  <span class="keyword">id</span> <span class="built_in">bigint</span> auto_increment <span class="keyword">comment</span> <span class="string">'编号'</span>,</span><br><span class="line">  permission <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">comment</span> <span class="string">'权限编号'</span>,</span><br><span class="line">  description <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">comment</span> <span class="string">'权限描述'</span>,</span><br><span class="line">  rid <span class="built_in">bigint</span> <span class="keyword">comment</span> <span class="string">'此权限关联角色的id'</span>,</span><br><span class="line">  available <span class="built_in">bool</span> <span class="keyword">default</span> <span class="literal">false</span> <span class="keyword">comment</span> <span class="string">'是否锁定'</span>,</span><br><span class="line">  <span class="keyword">constraint</span> pk_sys_permissions primary <span class="keyword">key</span>(<span class="keyword">id</span>)</span><br><span class="line">) <span class="keyword">charset</span>=utf8 <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">unique</span> <span class="keyword">index</span> idx_sys_permissions_permission <span class="keyword">on</span> sys_permissions(permission);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sys_users_roles (</span><br><span class="line">  <span class="keyword">id</span>  <span class="built_in">bigint</span> auto_increment <span class="keyword">comment</span> <span class="string">'编号'</span>,</span><br><span class="line">  user_id <span class="built_in">bigint</span> <span class="keyword">comment</span> <span class="string">'用户编号'</span>,</span><br><span class="line">  role_id <span class="built_in">bigint</span> <span class="keyword">comment</span> <span class="string">'角色编号'</span>,</span><br><span class="line">  <span class="keyword">constraint</span> pk_sys_users_roles primary <span class="keyword">key</span>(<span class="keyword">id</span>)</span><br><span class="line">) <span class="keyword">charset</span>=utf8 <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sys_roles_permissions (</span><br><span class="line">  <span class="keyword">id</span> <span class="built_in">bigint</span> auto_increment <span class="keyword">comment</span> <span class="string">'编号'</span>,</span><br><span class="line">  role_id <span class="built_in">bigint</span> <span class="keyword">comment</span> <span class="string">'角色编号'</span>,</span><br><span class="line">  permission_id <span class="built_in">bigint</span> <span class="keyword">comment</span> <span class="string">'权限编号'</span>,</span><br><span class="line">  <span class="keyword">constraint</span> pk_sys_roles_permissions primary <span class="keyword">key</span>(<span class="keyword">id</span>)</span><br><span class="line">) <span class="keyword">charset</span>=utf8 <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>上面就是当前<code>用户-角色-权限</code>系统的表设计。细心的你可能会发现这些表中并不包含外键约束。</p>
+<p>为什么不设计外键呢？</p>
+<p>可能你会跟我一样有这样的疑问。比如用户表和角色表间，我们这里创建了用户-角色表来实现两者的关联；并没有通过给两张表建立外键来实现一对多、多对多的关联关系。<br>因为如果你要建立外键来关联两张表，你需要遇到如下：</p>
+<ol>
+<li>如果两张表之间存在一对多的关系，在给<code>一</code>的一方新增数据的时候，你要考虑<code>多</code>的一方是否存在指定的id。</li>
+<li>如果两张表之间存在一对多的关系，在删除<code>多</code>的一方时你要先删除其关联的<code>一</code>的一方，再删除<code>多</code>的一方。</li>
+<li>…</li>
+</ol>
+<p>也就是说如果使用了外键关联，那么在对表进行数据操作时就<strong>必须</strong>考虑另一张关联的表，相当于两张表就绑在一起了，操作这张表就必须考虑另一张关联表。</p>
+<p>但是实际中，我们不想立即就修改或更新关联表的数据，我可能一会再去更新另一张关联表的数据，那么就产生了这种方式：通过单独建立一张关联来实现两张表的数据关联。</p>
+<p>所以，我建议大家在设计表时尽量减少表与表直接的外键约束，这样能避免很多麻烦，并且两张表之间的关联关系也会格外清晰。</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>上面创建了用户-角色-权限表以及其关联表，下面就介绍一些实际的案例吧！</p>
+<h2 id="初始化表"><a href="#初始化表" class="headerlink" title="初始化表"></a>初始化表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into sys_users values(1,&apos;TyCoding&apos;,&apos;123&apos;,&apos;salt&apos;,&apos;管理员&apos;,0);</span><br><span class="line">insert into sys_roles values(21,&apos;user:create&apos;,&apos;用户创建&apos;,0,0);</span><br><span class="line">insert into sys_permissions values(31,&apos;user:create&apos;,&apos;用户创建&apos;,0,0);</span><br><span class="line">insert into sys_users_roles values(1,1,21);</span><br><span class="line">insert into sys_roles_permissions values(1,21,31);</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="根据用户名查询其角色"><a href="#根据用户名查询其角色" class="headerlink" title="根据用户名查询其角色"></a>根据用户名查询其角色</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[mysql&gt; SELECT r.id, r.role, r.description FROM sys_users u, sys_roles r, sys_users_roles ur WHERE u.username = 'TyCoding' AND u.id = ur.user_id AND r.id = ur.role_id;</span><br><span class="line">+<span class="comment">----+-------+-------------+</span></span><br><span class="line">| id | role  | description |</span><br><span class="line">+<span class="comment">----+-------+-------------+</span></span><br><span class="line">| 21 | admin | 管理员      |</span><br><span class="line">+<span class="comment">----+-------+-------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>从上面的SQL中足以看出，通过关联表查询另一张关联的数据要点在于WHERE条件中添加关联表与两张表的关系，在这里即是关联表中存在两张表的主键id，所以把相同的字段加入WHERE条件过滤就能查询到了。</p>
+<h3 id="根据用户名查询其权限"><a href="#根据用户名查询其权限" class="headerlink" title="根据用户名查询其权限"></a>根据用户名查询其权限</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[mysql&gt; SELECT p.id, p.permission, p.description FROM sys_users u, sys_roles r, sys_users_roles ur, sys_permissions p, sys_roles_permissions rp WHERE u.username = 'TyCoding' AND u.id = ur.user_id AND r.id = ur.role_id AND r.id = rp.role_id AND p.id = rp.permission_id;</span><br><span class="line">+<span class="comment">----+-------------+--------------+</span></span><br><span class="line">| id | permission  | description  |</span><br><span class="line">+<span class="comment">----+-------------+--------------+</span></span><br><span class="line">| 31 | user:<span class="keyword">create</span> | 用户创建     |</span><br><span class="line">+<span class="comment">----+-------------+--------------+</span></span><br><span class="line"><span class="number">1</span> <span class="keyword">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据角色id查询其权限"><a href="#根据角色id查询其权限" class="headerlink" title="根据角色id查询其权限"></a>根据角色id查询其权限</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[mysql&gt; SELECT p.id, p.description FROM sys_permissions p, sys_roles r, sys_roles_permissions rp WHERE r.id = 21 AND rp.role_id = r.id AND rp.permission_id = p.id;</span><br><span class="line">+<span class="comment">----+--------------+</span></span><br><span class="line">| id | description  |</span><br><span class="line">+<span class="comment">----+--------------+</span></span><br><span class="line">| 31 | 用户创建     |</span><br><span class="line">+<span class="comment">----+--------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新user表中role-id字段"><a href="#更新user表中role-id字段" class="headerlink" title="更新user表中role_id字段"></a>更新user表中<code>role_id</code>字段</h3><p>我们设计的<code>sys_users</code>表中，存在一个字段<code>role_id</code>，目的是用来展示当前用户关联的角色名称，但是我们直接更新<code>sys_roles</code>表的<code>description</code>字段时，又不会更新<code>sys_users</code>表中的<code>role_id</code>字段。</p>
+<p>所以，这里我们要通过更新的角色数据来更新<code>sys_users</code>表中的<code>role_id</code>字段。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[mysql&gt; UPDATE sys_users u, sys_users_roles ur SET u.role_id = '管理员-更新' WHERE ur.role_id = 21 AND u.id = ur.user_id;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM sys_users;</span><br><span class="line">+<span class="comment">----+----------+----------+------+------------------+--------+</span></span><br><span class="line">| id | username | password | salt | role_id          | locked |</span><br><span class="line">+<span class="comment">----+----------+----------+------+------------------+--------+</span></span><br><span class="line">|  1 | TyCoding | 123      | salt | 管理员-更新      |      0 |</span><br><span class="line">+<span class="comment">----+----------+----------+------+------------------+--------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据权限ID查询其角色"><a href="#根据权限ID查询其角色" class="headerlink" title="根据权限ID查询其角色"></a>根据权限ID查询其角色</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[mysql&gt; SELECT r.id, r.description, r.pid FROM sys_permissions p, sys_roles r, sys_roles_permissions rp WHERE p.id = 31 AND p.id = rp.permission_id AND r.id = rp.role_id;</span><br><span class="line">+<span class="comment">----+-------------+------+</span></span><br><span class="line">| id | description | pid  |</span><br><span class="line">+<span class="comment">----+-------------+------+</span></span><br><span class="line">| 21 | 管理员      |    0 |</span><br><span class="line">+<span class="comment">----+-------------+------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shiro/" rel="tag"># shiro</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/29/ssm/fastdfs/" rel="next" title="FastDFS系统搭建">
+                <i class="fa fa-chevron-left"></i> FastDFS系统搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/18/ssm/shiro/ssm-shiro/" rel="prev" title="SSM框架整合Shiro后的开发">
+                SSM框架整合Shiro后的开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#起步"><span class="nav-number">1.</span> <span class="nav-text">起步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表设计"><span class="nav-number">1.1.</span> <span class="nav-text">表设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#schema-sql"><span class="nav-number">1.2.</span> <span class="nav-text">schema.sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展"><span class="nav-number">1.3.</span> <span class="nav-text">拓展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化表"><span class="nav-number">2.1.</span> <span class="nav-text">初始化表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">2.2.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据用户名查询其角色"><span class="nav-number">2.2.1.</span> <span class="nav-text">根据用户名查询其角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据用户名查询其权限"><span class="nav-number">2.2.2.</span> <span class="nav-text">根据用户名查询其权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据角色id查询其权限"><span class="nav-number">2.2.3.</span> <span class="nav-text">根据角色id查询其权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新user表中role-id字段"><span class="nav-number">2.2.4.</span> <span class="nav-text">更新user表中role_id字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据权限ID查询其角色"><span class="nav-number">2.2.5.</span> <span class="nav-text">根据权限ID查询其角色</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">3.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">4.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

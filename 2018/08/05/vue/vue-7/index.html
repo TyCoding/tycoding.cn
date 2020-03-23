@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="vue,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Vue+ElementUI+SpringMVC实现图片上传和table回显 在之前我们已经讲过了 Vue+ElementUI+SpringMVC实现分页 。 而我们也常遇到表单中包含图片上传的需求，并且需要在table中显示图片，所以这里我就讲一下结合后端的SpringMVC框架如何实现图片上传并提交到表单中，在table表格中回显照片。 本案例对应的开源项目地址请看我的GitHub仓库：  优雅">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue+ElementUI+SpringMVC实现图片上传和回显">
+<meta property="og:url" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="Vue+ElementUI+SpringMVC实现图片上传和table回显 在之前我们已经讲过了 Vue+ElementUI+SpringMVC实现分页 。 而我们也常遇到表单中包含图片上传的需求，并且需要在table中显示图片，所以这里我就讲一下结合后端的SpringMVC框架如何实现图片上传并提交到表单中，在table表格中回显照片。 本案例对应的开源项目地址请看我的GitHub仓库：  优雅">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/4.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/5.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/7.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue+ElementUI+SpringMVC实现图片上传和回显">
+<meta name="twitter:description" content="Vue+ElementUI+SpringMVC实现图片上传和table回显 在之前我们已经讲过了 Vue+ElementUI+SpringMVC实现分页 。 而我们也常遇到表单中包含图片上传的需求，并且需要在table中显示图片，所以这里我就讲一下结合后端的SpringMVC框架如何实现图片上传并提交到表单中，在table表格中回显照片。 本案例对应的开源项目地址请看我的GitHub仓库：  优雅">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/08/05/vue/vue-7/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/08/05/vue/vue-7/">
+
+
+
+
+
+  <title>Vue+ElementUI+SpringMVC实现图片上传和回显 | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/08/05/vue/vue-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue+ElementUI+SpringMVC实现图片上传和回显</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-05T08:38:59+08:00">
+                2018-08-05
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Vue+ElementUI+SpringMVC实现图片上传和table回显</p>
+<p>在之前我们已经讲过了 <a href="http://tycoding.cn/2018/07/30/vue-6/#more" target="_blank" rel="noopener">Vue+ElementUI+SpringMVC实现分页</a> 。</p>
+<p>而我们也常遇到表单中包含图片上传的需求，并且需要在table中显示图片，所以这里我就讲一下结合后端的SpringMVC框架如何实现图片上传并提交到表单中，在table表格中回显照片。</p>
+<p>本案例对应的<strong>开源项目地址</strong>请看我的GitHub仓库：</p>
+<ul>
+<li><p><a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">优雅的入门SpringBoot+Mybatis，实现简单的CRUD </a></p>
+</li>
+<li><p><a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">优雅的实现电商项目中搜索功能，整合SSM+Redis+Shiro+Solr框架，教你使用Vue+ElementUI写一个炫酷的后端页面 </a></p>
+</li>
+</ul>
+<a id="more"></a>
+
+<br>
+
+<p><strong>写在前面</strong></p>
+<p>本篇博文主要讲Vue.js+ElementUI如何实现图片上传和提交表单，前端技术会讲多一点，因此：</p>
+<ul>
+<li>如果你对SpringMVC文件上传和下载不是很清楚，请查看我这篇博文： <a href="http://tycoding.cn/2018/05/31/Spring-6/#more" target="_blank" rel="noopener">SpringMVC实现文件上传和下载</a></li>
+<li>因为案例基于SSM框架，如果你你对SSM框架不是很清楚，请查看我这篇博文：<a href="http://tycoding.cn/2018/06/05/ssm-2/#more" target="_blank" rel="noopener">SSM框架整合</a>  <a href="https://github.com/TyCoding/ssm" target="_blank" rel="noopener">GitHub</a></li>
+</ul>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p><strong>首先</strong>，请一定阅读一下我的 <a href="http://tycoding.cn/2018/05/31/Spring-6/" target="_blank" rel="noopener">SpringMVC实现文件上传和下载</a> 本篇博文将不在详细讲这部分内容。</p>
+<p><strong>前端：</strong></p>
+<blockquote>
+<p>你会用到以下技术：</p>
+<p>Vue.js</p>
+<p>Vue-resource.js</p>
+<p>ElementUI</p>
+</blockquote>
+<p>我们将实现的效果是什么呢？</p>
+<p><em>图片上传：</em></p>
+<p><img src="/2018/08/05/vue/vue-7/1.png" alt></p>
+<p><em>table展示：</em></p>
+<p><img src="/2018/08/05/vue/vue-7/2.png" alt></p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>想要实现图片上传和table的回显，让我们先分析以下实现思路：</p>
+<h2 id="图片上传和表单提交"><a href="#图片上传和表单提交" class="headerlink" title="图片上传和表单提交"></a>图片上传和表单提交</h2><p>那么你就要明白图片上传和表单提交是两个功能，其对应不同的接口，表单中并不是保存了这个图片，而仅仅是保存了储存图片的路径地址。我们需要分析以下几点：</p>
+<p><strong>1、图片如何上传，什么时候上传？</strong></p>
+<p>图片应该在点击upload上传组件的时候就触发了对应的事件，当选择了要上传的图片，点击确定的时候就请求了后端的接口保存了图片。也就是说你在浏览器中弹出的选择框中选择了要上传的图片，当你点击确定的一瞬间就已将图片保存到了服务器上；而再点击提交表单的时候，储存在表单中的图片数据仅仅是刚才上传的图片存储地址。</p>
+<p><strong>2、如何获取到已经上传的图片的储存地址？</strong></p>
+<p>因为在浏览器上传选择框被确定选择的瞬间已经请求了后端接口保存了图片，我们该怎么知道图片在哪里储存呢？</p>
+<ul>
+<li><strong>前端：</strong> 比如我们使用了ElementUI提供的上传组件，其就存在一个上传成功的回调函数：<code>on-success</code>，这个回调函数被触发的时间点就是图片成功上传后的瞬间，我们就是要在这个回调函数触发的时候获取到图片储存的地址。</li>
+<li><strong>后端：</strong> 上面讲了获取地址，这个<strong>地址</strong>就是后端返回给前端的数据（JSON格式）。因为后端图片上传接口配置图片储存的地址，如果图片上传成功，就将图片储存的地址以JSON格式返回给前端。</li>
+</ul>
+<p><strong>3、如何提交表单</strong></p>
+<p>说如何提交表单，这就显得很简单了，因为上面我们已经完成了：1、图片成功上传；2、获取到了图片在服务器上的储存地址。利用Vue的双向绑定思想，在图片成功上传的回调函数<code>on-success</code>中获取到后端返回的图片储存地址，将这个地址赋值给Vue实例<code>data(){}</code>中定义的表单对象。这样在提交表单的时候仅需要将这个表单对象发送给后端，保存到数据库就行了。</p>
+<h2 id="图片在table的回显"><a href="#图片在table的回显" class="headerlink" title="图片在table的回显"></a>图片在table的回显</h2><p>想要将图片回显到table表格中其实很简单，前提只要你在数据库中保存了正确的图片储存地址；在table表格中我们仅需要在<code>&lt;td&gt;</code>列中新定义一列<code>&lt;td&gt;&lt;img src=&quot;图片的地址&quot;/&gt;&lt;/td&gt;</code>即可完成图片回显。渲染table数据的时候循环给<code>&lt;img&gt;</code>中的<code>src</code>赋值数据库中保存的图片url即可。</p>
+<br>
+
+<h1 id="后端实现"><a href="#后端实现" class="headerlink" title="后端实现"></a>后端实现</h1><br>
+
+<h2 id="图片上传接口"><a href="#图片上传接口" class="headerlink" title="图片上传接口"></a>图片上传接口</h2><p><strong>注意：</strong> 关于SpringMVC如何实现文件上传和下载，请看我的博文： <a href="http://tycoding.cn/2018/05/31/Spring-6/" target="_blank" rel="noopener">SpringMVC实现文件上传和下载</a> 。这里我给出代码，就不再解释了(#^.^#)：</p>
+<p>这里我将文件上传和下载接口单独抽离在一个Controller类中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.instrument.entity.Result;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UploadDownController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 文件上传</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> picture</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/upload"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">upload</span><span class="params">(@RequestParam(<span class="string">"picture"</span>)</span> MultipartFile picture, HttpServletRequest request) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取文件在服务器的储存位置</span></span><br><span class="line">        String path = request.getSession().getServletContext().getRealPath(<span class="string">"/upload"</span>);</span><br><span class="line">        File filePath = <span class="keyword">new</span> File(path);</span><br><span class="line">        System.out.println(<span class="string">"文件的保存路径："</span> + path);</span><br><span class="line">        <span class="keyword">if</span> (!filePath.exists() &amp;&amp; !filePath.isDirectory()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"目录不存在，创建目录:"</span> + filePath);</span><br><span class="line">            filePath.mkdir();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取原始文件名称(包含格式)</span></span><br><span class="line">        String originalFileName = picture.getOriginalFilename();</span><br><span class="line">        System.out.println(<span class="string">"原始文件名称："</span> + originalFileName);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取文件类型，以最后一个`.`为标识</span></span><br><span class="line">        String type = originalFileName.substring(originalFileName.lastIndexOf(<span class="string">"."</span>) + <span class="number">1</span>);</span><br><span class="line">        System.out.println(<span class="string">"文件类型："</span> + type);</span><br><span class="line">        <span class="comment">//获取文件名称（不包含格式）</span></span><br><span class="line">        String name = originalFileName.substring(<span class="number">0</span>, originalFileName.lastIndexOf(<span class="string">"."</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置文件新名称: 当前时间+文件名称（不包含格式）</span></span><br><span class="line">        Date d = <span class="keyword">new</span> Date();</span><br><span class="line">        SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMddHHmmss"</span>);</span><br><span class="line">        String date = sdf.format(d);</span><br><span class="line">        String fileName = date + name + <span class="string">"."</span> + type;</span><br><span class="line">        System.out.println(<span class="string">"新文件名称："</span> + fileName);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//在指定路径下创建一个文件</span></span><br><span class="line">        File targetFile = <span class="keyword">new</span> File(path, fileName);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将文件保存到服务器指定位置</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            picture.transferTo(targetFile);</span><br><span class="line">            System.out.println(<span class="string">"上传成功"</span>);</span><br><span class="line">            <span class="comment">//将文件在服务器的存储路径返回</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>,<span class="string">"/upload/"</span> + fileName);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"上传失败"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">false</span>, <span class="string">"上传失败"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么返回一个Result数据类型？</strong></p>
+<p>注意这个<code>Result</code>是我自己声明的一个实体类，用于封装返回的结果信息，配合<code>@RestController</code>注解实现将封装的信息以JSON格式return给前端，最后看下我定义的<code>Result</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断结果</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> success;</span><br><span class="line">    <span class="comment">//返回信息</span></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Result</span><span class="params">(<span class="keyword">boolean</span> success, String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.success = success;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSuccess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> success;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    setter/getter...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="表单提交接口"><a href="#表单提交接口" class="headerlink" title="表单提交接口"></a>表单提交接口</h2><p>表单提交大家都比较熟悉了，配合图片上传，仅仅是在实体类中多了一个字段存放图片的URL地址：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/instrument"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InstrumentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//注入</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> InstrumentService instrumentService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> instrument</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/save"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">save</span><span class="params">(Instrument instrument)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instrument != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                instrumentService.save(instrument);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>,<span class="string">"添加成功"</span>);</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">false</span>, <span class="string">"发生未知错误"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>如上</strong></p>
+<p>大家可能会疑惑这个为什么返回Result类型的数据？ 答：为了前端方便判断接口执行成功与否。因为我前端使用的是<strong>HTML页面</strong>，想要从后端域对象中取数据显然就有点不现实了。</p>
+<p>我写Controller的时候定义了全局的<code>@RestController</code>注解，和<code>@Controller</code>注解的区别是，前者多了<code>@ResponseBody</code>注解，这样整合Controller类返回的数据都将给自动转换成JSON格式。</p>
+<br>
+
+<h1 id="前端实现"><a href="#前端实现" class="headerlink" title="前端实现"></a>前端实现</h1><br>
+
+<h2 id="实现图片上传"><a href="#实现图片上传" class="headerlink" title="实现图片上传"></a>实现图片上传</h2><p>这里我使用了ElementUI的文件上传组件： <a href="http://element-cn.eleme.io/#/zh-CN/component/upload" target="_blank" rel="noopener">官方文档</a> </p>
+<p>配合ElementUI的上传组件，我们会这样定义(这是form表单中的一部分)：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">"图片"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-upload</span></span></span><br><span class="line"><span class="tag">               <span class="attr">ref</span>=<span class="string">"upload"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">action</span>=<span class="string">"/upload.do"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">name</span>=<span class="string">"picture"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">list-type</span>=<span class="string">"picture-card"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">:limit</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">:file-list</span>=<span class="string">"fileList"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">:on-exceed</span>=<span class="string">"onExceed"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">:before-upload</span>=<span class="string">"beforeUpload"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">:on-preview</span>=<span class="string">"handlePreview"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">:on-success</span>=<span class="string">"handleSuccess"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">:on-remove</span>=<span class="string">"handleRemove"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"el-icon-plus"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-upload</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible.sync</span>=<span class="string">"dialogVisible"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">:src</span>=<span class="string">"dialogImageUrl"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-dialog</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，我这里仅展示了文件上传的<code>form-item</code>，ElementUI的表单声明是：<code>&lt;el-form&gt;</code> <strong>注意</strong> 表单中不需要指定<code>enctype=&quot;multipart/form-data&quot;</code>这个参数，与我们普通的文件上传表单是不同的。</p>
+<p>了解几个参数：</p>
+<ul>
+<li><strong>ref</strong> <code>ref</code>是Vue原生参数，用来给组件注册引用信息。引用信息将会注册到父组件的<code>$refs</code>对象上，如果定义在普通的DOM元素上，那么<code>$refs</code>指向的就是DOM元素。</li>
+</ul>
+<ul>
+<li><strong>action</strong> <code>action</code>表示此上传组件对应的上传接口，此时我们使用的是后端Controller定义的接口</li>
+</ul>
+<ul>
+<li><strong>name</strong> <code>name</code>表示当前组件上传的文件字段名，需要和后端的上传接口字段名相同 。</li>
+</ul>
+<ul>
+<li><strong>list-type</strong> 文件列表的类型，主要是文件列表的样式定义。这里是卡片化。</li>
+</ul>
+<ul>
+<li><strong>:limit</strong> 最大允许上传的文件个数。</li>
+</ul>
+<ul>
+<li><strong>file-list</strong> 上传的文件列表，这个参数用于在这个上传组件中回显图片，包含两个参数：<code>name、url</code>如果你想在这个文件上传组件中咱叔图片，赋值对应的参数即可显示，比如更新数据时，其表单样式完全和添加表单是相同的。但是table中回显图片是完全不需要用这个方式的。</li>
+</ul>
+<ul>
+<li><strong>:on-exceed</strong> 上传文件超出个数时的钩子函数。</li>
+</ul>
+<ul>
+<li><strong>:before-upload</strong> 上传文件前的钩子函数，参数为上传的文件，返回false，就停止上传。</li>
+</ul>
+<ul>
+<li><strong>:on-preview</strong> 点击文件列表中已上传的文件时的钩子函数</li>
+</ul>
+<ul>
+<li><strong>:on-success</strong> 文件上传成功的钩子函数</li>
+</ul>
+<ul>
+<li><strong>:on-remove</strong> 文件列表移除时的钩子函数</li>
+</ul>
+<ul>
+<li><strong>:src</strong> 图片上传的URL。</li>
+</ul>
+<p><strong>JS部分</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置全局表单提交格式</span></span><br><span class="line">Vue.http.options.emulateJSON = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data()&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            <span class="comment">//文件上传的参数</span></span><br><span class="line">            dialogImageUrl: <span class="string">''</span>,</span><br><span class="line">            dialogVisible: <span class="literal">false</span>,</span><br><span class="line">            <span class="comment">//图片列表（用于在上传组件中回显图片）</span></span><br><span class="line">            fileList: [&#123;<span class="attr">name</span>: <span class="string">''</span>, <span class="attr">url</span>: <span class="string">''</span>&#125;],</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods()&#123;</span><br><span class="line">   		<span class="comment">//文件上传成功的钩子函数</span></span><br><span class="line">        handleSuccess(res, file) &#123;</span><br><span class="line">            <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                type: <span class="string">'info'</span>,</span><br><span class="line">                message: <span class="string">'图片上传成功'</span>,</span><br><span class="line">                duration: <span class="number">6000</span></span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">if</span> (file.response.success) &#123;</span><br><span class="line">                <span class="keyword">this</span>.editor.picture = file.response.message; <span class="comment">//将返回的文件储存路径赋值picture字段</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//删除文件之前的钩子函数</span></span><br><span class="line">        handleRemove(file, fileList) &#123;</span><br><span class="line">            <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                type: <span class="string">'info'</span>,</span><br><span class="line">                message: <span class="string">'已删除原有图片'</span>,</span><br><span class="line">                duration: <span class="number">6000</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//点击列表中已上传的文件事的钩子函数</span></span><br><span class="line">        handlePreview(file) &#123;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//上传的文件个数超出设定时触发的函数</span></span><br><span class="line">        onExceed(files, fileList) &#123;</span><br><span class="line">            <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                type: <span class="string">'info'</span>,</span><br><span class="line">                message: <span class="string">'最多只能上传一个图片'</span>,</span><br><span class="line">                duration: <span class="number">6000</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//文件上传前的前的钩子函数</span></span><br><span class="line">        <span class="comment">//参数是上传的文件，若返回false，或返回Primary且被reject，则停止上传</span></span><br><span class="line">        beforeUpload(file) &#123;</span><br><span class="line">            <span class="keyword">const</span> isJPG = file.type === <span class="string">'image/jpeg'</span>;</span><br><span class="line">            <span class="keyword">const</span> isGIF = file.type === <span class="string">'image/gif'</span>;</span><br><span class="line">            <span class="keyword">const</span> isPNG = file.type === <span class="string">'image/png'</span>;</span><br><span class="line">            <span class="keyword">const</span> isBMP = file.type === <span class="string">'image/bmp'</span>;</span><br><span class="line">            <span class="keyword">const</span> isLt2M = file.size / <span class="number">1024</span> / <span class="number">1024</span> &lt; <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!isJPG &amp;&amp; !isGIF &amp;&amp; !isPNG &amp;&amp; !isBMP) &#123;</span><br><span class="line">                <span class="keyword">this</span>.$message.error(<span class="string">'上传图片必须是JPG/GIF/PNG/BMP 格式!'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!isLt2M) &#123;</span><br><span class="line">                <span class="keyword">this</span>.$message.error(<span class="string">'上传图片大小不能超过 2MB!'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> (isJPG || isBMP || isGIF || isPNG) &amp;&amp; isLt2M;</span><br><span class="line">        &#125;,     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong></p>
+<p>如上的JS代码，主要是定义一些钩子函数，这里我么里梳理一下逻辑：</p>
+<p>1、点击ElementUI的上传组件，浏览器自动弹出文件上传选择窗口，我们选择要上传的图片。</p>
+<p>2、选择好了要上传的图片，点击弹窗右下角的确定按钮触发JS中定义的钩子函数。</p>
+<p>3、首先触发的钩子函数是<code>beforeUpload(file)</code>函数，其中的参数<code>file</code>即代表当前上传的文件对象，<code>beforeUpload()</code>定义了对上传文件格式校验。如果不是允许的格式就弹出错误信息，并阻止文件上传，若我那件格式允许，则继续执行。</p>
+<p>4、通过了<code>beforeUpload()</code>函数的校验，文件开始调用后端接口将数据发送给后端。文件的字段名：<code>picture</code>，格式：<code>multipart/form-data</code>，虽然我们的表单没有定义<code>enctype=&quot;multipart/form-data&quot;</code>属性，但是HTTP请求头会自动设置为<code>multipart/form-data</code>类型。</p>
+<p><img src="/2018/08/05/vue/vue-7/3.png" alt></p>
+<p>5、这时，如果后端逻辑没有错误，已经正常的将图片上传到服务器上了，可以在指定文件夹中查看到已上传的图片，那么此时JS中会自动调用<code>handleSuccess()</code>钩子函数，因为我们设置后端上传接口上传成功返回的数据是文件的保存路径：</p>
+<p><img src="/2018/08/05/vue/vue-7/4.png" alt></p>
+<p>那我们就将这个路径通过Vue的双向绑定，赋值给表单对象的字段<code>picture</code>，那么提交表单的时候，该字段对应的值就是这个路径了。</p>
+<p>6、如果我们再点击上传文件按钮，就会触发<code>onExceed()</code>函数，因为我们设置的<code>limit</code>最多上传一个。</p>
+<p>7、如果点击图片中的删除按钮，就会触发<code>handleRemove()</code>函数，并删除此图片。</p>
+<p>8、如果点击了已上传的文件列表，就会触发<code>handlePreview()</code>函数。</p>
+<h2 id="实现表单提交"><a href="#实现表单提交" class="headerlink" title="实现表单提交"></a>实现表单提交</h2><p>表单提交就比较简单了，就是触发对应的click事件，触发其中定义的函数，将已在<code>data(){}</code>中定义的表单数据发送给后端接口：</p>
+<p><img src="/2018/08/05/vue/vue-7/5.png" alt></p>
+<p>提交数据：</p>
+<p><img src="/2018/08/05/vue/vue-7/6.png" alt></p>
+<p><strong>后端接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/save"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">save</span><span class="params">(Instrument instrument)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(instrument != <span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            instrumentService.save(instrument);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>,<span class="string">"添加成功"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">false</span>, <span class="string">"发生未知错误"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据库中保存的数据：</p>
+<p><img src="/2018/08/05/vue/vue-7/7.png" alt></p>
+<br>
+
+<h1 id="实现table回显图片"><a href="#实现table回显图片" class="headerlink" title="实现table回显图片"></a>实现table回显图片</h1><p>table回显图片也是很简单的，仅需要在列中增加一列：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-table</span> <span class="attr">:data</span>=<span class="string">"instrument"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">"图片"</span> <span class="attr">width</span>=<span class="string">"130"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">template</span> <span class="attr">scope</span>=<span class="string">"scope"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"scope.row.picture"</span> <span class="attr">class</span>=<span class="string">"picture"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-table-column</span></span></span><br><span class="line"><span class="tag">         <span class="attr">label</span>=<span class="string">"运行状态"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">width</span>=<span class="string">"80"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">prop</span>=<span class="string">"operatingStatus"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>因为使用Vue，根据其双向绑定的思想，再结合Element-UI提供渲染表格的方式是在<code>&lt;el-table&gt;</code>的<code>:data</code>中指定对应要渲染的数据即可。</p>
+<p><strong>注意</strong> ElementUI渲染table的方式是：1、<code>&lt;el-table&gt;</code>中定义<code>:data</code>；2、<code>&lt;el-table-column&gt;</code>中定义<code>prop=&quot;data中的参数&quot;</code>。但是因为我们要显示的是图片而不是文本数据，所以要在<code>&lt;img&gt;</code>中定义<code>:src=&quot;data中的变量&quot;</code>即可实现渲染。</p>
+<br>
+
+<p><strong>后端</strong>就是正常的查询数据库数据即可了，为什么数据库中保存了这个URL图片就能直接显示到HTML中，请看我这篇博文： <a href="http://tycoding.cn/2018/05/31/Spring-6/" target="_blank" rel="noopener">SpringMVC实现文件上传和下载</a> </p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/30/vue/vue-6/" rel="next" title="Vue+ElementUI+SpringMVC实现分页">
+                <i class="fa fa-chevron-left"></i> Vue+ElementUI+SpringMVC实现分页
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/29/ssm/fastdfs/" rel="prev" title="FastDFS系统搭建">
+                FastDFS系统搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路分析"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片上传和表单提交"><span class="nav-number">2.1.</span> <span class="nav-text">图片上传和表单提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片在table的回显"><span class="nav-number">2.2.</span> <span class="nav-text">图片在table的回显</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后端实现"><span class="nav-number">3.</span> <span class="nav-text">后端实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片上传接口"><span class="nav-number">3.1.</span> <span class="nav-text">图片上传接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表单提交接口"><span class="nav-number">3.2.</span> <span class="nav-text">表单提交接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端实现"><span class="nav-number">4.</span> <span class="nav-text">前端实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现图片上传"><span class="nav-number">4.1.</span> <span class="nav-text">实现图片上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现表单提交"><span class="nav-number">4.2.</span> <span class="nav-text">实现表单提交</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现table回显图片"><span class="nav-number">5.</span> <span class="nav-text">实现table回显图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">6.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">7.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

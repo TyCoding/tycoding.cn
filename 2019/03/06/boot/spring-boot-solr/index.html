@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="spring-boot,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Spring Boot整合Solr:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 写在前面 在之前我就写过一篇文档：Solr及Spring-Data-Solr入门学习，这篇文章其实来自于我学习黑马项目时写的笔记，其中用的版本都比较老。而最近这两天一直在研究Solr，发现还是老版本好用（坑">
+<meta name="keywords" content="spring-boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（十二）Spring-Boot-Solr 踩坑记！">
+<meta property="og:url" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="Spring Boot整合Solr:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 写在前面 在之前我就写过一篇文档：Solr及Spring-Data-Solr入门学习，这篇文章其实来自于我学习黑马项目时写的笔记，其中用的版本都比较老。而最近这两天一直在研究Solr，发现还是老版本好用（坑">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/9.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/4.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/5.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/7.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/8.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/9.png">
+<meta property="og:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/10.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="（十二）Spring-Boot-Solr 踩坑记！">
+<meta name="twitter:description" content="Spring Boot整合Solr:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 写在前面 在之前我就写过一篇文档：Solr及Spring-Data-Solr入门学习，这篇文章其实来自于我学习黑马项目时写的笔记，其中用的版本都比较老。而最近这两天一直在研究Solr，发现还是老版本好用（坑">
+<meta name="twitter:image" content="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/">
+
+
+
+
+
+  <title>（十二）Spring-Boot-Solr 踩坑记！ | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/03/06/boot/spring-boot-solr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">（十二）Spring-Boot-Solr 踩坑记！</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-06T18:35:08+08:00">
+                2019-03-06
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Spring-Boot整合Solr"><a href="#Spring-Boot整合Solr" class="headerlink" title="Spring Boot整合Solr"></a>Spring Boot整合Solr</h1><p>:tada: :tada: :tada: <strong>这里有丰富的 Spring 框架学习案例</strong></p>
+<p><strong>仓库地址：<a href="https://github.com/TyCoding/spring-learn" target="_blank" rel="noopener">spring-learn</a></strong><br><strong>欢迎star、fork，给作者一些鼓励</strong></p>
+<p><strong>写在前面</strong></p>
+<p>在之前我就写过一篇文档：<a href="https://tycoding.cn/2018/09/24/other/solr/" target="_blank" rel="noopener">Solr及Spring-Data-Solr入门学习</a>，这篇文章其实来自于我学习黑马项目时写的笔记，其中用的版本都比较老。而最近这两天一直在研究Solr，发现还是老版本好用（坑</p>
+<p>而今天既然学spring-boot，发现万能的spring-boot自己又对<code>spring-data-solr</code>进行了封装简化：<code>spring-boot-starter-data-solr</code>，今天就来学习一下。</p>
+<p>之前我使用SSM项目写了一个ssm-solr的项目，如果你想看SSM项目中如何整合Solr，可以参考这个项目：<a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">ssm-redis-solr</a> </p>
+<p><strong>欢迎star, fork</strong></p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/9.png" alt></p>
+<a id="more"></a>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果你阅读过我的这篇文章：<a href="https://tycoding.cn/2018/09/24/other/solr/" target="_blank" rel="noopener">Solr及Spring-Data-Solr入门学习</a>。会发现其中是将下载的solr source再提取出来放到tomcat容器中，过程比较复杂，也遇到很多坑，我自己再尝试将solr放到tomcat容器中也遇到很多很多的问题。<strong>但</strong>，<a href="http://www.apache.org/dyn/closer.lua/lucene/solr/7.7.1" target="_blank" rel="noopener">Solr官网</a>提供的源码其实已经将Solr放在了Jetty容器中，我们只需要通过命令运行Jetty容器也依然可以访问Solr。</p>
+<p><strong>So</strong>，我这里推荐使用Solr自带的Jetty容器运行Solr，详细的安装文档请看：</p>
+<p><a href="https://tycoding.cn/2019/03/05/other/solr-server/" target="_blank" rel="noopener">手摸手教你部署Solr-7.7.1</a></p>
+<p>如果安装完成，启动Solr服务器，浏览器访问Solr-Admin主页，先吧数据库中的数据导入到Solr中，上面链接的文档中已经介绍了。如果你查询到了这些数据，证明Solr安装成功：</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/1.png" alt></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>按照 <a href="https://tycoding.cn/2019/03/05/other/solr-server/" target="_blank" rel="noopener">手摸手教你部署Solr-7.7.1</a> 这篇文章中部署好的服务器，我们可以着手创建springboot_solr项目了。</p>
+<blockquote>
+<p>修改<code>application.yml</code></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  data:</span></span><br><span class="line"><span class="attr">    solr:</span></span><br><span class="line"><span class="attr">      host:</span> <span class="attr">http://127.0.0.1:8983/solr/new_core</span></span><br></pre></td></tr></table></figure>
+
+<p>其中就是solr服务器的连接URL，这个路径并不是可以直接访问的，在Solr-Admin中访问<code>new_core</code>的URL地址是：<code>http://localhost:8983/solr/#/new_core/query</code>，而实际的请求地址就是<code>http://127.0.0.1:8983/solr/new_core</code>了。</p>
+<h3 id="创建Entity"><a href="#创建Entity" class="headerlink" title="创建Entity"></a>创建Entity</h3><p>首先，创建Search.java:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Search</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Field</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="meta">@Field</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="meta">@Field</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">    <span class="meta">@Field</span></span><br><span class="line">    <span class="keyword">private</span> String qq;</span><br><span class="line">    <span class="meta">@Field</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="comment">//省略getter/setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为我们在<code>solr-7.7.1/server/solr/new_core/conf/managed-schema</code>和<code>db-data-config.xml</code>中定义了solr和MySQL关联的配置，那么想要操控Solr数据库，就必须保证：</p>
+<p>Solr字段约束=MySQL表字段=Entity属性</p>
+<p>其中的<code>@Field</code>注解来自<code>org.apache.solr.client.solrj.beans.Field</code>，用于将Solr字段和Entity字段进行匹配。若名称相同直接加<code>@Field</code>，若不同加<code>@Field(&quot;name&quot;)</code></p>
+<hr>
+<blockquote>
+<p><strong>本文中采用两种方式实现Solr的查询功能，这两种方式各自有坑，请注意！</strong></p>
+</blockquote>
+<hr>
+<h2 id="SolrQuery"><a href="#SolrQuery" class="headerlink" title="SolrQuery"></a>SolrQuery</h2><p>Solr提供最基本的方式就是用SolrClient完成对Solr的操作，那么必然要用<code>org.apache.solr.client.solrj.SolrQuery</code>进行查询条件封装，下面我们就用<code>SolrQuery</code>类进行操作。</p>
+<h3 id="最基本的查询"><a href="#最基本的查询" class="headerlink" title="最基本的查询"></a>最基本的查询</h3><p>使用<code>SolrQuery</code>完成一个最基本的查询，创建测试类：<code>SolrQuerySearchServiceTest</code>：</p>
+<ul>
+<li><ol>
+<li>注入SolrClient类</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>构建查询类</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>封装查询条件</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>查询</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>从response中获取查询结果</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>打印查询结果</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SolrQuerySearchServiceTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//1. 注入SolrClient类</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SolrClient solrClient;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">search</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//2. 构建查询类</span></span><br><span class="line">        SolrQuery query = <span class="keyword">new</span> SolrQuery();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3. 封装查询条件，在solr中对应: localhost:8983/solr/new_core/select?q=keyword:*:*</span></span><br><span class="line">        query.set(<span class="string">"q"</span>, <span class="string">"keyword:*"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//4. 查询，获取response响应数据</span></span><br><span class="line">            QueryResponse response = solrClient.query(query);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//5. 从response中获取查询结果</span></span><br><span class="line">            SolrDocumentList documents = response.getResults();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//6. 打印查询结果</span></span><br><span class="line">            documents.forEach(document -&gt; &#123;</span><br><span class="line">                logger.info(<span class="string">"id=&#123;&#125; --&gt; username=&#123;&#125;"</span>, document.getFieldValue(<span class="string">"id"</span>), document.getFieldValue(<span class="string">"username"</span>));</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><p>通过设置<code>setStart()</code>：从哪一行开始；设置<code>setRows()</code>：查询到第几行结束，来实现分页查询。</p>
+<p>注意：我们常用pageHelper进行数据库的分页查询，但是那里是：起始<strong>页</strong> –&gt; 查询多少条记录。而在solr中起始查询的是记录，从<strong>0</strong>开始的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">query.setStart(current);</span><br><span class="line">query.setRows(rows);</span><br></pre></td></tr></table></figure>
+
+<p>上面两段配置在solr中实际的构建的渲染条件：</p>
+<p><code>http://localhost:8983/solr/new_core/select?start=0&amp;rows=20</code></p>
+<h3 id="高亮查询"><a href="#高亮查询" class="headerlink" title="高亮查询"></a>高亮查询</h3><p>高亮查询是<strong>最坑的</strong>，主要有涉及以下几个过程：</p>
+<ul>
+<li><p>1.查询时构建高亮查询条件，并且限定需要高亮匹配的字段。</p>
+</li>
+<li><p>2.从response查询数据中获取被高亮的集合，类似：<code>[{id: &#39;xx&#39;, field: &#39;&lt;em&gt;xx&lt;/em&gt;&#39;}]</code> 这样的结构，<code>field</code>对应的数据是被标记高亮的。</p>
+</li>
+<li><p>3.根据限定的高亮字段匹配高亮集合中对应标记高亮的数据。</p>
+</li>
+<li><p>4.遍历response中返回的总数据集合，将高亮集合中的标记的高亮数据<strong>替换</strong>掉原未高亮的数据，于是，就实现了高亮。</p>
+</li>
+</ul>
+<blockquote>
+<p>1.构建查询条件</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//高亮配置</span></span><br><span class="line">String[] lightNames = &#123;<span class="string">"username"</span>, <span class="string">"email"</span>, <span class="string">"qq"</span>&#125;; <span class="comment">//设置需要高亮的域</span></span><br><span class="line">query.setParam(<span class="string">"hl"</span>, <span class="string">"true"</span>);</span><br><span class="line">query.setParam(<span class="string">"hl.fl"</span>, lightNames);</span><br><span class="line">query.setHighlightSimplePre(<span class="string">"&lt;em  style='color: red'&gt;"</span>);</span><br><span class="line">query.setHighlightSimplePost(<span class="string">"&lt;/em&gt;"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这些条件在solr中实际查询的URL是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8983/solr/new_core/select?start=0&amp;rows=20&amp;hl=true&amp;hl.fl=username&amp;hl.fl=email&amp;hl.fl=qq&amp;hl.simple.pre=&lt;em+style=%27color:red%27&gt;&amp;hl.simple.post=&lt;/em&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.从response查询数据中获取被高亮的集合，类似：<code>[{id: &#39;xx&#39;, field: &#39;&lt;em&gt;xx&lt;/em&gt;&#39;}]</code> 这样的结构，<code>field</code>对应的数据是被标记高亮的。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QueryResponse response = solrClient.query(query);</span><br><span class="line"><span class="comment">//获取被高亮的数据集合，其中的数据结构类似：[&#123;id: "123", field: "&lt;em&gt;xxx&lt;/em&gt;"&#125;]</span></span><br><span class="line">Map&lt;String, Map&lt;String, List&lt;String&gt;&gt;&gt; highlighting = response.getHighlighting();</span><br></pre></td></tr></table></figure>
+
+<p><code>highlighting</code>数据结构：</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/2.png" alt></p>
+<blockquote>
+<p>3.根据限定的高亮字段匹配高亮集合中对应标记高亮的数据。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">QueryResponse response = solrClient.query(query);</span><br><span class="line"><span class="comment">//获取被高亮的数据集合，其中的数据结构类似：[&#123;id: "123", field: "&lt;em&gt;xxx&lt;/em&gt;"&#125;]</span></span><br><span class="line">Map&lt;String, Map&lt;String, List&lt;String&gt;&gt;&gt; highlighting = response.getHighlighting();</span><br><span class="line">SolrDocumentList documents = response.getResults(); <span class="comment">//获取匹配结果</span></span><br><span class="line"><span class="keyword">long</span> numFound = documents.getNumFound(); <span class="comment">//获取匹配的数据个数</span></span><br><span class="line"><span class="keyword">if</span> (numFound != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (SolrDocument document : documents) &#123;</span><br><span class="line">        <span class="comment">//documents中存放了匹配的所有数据（未高亮），而highlighting中存放了高亮匹配的数据（高亮）</span></span><br><span class="line">        <span class="comment">//通过id主键获取到id值，在highlighting中通过id值获取对应的高亮数据</span></span><br><span class="line">        Map&lt;String, List&lt;String&gt;&gt; listMap = highlighting.get(document.getFieldValue(<span class="string">"id"</span>).toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们看一下查询原始数据结构<code>documents</code>:</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/3.png" alt></p>
+<p>可以看到这些数据是原始数据，并未高亮。而<code>document.getFieldValue(&quot;id&quot;)</code>就是获取到id值。</p>
+<p>而<code>highlighting.get(document.getFieldValue(&quot;id&quot;).toString())</code>就是根据id从高亮集合中获取对应的高亮字段和值，也就是：</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/4.png" alt></p>
+<blockquote>
+<p>4.遍历response中返回的总数据集合，将高亮集合中的标记的高亮数据<strong>替换</strong>掉原未高亮的数据</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"> String[] fields = &#123;<span class="string">"username"</span>, <span class="string">"email"</span>, <span class="string">"qq"</span>, <span class="string">"password"</span>&#125;; <span class="comment">//设置solr中定义的域</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//高亮配置</span></span><br><span class="line">String[] lightNames = &#123;<span class="string">"username"</span>, <span class="string">"email"</span>, <span class="string">"qq"</span>&#125;; <span class="comment">//设置需要高亮的域</span></span><br><span class="line">query.setParam(<span class="string">"hl"</span>, <span class="string">"true"</span>);</span><br><span class="line">query.setParam(<span class="string">"hl.fl"</span>, lightNames);</span><br><span class="line">query.setHighlightSimplePre(<span class="string">"&lt;em  style='color: red'&gt;"</span>);</span><br><span class="line">query.setHighlightSimplePost(<span class="string">"&lt;/em&gt;"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置查询关键字的域</span></span><br><span class="line"><span class="comment"> * 一般对应solr中的复制域(&lt;copyFiled&gt;)。</span></span><br><span class="line"><span class="comment"> * 因为用户查询的数据不确定是什么，定义在复制域中的字段，Solr会自动进行多字段查询匹配</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">query.set(<span class="string">"q"</span>, <span class="string">"keyword:*"</span> + keyword + <span class="string">"*"</span>); <span class="comment">//在Solr中查询语句：/select?q=keyword:xxx</span></span><br><span class="line"></span><br><span class="line">QueryResponse response = solrClient.query(query);</span><br><span class="line"><span class="comment">//获取被高亮的数据集合，其中的数据结构类似：[&#123;id: "123", field: "&lt;em&gt;xxx&lt;/em&gt;"&#125;]</span></span><br><span class="line">Map&lt;String, Map&lt;String, List&lt;String&gt;&gt;&gt; highlighting = response.getHighlighting();</span><br><span class="line">SolrDocumentList documents = response.getResults(); <span class="comment">//获取匹配结果</span></span><br><span class="line"><span class="keyword">long</span> numFound = documents.getNumFound(); <span class="comment">//获取匹配的数据个数</span></span><br><span class="line"><span class="keyword">if</span> (numFound != <span class="number">0</span>) &#123;</span><br><span class="line">    List&lt;Object&gt; entityList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (SolrDocument document : documents) &#123;</span><br><span class="line">        <span class="comment">//documents中存放了匹配的所有数据（未高亮），而highlighting中存放了高亮匹配的数据（高亮）</span></span><br><span class="line">        <span class="comment">//通过id主键获取到id值，在highlighting中通过id值获取对应的高亮数据</span></span><br><span class="line">        Map&lt;String, List&lt;String&gt;&gt; listMap = highlighting.get(document.getFieldValue(<span class="string">"id"</span>).toString());</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lightNames.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (listMap.get(lightNames[i]) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//根据设置的高亮域，将documents中未高亮的域的值替换为高亮的值</span></span><br><span class="line">                document.setField(lightNames[i], listMap.get(lightNames[i]).get(<span class="number">0</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;String, Object&gt; fieldMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; fields.length; i++) &#123;</span><br><span class="line">            fieldMap.put(fields[i], String.valueOf(document.getFieldValue(fields[i])));</span><br><span class="line">        &#125;</span><br><span class="line">        entityList.add(fieldMap);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(entityList, numFound);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(<span class="string">"未搜索到任何结果"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>document.setField()</code>根据key,value将高亮的数据替换点原始未高亮的数据，实现的效果就是：</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/5.png" alt></p>
+<p>通过不断的循环替换，就能将原始未高亮的数据替换为高亮的数据，那么最终在前端页面实现的效果是：</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/6.png" alt></p>
+<h3 id="结"><a href="#结" class="headerlink" title="结"></a>结</h3><p>最终的查询代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> ResponseCode <span class="title">solrQuerySearch</span><span class="params">(String keyword, Integer current, Integer rows)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.isEmpty(keyword)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(<span class="string">"请输入查询内容"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (current == <span class="number">1</span>) &#123;</span><br><span class="line">        current = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        current = (current - <span class="number">1</span>) * rows;</span><br><span class="line">    &#125;</span><br><span class="line">    SolrQuery query = <span class="keyword">new</span> SolrQuery();</span><br><span class="line">    query.setStart(current);</span><br><span class="line">    query.setRows(rows);</span><br><span class="line">    query.set(<span class="string">"wt"</span>, <span class="string">"json"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        String[] fields = &#123;<span class="string">"username"</span>, <span class="string">"email"</span>, <span class="string">"qq"</span>, <span class="string">"password"</span>&#125;; <span class="comment">//设置solr中定义的域</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//高亮配置</span></span><br><span class="line">        String[] lightNames = &#123;<span class="string">"username"</span>, <span class="string">"email"</span>, <span class="string">"qq"</span>&#125;; <span class="comment">//设置需要高亮的域</span></span><br><span class="line">        query.setParam(<span class="string">"hl"</span>, <span class="string">"true"</span>);</span><br><span class="line">        query.setParam(<span class="string">"hl.fl"</span>, lightNames);</span><br><span class="line">        query.setHighlightSimplePre(<span class="string">"&lt;em  style='color: red'&gt;"</span>);</span><br><span class="line">        query.setHighlightSimplePost(<span class="string">"&lt;/em&gt;"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 设置查询关键字的域</span></span><br><span class="line"><span class="comment">         * 一般对应solr中的复制域(&lt;copyFiled&gt;)。</span></span><br><span class="line"><span class="comment">         * 因为用户查询的数据不确定是什么，定义在复制域中的字段，Solr会自动进行多字段查询匹配</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        query.set(<span class="string">"q"</span>, <span class="string">"keyword:*"</span> + keyword + <span class="string">"*"</span>); <span class="comment">//在Solr中查询语句：/select?q=keyword:xxx</span></span><br><span class="line"></span><br><span class="line">        QueryResponse response = solrClient.query(query);</span><br><span class="line">        <span class="comment">//获取被高亮的数据集合，其中的数据结构类似：[&#123;id: "123", field: "&lt;em&gt;xxx&lt;/em&gt;"&#125;]</span></span><br><span class="line">        Map&lt;String, Map&lt;String, List&lt;String&gt;&gt;&gt; highlighting = response.getHighlighting();</span><br><span class="line">        SolrDocumentList documents = response.getResults(); <span class="comment">//获取匹配结果</span></span><br><span class="line">        <span class="keyword">long</span> numFound = documents.getNumFound(); <span class="comment">//获取匹配的数据个数</span></span><br><span class="line">        <span class="keyword">if</span> (numFound != <span class="number">0</span>) &#123;</span><br><span class="line">            List&lt;Object&gt; entityList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (SolrDocument document : documents) &#123;</span><br><span class="line">                <span class="comment">//documents中存放了匹配的所有数据（未高亮），而highlighting中存放了高亮匹配的数据（高亮）</span></span><br><span class="line">                <span class="comment">//通过id主键获取到id值，在highlighting中通过id值获取对应的高亮数据</span></span><br><span class="line">                Map&lt;String, List&lt;String&gt;&gt; listMap = highlighting.get(document.getFieldValue(<span class="string">"id"</span>).toString());</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lightNames.length; i++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (listMap.get(lightNames[i]) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="comment">//根据设置的高亮域，将documents中未高亮的域的值替换为高亮的值</span></span><br><span class="line">                        document.setField(lightNames[i], listMap.get(lightNames[i]).get(<span class="number">0</span>));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                Map&lt;String, Object&gt; fieldMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; fields.length; i++) &#123;</span><br><span class="line">                    fieldMap.put(fields[i], String.valueOf(document.getFieldValue(fields[i])));</span><br><span class="line">                &#125;</span><br><span class="line">                entityList.add(fieldMap);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(entityList, numFound);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(<span class="string">"未搜索到任何结果"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(<span class="string">"服务器异常"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><h4 id="q-xx-and-type-39-string-39"><a href="#q-xx-and-type-39-string-39" class="headerlink" title="q=*xx* and type=&#39;string&#39;"></a><code>q=*xx* and type=&#39;string&#39;</code></h4><p>首先我们看下我在solr的<code>managed-schema</code>中定义的域如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span> <span class="attr">required</span>=<span class="string">"true"</span> <span class="attr">multiValued</span>=<span class="string">"false"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"qq"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"keyword"</span> <span class="attr">type</span>=<span class="string">"text_ik"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"false"</span> <span class="attr">multiValued</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">copyField</span> <span class="attr">source</span>=<span class="string">"username"</span> <span class="attr">dest</span>=<span class="string">"keyword"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">copyField</span> <span class="attr">source</span>=<span class="string">"email"</span> <span class="attr">dest</span>=<span class="string">"keyword"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uniqueKey</span>&gt;</span>id<span class="tag">&lt;/<span class="name">uniqueKey</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>最终渲染效果如图：</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/6.png" alt></p>
+<p>看到，实际高亮的是<code>tycoding@163.com</code>整个数据，并不是仅高亮<code>163</code>这三个字符串。</p>
+<p><strong>但是</strong>，在上面代码中，查询条件是：<code>http://localhost:8983/solr/new_core/select?q=keyword:*163*</code>，显然这是模糊查询，<code>*</code>匹配0个或多个字符。</p>
+<p>关于Solr查询语句可以看 <a href="https://blog.csdn.net/yelllowcong/article/details/78709435" target="_blank" rel="noopener">Solr之精确、匹配、排序、模糊查询</a></p>
+<h4 id="q-xx-and-type-39-string-39-1"><a href="#q-xx-and-type-39-string-39-1" class="headerlink" title="q=xx and type=&#39;string&#39;"></a><code>q=xx and type=&#39;string&#39;</code></h4><p>如果，我们把查询条件改为：<code>http://localhost:8983/solr/new_core/select?q=keyword:163</code>，即不加检索运算符，会怎样呢？</p>
+<p>修改代码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query.set(<span class="string">"q"</span>, <span class="string">"keyword:"</span> + keyword)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/03/06/boot/spring-boot-solr/7.png" alt></p>
+<p>看到高亮集合中虽然有key，但是没有value。那么最终也就没法实现高亮</p>
+<h4 id="q-xx-and-type-39-text-ik-39"><a href="#q-xx-and-type-39-text-ik-39" class="headerlink" title="q=xx and type=&#39;text_ik&#39;"></a><code>q=xx and type=&#39;text_ik&#39;</code></h4><p>修改solr配置文件<code>managed-schema</code>:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text_ik"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">type</span>=<span class="string">"text_ik"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>即让<code>username</code>和<code>email</code>域使用<code>text_ik</code>IK分词器，那么实际的效果：</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/8.png" alt></p>
+<p>并且，仅对查询的数据<code>163</code>进行了高亮显示</p>
+<p><img src="/2019/03/06/boot/spring-boot-solr/9.png" alt></p>
+<h4 id="q-xx-and-type-39-text-ik-39-1"><a href="#q-xx-and-type-39-text-ik-39-1" class="headerlink" title="q=*xx* and type=&#39;text_ik&#39;"></a><code>q=*xx* and type=&#39;text_ik&#39;</code></h4><p><img src="/2019/03/06/boot/spring-boot-solr/10.png" alt></p>
+<p>可以看到，数据被高亮显示了，但是还是整个字段值全被标记高亮。</p>
+<h4 id="结-1"><a href="#结-1" class="headerlink" title="结"></a>结</h4><p>综上，因为IK分词器能将查询数据分词匹配，且类似163,qq,com,cn 这些名词可以直接匹配到并可以精确到具体的字符串高亮显示。但是若solr域定义为<code>string</code>类型，就不能使用<code>*</code>运算符匹配数据。</p>
+<p>可以看下这篇文章：<a href="https://blog.csdn.net/wohaqiyi/article/details/78264117" target="_blank" rel="noopener">搜索引擎solr系列—高亮配置及问题总结</a></p>
+<h2 id="SolrTemplate"><a href="#SolrTemplate" class="headerlink" title="SolrTemplate"></a>SolrTemplate</h2><p>使用<code>SolrTemplate</code>就相对简单很多，<code>org.springframework.data.solr.core.SolrTemplate</code>是spring-data-solr提供的一个solr模板类，类似spring-data-redis的RedisTemplate，使用SolrTemplate就像使用RedisTemplate或者spring-data-jpa一样方便的操作mysql, nosql数据库，快速实现CRUD业务。</p>
+<p>在 <a href="https://tycoding.cn/2018/09/24/other/solr/" target="_blank" rel="noopener">Solr及Spring-Data-Solr入门学习</a> 一文中我已经详细介绍过了，对应<a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">ssm-redis-solr</a>项目，欢迎参考，start,fork。</p>
+<p>所以在这里就不再详细介绍，按照上面使用<code>SolrQuery</code>的查询，这里使用<code>SolrTemplate</code>模板类完成数据查询：</p>
+<h3 id="创建SolrConfig"><a href="#创建SolrConfig" class="headerlink" title="创建SolrConfig"></a>创建SolrConfig</h3><blockquote>
+<p>创建SolrConfig.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SolrConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.data.solr.host&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String solrHost;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SolrClient <span class="title">solrClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HttpSolrClient.Builder(solrHost).build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SolrTemplate <span class="title">solrTemplate</span><span class="params">(SolrClient client)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SolrTemplate(client);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>目的就是根据URL创建SolrClient，并将其注入到SolrTemplate中，以便可以使用SolrTemplate模板类操作Solr数据库。</p>
+<blockquote>
+<p>编写Service服务层代码实现</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> ResponseCode <span class="title">solrTemplateSearch</span><span class="params">(String keyword, Integer current, Integer rows)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//高亮配置</span></span><br><span class="line">    HighlightQuery query = <span class="keyword">new</span> SimpleHighlightQuery();</span><br><span class="line">    String[] fieldNames = &#123;<span class="string">"username"</span>, <span class="string">"email"</span>, <span class="string">"qq"</span>&#125;;</span><br><span class="line">    HighlightOptions highlightOptions = <span class="keyword">new</span> HighlightOptions().addField(fieldNames); <span class="comment">//设置高亮域</span></span><br><span class="line">    highlightOptions.setSimplePrefix(<span class="string">"&lt;em style='color: red'&gt;"</span>); <span class="comment">//设置高亮前缀</span></span><br><span class="line">    highlightOptions.setSimplePostfix(<span class="string">"&lt;/em&gt;"</span>); <span class="comment">//设置高亮后缀</span></span><br><span class="line">    query.setHighlightOptions(highlightOptions); <span class="comment">//设置高亮选项</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="string">""</span>.equals(keyword)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(<span class="string">"请输入查询内容"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 通过Criteria构建查询过滤条件</span></span><br><span class="line"><span class="comment">         * 其中这里的`keyword`等价于solr core中schema.xml配置的域，且`keyword`是复制域名</span></span><br><span class="line"><span class="comment">         * 因为查询的内容是不确定的，solr提供了复制域实现同时查询多个域中的数据，并返回匹配的结果</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Criteria criteria = <span class="keyword">new</span> Criteria(<span class="string">"keyword"</span>);</span><br><span class="line">        <span class="comment">//按照关键字查询</span></span><br><span class="line">        <span class="keyword">if</span> (keyword != <span class="keyword">null</span> &amp;&amp; !<span class="string">""</span>.equals(keyword)) &#123;</span><br><span class="line">            criteria.contains(keyword);</span><br><span class="line">        &#125;</span><br><span class="line">        query.addCriteria(criteria);</span><br><span class="line"></span><br><span class="line"><span class="comment">//            //构建查询条件</span></span><br><span class="line"><span class="comment">//            FilterQuery filterQuery = new SimpleFilterQuery();</span></span><br><span class="line"><span class="comment">//            Criteria filterCriteria = new Criteria("field");</span></span><br><span class="line"><span class="comment">//            filterCriteria.contains(keywords);</span></span><br><span class="line"><span class="comment">//            filterQuery.addCriteria(filterCriteria);</span></span><br><span class="line"><span class="comment">//            query.addFilterQuery(filterQuery);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (current == <span class="keyword">null</span>) &#123;</span><br><span class="line">            current = <span class="number">1</span>; <span class="comment">//默认第一页</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (rows == <span class="keyword">null</span>) &#123;</span><br><span class="line">            rows = <span class="number">20</span>; <span class="comment">//默认每次查询20条记录</span></span><br><span class="line">        &#125;</span><br><span class="line">        query.setOffset((<span class="keyword">long</span>) ((current - <span class="number">1</span>) * rows)); <span class="comment">//从第几条记录开始查询：= 当前页 * 每页的记录数</span></span><br><span class="line">        query.setRows(rows);</span><br><span class="line"></span><br><span class="line">        HighlightPage&lt;Search&gt; page = solrTemplate.queryForHighlightPage(<span class="string">""</span>, query, Search.class);</span><br><span class="line">        <span class="comment">//循环高亮入口集合</span></span><br><span class="line">        <span class="keyword">for</span> (HighlightEntry&lt;Search&gt; h : page.getHighlighted()) &#123;</span><br><span class="line">            Search search = h.getEntity(); <span class="comment">//获取原实体类</span></span><br><span class="line">            <span class="keyword">if</span> (h.getHighlights().size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                h.getHighlights().forEach(light -&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> (search.getUsername().contains(keyword)) &#123;</span><br><span class="line">                        search.setUsername(light.getSnipplets().get(<span class="number">0</span>));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (search.getEmail().contains(keyword)) &#123;</span><br><span class="line">                        search.setEmail(light.getSnipplets().get(<span class="number">0</span>));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (search.getQq().contains(keyword)) &#123;</span><br><span class="line">                        search.setQq(light.getSnipplets().get(<span class="number">0</span>));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(page.getContent(), page.getTotalElements());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseCode(<span class="string">"查询失败"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>SolrTemplate</code>中提供了很多封装好的类进行调用，快速获取查询数据，相比<code>SolrQuery</code>逻辑和代码量都要简化很多。</p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spring-boot/" rel="tag"># spring-boot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/other/solr-server/" rel="next" title="（十一）手摸手教你部署Solr-7.7.1">
+                <i class="fa fa-chevron-left"></i> （十一）手摸手教你部署Solr-7.7.1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/12/java/java-base01/" rel="prev" title="Java基础回顾（一）">
+                Java基础回顾（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Boot整合Solr"><span class="nav-number">1.</span> <span class="nav-text">Spring Boot整合Solr</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">1.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Entity"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建Entity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SolrQuery"><span class="nav-number">1.3.</span> <span class="nav-text">SolrQuery</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最基本的查询"><span class="nav-number">1.3.1.</span> <span class="nav-text">最基本的查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页查询"><span class="nav-number">1.3.2.</span> <span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高亮查询"><span class="nav-number">1.3.3.</span> <span class="nav-text">高亮查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结"><span class="nav-number">1.3.4.</span> <span class="nav-text">结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坑"><span class="nav-number">1.3.5.</span> <span class="nav-text">坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q-xx-and-type-39-string-39"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">q=*xx* and type=&#39;string&#39;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-xx-and-type-39-string-39-1"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">q=xx and type=&#39;string&#39;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-xx-and-type-39-text-ik-39"><span class="nav-number">1.3.5.3.</span> <span class="nav-text">q=xx and type=&#39;text_ik&#39;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-xx-and-type-39-text-ik-39-1"><span class="nav-number">1.3.5.4.</span> <span class="nav-text">q=*xx* and type=&#39;text_ik&#39;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结-1"><span class="nav-number">1.3.5.5.</span> <span class="nav-text">结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SolrTemplate"><span class="nav-number">1.4.</span> <span class="nav-text">SolrTemplate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建SolrConfig"><span class="nav-number">1.4.1.</span> <span class="nav-text">创建SolrConfig</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">2.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">3.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

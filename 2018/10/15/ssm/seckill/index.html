@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="springboot,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前我们已经讲了：  SpringBoot实现Java高并发秒杀系统之Web层开发（三）  SpringBoot实现Java高并发秒杀系统之Service层开发（二）  SpringBoot实现Java高并发秒杀系统之DAO层开发（一）   今天我们来分析一下秒杀系统的难点和怎么进行并发优化。 本项目的源码请参看：springboot-seckill  如果觉得不错可以star一下哦(#^.^#)">
+<meta name="keywords" content="springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot实现Java高并发秒杀系统之并发优化（四）">
+<meta property="og:url" content="http://www.tycoding.cn/2018/10/15/ssm/seckill/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="之前我们已经讲了：  SpringBoot实现Java高并发秒杀系统之Web层开发（三）  SpringBoot实现Java高并发秒杀系统之Service层开发（二）  SpringBoot实现Java高并发秒杀系统之DAO层开发（一）   今天我们来分析一下秒杀系统的难点和怎么进行并发优化。 本项目的源码请参看：springboot-seckill  如果觉得不错可以star一下哦(#^.^#)">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/15/ssm/seckill/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/15/ssm/seckill/2.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot实现Java高并发秒杀系统之并发优化（四）">
+<meta name="twitter:description" content="之前我们已经讲了：  SpringBoot实现Java高并发秒杀系统之Web层开发（三）  SpringBoot实现Java高并发秒杀系统之Service层开发（二）  SpringBoot实现Java高并发秒杀系统之DAO层开发（一）   今天我们来分析一下秒杀系统的难点和怎么进行并发优化。 本项目的源码请参看：springboot-seckill  如果觉得不错可以star一下哦(#^.^#)">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/10/15/ssm/seckill/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/10/15/ssm/seckill/">
+
+
+
+
+
+  <title>SpringBoot实现Java高并发秒杀系统之并发优化（四） | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/15/ssm/seckill/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot实现Java高并发秒杀系统之并发优化（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-15T17:19:55+08:00">
+                2018-10-15
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前我们已经讲了：</p>
+<ul>
+<li><p><a href="http://tycoding.cn/2018/10/14/ssm/seckill-web/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之Web层开发（三）</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/10/13/ssm/seckill-service/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之Service层开发（二）</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/10/12/ssm/seckill-dao/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之DAO层开发（一）</a></p>
+</li>
+</ul>
+<p>今天我们来分析一下秒杀系统的难点和怎么进行并发优化。</p>
+<p>本项目的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill" target="_blank" rel="noopener">springboot-seckill</a>  如果觉得不错可以star一下哦(#^.^#)</p>
+<a id="more"></a>
+
+
+<p>秒杀系统架构的设计和优化分析，以我一个小菜鸡，目前是说不出来的o(╥﹏╥)o。</p>
+<p>因此呢，我这里仅从本项目已经实现的优化来介绍一下：</p>
+<p>本项目中做到了以下优化：</p>
+<ul>
+<li>秒杀接口采用md5加密方式防刷。</li>
+<li>订单表使用联合主键方式，限制一个用户只能购买该商品一次。</li>
+<li>配合Spring事务控制实现简单的优化。</li>
+<li>使用redis缓存优化。</li>
+</ul>
+<h1 id="Spring的事务控制"><a href="#Spring的事务控制" class="headerlink" title="Spring的事务控制"></a>Spring的事务控制</h1><p>Spring的声明式事务通过：传播行为、隔离级别、只读提示、事务超时、回滚规则来进行定义。</p>
+<h2 id="传播行为"><a href="#传播行为" class="headerlink" title="传播行为"></a>传播行为</h2><p>事务的第一个方面就是传播行为。传播行为定义了客户端与被调用方法之间的事务边界。Spring定义了7中不同的传播行为，传播规则规定了何时要创建一个事务或何时使用已有的事务：</p>
+<table>
+<thead>
+<tr>
+<th>传播行为</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PROPAGATION_MANDATORY</td>
+<td>表示该方法必须在事务中运行。如果当前事务不存在，则会抛出一个异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_NESTED</td>
+<td>表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立与当前事务进行单独的提交或回滚</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>表示当前方法不应该运行在事务上下文中，如果当前正在有一个事务运行，则会抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>表示该方法不应该运行在事务中。</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>表示当前方法必须运行在事务中。如果当前事务存在，方法将会在该事务中运行。否者，会启动一个新的事务</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRES_NEW</td>
+<td>表示当前方法必须运行在它自己的事务中。一个新的事务将被启动</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行</td>
+</tr>
+</tbody></table>
+<h2 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h2><p>声明式事务的第二个维度就是隔离级别。隔离级别定义了一个事务可能受其他并发事务影响的程度。多个事务并发运行，经常会操作相同的数据来完成各自的任务，但是可以回导致以下问题：</p>
+<ul>
+<li>更新丢失：当多个事务选择同一行操作，并且都是基于最初的选定的值，由于每个事务都不知道其他事务的存在，就会发生更新覆盖的问题。</li>
+<li>脏读：事务A读取了事务B已经修改但为提交的数据。若事务B回滚数据，事务A的数据存在不一致的问题。</li>
+<li>不可重复读：书屋A第一次读取最初数据，第二次读取事务B已经提交的修改或删除的数据。导致两次数据读取不一致。不符合事务的隔离性。</li>
+<li>幻读：事务A根据相同条件第二次查询到的事务B提交的新增数据，两次数据结果不一致，不符合事务的隔离性。</li>
+</ul>
+<p>理想情况下，事务之间是完全隔离的，从而可以防止这些问题的发生。但是完全的隔离会导致性能问题，因为它通常会涉及锁定数据库中的记录。侵占性的锁定会阻碍并发性，要求事务互相等待以完成各自的工作。</p>
+<p>因此为了实现在事务隔离上有一定的灵活性。因此，就会有多重隔离级别：</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ISOLATION_DEFAULT</td>
+<td>使用后端数据库默认的隔离级别</td>
+</tr>
+<tr>
+<td>SIOLATION_READ_UNCOMMITTED</td>
+<td>允许读取尚未提交的数据变更。可能会导致脏读、幻读或不可重复读</td>
+</tr>
+<tr>
+<td>ISOLATION_READ_COMMITTED</td>
+<td>允许读取并发事务提交的数据。可以阻止脏读，但是幻读或不可重复读仍可能发生</td>
+</tr>
+<tr>
+<td>ISOLATION_REPEATABLE_READ</td>
+<td>对同一字段的多次读取结果是一致的，除非数据是被本事务自己所修改，可以阻止脏读和不可重复读，但幻读仍可能发生</td>
+</tr>
+<tr>
+<td>ISOLATION_SERIALIZABLE</td>
+<td>完全服从ACID的事务隔离级别，确保阻止脏读、不可重复读、幻读。这是最慢的事务隔离级别，因为它通常是通过完全锁定事务相关的数据库来实现的</td>
+</tr>
+</tbody></table>
+<h2 id="回滚规则"><a href="#回滚规则" class="headerlink" title="回滚规则"></a>回滚规则</h2><p>Spring的事务管理器默认是针对unchecked exception回滚，也就是默认对Error异常和RuntimeException异常以及其子类进行事务回滚。</p>
+<p>也就是说事务只有在遇到运行期异常才会回滚，而在遇到检查型异常时不会回滚。</p>
+<p>这也就是我们之前设计Service业务层逻辑的时候一再强调捕获<code>try catch</code>异常，且将编译期异常转换为运行期异常。</p>
+<h1 id="简单优化"><a href="#简单优化" class="headerlink" title="简单优化"></a>简单优化</h1><p>这里我们还是要关注一些项目中的两个核心的业务：1.减库存；2.插入购买明细。我们以一张图来看一下这两个操作的事务执行流程：</p>
+<p><img src="/2018/10/15/ssm/seckill/1.png" alt></p>
+<p>可以看到我们的秒杀操作主要是基于Mysql的事务进行的，而基于MySQL事务的秒杀操作主要瓶颈是网络延迟和GC（Java垃圾回收机制）。执行一条update语句首先要拿到MySQL的行级锁rowLock，而我们要解决的就是如何降低update对rowLock的持有时间。</p>
+<p>我们先了解一下MySQL的InnoDB储存引擎的行级锁（rowLock）:</p>
+<ul>
+<li>行锁的劣势：开销大；加锁慢；会出现死锁</li>
+<li>行锁的优势：锁的粒度小，发生锁冲突的概率低；处理并发的能力强</li>
+<li>加锁的方式：自动加锁。对于UPDATE、DELETE和INSERT语句，InnoDB会自动给涉及数据集加排他锁；对于普通SELECT语句，InnoDB不会加任何锁；当然我们也可以显示的加锁：</li>
+<li>共享锁：select * from tableName where … + lock in share more</li>
+<li>排他锁：select * from tableName where … + for update</li>
+<li>InnoDB和MyISAM的最大不同点有两个：一，InnoDB支持事务(transaction)；二，默认采用行级锁。加锁可以保证事务的一致性，可谓是有人(锁)的地方，就有江湖(事务)。</li>
+</ul>
+<p>详细的介绍请看博文：<a href="http://www.cnblogs.com/itdragon/p/8194622.html" target="_blank" rel="noopener">MySQL 表锁和行锁机制</a></p>
+<p>所以在此基础上我们可以进行简单的优化：</p>
+<p><img src="/2018/10/15/ssm/seckill/2.png" alt></p>
+<p>很简单，就是调整update和insert操作的执行顺序。目的就是为了缩短update对rowLock的持有时间提高性能，因为我们的查询语句使用了<code>insert ignore into xx</code>的方式来避免重复秒杀，那么闲执行insert语句可以在插入时就排除可能存在重复秒杀的操作，这样就不用再向下执行更新操作了。在一定程度上降低了一倍的rowLock持有时间。</p>
+<p>下面是源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> SeckillExecution <span class="title">executeSeckill</span><span class="params">(<span class="keyword">long</span> seckillId, BigDecimal money, <span class="keyword">long</span> userPhone, String md5)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> SeckillException, RepeatKillException, SeckillCloseException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (md5 == <span class="keyword">null</span> || !md5.equals(getMD5(seckillId))) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> SeckillException(<span class="string">"seckill data rewrite"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//执行秒杀逻辑：1.减库存；2.储存秒杀订单</span></span><br><span class="line">    Date nowTime = <span class="keyword">new</span> Date();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//记录秒杀订单信息</span></span><br><span class="line">        <span class="keyword">int</span> insertCount = seckillOrderMapper.insertOrder(seckillId, money, userPhone);</span><br><span class="line">        <span class="comment">//唯一性：seckillId,userPhone，保证一个用户只能秒杀一件商品</span></span><br><span class="line">        <span class="keyword">if</span> (insertCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//重复秒杀</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RepeatKillException(<span class="string">"seckill repeated"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//减库存</span></span><br><span class="line">            <span class="keyword">int</span> updateCount = seckillMapper.reduceStock(seckillId, nowTime);</span><br><span class="line">            <span class="keyword">if</span> (updateCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//没有更新记录，秒杀结束</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> SeckillCloseException(<span class="string">"seckill is closed"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//秒杀成功</span></span><br><span class="line">                SeckillOrder seckillOrder = seckillOrderMapper.findById(seckillId);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, seckillOrder);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (SeckillCloseException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RepeatKillException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        logger.error(e.getMessage(), e);</span><br><span class="line">        <span class="comment">//所有编译期异常，转换为运行期异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> SeckillException(<span class="string">"seckill inner error:"</span> + e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="Redis缓存优化"><a href="#Redis缓存优化" class="headerlink" title="Redis缓存优化"></a>Redis缓存优化</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>如果想使用Redis缓存进行优化，首先你需要连接什么是Redis缓存，以及Spring提供的一种操作Redis缓存的框架：Spring-data-redis。最终要的是：你需要在本地电脑上安装好Redis缓存服务器：</p>
+<p>所以呢，我推荐你看一下我的几篇文章：</p>
+<ul>
+<li><p><a href="http://tycoding.cn/2018/09/24/other/redis/" target="_blank" rel="noopener">Redis即Spring-data-redis入门学习</a></p>
+</li>
+<li><p><a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">优雅的整合SSM+Shiro+Redis+Solr框架</a></p>
+</li>
+</ul>
+<p>在看了上面的文章后相信你已经初步了解了使用Spring-data-redis操作Redis缓存服务器，下面讲解针对本项目的缓存优化实现：</p>
+<p>启动安装好的Redis缓存服务器，修改项目中的 <a href="https://github.com/TyCoding/springboot-seckill/blob/master/src/main/resources/application.yml" target="_blank" rel="noopener">resources/application.yml</a> 关于Redis和Jedis的配置，</p>
+<p>例中我使用的本地Redis服务器：host：127.0.0.1；port：6379</p>
+<h2 id="添加Redis、Jedis缓存配置"><a href="#添加Redis、Jedis缓存配置" class="headerlink" title="添加Redis、Jedis缓存配置"></a>添加Redis、Jedis缓存配置</h2><p>这里我们依赖:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- redis客户端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>同时我们需要在<code>application.yml</code>中配置缓存：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#redis缓存</span><br><span class="line">redis:</span><br><span class="line">  #redis数据库索引，默认是0</span><br><span class="line">  database: 0</span><br><span class="line">  #redis服务器地址，这里用本地的redis</span><br><span class="line">  host: 127.0.0.1</span><br><span class="line">  # Redis服务器连接密码（默认为空）</span><br><span class="line">  password:</span><br><span class="line">  #redis服务器连接端口，默认是6379</span><br><span class="line">  port: 6379</span><br><span class="line">  # 连接超时时间（毫秒）</span><br><span class="line">  timeout: 1000</span><br><span class="line">  jedis:</span><br><span class="line">    pool:</span><br><span class="line">      # 连接池最大连接数（使用负值表示没有限制）</span><br><span class="line">      max-active: 8</span><br><span class="line">      # 连接池最大阻塞等待时间（使用负值表示没有限制</span><br><span class="line">      max-wait: -1</span><br><span class="line">      # 连接池中的最大空闲连接</span><br><span class="line">      max-idle: 8</span><br><span class="line">      # 连接池中的最小空闲连接</span><br><span class="line">      min-idle: 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现Redis的序列化"><a href="#实现Redis的序列化" class="headerlink" title="实现Redis的序列化"></a>实现Redis的序列化</h3><blockquote>
+<p>1.创建JedisConfig</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JedisConfig</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(JedisConfig.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.host&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String host;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.timeout&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> timeout;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.jedis.pool.max-active&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxActive;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.jedis.pool.max-idle&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxIdle;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.jedis.pool.min-idle&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> minIdle;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.jedis.pool.max-wait&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> maxWaitMillis;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JedisPool <span class="title">redisPoolFactory</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JedisPoolConfig jedisPoolConfig = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line">        jedisPoolConfig.setMaxIdle(maxIdle);</span><br><span class="line">        jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);</span><br><span class="line">        jedisPoolConfig.setMaxTotal(maxActive);</span><br><span class="line">        jedisPoolConfig.setMinIdle(minIdle);</span><br><span class="line">        JedisPool jedisPool = <span class="keyword">new</span> JedisPool(jedisPoolConfig, host, port, timeout, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">        logger.info(<span class="string">"JedisPool注入成功"</span>);</span><br><span class="line">        logger.info(<span class="string">"redis地址："</span> + host + <span class="string">":"</span> + port);</span><br><span class="line">        <span class="keyword">return</span> jedisPool;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是为了将我们在<code>application.yml</code>中配置的参数注入到JedisPool中，使用Spring的<code>@Value</code>注解能读取到Spring配置文件中已经配置的参数的值</p>
+<blockquote>
+<p>2.创建RedisTemplateConfig</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisTemplateConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title">redisTemplate</span><span class="params">(RedisConnectionFactory redisConnectionFactory)</span></span>&#123;</span><br><span class="line">        Jackson2JsonRedisSerializer&lt;Object&gt; jackson2JsonRedisSerializer = <span class="keyword">new</span> Jackson2JsonRedisSerializer&lt;Object&gt;(Object.class);</span><br><span class="line">        ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;String, Object&gt;();</span><br><span class="line">        redisTemplate.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        redisTemplate.setKeySerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        redisTemplate.setHashKeySerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        redisTemplate.afterPropertiesSet();</span><br><span class="line">        logger.info(<span class="string">"RedisTemplate序列化配置，转化方式："</span> + jackson2JsonRedisSerializer.getClass().getName());</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这一步才是真正实现Redis序列化的配置，当然，不实现序列化也是可以的，舍去上面两步，我们依然可以将数据放入到Redis缓存中。所以我们需要注意以下几点：</p>
+<ul>
+<li><p>实现序列化目前而言不是必须的，因为我们使用了Spring-data-redis提供的高度封装的RedisTemplate模板类。</p>
+</li>
+<li><p>SpringBoot2.x实现Redis的序列化仍是由很多方案，但是我这里使用了Spring-data-redis提供的一种jackson2JsonRedisSerializer的序列化方式。</p>
+</li>
+<li><p>如果不实现Redis的序列化，可以往Redis中存入数据，但是存入的key都是乱码的，想要避免这一点就必须实现序列化。</p>
+</li>
+<li><p>这个步骤和我们之前<a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">整合SSM+Redis+Shiro+Solr框架</a>中已经讲到了用XML实现序列化配置，这里仅是换成了Java配置而已。</p>
+</li>
+</ul>
+<h2 id="优化findAll方法"><a href="#优化findAll方法" class="headerlink" title="优化findAll方法"></a>优化findAll方法</h2><p>秒杀列表（即查询<code>findAll</code>方法）也是经常被访问的，所以我们可以将商品数据放入Redis缓存中</p>
+<p>调用<code>findAll()</code>方法得到的是一个List集合，而我们不能直接将一个List集合的数据放入缓存(<code>key-value</code>形式)中，我们必须指定key和value的为实体类中某个属性值。</p>
+<p>所以本例中我们采用key: 秒杀商品ID值；value：秒杀商品数据（实体类）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置秒杀redis缓存的key</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String key = <span class="string">"seckill"</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Seckill&gt; <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Seckill&gt; seckillList = redisTemplate.boundHashOps(<span class="string">"seckill"</span>).values();</span><br><span class="line">    <span class="keyword">if</span> (seckillList == <span class="keyword">null</span> || seckillList.size() == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">//说明缓存中没有秒杀列表数据</span></span><br><span class="line">        <span class="comment">//查询数据库中秒杀列表数据，并将列表数据循环放入redis缓存中</span></span><br><span class="line">        seckillList = seckillMapper.findAll();</span><br><span class="line">        <span class="keyword">for</span> (Seckill seckill : seckillList)&#123;</span><br><span class="line">            <span class="comment">//将秒杀列表数据依次放入redis缓存中，key:秒杀表的ID值；value:秒杀商品数据</span></span><br><span class="line">            redisTemplate.boundHashOps(key).put(seckill.getSeckillId(), seckill);</span><br><span class="line">            logger.info(<span class="string">"findAll -&gt; 从数据库中读取放入缓存中"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        logger.info(<span class="string">"findAll -&gt; 从缓存中读取"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> seckillList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="优化exportSeckillUrl方法"><a href="#优化exportSeckillUrl方法" class="headerlink" title="优化exportSeckillUrl方法"></a>优化exportSeckillUrl方法</h2><p><code>exportSeckillUrl()</code>暴露接口的方法也是常调用的，因为其中要频繁的调用<code>findById()</code>方法，所以将指定ID的商品数据放入缓存中也是很必要的，当然我们在之前的findAll()方法中已经将每个ID的数据都分别放入了缓存中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Exposer <span class="title">exportSeckillUrl</span><span class="params">(<span class="keyword">long</span> seckillId)</span> </span>&#123;</span><br><span class="line">    Seckill seckill = (Seckill) redisTemplate.boundHashOps(key).get(seckillId);</span><br><span class="line">    <span class="keyword">if</span> (seckill == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//说明redis缓存中没有此key对应的value</span></span><br><span class="line">        <span class="comment">//查询数据库，并将数据放入缓存中</span></span><br><span class="line">        seckill = seckillMapper.findById(seckillId);</span><br><span class="line">        <span class="keyword">if</span> (seckill == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//说明没有查询到</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">false</span>, seckillId);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//查询到了，存入redis缓存中。 key:秒杀表的ID值； value:秒杀表数据</span></span><br><span class="line">            redisTemplate.boundHashOps(key).put(seckill.getSeckillId(), seckill);</span><br><span class="line">            logger.info(<span class="string">"RedisTemplate -&gt; 从数据库中读取并放入缓存中"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        logger.info(<span class="string">"RedisTemplate -&gt; 从缓存中读取"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Date startTime = seckill.getStartTime();</span><br><span class="line">    Date endTime = seckill.getEndTime();</span><br><span class="line">    <span class="comment">//获取系统时间</span></span><br><span class="line">    Date nowTime = <span class="keyword">new</span> Date();</span><br><span class="line">    <span class="keyword">if</span> (nowTime.getTime() &lt; startTime.getTime() || nowTime.getTime() &gt; endTime.getTime()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">false</span>, seckillId, nowTime.getTime(), startTime.getTime(), endTime.getTime());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//转换特定字符串的过程，不可逆的算法</span></span><br><span class="line">    String md5 = getMD5(seckillId);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">true</span>, md5, seckillId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="优化executeSeckill方法"><a href="#优化executeSeckill方法" class="headerlink" title="优化executeSeckill方法"></a>优化executeSeckill方法</h2><p>上面的两个查询操作都将商品数据放入了缓存中，key:商品ID；value:商品数据（实体类）。而对于减库存操作，用户每次抢购一件商品，商品的库存总量都需要-1，但是我们页面展示的数据都是从缓存中读取的，即使修改了数据库中的库存数量，页面上展示的数量仍是无法修改的，所以我们同时要修改缓存中的数据来保证缓存和数据库数据的一致性。</p>
+<p>更新缓存的办法就简单了，即重新<code>put</code>进去数据就行了，因为Redis缓存数据库中存放的数据是key-value形式，你重新对指定key put进去新的值，就势必会覆盖掉原来的值（这也就是我们为什么设计key:商品ID；value:商品数据）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SeckillExecution <span class="title">executeSeckill</span><span class="params">(<span class="keyword">long</span> seckillId, BigDecimal money, <span class="keyword">long</span> userPhone, String md5)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> SeckillException, RepeatKillException, SeckillCloseException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (md5 == <span class="keyword">null</span> || !md5.equals(getMD5(seckillId))) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SeckillException(<span class="string">"seckill data rewrite"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//执行秒杀逻辑：1.减库存；2.储存秒杀订单</span></span><br><span class="line">        Date nowTime = <span class="keyword">new</span> Date();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//记录秒杀订单信息</span></span><br><span class="line">            <span class="keyword">int</span> insertCount = seckillOrderMapper.insertOrder(seckillId, money, userPhone);</span><br><span class="line">            <span class="comment">//唯一性：seckillId,userPhone，保证一个用户只能秒杀一件商品</span></span><br><span class="line">            <span class="keyword">if</span> (insertCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//重复秒杀</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RepeatKillException(<span class="string">"seckill repeated"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//减库存</span></span><br><span class="line">                <span class="keyword">int</span> updateCount = seckillMapper.reduceStock(seckillId, nowTime);</span><br><span class="line">                <span class="keyword">if</span> (updateCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="comment">//没有更新记录，秒杀结束</span></span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> SeckillCloseException(<span class="string">"seckill is closed"</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//秒杀成功</span></span><br><span class="line">                    SeckillOrder seckillOrder = seckillOrderMapper.findById(seckillId);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//更新缓存（更新库存数量）</span></span><br><span class="line">                    Seckill seckill = (Seckill) redisTemplate.boundHashOps(key).get(seckillId);</span><br><span class="line">                    seckill.setStockCount(seckill.getSeckillId() - <span class="number">1</span>);</span><br><span class="line">                    redisTemplate.boundHashOps(key).put(seckillId, seckill);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, seckillOrder);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SeckillCloseException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RepeatKillException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(e.getMessage(), e);</span><br><span class="line">            <span class="comment">//所有编译期异常，转换为运行期异常</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SeckillException(<span class="string">"seckill inner error:"</span> + e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/springboot/" rel="tag"># springboot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/14/ssm/seckill-web/" rel="next" title="SpringBoot实现Java高并发秒杀系统之Web层开发（三）">
+                <i class="fa fa-chevron-left"></i> SpringBoot实现Java高并发秒杀系统之Web层开发（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/05/project/tumo/" rel="prev" title="简洁美观的Tumo Blog开源了">
+                简洁美观的Tumo Blog开源了 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring的事务控制"><span class="nav-number">1.</span> <span class="nav-text">Spring的事务控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传播行为"><span class="nav-number">1.1.</span> <span class="nav-text">传播行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隔离级别"><span class="nav-number">1.2.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回滚规则"><span class="nav-number">1.3.</span> <span class="nav-text">回滚规则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单优化"><span class="nav-number">2.</span> <span class="nav-text">简单优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis缓存优化"><span class="nav-number">3.</span> <span class="nav-text">Redis缓存优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">3.1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Redis、Jedis缓存配置"><span class="nav-number">3.2.</span> <span class="nav-text">添加Redis、Jedis缓存配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现Redis的序列化"><span class="nav-number">3.2.1.</span> <span class="nav-text">实现Redis的序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化findAll方法"><span class="nav-number">3.3.</span> <span class="nav-text">优化findAll方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化exportSeckillUrl方法"><span class="nav-number">3.4.</span> <span class="nav-text">优化exportSeckillUrl方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化executeSeckill方法"><span class="nav-number">3.5.</span> <span class="nav-text">优化executeSeckill方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">4.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">5.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

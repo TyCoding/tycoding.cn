@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="springboot,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="秒杀系统在如今电商项目中是很常见的，最近在学习电商项目时讲到了秒杀系统的实现，于是打算使用SpringBoot框架学习一下秒杀系统（本项目基于慕课网的一套免费视频教程：Java高并发秒杀API，视频教程中讲解的很详细，非常感谢这位讲师）。也是因为最近学习了SpringBoot框架（GitHub教程：SpringBoot入门之CRUD ），觉得SpringBoot框架确实比传统SSM框架方便了很多，">
+<meta name="keywords" content="springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot实现Java高并发秒杀系统之DAO层开发（一）">
+<meta property="og:url" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="秒杀系统在如今电商项目中是很常见的，最近在学习电商项目时讲到了秒杀系统的实现，于是打算使用SpringBoot框架学习一下秒杀系统（本项目基于慕课网的一套免费视频教程：Java高并发秒杀API，视频教程中讲解的很详细，非常感谢这位讲师）。也是因为最近学习了SpringBoot框架（GitHub教程：SpringBoot入门之CRUD ），觉得SpringBoot框架确实比传统SSM框架方便了很多，">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/show-1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/show-2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/show-3.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot实现Java高并发秒杀系统之DAO层开发（一）">
+<meta name="twitter:description" content="秒杀系统在如今电商项目中是很常见的，最近在学习电商项目时讲到了秒杀系统的实现，于是打算使用SpringBoot框架学习一下秒杀系统（本项目基于慕课网的一套免费视频教程：Java高并发秒杀API，视频教程中讲解的很详细，非常感谢这位讲师）。也是因为最近学习了SpringBoot框架（GitHub教程：SpringBoot入门之CRUD ），觉得SpringBoot框架确实比传统SSM框架方便了很多，">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/">
+
+
+
+
+
+  <title>SpringBoot实现Java高并发秒杀系统之DAO层开发（一） | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot实现Java高并发秒杀系统之DAO层开发（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T10:42:40+08:00">
+                2018-10-12
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>秒杀</strong>系统在如今电商项目中是很常见的，最近在学习电商项目时讲到了秒杀系统的实现，于是打算使用SpringBoot框架学习一下秒杀系统（本项目基于慕课网的一套免费视频教程：<a href="https://www.imooc.com/u/2145618/courses?sort=publish" target="_blank" rel="noopener">Java高并发秒杀API</a>，视频教程中讲解的很详细，非常感谢这位讲师）。也是因为最近学习了SpringBoot框架（GitHub教程：<a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">SpringBoot入门之CRUD</a> ），觉得SpringBoot框架确实比传统SSM框架方便了很多，于是更深层次练习使用SpringBoot框架，注意：<strong>SpringBoot不是对Spring功能上的增强，而是提供了一种快速使用Spring的方式。</strong> 如果你熟悉了SSM框架，学习SpringBoot框架也是很Easy的。</p>
+<p>本项目的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill" target="_blank" rel="noopener">springboot-seckill</a>  如果觉得不错可以star一下哦(#^.^#)</p>
+<a id="more"></a>
+
+<p>本项目一共分为四个模块来讲解，具体的开发教程请看我的博客文章：</p>
+<ul>
+<li><p><a href="http://tycoding.cn/2018/10/12/ssm/seckill-dao/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之DAO层开发（一）</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/10/13/ssm/seckill-service/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之Service层开发（二）</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/10/14/ssm/seckill-web/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之Web层开发（三）</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/10/15/ssm/seckill/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之并发优化（四）</a></p>
+</li>
+</ul>
+<h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><p>首先我们需要搭建SpringBoot项目开发环境，IDEA搭建SpringBoot项目的具体教程请看我的：<a href="http://tycoding.cn/2018/09/30/boot/springboot-mybatis/#more" target="_blank" rel="noopener">博文</a>。</p>
+<p>如果你对SpringBoot框架或是SSM框架不熟悉，我想推荐一下我的几个小项目帮助你更好的理解：</p>
+<ul>
+<li><p><a href="http://tycoding.cn/2018/09/28/boot/spring-boot/" target="_blank" rel="noopener">SpringBoot起步之环境搭建</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/09/30/boot/springboot-mybatis/#more" target="_blank" rel="noopener">SpringBoot-Mybatis入门之CRUD</a></p>
+</li>
+<li><p><a href="https://github.com/TyCoding/ssm" target="_blank" rel="noopener">手把手教你整合SSM框架</a></p>
+</li>
+<li><p><a href="http://tycoding.cn/2018/06/04/ssm/ssm/" target="_blank" rel="noopener">SSM框架入门之环境搭建</a></p>
+</li>
+</ul>
+<br>
+
+<p><strong>项目设计</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── README  -- Doc文档</span><br><span class="line">├── db  -- 数据库约束文件</span><br><span class="line">├── mvnw</span><br><span class="line">├── mvnw.cmd</span><br><span class="line">├── pom.xml  -- 项目依赖</span><br><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   │   └── cn</span><br><span class="line">    │   │       └── tycoding</span><br><span class="line">    │   │           ├── SpringbootSeckillApplication.java  -- SpringBoot启动器</span><br><span class="line">    │   │           ├── controller  -- MVC的web层</span><br><span class="line">    │   │           ├── dto  -- 统一封装的一些结果属性，和entity类似</span><br><span class="line">    │   │           ├── entity  -- 实体类</span><br><span class="line">    │   │           ├── enums  -- 手动定义的字典枚举参数</span><br><span class="line">    │   │           ├── exception  -- 统一的异常结果</span><br><span class="line">    │   │           ├── mapper  -- Mybatis-Mapper层映射接口，或称为DAO层</span><br><span class="line">    │   │           ├── redis  -- redis,jedis 相关配置</span><br><span class="line">    │   │           └── service  -- 业务层</span><br><span class="line">    │   └── resources</span><br><span class="line">    │       ├── application.yml  -- SpringBoot核心配置</span><br><span class="line">    │       ├── mapper  -- Mybatis-Mapper层XML映射文件</span><br><span class="line">    │       ├── static  -- 存放页面静态资源，可通过浏览器直接访问</span><br><span class="line">    │       │   ├── css</span><br><span class="line">    │       │   ├── js</span><br><span class="line">    │       │   └── lib</span><br><span class="line">    │       └── templates  -- 存放Thymeleaf模板引擎所需的HTML，不能在浏览器直接访问</span><br><span class="line">    │           ├── page</span><br><span class="line">    │           └── public  -- HTML页面公共组件（头部、尾部）</span><br><span class="line">    └── test  -- 测试文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h2><p>之前我们在<a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">SpringBoot-Mybatis入门之CRUD</a>中已经详细讲解了SpringBoot框架的开发流程，还是觉得一句话说的特别好：<strong>SpringBoot不是对对Spring功能上的增强，而是提供了一种快速使用Spring的方式</strong>。所以用SSM阶段的知识足够了SpringBoot阶段的开发，下面我们强调一下小技巧：</p>
+<ul>
+<li><p>SpringBoot不需要配置注解扫描，之前我们配置<code>&lt;context:component-scan&gt;</code>扫描可能使用注解(@Service,@Component,@Controller等)的包路径。默认创建SpringBoot项目自动生成的Application.java启动器类会自动扫描其下的所有注解。</p>
+</li>
+<li><p>SpringBoot项目中静态资源都放在<code>resources</code>目录下，其中<code>static</code>目录中的数据可以直接通过浏览器访问，多用来放CSS、JS、img，但是不用来放html页面；其中<code>templates</code>用来存放HTML页面，但是需要在SpringBoot的配置文件(application.yml)中配置<code>spring.thymeleaf.prefix</code>标识Thymeleaf模板引擎渲染的页面位置。</p>
+</li>
+<li><p>HTML页面通过Thymeleaf的加持，为HTML页面赋予了很多功能，此时的HTML页面类似于JSP页面。访问后端存入域对象(session,request…)中的数据，可以通过<code>th:text=&quot;${key}&quot;</code>获得，在JS中也可以通过<code>[[${key}]]</code>获得。</p>
+</li>
+<li><p>Thymeleaf提供了类似JSP页面<code>&lt;include&gt;</code>的功能：public-component:<code>&lt;div th:fragment=&quot;header&quot;&gt;</code>，main-component:<code>&lt;div th:replace=&quot;path/header :: header&quot;&gt;</code>(其中<code>path</code>表示public-component相对于templates的路径，<code>/header</code>表示component文件名，最后的<code>header</code>表示<code>th:fragment</code>中定义的名称)。</p>
+</li>
+</ul>
+<h2 id="pom依赖"><a href="#pom依赖" class="headerlink" title="pom依赖"></a>pom依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- alibaba的druid数据库连接池 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- redis客户端 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaBean实体类配置"><a href="#JavaBean实体类配置" class="headerlink" title="JavaBean实体类配置"></a>JavaBean实体类配置</h2><p>此处源码请看：<a href="https://github.com/TyCoding/springboot-seckill/tree/master/src/main/java/cn/tycoding/entity" target="_blank" rel="noopener">GitHub</a></p>
+<p>Seckill.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Seckill</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> seckillId; <span class="comment">//商品ID</span></span><br><span class="line">    <span class="keyword">private</span> String title; <span class="comment">//商品标题</span></span><br><span class="line">    <span class="keyword">private</span> String image; <span class="comment">//商品图片</span></span><br><span class="line">    <span class="keyword">private</span> BigDecimal price; <span class="comment">//商品原价格</span></span><br><span class="line">    <span class="keyword">private</span> BigDecimal costPrice; <span class="comment">//商品秒杀价格</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@DateTimeFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>)</span><br><span class="line">    <span class="meta">@JsonFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>, timezone = <span class="string">"GMT+8"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date createTime; <span class="comment">//创建时间</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@DateTimeFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>)</span><br><span class="line">    <span class="meta">@JsonFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>, timezone = <span class="string">"GMT+8"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date startTime; <span class="comment">//秒杀开始时间</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@DateTimeFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>)</span><br><span class="line">    <span class="meta">@JsonFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>, timezone = <span class="string">"GMT+8"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date endTime; <span class="comment">//秒杀结束时间</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> stockCount; <span class="comment">//剩余库存数量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SeckillOrder.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillOrder</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> seckillId; <span class="comment">//秒杀到的商品ID</span></span><br><span class="line">    <span class="keyword">private</span> BigDecimal money; <span class="comment">//支付金额</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> userPhone; <span class="comment">//秒杀用户的手机号</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@DateTimeFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>)</span><br><span class="line">    <span class="meta">@JsonFormat</span>(pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>, timezone = <span class="string">"GMT+8"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date createTime; <span class="comment">//创建时间</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> status; <span class="comment">//订单状态， -1:无效 0:成功 1:已付款</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Seckill seckill; <span class="comment">//秒杀商品，和订单是一对多的关系</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意实体类中<code>Date</code>类型数据都用了<code>@DateTimeFormat()</code>(来自springframework)和<code>@JsonFormat()</code>(来自jackson)标识可以实现Controller在返回JSON数据（用<code>@ResponseBody</code>标识的方法或<code>@RestController</code>标识的类）的时候能将Date类型的参数值（经Mybatis查询得到的数据是英文格式的日期，因为实体类中是Date类型）转换为注解中指定的格式返回给页面（相当于经过了一层SimpleDateFormate）。</p>
+<p>其次要<strong>注意</strong>在编写实体类的时候尽量养成习惯<strong>继承Serializable接口</strong>。在<code>SeckillOrder</code>中我们注入了<code>Seckill</code>类作为一个属性，目的是为了可以使用多表查询的方式从<code>seckill_order</code>表中查询出来对应的<code>seckill</code>表数据。</p>
+<h1 id="表设计"><a href="#表设计" class="headerlink" title="表设计"></a>表设计</h1><p>创建完成了SpringBoot项目，首先我们需要初始化数据库，秒杀系统的建表SQL如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *  mysql-v: 5.7.22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建数据库</span></span><br><span class="line"><span class="comment">-- CREATE DATABASE seckill DEFAULT CHARACTER SET utf8;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`seckill`</span>;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`seckill_order`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建秒杀商品表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`seckill`</span>(</span><br><span class="line">  <span class="string">`seckill_id`</span> <span class="built_in">bigint</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'商品ID'</span>,</span><br><span class="line">  <span class="string">`title`</span> <span class="built_in">varchar</span> (<span class="number">1000</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'商品标题'</span>,</span><br><span class="line">  <span class="string">`image`</span> <span class="built_in">varchar</span> (<span class="number">1000</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'商品图片'</span>,</span><br><span class="line">  <span class="string">`price`</span> <span class="built_in">decimal</span> (<span class="number">10</span>,<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'商品原价格'</span>,</span><br><span class="line">  <span class="string">`cost_price`</span> <span class="built_in">decimal</span> (<span class="number">10</span>,<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'商品秒杀价格'</span>,</span><br><span class="line">  <span class="string">`stock_count`</span> <span class="built_in">bigint</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'剩余库存数量'</span>,</span><br><span class="line">  <span class="string">`start_time`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'1970-02-01 00:00:01'</span> <span class="keyword">COMMENT</span> <span class="string">'秒杀开始时间'</span>,</span><br><span class="line">  <span class="string">`end_time`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'1970-02-01 00:00:01'</span> <span class="keyword">COMMENT</span> <span class="string">'秒杀结束时间'</span>,</span><br><span class="line">  <span class="string">`create_time`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`seckill_id`</span>),</span><br><span class="line">  <span class="keyword">KEY</span> <span class="string">`idx_start_time`</span> (<span class="string">`start_time`</span>),</span><br><span class="line">  <span class="keyword">KEY</span> <span class="string">`idx_end_time`</span> (<span class="string">`end_time`</span>),</span><br><span class="line">  <span class="keyword">KEY</span> <span class="string">`idx_create_time`</span> (<span class="string">`end_time`</span>)</span><br><span class="line">) <span class="keyword">CHARSET</span>=utf8 <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">COMMENT</span> <span class="string">'秒杀商品表'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建秒杀订单表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`seckill_order`</span>(</span><br><span class="line">  <span class="string">`seckill_id`</span> <span class="built_in">bigint</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'秒杀商品ID'</span>,</span><br><span class="line">  <span class="string">`money`</span> <span class="built_in">decimal</span> (<span class="number">10</span>, <span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'支付金额'</span>,</span><br><span class="line">  <span class="string">`user_phone`</span> <span class="built_in">bigint</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'用户手机号'</span>,</span><br><span class="line">  <span class="string">`create_time`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</span><br><span class="line">  <span class="string">`state`</span> <span class="built_in">tinyint</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">-1</span> <span class="keyword">COMMENT</span> <span class="string">'状态：-1无效 0成功 1已付款'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`seckill_id`</span>, <span class="string">`user_phone`</span>) <span class="comment">/*联合主键，保证一个用户只能秒杀一件商品*/</span></span><br><span class="line">) <span class="keyword">CHARSET</span>=utf8 <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">COMMENT</span> <span class="string">'秒杀订单表'</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong></p>
+<p>秒杀系统的表设计还是相对简单清晰的，这里我们只考虑秒杀系统的业务表，不涉及其他的表，所以整个系统主要涉及两张表：秒杀商品表、订单表。当然实际情况肯定不止这两张表（比如付款相关表，但是我们并未实现这个功能），也不止表中的这些字段。这里我们需要特别注意以下几点：</p>
+<p><strong>注意</strong></p>
+<ul>
+<li><p>1.我这里使用的Mysql版本是5.7.22，在Mysql5.7之后timestamp默认值不能再是<code>0000 00-00 00:00:00</code>，具体的介绍请看：<a href="https://dev.mysql.com/doc/refman/5.7/en/datetime.html" target="_blank" rel="noopener">mysql官方文档</a>。即 TIMESTAMP has a range of ‘1970-01-01 00:00:01’ UTC to ‘2038-01-19 03:14:07’ UTC.</p>
+</li>
+<li><p>2.timestamp类型用来实现自动为新增行字段设置当前系统时间；且使用timestamp的字段必须给timestamp设置默认值，而在Mysql中date, datetime等类型都是无法实现默认设置当前系统时间值的功能(<code>DEFAULT CURRENT_TIMESTAMP</code>)的，所以我们必须使用timestamp类型，否则你要给字段传进来系统时间。</p>
+</li>
+<li><p>3.decimal类型用于在数据库中设置精确的数值，比如<code>decimal(10,2)</code>表示可以存储10位且有2位小数的数值。</p>
+</li>
+<li><p>4.tinyint类型用于存放int类型的数值，但是若用Mybatis作为DAO层框架，Mybatis会自动为tinyint类型的数据转换成true或false（0:false; 1 or 1+:true）。</p>
+</li>
+<li><p>5.在订单表<code>seckill_order</code>中我们设计了联合主键：<code>PRIMARY KEY (seckill_id, user_phone)</code>，目的是为了避免单个用户重复购买同一件商品（一个用户只能秒杀到一次同一件商品）。</p>
+</li>
+<li><p>6.无论是创建数据库还是创建表我们都应该养成一个习惯就是指定<code>character=utf-8</code>，避免中文数据乱码；其次还应该指定表的储存引擎是InnoDB，MySQL提供了两种储存引擎：InnoDB, MyISAM。但是只有InnoDB是支持事务的，且InnoDB相比MyISAM在并发上更具有高性能的优点。</p>
+</li>
+</ul>
+<h1 id="DAO层开发"><a href="#DAO层开发" class="headerlink" title="DAO层开发"></a>DAO层开发</h1><p>DAO层是我们常说的三层架构（Web层-业务层-持久层）中与数据库交互的持久层，但是实际而言，架构是这样设计的，但是并不代表着实际项目中就一定存在一个<code>dao</code>文件夹，特别是现阶段我们使用的Spring-Mybatis框架。Mybatis提供了一种接口代理开发模式，也就是我们需要提供一个interface接口，其他和数据库交互的SQL编写放到对应的XML文件中（但是需要进行相关的数据库参数配置，并且Mybatis规定了使用这种开发模式必须保持接口和XML文件名称对应）。于是在本项目中就没有出现<code>dao</code>整个文件夹，取而代之的是<code>mapper</code>这个文件夹，我感觉更易识别出为Mybatis的映射接口文件。其实在实际项目中考虑到项目的大小和复杂程度，<code>dao</code>和<code>mapper</code>可能是同时存在的，因为service可能并不满足项目的设计，即为dao接口创建实现类，在实现类中再调用mapper接口来实现功能模块的扩展。</p>
+<br>
+
+<p>DAO层开发，即DAO层接口开发，主要设计需要和数据库交互的数据有哪些？应该用什么返回值类型接收查询到的数据？所以包含的方法有哪些？带着这些问题，我们先看一下秒杀系统的业务流程：</p>
+<p><img src="/2018/10/12/ssm/seckill-dao/1.png" alt></p>
+<p>由上图可以看出，相对与本项目而言和数据库打交道的主要涉及两个操作：1.减库存（秒杀商品表）；2.记录购买明细（订单表）。</p>
+<ul>
+<li><p>减库存，顾名思义就是减少当前被秒杀到的商品的库存数量，这也是秒杀系统中一个处理难点的地方。实现减库存即count-1，但是我们需要考虑Mysql的事务特性引发的种种问题、需要考虑如何避免同一用户重复秒杀的行为。</p>
+</li>
+<li><p>如果减库存的业务解决了那么记录购买明细的业务就相对简单很多了，我们需要记录购买用户的姓名、手机号、购买的商品ID等。因为本项目中不涉及支付功能，所以记录用户的购买订单的业务并不复杂。</p>
+</li>
+</ul>
+<p>分析了上面的功能，下面我们开始DAO层接口的编写(源码请看：<a href="https://github.com/TyCoding/springboot-seckill/tree/master/src/main/java/cn/tycoding/mapper" target="_blank" rel="noopener">GitHub</a>)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 减库存。</span></span><br><span class="line"><span class="comment"> * 对于Mapper映射接口方法中存在多个参数的要加<span class="doctag">@Param</span>()注解标识字段名称，不然Mybatis不能识别出来哪个字段相互对应</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> seckillId 秒杀商品ID</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> killTime  秒杀时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 返回此SQL更新的记录数，如果&gt;=1表示更新成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reduceStock</span><span class="params">(@Param(<span class="string">"seckillId"</span>)</span> <span class="keyword">long</span> seckillId, @<span class="title">Param</span><span class="params">(<span class="string">"killTime"</span>)</span> Date killTime)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 插入购买订单明细</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> seckillId 秒杀到的商品ID</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> money     秒杀的金额</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> userPhone 秒杀的用户</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 返回该SQL更新的记录数，如果&gt;=1则更新成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">insertOrder</span><span class="params">(@Param(<span class="string">"seckillId"</span>)</span> <span class="keyword">long</span> seckillId, @<span class="title">Param</span><span class="params">(<span class="string">"money"</span>)</span> BigDecimal money, @<span class="title">Param</span><span class="params">(<span class="string">"userPhone"</span>)</span> <span class="keyword">long</span> userPhone)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>但从接口设计上我们无非关注的就是这两个方法：1.减库存；2.插入购买明细。此处需要注意的是：</p>
+<ul>
+<li><p>对于SpringBoot系统，DAO（Mapper）层的接口需要使用<code>@Mapper</code>注解标识。因为SpringBoot系统中接口的XML文件不在<code>/java</code>目录下而是在<code>/resources</code>目录下。</p>
+</li>
+<li><p>对于Mapper接口方法中存在传递多个参数的情况需要使用<code>@Param()</code>标识这个参数的名称，目的是为了帮助Mybatis识别传递的参数，不然Mybatis的XML中用的<code>#{}</code>不能识别出来你传递的参数名称是谁和谁对应的，类似于Controller层中常用的<code>@RequestParam()</code>注解。</p>
+</li>
+<li><p><strong>小技巧:</strong> 之前我们做insert和update操作时直接用<code>void</code>作为方法返回值，实际上虽然Mybatis的<code>&lt;update&gt;</code>和<code>&lt;select&gt;</code>语句并没有<code>resultType</code>属性，但是并不代表其没有返回值，默认返回0或1，表示执行该SQL影响的行数。为此我们可以这样写SQL，如：<code>insert ignore into xxx</code>用来避免Mybatis报错，而是直接返回0表示当前SQL执行失败。</p>
+</li>
+<li><p>小技巧：因为我们必须要避免同一个用户多次抢购同一件商品，在SQL中必须限制这一点（因为即使前端怎么控制都无法避免用户多次请求同一个接口，所谓接口防刷）。所以在设计订单表的时候用了联合主键且不自增的方式，以用户ID和用户电话组成联合主键，这样当同一个用户（电话相同）多次抢购同一件商品时插入的SQL就会产生主键冲突的问题，这样就会报错。</p>
+</li>
+</ul>
+<h2 id="XML映射"><a href="#XML映射" class="headerlink" title="XML映射"></a>XML映射</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"reduceStock"</span>&gt;</span></span><br><span class="line">    UPDATE seckill</span><br><span class="line">    SET stock_count = stock_count - 1</span><br><span class="line">    WHERE seckill_id = #&#123;seckillId&#125;</span><br><span class="line">    AND start_time &amp;lt;= #&#123;killTime&#125;</span><br><span class="line">    AND end_time &amp;gt;= #&#123;killTime&#125;</span><br><span class="line">    AND stock_count &amp;gt; 0</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertOrder"</span>&gt;</span></span><br><span class="line">    INSERT ignore INTO seckill_order(seckill_id, money, user_phone)</span><br><span class="line">    VALUES (#&#123;seckillId&#125;, #&#123;money&#125;, #&#123;userPhone&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>SQL语句相对不是很复杂。减库存：执行update语句，令<code>stock_count</code>字段依次减一，并且当前要在一系列where条件的限制下；新增订单信息：保存订单数据，这里为接口防刷用联合主键<code>seckillId, userPhone</code>，如果同一个用户多次抢购同一件商品导致主键冲突会直接报错，为了避免系统不直接报错设计了<code>ignore</code>实现主键冲突就直接返回0表示该条SQL执行失败。</p>
+<p><strong>拓展</strong></p>
+<p>上面我使用了<code>&amp;lt;</code>、<code>&amp;gt;</code>的语法其实代表的是&gt;= &lt;=这种符号，因为在Mybatis中编写的SQL语句如果直接使用<code>&gt;=</code>或<code>&lt;=</code>这种判断条件可能会报错，我这里提供一种简单的解决方案就是用这种英文符号代替：</p>
+<table>
+<thead>
+<tr>
+<th>原符号</th>
+<th>替换符号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;</td>
+<td>&lt;</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>&lt;=</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>&gt;</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>&gt;=</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>&amp;</td>
+</tr>
+<tr>
+<td>‘</td>
+<td>&apos;</td>
+</tr>
+<tr>
+<td>“</td>
+<td>&quot;</td>
+</tr>
+</tbody></table>
+<h3 id="order表中findById方法"><a href="#order表中findById方法" class="headerlink" title="order表中findById方法"></a>order表中findById方法</h3><p>之前在<code>SeckillOrder.java</code>实体类中我们注入了<code>Seckill</code>属性，用于可以根据查询<code>seckill_order</code>表的同时查询到其对应的<code>seckill</code>表数据，对应的接口定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据秒杀商品ID查询订单明细数据并得到对应秒杀商品的数据，因为我们再SeckillOrder中已经定义了一个Seckill的属性</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> seckillId</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">SeckillOrder <span class="title">findById</span><span class="params">(<span class="keyword">long</span> seckillId)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>对应的SQL如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"SeckillOrder"</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">      so.seckill_id,</span><br><span class="line">      so.user_phone,</span><br><span class="line">      so.money,</span><br><span class="line">      so.create_time,</span><br><span class="line">      so.state,</span><br><span class="line">      s.seckill_id "seckill.seckill_id",</span><br><span class="line">      s.title "seckill.title",</span><br><span class="line">      s.cost_price "seckill.cost_price",</span><br><span class="line">      s.create_time "seckill.create_time",</span><br><span class="line">      s.start_time "seckill.start_time",</span><br><span class="line">      s.end_time "seckill.end_time",</span><br><span class="line">      s.stock_count "seckill.stock_count"</span><br><span class="line">    FROM seckill_order so</span><br><span class="line">    INNER JOIN seckill s ON so.seckill_id = s.seckill_id</span><br><span class="line">    WHERE so.seckill_id = #&#123;seckillId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个SQL看似复杂些，但是就是仅仅的多表（两张表）查询语句：根据<code>seckill_order</code>表中的<code>seckill_id</code>字段查询<code>seckill</code>表中<code>seckill_id</code>字段值对应的数据（也就是说：对于多表查询，其实两张表之间必然存在一定的字段关联关系，不一定是外键关联，当然我们也不建议用外键关联两张表）。</p>
+<p>其中<code>findById</code>的SQL中类似<code>s.seckill_id &quot;seckill.seckill_id&quot;</code>语句其实是<code>s.seckill_id as &quot;seckill.seckill_id&quot;</code>，这里省略了as（别名）；而<code>INNER JOIN</code>语句正是查询若两张表中中又相同字段的匹配值就根据两张表关联字段查询两张表的数据。这也可以使用<code>&lt;resultMap&gt;</code>中的<code>&lt;association&gt;</code>标签来实现，用于查询两张关联表的数据，如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">type</span>=<span class="string">"SeckillOrder"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"seckill_id"</span> <span class="attr">property</span>=<span class="string">"seckillId"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"user_phone"</span> <span class="attr">property</span>=<span class="string">"userPhone"</span>/&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"seckill"</span> <span class="attr">javaType</span>=<span class="string">"Seckill"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"seckill_id"</span> <span class="attr">property</span>=<span class="string">"seckillId"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"title"</span> <span class="attr">property</span>=<span class="string">"title"</span>/&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如以上也是一种映射另外一张表数据的方式（当然使用这种方式在写SQL的时候需要指定限制条件<code>where s.seckill_id = so.seckill_id</code>强调两张表中的<code>seckill_id</code>字段值相同）。</p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>在编写了Mybatis的映射接口和XML映射文件，我们可以编写一个测试类来测试一下接口和XML配置是否正确。由于我们使用IDEA开发工具，打开接口文件用快捷键<code>Alt + Enter</code>（我这里用的Mac系统）显示一个面板，选择<code>Create Test</code>快速创建本文件的测试类。</p>
+<p>由于使用的SpringBoot框架，新创建的测试类位于<code>/src/test/java/</code>目录下，我们举例说明，比如创建<code>SeckillMapper</code>接口的测试文件：SeckillMapperTest.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillMapperTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SeckillMapper seckillMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findById</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduceStock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是使用IDEA快捷键创建的测试类，我们仅以<code>findAll()</code>方法举例说明一下如何使用SpringBoot的测试类。如下：</p>
+<p>此处的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill/tree/master/src/test/java/cn/tycoding/mapper" target="_blank" rel="noopener">Github</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringJUnit4ClassRunner.class)</span><br><span class="line"><span class="comment">//@ContextConfiguration("classpath:application.yml")</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillMapperTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SeckillMapper seckillMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;Seckill&gt; all = seckillMapper.findAll();</span><br><span class="line">        <span class="keyword">for</span> (Seckill seckill : all) &#123;</span><br><span class="line">            System.out.println(seckill.getTitle());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findById</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduceStock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SpringBoot的测试类和传统Spring框架测试类的最大区别就是不再使用<code>@ContextConfiguration()</code>注解去加载配置文件，取而代之的是使用<code>@SpringBootTest</code>注解。因为SpringBoot已经严格规定了配置文件放在<code>resources</code>目录下，且一般是<code>.properties</code>或<code>.yml</code>结尾。如果你再使用<code>@ContextConfiguration()</code>注解加载配置文件反而会报错。</p>
+<br>
+
+<p><img src="/2018/10/12/ssm/seckill-dao/show-1.png" alt></p>
+<p><img src="/2018/10/12/ssm/seckill-dao/show-2.png" alt></p>
+<p><img src="/2018/10/12/ssm/seckill-dao/show-3.png" alt></p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/springboot/" rel="tag"># springboot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/30/ssm/activemq/" rel="next" title="消息中间件ActiveMQ入门学习">
+                <i class="fa fa-chevron-left"></i> 消息中间件ActiveMQ入门学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/13/ssm/seckill-service/" rel="prev" title="SpringBoot实现Java高并发秒杀系统之Service层开发（二）">
+                SpringBoot实现Java高并发秒杀系统之Service层开发（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#起步"><span class="nav-number">1.</span> <span class="nav-text">起步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot"><span class="nav-number">1.1.</span> <span class="nav-text">SpringBoot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pom依赖"><span class="nav-number">1.2.</span> <span class="nav-text">pom依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaBean实体类配置"><span class="nav-number">1.3.</span> <span class="nav-text">JavaBean实体类配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表设计"><span class="nav-number">2.</span> <span class="nav-text">表设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DAO层开发"><span class="nav-number">3.</span> <span class="nav-text">DAO层开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XML映射"><span class="nav-number">3.1.</span> <span class="nav-text">XML映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#order表中findById方法"><span class="nav-number">3.1.1.</span> <span class="nav-text">order表中findById方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">5.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">6.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

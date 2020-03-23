@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="手摸手教你搭建FasfDFS分布式文件系统由于正在学习的分布式项目中用到了FastDFS文件系统，因为各种原因就只好手动搭建环境。搭建过程确实很复杂，我也是折腾了好长时间才解决的，看了网上的教程，但很少有直接就能搭建成功得博文教程，所以这里自己写了一个完成的教程，并附带了所需的配置文件。 需要注意的是Linux系统、版本的问题，我这里使用的是CentOS7的版本，如果大家搭建请尽量保证版本一致。">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastDFS系统搭建">
+<meta property="og:url" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="手摸手教你搭建FasfDFS分布式文件系统由于正在学习的分布式项目中用到了FastDFS文件系统，因为各种原因就只好手动搭建环境。搭建过程确实很复杂，我也是折腾了好长时间才解决的，看了网上的教程，但很少有直接就能搭建成功得博文教程，所以这里自己写了一个完成的教程，并附带了所需的配置文件。 需要注意的是Linux系统、版本的问题，我这里使用的是CentOS7的版本，如果大家搭建请尽量保证版本一致。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/4.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/5.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/7.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/8.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/9.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/10.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/11.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/12.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/13.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/14.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/15.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/16.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/17.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/18.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/19.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FastDFS系统搭建">
+<meta name="twitter:description" content="手摸手教你搭建FasfDFS分布式文件系统由于正在学习的分布式项目中用到了FastDFS文件系统，因为各种原因就只好手动搭建环境。搭建过程确实很复杂，我也是折腾了好长时间才解决的，看了网上的教程，但很少有直接就能搭建成功得博文教程，所以这里自己写了一个完成的教程，并附带了所需的配置文件。 需要注意的是Linux系统、版本的问题，我这里使用的是CentOS7的版本，如果大家搭建请尽量保证版本一致。">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/">
+
+
+
+
+
+  <title>FastDFS系统搭建 | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">FastDFS系统搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T08:20:57+08:00">
+                2018-08-29
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="手摸手教你搭建FasfDFS分布式文件系统"><a href="#手摸手教你搭建FasfDFS分布式文件系统" class="headerlink" title="手摸手教你搭建FasfDFS分布式文件系统"></a>手摸手教你搭建FasfDFS分布式文件系统</h1><p>由于正在学习的分布式项目中用到了<code>FastDFS</code>文件系统，因为各种原因就只好手动搭建环境。搭建过程确实很复杂，我也是折腾了好长时间才解决的，看了网上的教程，但很少有直接就能搭建成功得博文教程，所以这里自己写了一个完成的教程，并附带了所需的配置文件。</p>
+<p>需要注意的是Linux系统、版本的问题，我这里使用的是CentOS7的版本，如果大家搭建请尽量保证版本一致。</p>
+<a id="more"></a>
+
+<h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、下载Linux系统（以CentOS为例）</span><br><span class="line">  [CentOS7-Minimal](http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso)</span><br><span class="line">  </span><br><span class="line">2、安装SecureCRT</span><br><span class="line">  因为实际的服务器并不存在桌面，所以我们安装Minimal版本的CentOS即可，但是在CentOS的黑窗口中操作并不方便，所以下载SecureCRT操纵服务器。</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="安装CentOS"><a href="#安装CentOS" class="headerlink" title="安装CentOS"></a>安装CentOS</h3><p>本例中用VMware安装的CentOS系统，在安装时需要注意一个问题：</p>
+<p><img src="/2018/08/29/ssm/fastdfs/1.png" alt></p>
+<p>如上图所示，在安装CentOS时不要创建新用户，设置个ROOT密码即可，这样登录进去系统后默认就是ROOT权限，避免了权限不够的问题。（登录用户名密码默认都是<code>root</code>）</p>
+<p><strong>1、登录系统并配置连接网络</strong></p>
+<p>输入命令：<code>cd /etc/sysconfig/network-scripts/ &amp;&amp; ls</code>，编辑列表中的第一个文件（因为文件名称可能不相同）</p>
+<p><img src="/2018/08/29/ssm/fastdfs/2.png" alt></p>
+<p>将最后行的<code>no</code>改成<code>yes</code>即可</p>
+<p><img src="/2018/08/29/ssm/fastdfs/3.png" alt></p>
+<p>修改点击键盘的<code>i</code>键进入编辑模式，修改完成后按下ESC键，再输入<code>:wq!</code>保存退出即可；然后执行命令<code>service network restart</code>重启服务。</p>
+<p>此时已经完成了CentOS的联网，输入命令<code>ip addr</code>查看服务器的IP地址（如果联网成功，会出现192.168.xx.xx类似这样的IP地址）：</p>
+<p><img src="/2018/08/29/ssm/fastdfs/4.png" alt></p>
+<p>这个IP地址即使此服务器的外网IP，即我们要用SecureCRT连接的服务器的IP</p>
+<p><strong>2、使用SecureCRT连接服务器</strong></p>
+<p>SecureCRT的使用方法不在说了，就是简单的创建一个连接，输入服务器的IP地址、账户、密码即可完成连接。</p>
+<p><strong>3、关闭CentOS7的防火墙</strong></p>
+<p>作为我们测试用的本地服务器，加一个防火墙实在是没有必要的，所以索性关闭防火墙。<br>输入命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service #停止firewall</span><br><span class="line">systemctl disable firewalld.service #禁止firewall开机启动</span><br><span class="line">firewall-cmd --state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="安装所需命令"><a href="#安装所需命令" class="headerlink" title="安装所需命令"></a>安装所需命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install make cmake gcc gcc-c++ </span><br><span class="line">[root@localhost ~]# yum install vim-enhanced</span><br><span class="line">[root@localhost ~]# yum install zip unzip</span><br><span class="line">[root@localhost ~]# yum install -y pcre pcre-devel</span><br><span class="line">[root@localhost ~]# yum install -y zlib zlib-devel</span><br><span class="line">[root@localhost ~]# yum install -y openssl openssl-devel</span><br><span class="line">[root@localhost ~]# yum install net-tools</span><br><span class="line">[root@localhost ~]# yum install git</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="clone所需的安装文件"><a href="#clone所需的安装文件" class="headerlink" title="clone所需的安装文件"></a>clone所需的安装文件</h3><p>我将所需的安装文件都上传到了我的 <a href="https://github.com/TyCoding/build-fastdfs" target="_blank" rel="noopener">GitHub</a> 上，大家只需要clone下载即可，这些版本我测试过是可用的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GitHub地址： https://github.com/TyCoding/build-fastdfs</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# git clone https://github.com/TyCoding/build-fastdfs.git</span><br><span class="line">[root@localhost ~]# mv build-fastdfs/* /root/ &amp;&amp; rm -rf build-fastdfs</span><br><span class="line">[root@localhost ~]# cd software</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="安装libfastcommon"><a href="#安装libfastcommon" class="headerlink" title="安装libfastcommon"></a>安装libfastcommon</h3><p>将<code>libfastcommon-master.zip</code>解压到<code>/usr/local/fast</code>目录下，并编译安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost software]# unzip libfastcommon-master.zip -d /usr/local/fast/</span><br><span class="line">[root@localhost software]# cd /usr/local/fast/libfastcommon-master/</span><br><span class="line">[root@localhost libfastcommon-master]# ./make.sh &amp;&amp; ./make.sh install</span><br></pre></td></tr></table></figure>
+
+<p>由于libfastcommon安装好后悔自动将库文件拷贝至<code>/usr/lib64</code>目录下，又因为FastDFS程序引用<code>/usr/lib</code>目录，所以我们可以通过创建软连接的方式来解决FastDFS的引用路径问题，当然通过将<code>/usr/lib64</code>下的库文件拷贝到<code>/usr/lib</code>下也行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost libfastcommon-master]# ln -s /usr/lib64/libfastcommon.so /usr/local/lib/libfastcommon.so  </span><br><span class="line">[root@localhost libfastcommon-master]# ln -s /usr/lib64/libfastcommon.so /usr/lib/libfastcommon.so </span><br><span class="line">[root@localhost libfastcommon-master]# ln -s /usr/lib64/libfdfsclient.so /usr/local/lib/libfdfsclient.so  </span><br><span class="line">[root@localhost libfastcommon-master]# ln -s /usr/lib64/libfdfsclient.so /usr/lib/libfdfsclient.so</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="安装FastDFS"><a href="#安装FastDFS" class="headerlink" title="安装FastDFS"></a>安装FastDFS</h3><p>将<code>FastDFS_v5.05.tar.gz</code>解压到<code>/usr/local/fast</code>目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost libfastcommon-master]# cd ~/software</span><br><span class="line">[root@localhost software]# tar -zxvf FastDFS_v5.05.tar.gz -C /usr/local/fast/</span><br><span class="line">[root@localhost software]# cd /usr/local/fast/FastDFS/</span><br><span class="line">[root@localhost FastDFS]# ./make.sh &amp;&amp; ./make.sh install</span><br></pre></td></tr></table></figure>
+
+<p>因为FastDFS服务器脚本设置的bin目录为<code>/usr/local/bin</code>目录下，但是实际我们安装在<code>usr/bin</code>下面，所以我们要修改FastDFS配置文件中的路径，需要修改配置文件：<code>/etc/init.d/fdfs_storaged</code>以及<code>/etc/init.d/fdfs_trackerd</code>，修改方式如下：<br>输入命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost FastDFS]# vi /etc/init.d/fdfs_storaged </span><br><span class="line"></span><br><span class="line">--这里涉及到了vim的语法，进入这个文件的编辑页面后，直接将输入法切换至英文状态，输入</span><br><span class="line">:%s+/usr/local/bin+/usr/bin</span><br><span class="line"></span><br><span class="line">--当输入完成上面的指令后直接回车会看到：7 substitutions on 7 lines，输入</span><br><span class="line">:wq!</span><br><span class="line">--保存并退出</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/08/29/ssm/fastdfs/5.png" alt></p>
+<p>一定要<strong>注意</strong>的是，这里并不是在文件中增加这一行代码，如上图，我们是给vim输入了一串指令，这个指令的作用是批量修改一些代码，当回车后会显示：<code>7 substitutions on 7 lines</code>，然后我们输入<code>:wq!</code>保存并退出文件的编辑</p>
+<p>同样的方式，修改<code>/etc/init.d/fdfs_trackerd</code>，输入命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost FastDFS]# vi /etc/init.d/fdfs_trackerd</span><br><span class="line"></span><br><span class="line">:%s+/usr/local/bin+/usr/bin</span><br><span class="line"></span><br><span class="line">:wq!</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="配置tracker"><a href="#配置tracker" class="headerlink" title="配置tracker"></a>配置tracker</h3><p>进入<code>/etc/fdfs</code>目录并复制一份<code>tracker.conf.sample</code>并命名为<code>tracker.conf</code>，并修改<code>tracker.conf</code>，将其中的<code>base_path</code>参数的值修改为<code>/fastdfs/tracker</code>，并使用<code>makir -p /fastdfs/tracker</code>创建两个目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost FastDFS]# cd /etc/fdfs &amp;&amp; ll</span><br><span class="line">[root@localhost fdfs]# cp tracker.conf.sample tracker.conf</span><br><span class="line">[root@localhost fdfs]# vi tracker.conf</span><br></pre></td></tr></table></figure>
+
+<p>点击键盘的<code>i</code>键进入vim的编辑模式，如果编辑完成后要先点击键盘的<code>ESC</code>键退出vim的编辑模式再点击键盘的键<code>:wq!</code>直接会在左下角写入</p>
+<p><img src="/2018/08/29/ssm/fastdfs/6.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br><span class="line"></span><br><span class="line">[root@localhost fdfs]# mkdir -p /fastdfs/tracker</span><br></pre></td></tr></table></figure>
+
+<p>启动tracker：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost fdfs]# /etc/init.d/fdfs_trackerd start</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="配置storage"><a href="#配置storage" class="headerlink" title="配置storage"></a>配置storage</h3><p>进入<code>/etc/fdfs</code>目录，赋值一份<code>storage.conf.sample</code>并命名为<code>storage.conf</code>，并修改<code>storage.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost fdfs]# cp storage.conf.sample storage.conf</span><br><span class="line">[root@localhost fdfs]# vi storage.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改如下几个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">base_path=/fastdfs/storage</span><br><span class="line">store_path0=/fastdfs/storage</span><br><span class="line">tracker_server=192.168.148.131:22122  #这个IP地址是你服务器的IP，输入命令`ip addr`即可查看到服务器的IP</span><br></pre></td></tr></table></figure>
+
+<p>保存退出并创建<code>/fastdfs/storage</code>目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:wq!</span><br><span class="line"></span><br><span class="line">[root@localhost fdfs]# mkdir /fastdfs/storage</span><br></pre></td></tr></table></figure>
+
+<p>启动storage</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/fdfs_storaged start</span><br></pre></td></tr></table></figure>
+
+<p>查看tracker和storage是否启动成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep fdfs</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/08/29/ssm/fastdfs/7.png" alt></p>
+<p>出现如上的显示才证明tracker和storage都正常启动了。<br><strong>注意</strong> 这个地方要吐槽一下啦，要是你输入<code>ps -ef | grep fdfs</code>出现的不是这三行，而是两行或其他，就证明肯定有一个服务没有启动成功，一般就是你的配置有错误；<br>那么你有下面两个选择来解决这一错误情况：</p>
+<blockquote>
+<p>1、执行<code>/etc/init.d/fdfs_storaged stop</code>和<code>/etc/init.d/fdfs_trackerd stop</code>关闭服务，然后先启动tracker服务再执行storage服务，一般就可以解决<br>2、如果上面的办法还是不行，就重新安装FastDFS（从新直接编译方法即可）；其次还要重新删除<code>tracker.conf</code>和<code>storage.conf</code>重新配置；最后再重新启动服务（尽量重启一下服务器）</p>
+</blockquote>
+<p>如上我们就完成了FastDFS的配置。</p>
+<br>
+
+<h3 id="测试文件上传"><a href="#测试文件上传" class="headerlink" title="测试文件上传"></a>测试文件上传</h3><p>进入<code>/etc/fdfs</code>目录并复制一份<code>client.conf.sample</code>并命名为<code>client.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost fdfs]# cp client.conf.sample client.conf</span><br><span class="line">[root@localhost fdfs]# vi client.conf</span><br></pre></td></tr></table></figure>
+
+<p>编辑下列两项内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">base_path=/fastdfs/tracker  </span><br><span class="line">tracker_server=192.168.148.131:22122  #这个IP地址是你服务器的IP地址，输入命令`ip addr`即可查看到。不要盲目复制</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/08/29/ssm/fastdfs/8.png" alt></p>
+<p>下面使用<code>fdfs_upload_file</code>脚本进行文件上传操作。先创建测试文件，输入命令<code>vi test.txt</code>，回车后点击<code>i</code>键进入编辑模式，输入<code>Hello TyCoding!</code>，点击<code>ESC</code>键，输入<code>:wq!</code>保存并退出，通过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vi test.txt</span><br><span class="line">Hello TyCoding!</span><br><span class="line"></span><br><span class="line">/usr/bin/fdfs_upload_file /etc/fdfs/client.conf ~/test.txt</span><br></pre></td></tr></table></figure>
+
+<p>如果出现类似下面的返回地址证明上传成功</p>
+<p><img src="/2018/08/29/ssm/fastdfs/9.png" alt></p>
+<br>
+
+<h3 id="FastDFS与Nginx结合"><a href="#FastDFS与Nginx结合" class="headerlink" title="FastDFS与Nginx结合"></a>FastDFS与Nginx结合</h3><p>解压<code>nginx-1.6.2.tar.gz</code>到<code>/usr/local</code>目录下；解压<code>fastdfs-nginx-module_v1.16.tar.gz</code>到<code>/usr/local</code>目录下，编译和安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd ~/software</span><br><span class="line">[root@localhost software]# tar -zxvf nginx-1.6.2.tar.gz -C /usr/local/ </span><br><span class="line">[root@localhost software]# tar -zxvf fastdfs-nginx-module_v1.16.tar.gz -C /usr/local/fast/</span><br></pre></td></tr></table></figure>
+
+<p>进入<code>/usr/local/fast/fastdfs-nginx-module/src/</code>目录下，修改其中的<code>config</code>文件，把其中第四行的<code>usr/local/include</code>都改为<code>/usr/include</code></p>
+<p><img src="/2018/08/29/ssm/fastdfs/10.png" alt></p>
+<br>
+
+<h4 id="编译nginx"><a href="#编译nginx" class="headerlink" title="编译nginx"></a>编译nginx</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost src]# cd /usr/local/ &amp;&amp; ll</span><br><span class="line">[root@localhost local]# cd nginx-1.6.2 &amp;&amp; ./configure --prefix=/usr/local/nginx --add-module=../fast/fastdfs-nginx-module/src/</span><br></pre></td></tr></table></figure>
+
+<p>正常情况下，会显示如下信息证明编译成功，因为这里需要为nginx添加<code>fastdfs-nginx-module</code>模块，和平常安装的nginx是不同的，如果不显示如下页面就重新进行编译</p>
+<p><img src="/2018/08/29/ssm/fastdfs/11.png" alt></p>
+<p>安装，并copy <code>/usr/local/fast/fastdfs-nginx-module/src/mod_fastdfs.conf</code> 到<code>/etc/fdfs</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx-1.6.2]# make &amp;&amp; make install </span><br><span class="line">[root@localhost nginx-1.6.2]# cd /usr/local/fast/fastdfs-nginx-module/src/</span><br><span class="line">[root@localhost src]# cp /usr/local/fast/fastdfs-nginx-module/src/mod_fastdfs.conf /etc/fdfs/</span><br><span class="line">[root@localhost src]# cd /etc/fdfs &amp;&amp; ll</span><br><span class="line">[root@localhost fdfs]# vi mod_fastdfs.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改如下部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">connect_timeout=10</span><br><span class="line">tracker_server=192.168.148.131:22122  #IP地址还是根据自己的服务器IP地址来定</span><br><span class="line">url_have_group_name = true</span><br><span class="line">store_path0=/fastdfs/storage</span><br></pre></td></tr></table></figure>
+
+<p>赋值FastDFS里的2个文件，到<code>/etc/fdfs</code>目录中，创建一个软连接，在<code>/fastdfs/storage</code>文件储存目录下创建软连接，将其连接到实际存放数据的目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost fdfs]# cd /usr/local/fast/FastDFS/conf/ &amp;&amp; ll</span><br><span class="line">[root@localhost conf]# cp http.conf mime.types /etc/fdfs/ </span><br><span class="line">[root@localhost conf]# ln -s /fastdfs/storage/data/ /fastdfs/storage/data/M00</span><br></pre></td></tr></table></figure>
+
+<p>修改nginx的配置文件<code>nginx-conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# cd /usr/local/nginx/conf &amp;&amp; ll</span><br><span class="line">[root@localhost conf]# vi nginx.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改如下部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~/group([0-9])/M00 &#123;</span><br><span class="line">  ngx_fastdfs_module;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/08/29/ssm/fastdfs/12.png" alt></p>
+<p>启动nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# /usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/08/29/ssm/fastdfs/13.png" alt></p>
+<p>如果出现以上显示证明nginx启动成功，否者的话启动失败，要重新编译安装nginx，一般都是<code>fastdfs-nginx-module</code>模块注入到nginx失败。</p>
+<p>以上我们已经完成了全部的配置，测试各个端口的启动情况，输入<code>netstat -ntlp</code>，可以看到如下信息：</p>
+<p><img src="/2018/08/29/ssm/fastdfs/14.png" alt></p>
+<p>出现上述信息证明各个配置都正常</p>
+<br>
+
+<h3 id="通过http的方式访问上传文件"><a href="#通过http的方式访问上传文件" class="headerlink" title="通过http的方式访问上传文件"></a>通过http的方式访问上传文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# /usr/bin/fdfs_upload_file /etc/fdfs/client.conf ~/test.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/08/29/ssm/fastdfs/15.png" alt></p>
+<p><img src="/2018/08/29/ssm/fastdfs/16.png" alt></p>
+<br>
+
+<h3 id="设置服务开机自启动"><a href="#设置服务开机自启动" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><p>经过上面的环境配置，我们一共需要启动三个服务才能实现最终的效果，那么每次启动服务器都手动去启动这些服务未免显得太过于麻烦了，所以我们配置这些服务开机自启动即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]#  vi /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+
+<p>向其中添加需要开机自启动服务的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/fdfs_trackerd start</span><br><span class="line">/etc/init.d/fdfs_storaged start</span><br><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/08/29/ssm/fastdfs/17.png" alt></p>
+<p>其次，我们还要给<code>rc.local</code>文件赋予权限才能实现开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# chmod +x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/08/29/ssm/fastdfs/18.png" alt></p>
+<p>输入命令<code>reboot</code>重启服务器，再输入<code>netstat -ntlp</code>查看当前启动的服务，可以看到<code>storage</code>, <code>tracker</code>, <code>nginx</code>三个服务都自启动了。</p>
+<p><img src="/2018/08/29/ssm/fastdfs/19.png" alt></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><blockquote>
+<p>参考文章：<a href="https://qq52o.me/2077.html" target="_blank" rel="noopener">https://qq52o.me/2077.html</a><br>  我也是根据上述文章中的介绍搭建的系统，但是并没有成功，于是我改变了其中的一些步骤（命令行），参看了网上其他的文章，最终成功搭建！</p>
+</blockquote>
+<ul>
+<li><p>教程中使用的系统版本是CentOS7</p>
+</li>
+<li><p>如果你在配置tracker和storage完成后启动服务，两个服务并没有都启动，请先执行<code>xxx stop</code>的命令关闭服务，然后按照先启动tracker再启动storage的顺序启动服务；如果还是没有启动成功，最好重新安装FastDFS（直接重新执行命令即可），重新配置相关的文件，然后重启服务器，再重启服务，一般就解决了。</p>
+</li>
+<li><p>如果你在安装nginx时添加<code>fastdfs-nginx-module</code>模块时出现<code>error</code>，请重新编译nginx，重新配置相关的文件，一般就能解决了。</p>
+</li>
+</ul>
+<p>最后祝愿大家都能成功的搭建FastDFS系统。</p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/vue/vue-7/" rel="next" title="Vue+ElementUI+SpringMVC实现图片上传和回显">
+                <i class="fa fa-chevron-left"></i> Vue+ElementUI+SpringMVC实现图片上传和回显
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/15/ssm/shiro/shiro-database/" rel="prev" title="Shiro实现权限管理之表结构设计">
+                Shiro实现权限管理之表结构设计 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#手摸手教你搭建FasfDFS分布式文件系统"><span class="nav-number">1.</span> <span class="nav-text">手摸手教你搭建FasfDFS分布式文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#起步"><span class="nav-number">1.1.</span> <span class="nav-text">起步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装CentOS"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装CentOS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">1.2.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装所需命令"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装所需命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clone所需的安装文件"><span class="nav-number">1.2.2.</span> <span class="nav-text">clone所需的安装文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.3.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装libfastcommon"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装libfastcommon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装FastDFS"><span class="nav-number">1.3.2.</span> <span class="nav-text">安装FastDFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置tracker"><span class="nav-number">1.3.3.</span> <span class="nav-text">配置tracker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置storage"><span class="nav-number">1.3.4.</span> <span class="nav-text">配置storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试文件上传"><span class="nav-number">1.3.5.</span> <span class="nav-text">测试文件上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastDFS与Nginx结合"><span class="nav-number">1.3.6.</span> <span class="nav-text">FastDFS与Nginx结合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译nginx"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">编译nginx</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过http的方式访问上传文件"><span class="nav-number">1.3.7.</span> <span class="nav-text">通过http的方式访问上传文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置服务开机自启动"><span class="nav-number">1.3.8.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">1.4.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">2.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">3.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

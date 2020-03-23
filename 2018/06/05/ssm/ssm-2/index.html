@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ssm,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SSM框架快速入门 关于SSM框架环境搭建，请点击这里前往我的博客：SSM框架整合之环境搭建由于本项目采用了maven，关于IDEA搭建maven项目过程请点击这里前往我的博客：maven起步 项目源码请 点击进入  我的GitHub。如果觉得不错，欢迎右上角star鼓励一下作者哦！">
+<meta name="keywords" content="ssm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个案例带你入门SSM框架开发">
+<meta property="og:url" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="SSM框架快速入门 关于SSM框架环境搭建，请点击这里前往我的博客：SSM框架整合之环境搭建由于本项目采用了maven，关于IDEA搭建maven项目过程请点击这里前往我的博客：maven起步 项目源码请 点击进入  我的GitHub。如果觉得不错，欢迎右上角star鼓励一下作者哦！">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/3.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/5.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/6.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/img-1.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/img-2.png">
+<meta property="og:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/img-3.png">
+<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个案例带你入门SSM框架开发">
+<meta name="twitter:description" content="SSM框架快速入门 关于SSM框架环境搭建，请点击这里前往我的博客：SSM框架整合之环境搭建由于本项目采用了maven，关于IDEA搭建maven项目过程请点击这里前往我的博客：maven起步 项目源码请 点击进入  我的GitHub。如果觉得不错，欢迎右上角star鼓励一下作者哦！">
+<meta name="twitter:image" content="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/">
+
+
+
+
+
+  <title>一个案例带你入门SSM框架开发 | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/06/05/ssm/ssm-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一个案例带你入门SSM框架开发</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-05T00:00:00+08:00">
+                2018-06-05
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>SSM框架快速入门</strong></p>
+<p>关于SSM框架环境搭建，请点击这里前往我的博客：<a href="http://tycoding.cn/2018/06/04/ssm/ssm/" target="_blank" rel="noopener">SSM框架整合之环境搭建</a><br>由于本项目采用了maven，关于IDEA搭建maven项目过程请点击这里前往我的博客：<a href="http://tycoding.cn/2018/06/01/ssm/maven/" target="_blank" rel="noopener">maven起步</a></p>
+<p>项目源码请 <a href="https://github.com/TyCoding/ssm" target="_blank" rel="noopener">点击进入</a> </p>
+<p>我的GitHub。如果觉得不错，欢迎右上角star鼓励一下作者哦！</p>
+<a id="more"></a>
+
+<h1 id="关于项目"><a href="#关于项目" class="headerlink" title="关于项目"></a>关于项目</h1><h2 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">后端：spring+mybatis+springmvc </span><br><span class="line">前端：bootstrap+Font Awesome图标集</span><br><span class="line">测试环境：IDEA + tomcat8 + mysql5.7 + jdk8 + maven</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目功能"><a href="#项目功能" class="headerlink" title="项目功能"></a>项目功能</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 实现用户登录功能</span><br><span class="line">2. 实现客户信息的增删改查功能</span><br><span class="line">3. 实现分页查询功能（使用PageHelper分页插件实现）</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── README.md </span><br><span class="line">├── img  -- 放了一些README.md文档所需要的图片，没有实际意义</span><br><span class="line">├── pom.xml</span><br><span class="line">└── src</span><br><span class="line">    └── main</span><br><span class="line">        ├── java</span><br><span class="line">        │   └── cn</span><br><span class="line">        │       └── tycoding</span><br><span class="line">        │           ├── controller  -- SpringMVC-WEB层控制器</span><br><span class="line">        │           ├── mapper  -- Mybatis接口和映射文件。本项目采用了mybatis的接口开发，所以接口和映射文件放在同一目录下，并且名称相同。</span><br><span class="line">        │           ├── pojo  -- JavaBean实体类</span><br><span class="line">        │           └── service  -- service业务层</span><br><span class="line">        ├── resources  -- maven项目存放配置文件的根目录(classpath:)</span><br><span class="line">        │   ├── sys_schema.sql  -- 项目数据库创建和表创建的SQL语句</span><br><span class="line">        │   ├── resource  -- 日志打印和数据源配置文件</span><br><span class="line">        │   └── spring  -- spring和springmvc的配置文件</span><br><span class="line">        └── webapp  -- 项目的根目录</span><br><span class="line">            ├── WEB-INF</span><br><span class="line">            ├── fonts  -- 字体的配置文件</span><br><span class="line">            └── lib  -- 前端静态资源</span><br></pre></td></tr></table></figure>
+
+<h2 id="整合思路"><a href="#整合思路" class="headerlink" title="整合思路"></a>整合思路</h2><p>继上一篇博文：<a href="http://tycoding.cn/2018/05/29/ssm/Spring-5/" target="_blank" rel="noopener">Spring MVC起步</a>其实我们已经了解了如何整合Spring和Spring MVC框架。那么，接下来我们就需要了解如何在此基础上整合Mybatis框架。<br>首先须知Mybatis框架是一个持久层框架，而Spring MVC是WEB层框架，Spring框架则充当着业务层的角色。那么将三者联系起来正好组成了<code>web--service--dao</code>的三层架构体系。那么整合思路就如下所示了：</p>
+<ol>
+<li>整合dao(即mapper)，实现Mybatis和Spring的整合</li>
+<li>整合service，由Spring管理service接口，在service中可以调用dao（mapper）</li>
+<li>整合web（controller），实现Spring MVC和Spring的整合，在controller中调用service</li>
+</ol>
+<h1 id="需求实现"><a href="#需求实现" class="headerlink" title="需求实现"></a>需求实现</h1><h2 id="1-实现用户登录功能"><a href="#1-实现用户登录功能" class="headerlink" title="1. 实现用户登录功能"></a>1. 实现用户登录功能</h2><h3 id="1-1-创建表结构"><a href="#1-1-创建表结构" class="headerlink" title="1.1 创建表结构"></a>1.1 创建表结构</h3><p>SQL语句请查看GitHub中resources目录下的.sql文件<br>除了创建表，我们同样要创建<code>pojo</code>对象，并提供属性setter和getter方法。（注意尽量保持<code>pojo</code>属性参数和表字段名称对应相等）</p>
+<h3 id="1-2-编写Controller层"><a href="#1-2-编写Controller层" class="headerlink" title="1.2 编写Controller层"></a>1.2 编写Controller层</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/login"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestParam String username,@RequestParam String password, Model model)</span> </span>&#123;</span><br><span class="line">    User user = userService.login(username);</span><br><span class="line">    <span class="keyword">if</span> (user != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (user.getPassword().equals(password)) &#123;</span><br><span class="line">            <span class="comment">//登录成功</span></span><br><span class="line">            <span class="keyword">return</span> <span class="string">"page/page"</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            model.addAttribute(<span class="string">"message"</span>, <span class="string">"登录失败"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"page/loginInfo"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        model.addAttribute(<span class="string">"message"</span>, <span class="string">"你输入的用户名或密码有误"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"page/loginInfo"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@RequestMapping</code>标注<code>login()</code>方法有两个作用（前提是必须在XML中开启注解扫描<code>&lt;context:component-scan/&gt;</code>）：1.表示该方法是请求处理方法；2.指明了该方法的请求路径。<code>@RequestMapping</code>可以标记类或方法，分别表示了不同层级的请求路径。例如当前的<code>login()</code>方法的请求路径应为：<code>localhost:8080/xxx/login.do</code><br>对于请求体中包含多个参数的情况，我们尽量用<code>@RequestParam</code>标记参数，以免出现未知错误（但这不是必须的）。<br>用户登录，我们首先获取到用户登录的用户名<code>username</code>和密码<code>password</code>，然后根据用户名查询并返回，根据此用户名查询到的密码与登录的密码进行<code>equals</code>，如果相等就登录成功。（当然我们要判断根据<code>username</code>查询后的返回值是否为null，不做判断会产生空指针问题，如果一个空值和另一个值相比显然会报错）。<br>如果登录成功，将返回到<code>page/page.jsp</code>页面（这是根据我们在<code>springmvc.xml</code>下配置的视图解析器<code>InternalResourceViewResolver</code>决定的）;如果登录失败将返回到<code>page/loginInfo.jsp</code>页面。</p>
+<h3 id="1-3-编写Mapper-xml"><a href="#1-3-编写Mapper-xml" class="headerlink" title="1.3 编写Mapper.xml"></a>1.3 编写Mapper.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"login"</span> <span class="attr">parameterType</span>=<span class="string">"String"</span> <span class="attr">resultType</span>=<span class="string">"User"</span>&gt;</span></span><br><span class="line">    select * from user where username = #&#123;username&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们使用了Mybatis的接口代理开发模式（保证接口和配置文件在同一目录下且名称相同），直接在<code>Mapper.xml</code>中编写原生sql语句，即可进行与数据库间的交互。其中：</p>
+<ul>
+<li><p><code>id</code>指明是哪个方法调用这个sql；</p>
+</li>
+<li><p><code>parameterType</code>指定了接口传递的参数类型(我们根据用户名查询所以是String类型)；</p>
+</li>
+<li><p><code>resultType</code>指定该查询语句返回值的数据类型（因为我们已经在配置文件启用了别名配置<code>typeAliases</code>，所以这里直接指定pojo对象类名即可；若没有启动别名配置，就必须写类的全限定名）。使用<code>#{}</code>会将传递的参数值会自动添加<code>&quot;&quot;</code>；注意<code>#{}</code>和<code>${}</code>区分，后者则是直接拼接传递进来的字符串，而不会添加任何符号，且前者能避免sql注入。</p>
+</li>
+</ul>
+<h2 id="2-实现客户信息的添加"><a href="#2-实现客户信息的添加" class="headerlink" title="2. 实现客户信息的添加"></a>2. 实现客户信息的添加</h2><p>所谓添加客户信息，就是将JSP中提交的表单数据持久化到数据库中。</p>
+<h3 id="2-1-创建表结构"><a href="#2-1-创建表结构" class="headerlink" title="2.1 创建表结构"></a>2.1 创建表结构</h3><p>建表SQL请看github项目中的resources目录下的.sql文件<br>同样我们还要创建对应的<code>pojo</code>，并提供getter和setter方法。（尽量保持<code>pojo</code>中的元素属性名称和表中字段名称相同）。</p>
+<h3 id="2-2-编写Controller层"><a href="#2-2-编写Controller层" class="headerlink" title="2.2 编写Controller层"></a>2.2 编写Controller层</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/save"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(Customer customer, Model model)</span> </span>&#123;</span><br><span class="line">    customerService.save(customer);</span><br><span class="line">    model.addAttribute(<span class="string">"message"</span>, <span class="string">"保存客户信息系成功"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"page/info"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/06/05/ssm/ssm-2/1.png" alt></p>
+<p>当点击了提交按钮，表单中的所有数据都应该被持久化到数据库中，而要知道表单中的参数有很多，我们直接在请求映射方法的参数列表中写参数显然是不可取的，那么我们如果写一个pojo对象，Spring就会根据这个pojo对象中的属性和JSP表单中的参数进行对应，如果完全对应那么请求方法会正常执行，一但有某个参数不对应，那么就会报错。（注意我们表单中并不需要指定<code>id</code>主键值，因为设计表时已经指定了该<code>id</code>主键为自增长，即使不指定值，<code>id</code>依然会自增，你指定了却可能会产生错误，因为到保证每次的<code>id</code>值都是递增的）。当数据持久化成功，就使用Spring的<code>Model</code>对象在域对象中设置一个名为<code>message</code>的值。最后再返回到视图层。</p>
+<h3 id="2-3-编写Mapper-xml"><a href="#2-3-编写Mapper-xml" class="headerlink" title="2.3 编写Mapper.xml"></a>2.3 编写Mapper.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"save"</span> <span class="attr">parameterType</span>=<span class="string">"Customer"</span>&gt;</span></span><br><span class="line">        insert into</span><br><span class="line">        customer(</span><br><span class="line">          name,</span><br><span class="line">          telephone,</span><br><span class="line">          address,</span><br><span class="line">          remark)</span><br><span class="line">        values(</span><br><span class="line">          #&#123;name&#125;,</span><br><span class="line">          #&#123;telephone&#125;,</span><br><span class="line">          #&#123;address&#125;,</span><br><span class="line">          #&#123;remark&#125;</span><br><span class="line">        );</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如上这仍然是普通的SQL语句，注意<code>parameterType</code>如上我们设置为<code>Customer</code>其实代表的是<code>cn.tycoding.pojo.Customer</code>这个对象，因为我们已经在<code>beans.xml</code>中启用了mybatis的别名配置。SQL插入语句中不需要指定<code>id</code>这个字段，原因是我们已经配置了<code>id</code>为自增主键</p>
+<h2 id="3-实现客户信息的删除功能"><a href="#3-实现客户信息的删除功能" class="headerlink" title="3. 实现客户信息的删除功能"></a>3. 实现客户信息的删除功能</h2><h3 id="3-1-编写Controller层"><a href="#3-1-编写Controller层" class="headerlink" title="3.1 编写Controller层"></a>3.1 编写Controller层</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/delete"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">delete</span><span class="params">(@RequestParam <span class="keyword">int</span> id,Model model)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(customerService.delete(id) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"message"</span>,<span class="string">"删除客户信息成功"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"page/info"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"message"</span>,<span class="string">"删除客户信息失败"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"page/info"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>删除功能只需要根据点击删除按钮时获取到的<code>id</code>值，在SQL的<code>delete</code>语句中<code>where</code>这个id值，即可以实现根据id删除客户信息。</p>
+<h3 id="3-2-编写Mapper-xml"><a href="#3-2-编写Mapper-xml" class="headerlink" title="3.2 编写Mapper.xml"></a>3.2 编写Mapper.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">"delete"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">    delete from customer where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如此，还是一个再普通不过的SQL语句，既可以实现根据id删除的功能。</p>
+<h2 id="4-更新客户信息"><a href="#4-更新客户信息" class="headerlink" title="4. 更新客户信息"></a>4. 更新客户信息</h2><p>更新客户信息需要我们实现两个功能：1.再点击<em>编辑</em>按钮时(我们在按钮设置了<code>onclick=&quot;return edit(${xx.id};&quot;</code>)，如此我们用js监听这个事件，点击了按钮，js获取到id，请求后台根据这个id值查询数据库中的数据。那么我们先看一下js部分吧：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">edit</span>(<span class="params">id</span>)</span>&#123;</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    url: <span class="string">'xxx/findById.do'</span>,</span><br><span class="line">    type: <span class="string">'POST'</span>,</span><br><span class="line">    dataType: <span class="string">'json'</span>,</span><br><span class="line">    contentType: <span class="string">'application/json;charset=UTF-8'</span>,</span><br><span class="line">    data: <span class="built_in">JSON</span>.stringify(&#123;<span class="attr">id</span>: id&#125;),</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">      $(<span class="string">"#username"</span>).val(result.username);</span><br><span class="line">      $(<span class="string">"#password"</span>).val(result.password);</span><br><span class="line">      <span class="comment">//继续讲查询到的字段依次进行赋值...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上实际是一个ajax请求json格式数据：</p>
+<ol>
+<li><p><code>type</code>指定请求类型；</p>
+</li>
+<li><p><code>dataType</code>指定了服务器返回数据格式类型；</p>
+</li>
+<li><p><code>contentType</code>指定发送给服务器的数据格式，默认是<code>application/x-www-form-urlencoded</code>会使此时的<code>data</code>参数为JSON对象，而设置为<code>application/json</code>后此时的<code>data</code>参数就是json字符串了，同样使用<code>stringify()</code>也是将<code>data</code>参数转换成json字符串。</p>
+</li>
+</ol>
+<h3 id="4-1-编写Controller层"><a href="#4-1-编写Controller层" class="headerlink" title="4.1 编写Controller层"></a>4.1 编写Controller层</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/findById"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(@RequestBody Customer customer)</span></span>&#123;</span><br><span class="line">    Customer customer_info = customerService.findById(customer.getId());</span><br><span class="line">    <span class="keyword">if</span>(customer_info != <span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> customer_info;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>@RequestBody</code>读取http请求内容，并将数据绑定在映射方法的参数上；</li>
+<li><code>@ResponseBody</code>将映射需要返回的参数转换成指定的数据格式，而由于我们在ajax请求中指定<code>dataType</code>为<code>json</code>，那么<code>@ReqponseBody</code>将会返回json格式数据。</li>
+</ul>
+<p>当ajax请求了这个映射方法，Controller获取到指定的id去调用Service层根据这个id查询数据库<code>select * from customer where id = #{id}</code>。然后将数据拼装成JSON格式，并返回给页面。最后ajax会走success方法，我们从返回的数据<code>success:function(result)</code>中通过<code>result.xx</code>的方式取出来并通过jquery的<code>val()</code>方式赋值到指定的位置，那么就实现了数据回显。<br>实现修改功能，首先要知道原本的数据（数据回显），然后将修改后的数据在此存入到数据库中（<code>update customer set xx=#{xx} where id = #{id}</code>。那么我们看一下，更新数据库的Controller：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/update"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">update</span><span class="params">(Customer customer,Model model)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rows = customerService.update(customer);</span><br><span class="line">    <span class="keyword">if</span>(rows &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"message"</span>,<span class="string">"更新客户信息成功"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"page/info"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"message"</span>,<span class="string">"更新客户信息失败"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"page/info"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为更新数据其实就是简单的提交表单，表单提交后访问这个映射方法，指定对应的<code>update</code>语句，如果没有异常抛出就更新成功，通过SpringMVC的Model方法向request域对象中存入成功信息，在返回的页面中，通过<code>${message}</code>EL表达式的方式取出提示信息。</p>
+<p>最后我们看一下更新的SQL如何写：</p>
+<h3 id="4-2-编写Mapper-xml"><a href="#4-2-编写Mapper-xml" class="headerlink" title="4.2 编写Mapper.xml"></a>4.2 编写Mapper.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 更新客户信息的方法 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"update"</span> <span class="attr">parameterType</span>=<span class="string">"Customer"</span>&gt;</span></span><br><span class="line">    update customer set</span><br><span class="line">        id = #&#123;id&#125;,</span><br><span class="line">        name = #&#123;name&#125;,</span><br><span class="line">        telephone = #&#123;telephone&#125;,</span><br><span class="line">        address = #&#123;address&#125;,</span><br><span class="line">        remark = #&#123;remark&#125;</span><br><span class="line">    where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-分页查询"><a href="#5-分页查询" class="headerlink" title="5. 分页查询"></a>5. 分页查询</h2><p>我们先看一下前端Bootstrap的分页效果</p>
+<p><img src="/2018/06/05/ssm/ssm-2/2.png" alt></p>
+<h3 id="5-1-封装PageBean"><a href="#5-1-封装PageBean" class="headerlink" title="5.1 封装PageBean"></a>5.1 封装PageBean</h3><p>这里我们使用Mybatis的分页查询插件：PageHelper。</p>
+<blockquote>
+<p>1.首先引入maven依赖：</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.定义一个PageBean，非必要，但是提取通用的PageBean实体类对象用来储存分页数据，能提高代码的重用率。</p>
+</blockquote>
+<p><strong>虽然</strong>我们这里使用了PageHelper分页插件，但是请弄清楚：pageHelper只是帮我们进行后端的数据分页，也就是说使用了PageHelper插件我们无需再写类似 <code>limit</code>这样的sql了。</p>
+<p>而，我们的数据最终要显示到前端页面上，此时我们使用的bootstrap和javascript技术并不能实现前端分页自动计算，所以前端我们还是需要手动计算分页数据。</p>
+<p>那么PageBean的定义不变：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageBean</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">//当前页</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> pageCode;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//总页数=总记录数/每页显示的记录数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> totalPage;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//总记录数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> totalCount;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//每页显示的记录数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> pageSize;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//每页显示的数据</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; beanList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为我们要实现分页查询，所以无法避免一些参数，这里直接将其封装为一个JavaBean就是为了方便调用，而配置自定义泛型<code>&lt;T&gt;</code>就是为了供多个对象的调用，如果你在对Customer类进行分页查询，那么在调用时只需要<code>new pageBean&lt;Customer&gt;()</code>即可将查询的数据绑定为<code>Customer</code>类的数据；对其他类进行分页亦是这样。</p>
+<ul>
+<li><p><strong>pageCode:</strong> 表示当前（你点击）的是第几页。</p>
+</li>
+<li><p><strong>totalPage:</strong> 表示总页数（总页数=总记录数/每页显示的记录数）。通过<code>select count(*) from 表</code>查询到总记录数，每页显示的记录是用户指定的；那么<em>总记录数/每页显示几条记录</em>就得到了一共有几页（前端页面展示）。</p>
+</li>
+<li><p><strong>totalCount:</strong> 表示总记录数，由SQL：<code>select count(*) from 表</code>查询到该表咋数据库中一共多少条记录数。</p>
+</li>
+<li><p><strong>pageSize:</strong> 表示每页显示的记录数，这个是用户决定的，比如我们想让每页显示5条数据，那么这个<code>pageSize</code>就应该是5，即每页会显示5条记录。</p>
+</li>
+<li><p><strong>beanList:</strong> 表示当前显示的数据。经上面的一系列查询和封装，我们最终需要将数据返回给页面，而这些需要返回给页面的数据最终会被封装到这个<code>beanList</code>中，在jsp中使用<code>&lt;forEach&gt;</code>标签遍历<code>beanList</code>得到封装的数据并显示到页面上。</p>
+</li>
+</ul>
+<h3 id="5-2-jsp页面"><a href="#5-2-jsp页面" class="headerlink" title="5.2 jsp页面"></a>5.2 jsp页面</h3><p>由于我们前端仅使用了最基本的JavaScript和Bootstrap框架，很多特性都不能使用，所以这里用最基本的方式来实现前端的分页。当然以后我们学习了Vue.js, Angular.js, node.js这些高级JS语言后，就会发现前端数据渲染是如此的简单。</p>
+<p><img src="/2018/06/05/ssm/ssm-2/3.png" alt></p>
+<h3 id="5-3-编写Controller层"><a href="#5-3-编写Controller层" class="headerlink" title="5.3 编写Controller层"></a>5.3 编写Controller层</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/findByPage"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">findByPage</span><span class="params">(Customer customer,</span></span></span><br><span class="line"><span class="function"><span class="params">                         @RequestParam(value = <span class="string">"pageCode"</span>, required = <span class="keyword">false</span>, defaultValue = <span class="string">"1"</span>)</span> <span class="keyword">int</span> pageCode,</span></span><br><span class="line"><span class="function">                         @<span class="title">RequestParam</span><span class="params">(value = <span class="string">"pageSize"</span>, required = <span class="keyword">false</span>, defaultValue = <span class="string">"2"</span>)</span> <span class="keyword">int</span> pageSize,</span></span><br><span class="line"><span class="function">                         Model model) </span>&#123;</span><br><span class="line">    <span class="comment">// 回显数据</span></span><br><span class="line">    model.addAttribute(<span class="string">"page"</span>, customerService.findByPage(customer, pageCode, pageSize));</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"page/list"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对比上面两张图，发现，用户可以指定的就是<code>pageCode</code>当前页和<code>pageSize</code>每页显示的记录数。所以在点击按钮（比如点击页码<code>3</code>），就会提交表单并访问Controller的<code>findByPage()</code>方法。<br>那么Controller就需要接受这两个参数:<code>pageCode</code>and<code>pageSize</code>，并且我们设置:<code>defaultValue</code>默认值；<code>required</code>是否必须指定（如果没有写false，在每次请求这个方法时就必须指定这个参数的具体值，不然就会报错）。<br>方法体中我们还通过<code>request</code>域获取<code>c_name</code>和<code>c_telephone</code>（因为要实现条件查询：输入信息，查询数据）。<br>最后我们将这些查询条件封装到Map集合中，然后调用Service层，将<code>pageCode</code>和<code>pageSize</code>以及封装的查询条件信息<code>conMap</code>一同传入Service层。</p>
+<p>那么在Controller层我们使用了一个很简便的方式：<strong>实现分页查询和条件查询</strong>使用同一个方法；仔细想一下也很容易明白，分页查询和条件查询目的都是要将查询到的数据以分页的方式展示出来，只是两者限制的条件不同罢了。所以我们这样定义Controller：</p>
+<ol>
+<li><p>使用<code>Customer</code>实体类接收条件查询的条件，如果进行的是分页查询<code>Customer</code>中属性值为null也无影响；前端直接将要查询的条件<code>name</code>和<code>telephone</code>传入进来，使用<code>Customer</code>可以封装，因为<code>name</code>和<code>telephone</code>都是<code>Customer</code>的参数，这是Spring的自动装配特性。</p>
+</li>
+<li><p>使用<code>pageCode</code>和<code>pageSize</code>接收分页查询的条件，并且使用<code>defaultValue</code>设置两者的默认值，这里我们设置当前页默认为1，每页默认显示2条记录。</p>
+</li>
+<li><p>使用Model对象将查询到的数据封装进去，相当于存进了Request域对象中，JSP页面使用EL表达式即可取出来名字为<code>page</code>的List集合数据。</p>
+</li>
+</ol>
+<h3 id="5-4-编写Service层"><a href="#5-4-编写Service层" class="headerlink" title="5.4 编写Service层"></a>5.4 编写Service层</h3><p>由于我们使用了Mybatis的PageHelper分页插件，所以无需手动计算分页数据，也不用编写<code>limit</code>类似的SQL语句。</p>
+<p><strong>之前</strong></p>
+<p>未使用PageHelper分页插件前我们这样定义Service层：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> PageBean&lt;Customer&gt; <span class="title">findByPage</span><span class="params">(<span class="keyword">int</span> pageCode, <span class="keyword">int</span> pageSize, Map&lt;String, Object&gt; conMap)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;String,Object&gt; map = <span class="keyword">new</span> HashMap&lt;String,Object&gt;();</span><br><span class="line">        PageBean&lt;Customer&gt; pageBean = <span class="keyword">new</span> PageBean&lt;Customer&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//封装当前页</span></span><br><span class="line">        pageBean.setPageCode(pageCode);</span><br><span class="line">        pageBean.setPageSize(pageSize);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 封装总记录数（从数据库中查询）</span></span><br><span class="line">        <span class="keyword">int</span> totalCount = customerMapper.selectCount();</span><br><span class="line">        System.out.println(<span class="string">"查询到的总记录数："</span>+totalCount);</span><br><span class="line">        pageBean.setTotalCount(totalCount);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//封装总页数</span></span><br><span class="line">        <span class="keyword">double</span> tc = totalCount;</span><br><span class="line">        Double num = Math.ceil(tc / pageSize);</span><br><span class="line">        pageBean.setTotalPage(num.intValue());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置limit分页查询的起始位置和终止位置</span></span><br><span class="line">        map.put(<span class="string">"start"</span>,(pageCode - <span class="number">1</span>) * pageSize);</span><br><span class="line">        map.put(<span class="string">"size"</span>,pageBean.getPageSize());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//封装每页显示的数据</span></span><br><span class="line">        List&lt;Customer&gt; list = customerMapper.findByPage(map);</span><br><span class="line">        pageBean.setBeanList(list);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 分页查询功能也要封装显示起始页和终止页</span></span><br><span class="line">        conMap.put(<span class="string">"start"</span>,(pageCode - <span class="number">1</span>) * pageSize);</span><br><span class="line">        conMap.put(<span class="string">"size"</span>,pageBean.getPageSize());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 封装</span></span><br><span class="line">        List&lt;Customer&gt; listCondition = customerMapper.findCondition(conMap);</span><br><span class="line">        pageBean.setBeanList(listCondition);</span><br><span class="line">        <span class="keyword">return</span> pageBean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong></p>
+<p>作为业务层，当然负责梳理业务信息，首先我们需要将Controller传入进来的<code>pageCode</code>和<code>pageSize</code>封装进<code>PageBean</code>的相关属性中。然后查询总记录数（通过<code>select count(*) from 表</code>查询得到），根据总记录数<code>pageCount</code>和前台传入的<code>pageSize</code>每页显示的记录数计算得到总页数，同样封装到<code>PageBean</code>中，最后我们要设置分页的起始位置<code>start</code>和数量<code>size</code>，调用Mapper查询数据库中的数据，将数据封装到<code>beanList</code>中即可。但是要注意我们其实写了两个分页查询的方法：<code>findByPage()</code>和<code>findCondition()</code>因为两者都需要分页展示到页面上。最后解释两点：</p>
+<ol>
+<li>计算总页数：总页数 = 总记录数 / 每页显示的记录条数。这里用到的ceil()方法：返回大于或登录参数的最小double值，并等于数学整数。如double a = 5;double b = 3;ceil(a/b) = 2.0。最后用Double类的intValue()方法返回此Double值作为int类型的值。</li>
+<li>mysql为分页查询提供了limit方法，limit a,b就是读取第a条到第b条的所有记录。<br>设置<code>start</code>为<em>(当前页-1)此时每页显示的记录数</em>。
+设置<code>size</code>为<em>我们在pageBean中封装的每页显示几条记录数</em>。
+例如：我们目前页面每页显示2条数据，点击下一页，则显示的数据就是第<code>3 - 5</code>条。 </li>
+</ol>
+<p>即要手动进行数学运算，得到分页的数据，但是你是不是也觉得这样过于麻烦？PageHelper让我们简化了分页数据的计算，我们仅需要这样定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 分页查询-条件查询方法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> customer 查询条件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> pageCode 当前页</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> pageSize 每页的记录数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> PageBean <span class="title">findByPage</span><span class="params">(Customer customer, <span class="keyword">int</span> pageCode, <span class="keyword">int</span> pageSize)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//使用Mybatis分页插件</span></span><br><span class="line">    PageHelper.startPage(pageCode, pageSize);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用分页查询方法，其实就是查询所有数据，mybatis自动帮我们进行分页计算</span></span><br><span class="line">    Page&lt;Customer&gt; page = customerMapper.findByPage(customer);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> PageBean(pageCode, (<span class="keyword">int</span>)(page.getTotal() / pageSize), (<span class="keyword">int</span>)page.getTotal(), pageSize, page.getResult());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为我们将条件查询和分页查询合为一个方法，所以这里出现三个参数。PageHelper有一个构造函数<code>starPage()</code>，将pageCode当前页和pageSize每页的记录数传入即可完成之前的一系列数学运算。</p>
+<p>查询需要调用Mapper层的<code>findByPage(customer)</code>方法:</p>
+<ol>
+<li>首先需要指定Mapper层的<code>findByPage()</code>方法的返回值是Page类型，因为是PageHelper查询进行的数据分页；</li>
+<li>需要将<code>customer</code>参数传入，因为我们条件查询也调用这个方法，查询的条件就封装在Customer对象中；</li>
+<li>返回值是PageBean类型，需要调用PageBean中带参构造函数，将查询到的数据依次封装到PageBean对象中，最终返给前端JSP页面；</li>
+<li><code>page.getTotal()</code>是PageHelper提供的得到分页查询中一共多少条数据的函数；<code>page.getResult()</code>是PageHelper提供的得到具体分页数据的函数；</li>
+</ol>
+<h3 id="5-5-编写Mapper-xml"><a href="#5-5-编写Mapper-xml" class="headerlink" title="5.5 编写Mapper.xml"></a>5.5 编写Mapper.xml</h3><ul>
+<li>注意：这里使用了mybatis的mapper接口实现方式，再强调几个注意事项：<ol>
+<li>mapper.xml文件名称必须和接口名称相同</li>
+<li>Mapper 接口方法名和 UserMapper.xml 中定义的每个 sql 的 id 同名。</li>
+<li>Mapper 接口方法的输入参数类型和 UserMapper.xml 中定义的 sql 的parameterType 类型相同。</li>
+<li>Mapper 接口的返回类型和 UserMapper.xml 中定义的 sql 的 resultType 类型相同</li>
+</ol>
+</li>
+</ul>
+<p><strong>未使用PageHelper分页插件</strong>前，我们需要这样定义：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 查询总的记录数 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectCount"</span> <span class="attr">resultType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">    select count(*) from customer;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 分页查询 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByPage"</span> <span class="attr">parameterType</span>=<span class="string">"Map"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span>&gt;</span></span><br><span class="line">    select * from customer</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"start != null and size != null"</span>&gt;</span></span><br><span class="line">        limit #&#123;start&#125;,#&#123;size&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 多条件查询 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findCondition"</span> <span class="attr">parameterType</span>=<span class="string">"Map"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- where 1=1 可以保证where后的语句永远是正确的</span></span><br><span class="line"><span class="comment">        因为在where后的动态SQL可能会执行也可能不会不会执行，如果没有执行，那么where后将跟一个空值，那么显然这样是会报错的</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    select * from customer where 1 = 1</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"c_name != null and c_name != ''"</span>&gt;</span></span><br><span class="line">        and c_name like concat('%', #&#123;c_name&#125;, '%')</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"c_telephone != null and c_telephone != ''"</span>&gt;</span></span><br><span class="line">        and c_telephone like concat('%', #&#123;c_telephone&#125;, '%')</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 我们通过在Service中的计算决定了我们每次请求的数据应该从那一页开始，那一页结束 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"start != null and size != null"</span>&gt;</span></span><br><span class="line">        limit #&#123;start&#125;,#&#123;size&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意几点：</p>
+<ol>
+<li>findByPage方法是用来分页显示数据的，我们传进来的数据是Map集合，定义了parameType=”Map”；resultMap实现了将查询到的复杂的数据映射到一个结果集中</li>
+<li>findCondition方法是用来分页显示条件查询到的数据的，注意where 1 = 1主要是用来避免以下动态sql中的条件都不满足的情况时，where后就没数据了，这样显然报错，加上1=1就避免了这种情况</li>
+</ol>
+<p><strong>使用了PageHelper分页插件</strong>，并且将分页查询的方法和条件查询的方法合为一个，并通过Customer对象进行封装查询条件，我们只需要：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByPage"</span> <span class="attr">parameterType</span>=<span class="string">"cn.tycoding.pojo.Customer"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span>&gt;</span></span><br><span class="line">    SELECT * FROM tb_customer WHERE 1=1</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"name != null"</span>&gt;</span></span><br><span class="line">        AND name LIKE CONCAT('%', #&#123;name&#125;, '%')</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"telephone != null"</span>&gt;</span></span><br><span class="line">        AND telephone LIKE CONCAT('%', #&#123;telephone&#125;, '%')</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里使用了Mybatis的动态SQL语句：如果包含查询条件就执行查询方法，不包含就不执行。注意<code>WHERE 1=1</code>的巧妙用法。</p>
+<h2 id="拓展：Service层的封装"><a href="#拓展：Service层的封装" class="headerlink" title="拓展：Service层的封装"></a>拓展：Service层的封装</h2><p>因为实际项目中肯定不会仅涉及一张表的增删改查功能，那么多次编写Service层基本增删改查的接口，代码重用率就太低了，所以我们将常用的接口方法提取出来，放到一个通用的Service层接口中。</p>
+<p>这里需要使用泛型类<code>&lt;T&gt;</code>这个T就代表你的接口实现类所要使用的实体类对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseService</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询所有</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;T&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据id查询</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;T&gt; <span class="title">findById</span><span class="params">(Long id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 新增</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">create</span><span class="params">(T t)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(T t)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(Long id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么我们原本的CustomerService.java文件就修改为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CustomerService</span> <span class="keyword">extends</span> <span class="title">BaseService</span>&lt;<span class="title">Customer</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 分页查询</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> customer 查询条件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pageCode 当前页</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pageSize 每页的记录数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">PageBean <span class="title">findByPage</span><span class="params">(Customer customer, <span class="keyword">int</span> pageCode, <span class="keyword">int</span> pageSize)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如此，即可。BaseService中存放通用的方法，每个私有的Service接口中继承这个公共接口，也可以定义自己私有的接口。</p>
+<h2 id="5-6-分页逻辑"><a href="#5-6-分页逻辑" class="headerlink" title="5.6 分页逻辑"></a>5.6 分页逻辑</h2><p>首先我们看一下页码是如何展示出来的：</p>
+<p><img src="/2018/06/05/ssm/ssm-2/5.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">百度分页算法（每页显示10个页码）：</span><br><span class="line">  当点击页码7之后的页码，最前端的页码依次减少</span><br><span class="line">    [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10]</span><br><span class="line">    点击[7]</span><br><span class="line">    [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11]</span><br><span class="line">算法：</span><br><span class="line">  若 总页数 &lt;= 10   则begin=1        end=总页数</span><br><span class="line">  若 总页数 &gt; 10    则begin=当前页-5      end=当前页+4</span><br><span class="line">    头溢出: 若begin &lt; 1    则begin=1    end=10</span><br><span class="line">    尾溢出: 若end &gt; 总记录数   则brgin=end-9  end=总页数  </span><br><span class="line">    </span><br><span class="line">此项目设置每页显示5个页码：</span><br><span class="line">  若 总页数 &lt;= 5    则begin=1       end=总页数</span><br><span class="line">  若 总页数 &gt;  5    则begin=当前页-1      end=当前页+3</span><br><span class="line">    头溢出: 若begin &lt; 1     则begin=1     end=5</span><br><span class="line">    尾溢出: 若end &gt; 总记录数   则brgin=end-4  end=总页数</span><br><span class="line"></span><br><span class="line">* (end表示页面的最后一个页码，begin表示页面的第一个页码)</span><br></pre></td></tr></table></figure>
+
+<p>之前有人会问道这个<em>头溢出</em>和<em>尾溢出</em>是什么意思？其实仔细看看，如果我们安装上面设计的算法逻辑：头溢出就是指当页数很多一直点击上一页，为避免出现第0页而设置的；那么尾溢出就如下图所示情况了：</p>
+<p><img src="/2018/06/05/ssm/ssm-2/6.png" alt></p>
+<hr>
+<h1 id="综上"><a href="#综上" class="headerlink" title="综上"></a>综上</h1><p>到此为止，我们基本讲完了SSM框整合的过程，你是否看明白了呢？其实整合SSM框架并不难，按照这个思路，我们学习完SSM框架整合，就可以着手练习一些小项目了。详细过程，大家可以从我的项目源码中分析。</p>
+<h1 id="项目运行截图"><a href="#项目运行截图" class="headerlink" title="项目运行截图"></a>项目运行截图</h1><p><img src="/2018/06/05/ssm/ssm-2/img-1.png" alt></p>
+<p><img src="/2018/06/05/ssm/ssm-2/img-2.png" alt></p>
+<p><img src="/2018/06/05/ssm/ssm-2/img-3.png" alt></p>
+<br>
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ssm/" rel="tag"># ssm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/04/ssm/ssm/" rel="next" title="Spring、SpringMVC、Mybatis整合之工程的搭建">
+                <i class="fa fa-chevron-left"></i> Spring、SpringMVC、Mybatis整合之工程的搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/21/vue/vue-1/" rel="prev" title="初识Vue">
+                初识Vue <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于项目"><span class="nav-number">1.</span> <span class="nav-text">关于项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试环境"><span class="nav-number">1.1.</span> <span class="nav-text">测试环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目功能"><span class="nav-number">1.2.</span> <span class="nav-text">项目功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构"><span class="nav-number">1.3.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整合思路"><span class="nav-number">1.4.</span> <span class="nav-text">整合思路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#需求实现"><span class="nav-number">2.</span> <span class="nav-text">需求实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-实现用户登录功能"><span class="nav-number">2.1.</span> <span class="nav-text">1. 实现用户登录功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-创建表结构"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1 创建表结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-编写Controller层"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2 编写Controller层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-编写Mapper-xml"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3 编写Mapper.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-实现客户信息的添加"><span class="nav-number">2.2.</span> <span class="nav-text">2. 实现客户信息的添加</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-创建表结构"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 创建表结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-编写Controller层"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 编写Controller层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-编写Mapper-xml"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3 编写Mapper.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-实现客户信息的删除功能"><span class="nav-number">2.3.</span> <span class="nav-text">3. 实现客户信息的删除功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-编写Controller层"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 编写Controller层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-编写Mapper-xml"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 编写Mapper.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-更新客户信息"><span class="nav-number">2.4.</span> <span class="nav-text">4. 更新客户信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-编写Controller层"><span class="nav-number">2.4.1.</span> <span class="nav-text">4.1 编写Controller层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-编写Mapper-xml"><span class="nav-number">2.4.2.</span> <span class="nav-text">4.2 编写Mapper.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-分页查询"><span class="nav-number">2.5.</span> <span class="nav-text">5. 分页查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-封装PageBean"><span class="nav-number">2.5.1.</span> <span class="nav-text">5.1 封装PageBean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-jsp页面"><span class="nav-number">2.5.2.</span> <span class="nav-text">5.2 jsp页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-编写Controller层"><span class="nav-number">2.5.3.</span> <span class="nav-text">5.3 编写Controller层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-编写Service层"><span class="nav-number">2.5.4.</span> <span class="nav-text">5.4 编写Service层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-编写Mapper-xml"><span class="nav-number">2.5.5.</span> <span class="nav-text">5.5 编写Mapper.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展：Service层的封装"><span class="nav-number">2.6.</span> <span class="nav-text">拓展：Service层的封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-分页逻辑"><span class="nav-number">2.7.</span> <span class="nav-text">5.6 分页逻辑</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综上"><span class="nav-number">3.</span> <span class="nav-text">综上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目运行截图"><span class="nav-number">4.</span> <span class="nav-text">项目运行截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">5.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">6.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>
