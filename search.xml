@@ -1,26 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Feeling</title>
-    <url>/2020/03/23/feel/</url>
-    <content><![CDATA[<p>我们攀越高山，走向云海尽头，最终却发现，心中的故人依旧。</p>
-<p>远行，从未能赐予我们放下的幸运。于是我们放下背包，围炉夜话，走入人群深处。</p>
-<p>尽管心中的孤独犹在，但在这些努力的面孔前，我们自己的快乐与忧愁，却是那样的千篇一律，又不值一提。</p>
-<p>面对自己，借着酸劲想象别人的幸福，总是一件容易的事情。</p>
-<p>可实际走近却会发现，每个人的人生，都是痛并快乐着。</p>
-<p>没有人会随随便便成功，每个人都在为了成为更好的自己而奋斗。</p>
-<p>这就是中国，这就是我们的小城。</p>
-<p>这里的故事属于你我，属于每一个从降生之日起就注定要努力奔跑的灵魂。</p>
-<p>——《食贫道》</p>
-<div style="width:36%;">
-  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=34998481&auto=1&height=66"></iframe>
-</div>
-
-
-
-
+    <title>WeChatTemplate-项目介绍01</title>
+    <url>/2020/06/11/project/wechat-template/wechat-template01/</url>
+    <content><![CDATA[<h1 id="WeChat-Template"><a href="#WeChat-Template" class="headerlink" title="WeChat Template"></a>WeChat Template</h1><blockquote>
+<p>一套基于SpringBoot &amp; Shiro 以及 Uni-app构建的微信小程序脚手架</p>
+</blockquote>
+<p><strong>开源地址：</strong> <a href="https://github.com/TyCoding/wechat-template" target="_blank" rel="noopener">https://github.com/TyCoding/wechat-template</a> 欢迎Star、Fork支持作者。</p>
 <a id="more"></a>
 
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>本 <a href="https://github.com/TyCoding/wechat-template" target="_blank" rel="noopener">仓库</a> 中包含了两个项目：</p>
+<ul>
+<li><code>wechat-api</code>: 基于SpringBoot、Shiro构建的仅提供Restful api的后端项目</li>
+<li><code>wechat-app</code>: 基于Uni-app构建的微信小程序</li>
+</ul>
+<p><strong>你能学到什么</strong></p>
+<ol>
+<li>Uni-app与Java Web项目结合的最佳实践</li>
+<li>SpringBoot与Shiro的集成，以及身份校验、Token交互的实现</li>
+<li>如何优雅的封装一套Uni-app(微信小程序)脚手架，包括：request api封装、vuex存储、router页面路由、与Java后端数据交互</li>
+<li>如何优雅的封装一套SpringBoot&amp;Shiro权限项目脚手架，如何处理前后端分离Token交互</li>
+<li>如何处理小程序端Request请求，后续将从Login请求展开逐步分析前后端交互流程</li>
+</ol>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><p>开发环境：</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JDK</td>
+<td>1.8</td>
+</tr>
+<tr>
+<td>MySql</td>
+<td>5.7</td>
+</tr>
+<tr>
+<td>IDEA</td>
+<td>2020.1</td>
+</tr>
+<tr>
+<td>HBuilderX</td>
+<td>2.7.9</td>
+</tr>
+<tr>
+<td>微信开发者工具</td>
+<td>1.03</td>
+</tr>
+</tbody></table>
+<p><code>wechat-api</code>小程序后端：</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SpringBoot</td>
+<td>2.1.3.RELEASE</td>
+</tr>
+<tr>
+<td>Spring-Shiro</td>
+<td>1.3.2</td>
+</tr>
+<tr>
+<td>Mybatis</td>
+<td>2.1.0</td>
+</tr>
+<tr>
+<td>Mybatis-Plus</td>
+<td>3.2.0</td>
+</tr>
+</tbody></table>
+<p><code>wechat-app</code>小程序前端：</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>uni-app</td>
+<td>2.7.9</td>
+</tr>
+<tr>
+<td>thorui</td>
+<td>1.5.0</td>
+</tr>
+<tr>
+<td>luch-request</td>
+<td>3.0.2</td>
+</tr>
+<tr>
+<td>uni-simple-route</td>
+<td>1.8.4</td>
+</tr>
+</tbody></table>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><h3 id="wechat-api"><a href="#wechat-api" class="headerlink" title="wechat-api"></a>wechat-api</h3><p>源码：<a href="https://github.com/TyCoding/wechat-template/tree/master/wechat-api" target="_blank" rel="noopener">https://github.com/TyCoding/wechat-template/tree/master/wechat-api</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   │   └── cn</span><br><span class="line">    │   │       └── tycoding</span><br><span class="line">    │   │           ├── Application.java</span><br><span class="line">    │   │           ├── biz</span><br><span class="line">    │   │           │   ├── controller	-- 控制层</span><br><span class="line">    │   │           │   ├── entity		-- 实体类</span><br><span class="line">    │   │           │   ├── mapper		-- Mybatis映射接口</span><br><span class="line">    │   │           │   └── service		-- 业务层</span><br><span class="line">    │   │           └── common			-- 公共层</span><br><span class="line">    │   │               ├── auth		-- Shiro鉴权相关</span><br><span class="line">    │   │               ├── config		-- 项目配置相关</span><br><span class="line">    │   │               ├── constants	-- 项目公共常量</span><br><span class="line">    │   │               ├── controller	-- 控制层公共方法提取</span><br><span class="line">    │   │               ├── exception	-- 异常类</span><br><span class="line">    │   │               ├── handler		-- 处理器类</span><br><span class="line">    │   │               ├── properties	-- 框架配置参数</span><br><span class="line">    │   │               └── utils		-- 工具类</span><br><span class="line">    │   └── resources</span><br><span class="line">    │       ├── application-dev.yml		-- 开发环境配置</span><br><span class="line">    │       ├── application-prod.yml	-- 生产环境配置</span><br><span class="line">    │       ├── application.yml			-- 项目基础配置</span><br><span class="line">    │       ├── mapper					-- Mybatis接口映射XML文件</span><br><span class="line">    │       └── tycoding.properties		-- 项目自定义参数配置</span><br></pre></td></tr></table></figure>
+
+<h3 id="wechat-app"><a href="#wechat-app" class="headerlink" title="wechat-app"></a>wechat-app</h3><p>源码：<a href="https://github.com/TyCoding/wechat-template/tree/master/wechat-app" target="_blank" rel="noopener">https://github.com/TyCoding/wechat-template/tree/master/wechat-app</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">├── App.vue			-- 小程序入口（Vue）</span><br><span class="line">├── api				-- 项目接口方法（对URL、Params的统一封装，仅需调用其下的方法便可发送请求）</span><br><span class="line">│   └── user.js		-- 用户层接口（建议命名和后端Controller对应）</span><br><span class="line">├── common			-- 通用文件</span><br><span class="line">├── components		-- 组件，HBuilderX新版支持easycom模式：无需手动引入组件仅需按照目录格式</span><br><span class="line">├── config.js		-- 项目配置（包含了项目生产环境和开发环境BaseURL配置）</span><br><span class="line">├── main.js			-- 项目入口</span><br><span class="line">├── manifest.json	-- 应用配置</span><br><span class="line">├── pages			-- 页面（vue组件）</span><br><span class="line">│   ├── common		-- 通用层页面</span><br><span class="line">│   └── tabbar		-- 小程序底部tarbar对应页面</span><br><span class="line">├── pages.json		-- 页面属性配置、编译配置</span><br><span class="line">├── permission.js	-- 路由守卫，页面Router将被路由守卫拦截处理（判断token是否失效等）</span><br><span class="line">├── router			-- 页面路由相关配置，页面的路由path需要和pages.json相对应</span><br><span class="line">│   └── index.js</span><br><span class="line">├── static			-- 静态文件</span><br><span class="line">├── store			-- vuex相关store缓存配置</span><br><span class="line">│   ├── getters.js	-- 定义getters，用于获取store中的参数属性</span><br><span class="line">│   ├── index.js	-- Vuex声明、定义</span><br><span class="line">│   └── modules		-- 具体需要缓存的数据对象</span><br><span class="line">└── utils			-- 工具类</span><br><span class="line">    ├── auth.js		-- 管理Token</span><br><span class="line">    ├── request.js	-- 全局请求封装</span><br><span class="line">    └── util.js		-- 一些方法的封装</span><br></pre></td></tr></table></figure>
+
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>项目文档将在公众号：<strong>程序员涂陌</strong> 中陆续发布。首先作为后端程序员我们要先阅读微信小程序相关文档：</p>
+<ul>
+<li>微信小程序官方文档：<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/framework/</a></li>
+<li>uni-app官方文档：<a href="https://uniapp.dcloud.io/README" target="_blank" rel="noopener">https://uniapp.dcloud.io/README</a></li>
+<li>Vue.js官方文档：<a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/</a></li>
+<li>ThorUI官方文档：<a href="https://www.thorui.cn/doc/guide.html" target="_blank" rel="noopener">https://www.thorui.cn/doc/guide.html</a></li>
+<li>lunc-request官方文档：<a href="https://quanzhan.co/luch-request/guide/3.x/" target="_blank" rel="noopener">https://quanzhan.co/luch-request/guide/3.x/</a></li>
+<li>uni-simple-router官方文档：<a href="http://hhyang.cn/src/router/start/quickstart.html" target="_blank" rel="noopener">http://hhyang.cn/src/router/start/quickstart.html</a></li>
+</ul>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>由于本人是做后端的，所以本小程序中服务端接口全部由<code>wechat-api</code>项目提供，请各位开发者把重点放在学习该项目是如何封装的、以及数据是如何交互的，这是核心。Uni-app最大的优势就是基于Vue实现，熟悉了Vue则对用Uni-app开发小程序也会很快熟悉；需要提各位，Uni-app框架与HBuilder软件是捆绑的，HBuilder的版本号即是Uni-app框架的版本号，而只能通过HBuilder编译uni-app项目，最后微信开发者工具上预览小程序界面。</p>
+<p>以上是对  <a href="https://github.com/TyCoding/wechat-template" target="_blank" rel="noopener">https://github.com/TyCoding/wechat-template</a> 项目的介绍，后续公众号会陆续发布该项目各个功能模块的实现逻辑，请大家持续关注~~</p>
 <br>
 
 
@@ -34,6 +131,79 @@
 <li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Markdown写作</title>
+    <url>/2020/06/10/other/markdown/</url>
+    <content><![CDATA[<h1 id="Markdown-写作"><a href="#Markdown-写作" class="headerlink" title="Markdown  写作"></a>Markdown  写作</h1><p><strong>工欲善其事必先利其器</strong></p>
+<p>习惯了写文章来记录自己的日常，<strong>Markdown</strong> 必是首选。而如何优雅的写作呢？今天带大家配置一个优雅的Markdown写作环境。</p>
+<a id="more"></a>
+
+<h2 id="软件选择"><a href="#软件选择" class="headerlink" title="软件选择"></a>软件选择</h2><ul>
+<li><strong><a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a></strong>: 一款免费跨平台的Markdown写作软件</li>
+<li><strong><a href="https://github.com/Molunerfinn/PicGo/releases/" target="_blank" rel="noopener">PicGo</a></strong>: 一款免费开源跨平台的图床工具</li>
+</ul>
+<p>Markdown写作软件有很多种，当然每个软件都有各自的优缺点，但我个人更喜欢<strong>Typora</strong>的风格：所写即所见。而Typora新版本本身就支持PicGo图床工具，配置好图床工具，写作时粘贴的图片将自动上传到云端。</p>
+<h2 id="图床选择"><a href="#图床选择" class="headerlink" title="图床选择"></a>图床选择</h2><p>PicGo仅是一个图床工具，而我们需要给这个图床工具配置云端服务器。</p>
+<p>网上有很多免费的图床网站，直接将图片上传到网站便能得到云端链接。而图片并未上传到我们自己的服务器，既没法方便的管理也不能保证图片会不会有丢失，因此我们需要选择一款自己的图床服务器。</p>
+<p>除了自己购买云端服务器，我们亦可以选择网上免费的图床服务器，例如：七牛云、Gitee、GitHub等等。Github苦于网速限制就直接放弃吧；Gitee是个不错的选择但应用内访问图片的链接可能会出现403 Forbidden的情况，所以我还是推荐使用七牛云。下面介绍Gitee和七牛云的图床环境搭建。</p>
+<h3 id="Gitee"><a href="#Gitee" class="headerlink" title="Gitee"></a>Gitee</h3><p>在 <strong><a href="https://gitee.com/" target="_blank" rel="noopener">https://gitee.com/</a></strong> 官网申请注册账号，注册完毕后新建一个空仓库：</p>
+<p><img src="http://cdn.tycoding.cn/20200609214948.png" alt="image-20200609214948247"></p>
+<p>注意仓库必须是公开不能是私有的，仓库的分支就选择默认的master分支即可。最后我们的图片将通过图床工具自动上传到这个仓库，图片访问的外链就是Gitee仓库内图片的URL地址，后续我们将介绍如何在PicGo中配置这个图床。</p>
+<p><strong>说明：</strong> Gitee的图片配置是很简单的，如果是用来作为文章图片的存储是适合的。但作为开发者，如果我们想要在APP项目内访问Gitee仓库中存储的图片就会出现403Forbidden的情况，原因是请求URL时需要携带Token参数信息，显然这并不适合在项目中作为外链使用。</p>
+<p>例如：<a href="https://gitee.com/tytumo/pictures/raw/master/img/20200609105634.png" target="_blank" rel="noopener">https://gitee.com/tytumo/pictures/raw/master/img/20200609105634.png</a> 在浏览器上是可直接访问的，而在应用内请求（比如在<code>&lt;image src=&#39;&#39;&gt;</code>中使用）：</p>
+<p><img src="http://cdn.tycoding.cn/20200609221624.png" alt="image-20200609221624887"></p>
+<h3 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h3><p><strong>注意：</strong> 七牛云是一款可以免费使用的云端服务器，但这仅仅是一个服务器，七牛云并不提供域名（新创建的对象储存会提供一个免费的域名，但有期限），因此我们首先需要自己购买一个域名。</p>
+<p>在 <strong><a href="https://www.qiniu.com/" target="_blank" rel="noopener">https://www.qiniu.com/</a></strong> 七牛云官方网站注册一个账号，创建完成后进入 <a href="https://portal.qiniu.com/create" target="_blank" rel="noopener">管理控制台</a> ：</p>
+<p><img src="http://cdn.tycoding.cn/20200609220131.png" alt="image-20200609220131710"></p>
+<p>在云产品那一栏找到对象储存，并点击立即添加：</p>
+<p><img src="http://cdn.tycoding.cn/20200609220625.png" alt="image-20200609220625251">、</p>
+<p>同样，储存空间必须是公开的而不是私有的。这样就完成了储存空间的创建，实际上也就类似于一个服务器，最后图片将上传到这个存储空间内，通过外链即可访问。</p>
+<h2 id="PicGo"><a href="#PicGo" class="headerlink" title="PicGo"></a>PicGo</h2><p>上面准备好了图床，接下来需要在PicGo中配置使用图床。开始配置之前，先修改PicGo的默认配置：</p>
+<p><img src="http://cdn.tycoding.cn/20200609222336.png" alt="image-20200609222336679"></p>
+<p>开启时间戳命名后上传的图片名称自动修改为当前的时间戳；开启上床后自动复制URL后上传了图片将自动复制图片的外链地址。下面分别介绍GItee图床和七牛云图床的配置：</p>
+<h3 id="Gitee-1"><a href="#Gitee-1" class="headerlink" title="Gitee"></a>Gitee</h3><p><img src="http://cdn.tycoding.cn/20200609222943.png" alt="image-20200609222943390"></p>
+<ol>
+<li><strong>owner</strong>: 空间地址，从个人Gitee的URL地址中可以看到</li>
+<li><strong>repo</strong>: 仓库名称，就是我们刚创建的图床仓库</li>
+<li><strong>path</strong>: 存储路径，相对于本仓库。比如设置为img，那么将上传到<code>img/</code>文件夹下</li>
+<li><strong>token</strong>: 私人令牌，在gitee个人中心 <strong>私人令牌</strong> 页面中可以创建一个新的令牌，将Token指复制到这里</li>
+<li><strong>message</strong>: 类似于<code>git commit -m &#39;&#39;</code> </li>
+</ol>
+<h3 id="七牛云-1"><a href="#七牛云-1" class="headerlink" title="七牛云"></a>七牛云</h3><p><img src="http://cdn.tycoding.cn/20200609222736.png" alt="image-20200609222736448"></p>
+<ol>
+<li>AccessKey和SecretKet 在Gitee设置中心页面可以找到</li>
+<li>存储空间名也就是刚才新创建存储空间的名称</li>
+<li>访问网址也就是该储存空间的外链访问地址，如果是自定义的外链就填写自定义的域名地址</li>
+</ol>
+<h2 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h2><p>在Typora设置中找到图像配置：</p>
+<p><img src="http://cdn.tycoding.cn/20200609223944.png" alt="image-20200609223944860"></p>
+<p><strong>上传服务设定</strong> 选择本地的PicGo工具，然后可以点击<strong>验证图片上传选项</strong> 按钮，如果连接正常将出现以下页面：</p>
+<p><img src="http://cdn.tycoding.cn/20200609224243.png" alt="image-20200609224243115"></p>
+<p>到此为止，整个配置就算完成了，接下来我们可以尝试在Typora内新创建Markdown文档，截取一张图片直接复制到这个文档中，会发现图片URL从本地的localhost自动转变为远程域名地址，并且PicGo会提示图片上传成功：</p>
+<p><img src="http://cdn.tycoding.cn/20200609224659.png" alt="image-20200609224659354"></p>
+<p><strong>附：</strong></p>
+<ol>
+<li>微信公众号Markdown文章排版工具：<a href="https://mdnice.com/" target="_blank" rel="noopener">https://mdnice.com/</a></li>
+<li><a href="https://tycoding.cn/" target="_blank" rel="noopener">https://tycoding.cn/</a> 博客建站使用技术：<a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a></li>
+<li><a href="https://tycoding.cn/" target="_blank" rel="noopener">https://tycoding.cn/</a> 博客使用的Hexo主题：<a href="https://github.com/TyCoding/tumo-next" target="_blank" rel="noopener">https://github.com/TyCoding/tumo-next</a></li>
+</ol>
+<br>
+
+
+
+
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
+<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>other</category>
+      </categories>
   </entry>
   <entry>
     <title>Java基础知识点回顾</title>
