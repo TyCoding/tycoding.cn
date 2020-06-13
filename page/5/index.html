@@ -245,6 +245,197 @@ var _hmt = _hmt || [];
   
   
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/13/ssm/seckill-service/" itemprop="url">SpringBoot实现Java高并发秒杀系统之Service层开发（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-13T08:59:41+08:00">
+                2018-10-13
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>继上一篇文章：<a href="http://tycoding.cn/2018/10/12/ssm/seckill-dao/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之DAO层开发</a> 我们创建了SpringBoot项目并熟悉了秒杀系统的表设计，下面我们将讲解一下秒杀系统的核心部分：Service业务层的开发。</p>
+<p>Service层又称为业务层，在Spring阶段主要是由<code>@Service</code>注解标记的一层，包含Service业务接口的开发和业务接口实现类的开发，这里我们将讲解如何优雅的设计业务层接口以及针对秒杀系统业务层的优化技术等和针对高并发的解决方案。</p>
+<p>本项目的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill" target="_blank" rel="noopener">springboot-seckill</a>  如果觉得不错可以star一下哦(#^.^#)</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/13/ssm/seckill-service/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/12/ssm/seckill-dao/" itemprop="url">SpringBoot实现Java高并发秒杀系统之DAO层开发（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T10:42:40+08:00">
+                2018-10-12
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>秒杀</strong>系统在如今电商项目中是很常见的，最近在学习电商项目时讲到了秒杀系统的实现，于是打算使用SpringBoot框架学习一下秒杀系统（本项目基于慕课网的一套免费视频教程：<a href="https://www.imooc.com/u/2145618/courses?sort=publish" target="_blank" rel="noopener">Java高并发秒杀API</a>，视频教程中讲解的很详细，非常感谢这位讲师）。也是因为最近学习了SpringBoot框架（GitHub教程：<a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">SpringBoot入门之CRUD</a> ），觉得SpringBoot框架确实比传统SSM框架方便了很多，于是更深层次练习使用SpringBoot框架，注意：<strong>SpringBoot不是对Spring功能上的增强，而是提供了一种快速使用Spring的方式。</strong> 如果你熟悉了SSM框架，学习SpringBoot框架也是很Easy的。</p>
+<p>本项目的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill" target="_blank" rel="noopener">springboot-seckill</a>  如果觉得不错可以star一下哦(#^.^#)</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/12/ssm/seckill-dao/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/09/30/ssm/activemq/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1025,209 +1216,11 @@ var _hmt = _hmt || [];
   <hr>
 
     
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/29/ssm/fastdfs/" itemprop="url">FastDFS系统搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T08:20:57+08:00">
-                2018-08-29
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="手摸手教你搭建FasfDFS分布式文件系统"><a href="#手摸手教你搭建FasfDFS分布式文件系统" class="headerlink" title="手摸手教你搭建FasfDFS分布式文件系统"></a>手摸手教你搭建FasfDFS分布式文件系统</h1><p>由于正在学习的分布式项目中用到了<code>FastDFS</code>文件系统，因为各种原因就只好手动搭建环境。搭建过程确实很复杂，我也是折腾了好长时间才解决的，看了网上的教程，但很少有直接就能搭建成功得博文教程，所以这里自己写了一个完成的教程，并附带了所需的配置文件。</p>
-<p>需要注意的是Linux系统、版本的问题，我这里使用的是CentOS7的版本，如果大家搭建请尽量保证版本一致。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/ssm/fastdfs/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/08/05/vue/vue-7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/05/vue/vue-7/" itemprop="url">Vue+ElementUI+SpringMVC实现图片上传和回显</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-05T08:38:59+08:00">
-                2018-08-05
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Vue+ElementUI+SpringMVC实现图片上传和table回显</p>
-<p>在之前我们已经讲过了 <a href="http://tycoding.cn/2018/07/30/vue-6/#more" target="_blank" rel="noopener">Vue+ElementUI+SpringMVC实现分页</a> 。</p>
-<p>而我们也常遇到表单中包含图片上传的需求，并且需要在table中显示图片，所以这里我就讲一下结合后端的SpringMVC框架如何实现图片上传并提交到表单中，在table表格中回显照片。</p>
-<p>本案例对应的<strong>开源项目地址</strong>请看我的GitHub仓库：</p>
-<ul>
-<li><p><a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">优雅的入门SpringBoot+Mybatis，实现简单的CRUD </a></p>
-</li>
-<li><p><a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">优雅的实现电商项目中搜索功能，整合SSM+Redis+Shiro+Solr框架，教你使用Vue+ElementUI写一个炫酷的后端页面 </a></p>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/05/vue/vue-7/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

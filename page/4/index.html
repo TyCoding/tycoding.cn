@@ -245,6 +245,198 @@ var _hmt = _hmt || [];
   
   
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/02/16/ssm/shiro/53-shiro-tree2-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/16/ssm/shiro/53-shiro-tree2-md/" itemprop="url">ElementUI+Shiro构建权限Tree</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-16T14:41:46+08:00">
+                2019-02-16
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="ElementUI-Tree"><a href="#ElementUI-Tree" class="headerlink" title="ElementUI - Tree"></a>ElementUI - Tree</h1><p>在上一篇文章中我们介绍了Java后端如何构建一棵Tree树，并将数据返回给前端，前端Vue.js + ElementUI 又是如何渲染出来.</p>
+<p>博文地址：<a href="https://tycoding.cn/2019/01/30/ssm/shiro/shiro-tree/" target="_blank" rel="noopener">Shiro权限管理项目中，如何构建权限菜单？</a></p>
+<p>这次呢，我们谈如何使用ElementUI中的Tree组件，用于部门、角色、菜单的修改添加上，以’部门管理’举例，效果如下：</p>
+<p><img src="/2019/02/16/ssm/shiro/53-shiro-tree2-md/1.png" alt></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/16/ssm/shiro/53-shiro-tree2-md/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/01/30/ssm/shiro/shiro-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/30/ssm/shiro/shiro-tree/" itemprop="url">Shiro权限管理项目中，如何构建权限菜单？</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-30T17:19:44+08:00">
+                2019-01-30
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="如何构建一个Tree树，并在前端渲染成Tree菜单？"><a href="#如何构建一个Tree树，并在前端渲染成Tree菜单？" class="headerlink" title="如何构建一个Tree树，并在前端渲染成Tree菜单？"></a>如何构建一个Tree树，并在前端渲染成Tree菜单？</h1><h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><p>为什么要构建一棵Tree树？在权限管理系统中（或说是本例中），Tree树主要用于构建前端不同权限展示的不同菜单，这个菜单的名称和URL地址保存在数据库中，当用户登录后，查询到此用户对应角色的资源菜单，并封装为集合对象已JSON格式返回给前端渲染。</p>
+<h3 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h3><p>那么首先后端封装Tree树的结构：</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/30/ssm/shiro/shiro-tree/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1019,202 +1211,11 @@ var _hmt = _hmt || [];
   <hr>
 
     
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/13/ssm/seckill-service/" itemprop="url">SpringBoot实现Java高并发秒杀系统之Service层开发（二）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-13T08:59:41+08:00">
-                2018-10-13
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>继上一篇文章：<a href="http://tycoding.cn/2018/10/12/ssm/seckill-dao/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之DAO层开发</a> 我们创建了SpringBoot项目并熟悉了秒杀系统的表设计，下面我们将讲解一下秒杀系统的核心部分：Service业务层的开发。</p>
-<p>Service层又称为业务层，在Spring阶段主要是由<code>@Service</code>注解标记的一层，包含Service业务接口的开发和业务接口实现类的开发，这里我们将讲解如何优雅的设计业务层接口以及针对秒杀系统业务层的优化技术等和针对高并发的解决方案。</p>
-<p>本项目的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill" target="_blank" rel="noopener">springboot-seckill</a>  如果觉得不错可以star一下哦(#^.^#)</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/13/ssm/seckill-service/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/12/ssm/seckill-dao/" itemprop="url">SpringBoot实现Java高并发秒杀系统之DAO层开发（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T10:42:40+08:00">
-                2018-10-12
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>秒杀</strong>系统在如今电商项目中是很常见的，最近在学习电商项目时讲到了秒杀系统的实现，于是打算使用SpringBoot框架学习一下秒杀系统（本项目基于慕课网的一套免费视频教程：<a href="https://www.imooc.com/u/2145618/courses?sort=publish" target="_blank" rel="noopener">Java高并发秒杀API</a>，视频教程中讲解的很详细，非常感谢这位讲师）。也是因为最近学习了SpringBoot框架（GitHub教程：<a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">SpringBoot入门之CRUD</a> ），觉得SpringBoot框架确实比传统SSM框架方便了很多，于是更深层次练习使用SpringBoot框架，注意：<strong>SpringBoot不是对Spring功能上的增强，而是提供了一种快速使用Spring的方式。</strong> 如果你熟悉了SSM框架，学习SpringBoot框架也是很Easy的。</p>
-<p>本项目的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill" target="_blank" rel="noopener">springboot-seckill</a>  如果觉得不错可以star一下哦(#^.^#)</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/12/ssm/seckill-dao/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
