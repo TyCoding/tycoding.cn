@@ -1,6 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>如何阅读开源项目源码</title>
+    <url>/2020/06/15/think/Think-ReadCode/</url>
+    <content><![CDATA[<h1 id="WeChat-Template"><a href="#WeChat-Template" class="headerlink" title="WeChat Template"></a>WeChat Template</h1><blockquote>
+<p>一套基于SpringBoot &amp; Shiro 以及 Uni-app构建的微信小程序脚手架</p>
+</blockquote>
+<p><strong>开源地址：</strong> <a href="https://github.com/TyCoding/wechat-template" target="_blank" rel="noopener">https://github.com/TyCoding/wechat-template</a> 欢迎Star、Fork支持作者。</p>
+<a id="more"></a>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>如何阅读开源项目源码？感觉这个项目写的很好但是我看不懂啊！我前端太差了学习这个项目有些吃力啊！</strong></p>
+<p>很多接触Java不久的同学都有遇到这样的困惑，那么今天我就想讲讲如何阅读开源项目源码？</p>
+<blockquote>
+<p>诶，这时有人问道：你为什么要提开源项目？不能是其他的项目吗？</p>
+</blockquote>
+<p>这里我仅仅是举例，对于接触Java不久的同学阅读开源项目是有必要的，并且要阅读高star的开源项目，如果你想要提高自己的项目开发能力、扩宽自己的思路、规范自己的代码格式，提高代码质量学习高star的开源项目就必不可少。</p>
+<p>而无论是从别人那拿到的项目源码还是看培训班的项目源码，质量都参差不齐（当然低star的项目质量可能也不太好），而开源项目受大家监督，写的垃圾肯定会被喷。</p>
+<blockquote>
+<p>这时，又有新同学问到，那你的Java学习方法是什么？你的学习步骤是怎样的？</p>
+</blockquote>
+<p>我作为大三的学生，在我写了快三年的代码后我想我似乎也可以给大家提供一些学习思路了。</p>
+<p>首先我要承认：<strong>我是个浮躁的人</strong>。体现在哪里？从我的GitHub：<a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a> 上便可看出，我写的大多都是Demo级别的CURD项目（虽然star也不少），但必须要承认，我没有写过技术含量很高的项目，也没有写过对Java框架底层源码、算法数据结构、计算机原理、网络原理等分析的文章，一味的写CRUD项目真实让我切身体会到<strong>早期规划自己的学习步骤很重要</strong>。</p>
+<p>如何规划Java学习？我认为应该遵循以下步骤：</p>
+<ol>
+<li>Java基础知识</li>
+<li>大学基础课程（数据结构与算法、计算机原理、网络原理…）</li>
+<li>项目实战：Spring、SpringMVC、Mybatis（前端：JavaScript、Vue、xxUI）</li>
+<li>上述框架源码分析</li>
+<li>其他企业级框架，按照 3 -&gt; 4 的步骤依次进行</li>
+</ol>
+<p>其中必须要提到的是<strong>基础知识是很枯燥的，也就是为什么我说自己很浮躁，因为我在学习初期会很想赶快往后学，快点把框架学完就能写项目了</strong>，那么就必然会逐渐忽略掉对基础知识的学习，这是很错误的。解决这种枯燥的方式也有：1.放平心态；2.把<code>2</code>和<code>3</code>并行学习，基础知识要结合实战才能更好的理解不然很快就忘了；3.多写文章。</p>
+<p>如果你是在校生不是应届生，那么我建议你尽早规划自己的学习步骤，<strong>学习早期以基础知识为主项目为辅，后期以项目实战为主，基础思考为辅</strong>。</p>
+<p>如果你是应届生，那这种方式可能不太适合你，你更需要<strong>尽快扩展自己的项目实战能力，多看面试题，尽快尝试投简历面试在面试中提高自己</strong>。</p>
+<hr>
+<p>因为作者是Java后端开发者，那么本文将从<strong>前端项目</strong>、<strong>前后端分离项目</strong>两个方面带你学习如何阅读项目源码。（注：项目涉及到了Vue、Vuex、Router、Axios、SpringBoot、Shiro…）</p>
+<h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><h2 id="开发环境准备"><a href="#开发环境准备" class="headerlink" title="开发环境准备"></a>开发环境准备</h2><p>在GitHub上阅读开源项目：</p>
+<ul>
+<li>如果作者提供了项目在线预览地址，你或许可能直接在线分析</li>
+<li>如果作者没有提供在线预览地址，你就必须自己在本地运行项目</li>
+</ul>
+<p>运行项目也是个技术活。很多同学拿到项目源码却连怎么运行都不知道然后就想方设法联系作者咨询怎么运行，我经常遇到这种情况。对于一些懂礼貌，且提问方式恰当的人可能会回复，对那些话都不会说，提问又指发一些<code>在吗？</code>、<code>你这个项目我运行不起来啊你可以帮帮我吗？</code>类似这种问题一概不理（建议这些同学仔细学习：<strong>提问的艺术</strong>），如果你付费了那作者有义务给你处理，如果你白嫖还一堆事，那作者又有什么义务要帮你？</p>
+<p>所以拿到项目源码，首先要看仔细项目<code>README</code>中写的文档，如果你真的有问题非要提问，你应该这样提问：</p>
+<ul>
+<li>xx你好，你<code>url</code>这个项目我运行报错，错误代码截图：<code>xx</code>，如果你有时间的话可以帮我解决一下吗？</li>
+<li>xx你好，我运行<code>url</code>这个项目，点击<code>xx</code>功能，后台报错<code>xx</code>，前端浏览器F12报错<code>xx</code>，你看一下是什么原因？</li>
+<li>…</li>
+</ul>
+<hr>
+<p>回归正题，作为一个Java开发者，你的电脑最好有一下开发环境：</p>
+<ol>
+<li>JDK</li>
+</ol>
+<p>官网地址：<a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank" rel="noopener">https://www.oracle.com/java/technologies/javase-downloads.html</a></p>
+<p>建议大家安装<code>jdk1.8</code>，不要安装最新版容易出问题。</p>
+<ol start="2">
+<li>Maven</li>
+</ol>
+<p>官网地址：<a href="https://maven.apache.org/" target="_blank" rel="noopener">https://maven.apache.org/</a></p>
+<p>项目源码中包含了<code>pom.xml</code>就证明是Maven项目，你需要在本地安装Maven环境，配置本地Maven仓库，在IDE上配置Maven环境。</p>
+<ol start="3">
+<li>IDEA</li>
+</ol>
+<p>官网地址：<a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">https://www.jetbrains.com/idea/</a>  （开源项目可免费申请License）</p>
+<p>大多开发者都在使用IDEA，而非Eclipse，如果你非要做异类，你要百度：IDEA项目与Eclipse项目如何相互导入。</p>
+<ol start="4">
+<li>MYSQL</li>
+</ol>
+<p>官网地址：<a href="https://www.mysql.com/cn/" target="_blank" rel="noopener">https://www.mysql.com/cn/</a></p>
+<p>建议大家使用MYSQL5.7，不要使用其他版本，除非项目介绍中提到了MYSQL版本。</p>
+<ol start="5">
+<li>Node</li>
+</ol>
+<p>一些前后端分离的项目，一般都要使用<code>Node</code>的<code>npm</code>命令，所以在本地安装Node也是很有必要，其次看前端项目使用框架是Vue还是其他，再安装相应的环境。</p>
+<ol start="6">
+<li>Git</li>
+</ol>
+<p>官网地址：<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">https://git-scm.com/downloads</a></p>
+<p>做开源项目必备GIt工具</p>
+<h2 id="阅读前端项目"><a href="#阅读前端项目" class="headerlink" title="阅读前端项目"></a>阅读前端项目</h2><p><code>vue-element-admin</code>项目源码：<a href="https://github.com/PanJiaChen/vue-element-admin" target="_blank" rel="noopener">https://github.com/PanJiaChen/vue-element-admin</a> </p>
+<blockquote>
+<p> 为什么要以这个项目举例？</p>
+</blockquote>
+<p>首先这是个基于Vue的前端项目，作者在项目中做的封装对于我们后端开发者非常友好。而且我自己的项目：<a href="https://github.com/TyCoding/wechat-template" target="_blank" rel="noopener">https://github.com/TyCoding/wechat-template</a> 前端也是参考这种设计。下面我将以<code>Login</code>请求为例叫大家如何分步阅读项目源码。</p>
+<h3 id="1-看README文档"><a href="#1-看README文档" class="headerlink" title="1. 看README文档"></a>1. 看README文档</h3><p>README中清楚介绍了，此项目预览地址：<a href="https://panjiachen.github.io/vue-element-admin" target="_blank" rel="noopener">https://panjiachen.github.io/vue-element-admin</a> ，此项目的文档地址：<a href="https://panjiachen.github.io/vue-element-admin-site/" target="_blank" rel="noopener">https://panjiachen.github.io/vue-element-admin-site/</a> 。那么你首先需要先大致看下这两个东西。</p>
+<p>但是需要注意，观察预览地址：<a href="https://panjiachen.github.io/vue-element-admin" target="_blank" rel="noopener">https://panjiachen.github.io/vue-element-admin</a>：</p>
+<p>打开项目在线预览地址，同时打开Chrome的F12控制台：</p>
+<p><img src="http://cdn.tycoding.cn/20200615161311.png" alt="image-20200615161311316"></p>
+<p>F12控制台上，<code>Network</code>选项卡是哪个找到：</p>
+<ul>
+<li><code>Preserve log</code>： 页面刷新时保留Network历史记录</li>
+<li><code>Disable cache</code>： 禁用页面缓存，防止页面修改而未及时生效</li>
+</ul>
+<p>点击登录按钮你会发现，Network中并没有包含username和password参数的XHR请求，也就证明在线预览地址上的项目登录并没有发送Request，从界面上显示的<code>密码：随便填</code>也能猜到预览地址部署的项目中登录功能作者为了方便测试没有发送Request校验。</p>
+<p>因此，需要我们本地运行项目分析。</p>
+<h3 id="2-本地运行项目"><a href="#2-本地运行项目" class="headerlink" title="2. 本地运行项目"></a>2. 本地运行项目</h3><ol>
+<li>下载项目源码</li>
+</ol>
+<p><code>git clone https://github.com/PanJiaChen/vue-element-admin.git</code></p>
+<p><img src="http://cdn.tycoding.cn/20200615170759.png" alt="image-20200615170759647"></p>
+<ol start="2">
+<li>install项目</li>
+</ol>
+<p>因为这是基于Vue的项目，需要使用<code>npm</code>命令安装项目依赖：<code>npm install</code></p>
+<p><img src="http://cdn.tycoding.cn/20200615170906.png" alt="image-20200615170906285"></p>
+<ol start="3">
+<li>运行项目</li>
+</ol>
+<p>作者README中也介绍了使用<code>npm run dev</code>开发环境运行项目：</p>
+<p><img src="http://cdn.tycoding.cn/20200615171014.png" alt="image-20200615171014533"></p>
+<p>Chrome将自动打开：<code>http://localhost:9527/</code>，到此项目本地运行成功。</p>
+<h3 id="3-分析Login请求流程"><a href="#3-分析Login请求流程" class="headerlink" title="3. 分析Login请求流程"></a>3. 分析<code>Login</code>请求流程</h3><p>访问<code>http://localhost:9527</code>，打开Chrome控制台，点击登录按钮，分析：</p>
+<p><img src="http://cdn.tycoding.cn/20200615171308.png" alt="image-20200615171308757"></p>
+<p>很明显，项目首先：</p>
+<ol>
+<li>发送<code>/user/login</code>的请求校验用户名和密码，</li>
+<li>发送<code>/user/info</code>获取当前用户账户信息，</li>
+<li>发送<code>/list</code>请求。（这个是<code>/dashboard</code>页面显示的列表数据，不在我们分析的范畴请忽略）</li>
+</ol>
+<p>也就是说该项目<strong>登录按钮</strong>首先触发请求<code>/login</code>，当用户名密码校验通过立即触发<code>/info</code>请求获取当前登录账户的完整信息。</p>
+<p>那么我们先分析页面的<code>登录按钮</code>写在哪？</p>
+<p>从该项目的文档中发现，作者介绍了该项目的所有页面都存放在<code>/src/views</code>目录下（如果作者没有写，就靠你自己分析了，一般规范点的代码都用<code>views</code>或<code>pages</code>等英文名称命名存放页面的目录），于是可以找到<code>login</code>文件夹：</p>
+<p><img src="http://cdn.tycoding.cn/20200615172250.png" alt="image-20200615172250448"></p>
+<p>并且在<code>index.vue</code>中发现，登录按钮是<code>&lt;el-button&gt;Login&lt;/el-button&gt;</code>，并且该按钮上定义了<code>@click</code>触发事件，对应调用<code>handleLogin</code>方法。在该文件的下面找到<code>handleLogin</code>方法的定义：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 登录按钮触发的事件方法</span></span><br><span class="line">handleLogin() &#123;</span><br><span class="line">    <span class="comment">// validate是用于校验Form表单数据</span></span><br><span class="line">    <span class="keyword">this</span>.$refs.loginForm.validate(<span class="function"><span class="params">valid</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 如果校验成功说明输入框中输入的用户名和密码格式正确</span></span><br><span class="line">        <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">            <span class="comment">// 展示loading加载效果</span></span><br><span class="line">            <span class="keyword">this</span>.loading = <span class="literal">true</span></span><br><span class="line">            <span class="comment">// 从Vuex中调用存储的`login`事件，传入`loginForm`参数，在`then`中获取事件响应结果</span></span><br><span class="line">            <span class="keyword">this</span>.$store.dispatch(<span class="string">'user/login'</span>, <span class="keyword">this</span>.loginForm)</span><br><span class="line">                .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// 证明用户名密码输入正确，使用`router`路由跳转到`/`首页面</span></span><br><span class="line">                <span class="keyword">this</span>.$router.push(&#123; <span class="attr">path</span>: <span class="keyword">this</span>.redirect || <span class="string">'/'</span>, <span class="attr">query</span>: <span class="keyword">this</span>.otherQuery &#125;)</span><br><span class="line">                <span class="comment">// 关闭loading加载效果</span></span><br><span class="line">                <span class="keyword">this</span>.loading = <span class="literal">false</span></span><br><span class="line">            &#125;)</span><br><span class="line">                .catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.loading = <span class="literal">false</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>到此为止，对登录按钮的分析结束，在<code>handleLogin()</code>方法中考虑两个问题：</p>
+<ol>
+<li><code>this.$store.dispatch()</code>在哪里调用的<code>user/login</code>事件？</li>
+</ol>
+<p>这个你需要先学习Vuex官方文档，这里我直接告诉你，作者在该项目中对Vuex的封装是放在项目<code>src/store</code>文件夹下的，经过一番浏览，发现对<code>user/login</code>的定义是在<code>/src/store/modules/user.js</code>中的：</p>
+<p><img src="http://cdn.tycoding.cn/20200615173427.png" alt="image-20200615173427216"></p>
+<p>可以看到该事件返回了一个<code>Promise</code>对象，其中调用了<code>login</code>传入了用户名和密码，那么这个<code>login</code>定义在哪？</p>
+<p>在该文件顶部可以看到：</p>
+<p><code>import { login, logout, getInfo } from &#39;@/api/user&#39;</code>也就是此处的<code>login</code>是来自<code>/api/user</code>文件，找到该文件便找到最终登录请求的定义：</p>
+<p><img src="http://cdn.tycoding.cn/20200615173714.png" alt="image-20200615173714879"></p>
+<p>也就是登录按钮发送了<code>login</code>请求，请求URL：<code>/vue-element/user/login</code>，请求参数：<code>data</code>，请求方法：<code>post</code>。</p>
+<ol start="2">
+<li><code>this.$router.push()</code>跳转到了哪个页面？</li>
+</ol>
+<p>作者使用的是<code>vue-router.js</code>，所以你需要先阅读<code>vue-router</code>的文档，这里明确告诉你，作者对项目全局<code>vue-router</code>的封装是放在<code>/src/router</code>文件夹下：</p>
+<p><img src="http://cdn.tycoding.cn/20200615174219.png" alt="image-20200615174219340"></p>
+<p>以上是对该项目页面全局封装的路由表，遵循的是<code>vue-router</code>规定的格式（这个不是重点），可以看到<code>/</code>路由最终是对应了组件component：<code>@/views/dashboard/index</code>，也就是进入<code>/</code>路由浏览器是哪个显示的是<code>dashboard/index.vue</code>中的页面。</p>
+<ol start="4">
+<li>Tips</li>
+</ol>
+<p>介绍到这里，整个登录请求就已经分析完毕。你可能还有很多疑惑，这些疑惑无非就是你不是很熟悉<code>vue-router</code>、<code>vuex</code>、<code>axios</code>，作者对这三样东西都进行了全局封装，其中目录对应：</p>
+<ul>
+<li><code>vue-router</code> –&gt; <code>/src/router</code>文件夹</li>
+<li><code>vuex</code> –&gt; <code>store</code>文件夹</li>
+<li><code>axios</code>  –&gt; <code>/src/utils/request.js</code>文件</li>
+</ul>
+<p>这里我简单画图解释此项目请求流程：</p>
+<p><img src="http://cdn.tycoding.cn/20200615180616.png" alt="image-20200615180616187"></p>
+<h3 id="4-其他请求流程"><a href="#4-其他请求流程" class="headerlink" title="4. 其他请求流程"></a>4. 其他请求流程</h3><p>上面画图分析了Login请求流程，其实项目中其他请求也是类似的，因为作者已经友好封装了全局的router、request、store，开发者使用这个项目仅需要按照这种思路即可。下面我在上图基础上解释其他请求流程：</p>
+<p><img src="http://cdn.tycoding.cn/20200615181418.png" alt="image-20200615181418338"></p>
+<p>想要学习一个Web项目，首先你要从页面开始分析，从HTML的click事件中找到对应的method，然后找到api地址，最后分析api请求响应结果，判断method返回router还是渲染response data。</p>
+<h2 id="阅读前后端分离项目"><a href="#阅读前后端分离项目" class="headerlink" title="阅读前后端分离项目"></a>阅读前后端分离项目</h2><p>从对上面前端项目的分析，你应该大致了解了如何分析项目前端代码，那么接下来我们结合Java后端，分析前后端分离项目如何交互的。</p>
+<p>项目源码：<a href="https://github.com/TyCoding/wechat-template" target="_blank" rel="noopener">https://github.com/TyCoding/wechat-template</a> （为了方便学习，我以自己的项目为例）</p>
+<p><img src="http://cdn.tycoding.cn/20200615181938.png" alt="image-20200615181938026"></p>
+<p>可以看到作者已经解释了此仓库中包含的是两个项目，一个前端项目一个后端项目（也有很多前后端分离项目是讲前端和后端分别放在两个仓库的）。</p>
+<p><strong>因为这个项目前端我是参考<code>vue-element-admin</code>项目设计</strong>，所以我们直接分析页面请求。</p>
+<p>如果你运行了这个小程序，将看到Index页面我示例了一些请求：</p>
+<p><img src="http://cdn.tycoding.cn/20200610182520.PNG" alt="IMG_0696"></p>
+<p>我们在该页面源码中找到<code>HTTP POST Request</code>按钮。观察项目源码不难发现，<code>index</code>页面是定义在<code>wechat-app/pages/index</code>下：</p>
+<p><img src="http://cdn.tycoding.cn/20200615182630.png" alt="image-20200615182630188"></p>
+<p>在<code>index.vue</code>的下方代码找到<code>postRequest</code>方法:</p>
+<p><img src="http://cdn.tycoding.cn/20200615182722.png" alt="image-20200615182722656"></p>
+<p>到这里可以看到，作者这个按钮实际上模拟的是一个添加用户的请求，于是往上翻代码找打<code>save()</code>方法在哪定义：</p>
+<p><img src="http://cdn.tycoding.cn/20200615182829.png" alt="image-20200615182829569"></p>
+<p>可以看到<code>save</code>方法来自<code>wechat/api/user.js</code>，找到这个文件并打开：</p>
+<p><img src="http://cdn.tycoding.cn/20200615182949.png" alt="image-20200615182949132"></p>
+<p>可以看到<code>save</code>方法发送的是<code>/user</code>请求，格式是<code>post</code>，参数是<code>data</code>。</p>
+<p>因为该项目的服务端接口由Java SpringBoot构建，那么我们直接分析<code>wechat-api</code>后端代码，根据惯例找到<code>controller</code>文件夹。这里我直接说明了是在<code>wechat-api/src/main/java/cn/tycoding/biz/controller/</code>，按照惯例找到<code>UserController</code>：</p>
+<p><img src="http://cdn.tycoding.cn/20200615183307.png" alt="image-20200615183307583"></p>
+<p>可以看到该方法使用了<code>@PostMapping</code>注解也规定了此接口只能用POST方式请求，最终是调用<code>UserService</code>去添加用户数据，后面的我就不再详细讲解了。</p>
+<p>其实，到此为止，你应该明白了，分析一个Java Web项目，首先你需要从HTML页面开始分析，找到事件对应请求的接口，在后端Controller中找到接口方法，于是整个请求流程就结束了。而对于一个Java Web项目，我们只要弄懂了项目前后端是如何交互的，也就基本知道了该项目的设计。</p>
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>think</category>
+      </categories>
+  </entry>
+  <entry>
     <title>WeChat Template03安装项目</title>
     <url>/2020/06/12/project/wechat-template/wechat-template03/</url>
     <content><![CDATA[<h1 id="WeChat-Template"><a href="#WeChat-Template" class="headerlink" title="WeChat Template"></a>WeChat Template</h1><blockquote>
@@ -84,9 +270,8 @@
 <h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
 <p>WeChatGroup:  关注公众号查看</p>
 <h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
-<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
-<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
-<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -207,9 +392,8 @@
 <h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
 <p>WeChatGroup:  关注公众号查看</p>
 <h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
-<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
-<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
-<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -342,9 +526,8 @@
 <h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
 <p>WeChatGroup:  关注公众号查看</p>
 <h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
-<li><a href="http://www.tycoding.cn">Blog@TyCoding’s blog</a></li>
-<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">GitHub@TyCoding</a></li>
-<li><a href="https://www.zhihu.com/people/tomo-83-82/activities" target="_blank" rel="noopener">ZhiHu@TyCoding</a></li>
+<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
 </ul>
 ]]></content>
       <categories>
