@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next tumo" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/tumo.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="TyCoding's Blog">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Spring Cloud Alibaba Start Spring Cloud Alibaba入门  开源地址：https://github.com/TyCoding/spring-learn/tree/master/cloud-alibaba-start 欢迎star、fork支持作者 Intruduction在学习SpringCloud Alibaba之前，你应该具有SpringCloud项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01-SpringCloud Alibaba Start-Nacos">
+<meta property="og:url" content="http://www.tycoding.cn/2020/06/25/cloud/cloud-alibaba-start/01.Nacos-install/index.html">
+<meta property="og:site_name" content="TyCoding&#39;s Blog">
+<meta property="og:description" content="Spring Cloud Alibaba Start Spring Cloud Alibaba入门  开源地址：https://github.com/TyCoding/spring-learn/tree/master/cloud-alibaba-start 欢迎star、fork支持作者 Intruduction在学习SpringCloud Alibaba之前，你应该具有SpringCloud项目">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625170405.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625171825.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625171950.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625172248.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625172852.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625173649.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625175727.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625175846.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625214032.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625214349.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625214453.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625223128.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625224220.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625224437.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625224600.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625224755.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200625224737.png">
+<meta property="og:updated_time" content="2020-06-25T15:18:08.452Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01-SpringCloud Alibaba Start-Nacos">
+<meta name="twitter:description" content="Spring Cloud Alibaba Start Spring Cloud Alibaba入门  开源地址：https://github.com/TyCoding/spring-learn/tree/master/cloud-alibaba-start 欢迎star、fork支持作者 Intruduction在学习SpringCloud Alibaba之前，你应该具有SpringCloud项目">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200625170405.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Tumo',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tycoding.cn/2020/06/25/cloud/cloud-alibaba-start/01.Nacos-install/">
+
+
+
+
+
+  <title>01-SpringCloud Alibaba Start-Nacos | TyCoding's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd6f88c80cfe71fa4943c52397fc01cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" style="overflow-x:hidden;padding-right:320px" lang="en">
+
+  <style>@media (min-width:768px) and (max-width:991px){body .header-innerr{width:700px!important}}.header-innerr{margin:0 auto;padding:100px 0 70px;width:880px}@media (min-width:1600px){.container .header-innerr{width:1200px}}.header-innerr{position:relative}.header-innerr{padding:20px 0 0}.header-innerr:after,.header-innerr:before{content:" ";display:table}.header-innerr:after{clear:both}@media (max-width:767px){.header-innerr{width:auto;padding:10px;margin-bottom:-20px}}</style>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    
+    
+
+    <link href="/lib/font-awesome/css/font-merienda.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="font-family:Merienda;font-size:1.3rem">TyCoding's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活的洪流让人们窒息，我们却在缺氧的环境中肆意成长</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            HOME
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            ARCHIVES
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            ABOUT
+          </a>
+        </li>
+      
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            LINKS
+          </a>
+        </li>
+      
+
+    </ul>
+  
+
+</nav>
+
+
+
+ </div>
+
+      <div class="header-innerr">
+        
+          <div class="note info" style="margin:0;letter-spacing:.15px">
+            🐤SpringCloud分布式项目脚手架：
+            <a style="color:#40dab2;font-weight:600" href="https://github.com/TyCoding/cloud-template" target="_blank" class="animsition-link">
+              https://github.com/TyCoding/cloud-template
+            </a>
+          </div>
+        
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2020/06/25/cloud/cloud-alibaba-start/01.Nacos-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01-SpringCloud Alibaba Start-Nacos</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-25T23:16:31+08:00">
+                2020-06-25
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Spring-Cloud-Alibaba-Start"><a href="#Spring-Cloud-Alibaba-Start" class="headerlink" title="Spring Cloud Alibaba Start"></a>Spring Cloud Alibaba Start</h1><blockquote>
+<p>Spring Cloud Alibaba入门</p>
+</blockquote>
+<p><strong>开源地址：<a href="https://github.com/TyCoding/spring-learn/tree/master/cloud-alibaba-start" target="_blank" rel="noopener">https://github.com/TyCoding/spring-learn/tree/master/cloud-alibaba-start</a> 欢迎star、fork支持作者</strong></p>
+<h2 id="Intruduction"><a href="#Intruduction" class="headerlink" title="Intruduction"></a>Intruduction</h2><p>在学习SpringCloud Alibaba之前，你应该具有SpringCloud项目开发经验，那么学习起来将很轻松。如果读者对SpringCloud不是很熟悉，请移步看我的这个SpringCloud基础项目：<a href="https://github.com/TyCoding/cloud-template" target="_blank" rel="noopener">https://github.com/TyCoding/cloud-template</a></p>
+<a id="more"></a>
+
+<p>Spring Cloud Alibaba官方介绍：<a href="https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md" target="_blank" rel="noopener">https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md</a> </p>
+<p>这里不再赘述，直接开始实战。</p>
+<h2 id="cloud-alibaba-start-dependencies"><a href="#cloud-alibaba-start-dependencies" class="headerlink" title="cloud-alibaba-start-dependencies"></a>cloud-alibaba-start-dependencies</h2><p>作为分布式项目，首先需要对整个项目做统一的依赖管理，也就是<strong>父工程</strong>。这里创建<code>cloud-alibaba-start-dependencies</code>项目作为<code>parent dependencies</code>。</p>
+<p>使用IDEA在<code>cloud-alibaba-start</code>根目录下创建<code>cloud-alibaba-start-dependencies</code>文件夹，并创建<code>pom.xml</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.tycoding<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cloud-alibaba-start-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">spring-cloud.version</span>&gt;</span>Hoxton.SR3<span class="tag">&lt;/<span class="name">spring-cloud.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">com-alibaba-cloud.version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">com-alibaba-cloud.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;com-alibaba-cloud.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.tycoding.cn/20200625170405.png" alt="image-20200625170405547"></p>
+<p><strong>Tips</strong></p>
+<p>可能有人疑惑，之前写分布式项目或Maven多模块项目，是直接在<code>cloud-alibaba-start</code>根目录下创建<code>pom.xml</code>作为<code>parent dependencies</code>。当然这样也是可以的，但推荐使用上述方式。</p>
+<h2 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h2><p>在之前学习SpringCloud时，我们选用Eureka作为注册中心，而在今天，我们选择Nacos作为注册中心。</p>
+<p>官方介绍文档：<a href="https://github.com/alibaba/Nacos" target="_blank" rel="noopener">https://github.com/alibaba/Nacos</a> 。这里以实战为主。</p>
+<h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><p>大家可以采取下载官方源码并编译：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/alibaba/nacos.git</span><br><span class="line">cd nacos</span><br><span class="line">mvn -Prelease-nacos clean install -U</span><br></pre></td></tr></table></figure>
+
+<p>最终将在<code>/nacos/distribution/target/nacos-server-xx</code>得到编译后的Nacos。</p>
+<p>但在这里为了避免编译可能产生的未知错误，我选择下载官方的<code>release</code>版本：<a href="https://github.com/alibaba/nacos/releases" target="_blank" rel="noopener">https://github.com/alibaba/nacos/releases</a></p>
+<p><img src="http://cdn.tycoding.cn/20200625171825.png" alt="image-20200625171825670"></p>
+<p>解压缩后将得到如下文件：</p>
+<p><img src="http://cdn.tycoding.cn/20200625171950.png" alt="image-20200625171949924"></p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>目前，我们不需要做任何配置，直接在<code>nacos/bin/</code>找到<code>start.up</code>启动Nacos：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh startup.sh -m standalone</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.tycoding.cn/20200625172248.png" alt="image-20200625172248790"></p>
+<p>Nacos具体是否启动成功在这里看不到，请在<code>/nacos/logs/start.out</code>中查看启动是否报错，如果没有报错则证明启动成功。在浏览器上访问<code>localhost:8848/nacos</code>：</p>
+<p><img src="http://cdn.tycoding.cn/20200625172852.png" alt="image-20200625172852692"></p>
+<p>出现如上页面证明Nacos安装成功。（用户名和密码都是<code>nacos</code>）</p>
+<p><strong>Tips</strong></p>
+<p>到目前，你会发现，Nacos是独立的应用（编译好的），并不需要我们再在项目中创建<code>nacos</code>项目，这和Eureka的区别比较大。如果需要修改Nacos默认配置，仅需在<code>/nacos/conf</code>中修改然后重启应用即可。</p>
+<p>如何关闭Nacos？官方并没有提供<code>shutdown.sh</code>，我们可以查看<code>8080</code>端口信息，<code>kill</code>掉对用的进程即可：</p>
+<p><img src="http://cdn.tycoding.cn/20200625173649.png" alt="image-20200625173649803"></p>
+<h2 id="cloud-alibaba-start-nacos-provider"><a href="#cloud-alibaba-start-nacos-provider" class="headerlink" title="cloud-alibaba-start-nacos-provider"></a>cloud-alibaba-start-nacos-provider</h2><p>与SpringCloud类似，当部署好了注册中心，下面就开始创建服务生产者。创建生产者服务：<code>cloud-alibaba-start-nacos-provider</code>。</p>
+<h3 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h3><p>在<code>cloud-alibaba-start</code>下创建<code>cloud-alibaba-start-nacos-provider</code>文件夹，在<code>pom.xml</code>中写入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.tycoding<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cloud-alibaba-start-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cloud-alibaba-start-nacos-provider<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>&lt;parent&gt;</code>节点中<code>&lt;artifactId&gt;</code>是<code>cloud-alibaba-start-dependencies</code>，证明此项目依赖<code>cloud-alibaba-start-dependencies</code>父工程，那么在父工程<code>pom.xml</code>的<code>&lt;dependencyManagement&gt;</code>中定义的版本信息在此项目中也将生效，我们就无需再管理这些依赖版本了。</li>
+<li><code>spring-cloud-starter-alibaba-nacos-discovery</code>依赖是作为Nacos客户端所必须的（和Eureka类似）。要注意此依赖（<code>2.2.1.RELEASE</code>）来自<code>com.alibaba.cloud</code>，在一些老版本中填写的是<code>org.springframework.cloud</code>。</li>
+</ul>
+<h3 id="创建Application"><a href="#创建Application" class="headerlink" title="创建Application"></a>创建Application</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 服务提供者</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> tycoding</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosProviderApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(NacosProviderApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>细心的你会发现<code>@EnableDiscoveryClient</code>注解是来自<code>org.springframework.cloud</code>，而在SpringCloud开发中也是使用这个注解，也就是说，只要使用SpringCloud，无论你用的那种注册中心都是可以直接移植过来的。</p>
+<h3 id="创建application-yml"><a href="#创建application-yml" class="headerlink" title="创建application.yml"></a>创建<code>application.yml</code></h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  application:</span></span><br><span class="line">    <span class="comment"># 服务名称</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">nacos-provider</span></span><br><span class="line"><span class="attr">  cloud:</span></span><br><span class="line"><span class="attr">    nacos:</span></span><br><span class="line">      <span class="comment"># 注册中心</span></span><br><span class="line"><span class="attr">      discovery:</span></span><br><span class="line"><span class="attr">        server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务端口</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8081</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 监听端点</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line"><span class="attr">  endpoints:</span></span><br><span class="line"><span class="attr">    web:</span></span><br><span class="line"><span class="attr">      exposure:</span></span><br><span class="line"><span class="attr">        include:</span> <span class="string">"*"</span></span><br></pre></td></tr></table></figure>
+
+<p>和SpringCloud类似，这里仅需要关注<code>nacos</code>节点。其中<code>discovery.server-addr</code>代表注册中心的地址，因为我们本地部署的Nacos，所以注册中心地址就是<code>127.0.0.1:8848</code>。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>随便创建一个Controller接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosProviderController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/start/&#123;author&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">start</span><span class="params">(@PathVariable(value = <span class="string">"author"</span>)</span> String author) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Start Nacos, by "</span> + author + <span class="string">", this port is "</span> + port;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动该项目，访问<code>localhost:8081/start/tycoding</code>：</p>
+<p><img src="http://cdn.tycoding.cn/20200625175727.png" alt="image-20200625175726918"></p>
+<p>如上，证明启动成功。观察Nacos控制台：</p>
+<p><img src="http://cdn.tycoding.cn/20200625175846.png" alt="image-20200625175846303"></p>
+<p>证明<code>cloud-alibaba-start-nacos-provider</code>启动成功，且已注册到Nacos注册中心上。</p>
+<h2 id="cloud-alibaba-start-nacos-consumer"><a href="#cloud-alibaba-start-nacos-consumer" class="headerlink" title="cloud-alibaba-start-nacos-consumer"></a>cloud-alibaba-start-nacos-consumer</h2><p>服务提供者创建完毕，创建服务消费者。</p>
+<h3 id="Sentinel"><a href="#Sentinel" class="headerlink" title="Sentinel"></a>Sentinel</h3><p>既然是微服务，那么必然出现不同服务之前的大量调用，为了实现高可用通常部署很多台服务器防止出现某台服务器挂掉。而即使部署了多台服务，但作为消费者并不能提前预知哪台服务已经挂了，当消费者不断向一台（或多台）挂掉的服务发送请求必然会导致请求一直得不到响应而影响整个系统运行。在SpringCloud开发阶段使用<code>Hystrix</code>解决服务熔断，原理就是当消费者发送请求给生产者，若此生产者已经挂掉连接不上，<code>Hystrix</code>会自动中断消费者与此服务的请求，分配到其他服务上，从而避免服务<strong>雪崩</strong>。</p>
+<p>在SpringCloud Alibaba中，使用<code>Sentinel</code>作为服务熔断器，并提供了Dashboard监控服务的运行状态。</p>
+<p><strong>安装</strong></p>
+<p>直接去官方仓库下载最新Release版本（当然也可以下载仓库源码再手动编译）：<a href="https://github.com/alibaba/Sentinel/releases" target="_blank" rel="noopener">https://github.com/alibaba/Sentinel/releases</a></p>
+<p><img src="http://cdn.tycoding.cn/20200625214032.png" alt="image-20200625214032528"></p>
+<p>这里选用最新的<code>1.7.2</code>版本。这是一个标准的SpringBoot的应用，下载后的<code>jar</code>可以直接用<code>java -jar</code>命令运行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Dserver.port=8100 -Dcsp.sentinel.dashboard.server=localhost:8100 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.7.2.jar</span><br></pre></td></tr></table></figure>
+
+<p>启动注意端口，避免冲突。</p>
+<p><img src="http://cdn.tycoding.cn/20200625214349.png" alt="image-20200625214349323"></p>
+<p>在浏览器上访问：<code>localhost:8100</code>：（默认用户名密码都是<code>sentinel</code>）</p>
+<p><img src="http://cdn.tycoding.cn/20200625214453.png" alt="image-20200625214453233"></p>
+<p>以上，<code>Sentinel</code>控制台启动成功。要让<code>Sentinel</code>作为服务的熔断器，那么必须让需要熔断器的服务都被<code>Sentinel</code>监听到，下面在<code>cloud-alibaba-start-nacos-consumer</code>服务中将讲解如何配置<code>Sentinel</code>监听服务。</p>
+<h3 id="导入依赖-1"><a href="#导入依赖-1" class="headerlink" title="导入依赖"></a>导入依赖</h3><p>在<code>cloud-alibaba-start</code>下创建<code>cloud-alibaba-start-nacos-consumer</code>文件夹，并在<code>pom.xml</code>写入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.tycoding<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cloud-alibaba-start-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cloud-alibaba-start-nacos-consumer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-sentinel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>与服务提供者类似，这里增加了<code>spring-cloud-starter-openfeign</code> 依赖，学习过SpringCloud的朋友应该都知道Feign。</p>
+<p>何为微服务？就是由很多个不同的子服务构成。那么服务与服务之前必然需要通信（数据交互），而Feign正是实现服务与服务间的通信。</p>
+<p><code>spring-cloud-starter-alibaba-sentinel</code>是Sentinel熔断器的依赖，若该服务需要使用熔断器那么必要要引入Sentinel依赖并配置使用。</p>
+<h3 id="创建Application-1"><a href="#创建Application-1" class="headerlink" title="创建Application"></a>创建Application</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 服务消费者</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> tycoding</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosConsumerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(NacosConsumerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建application-yml-1"><a href="#创建application-yml-1" class="headerlink" title="创建application.yml"></a>创建<code>application.yml</code></h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  application:</span></span><br><span class="line">    <span class="comment"># 服务名称</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">nacos-consumer</span></span><br><span class="line"><span class="attr">  cloud:</span></span><br><span class="line"><span class="attr">    nacos:</span></span><br><span class="line">      <span class="comment"># 注册中心</span></span><br><span class="line"><span class="attr">      discovery:</span></span><br><span class="line"><span class="attr">        server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">    <span class="comment"># sentinel dashboard监听</span></span><br><span class="line"><span class="attr">    sentinel:</span></span><br><span class="line"><span class="attr">      transport:</span></span><br><span class="line">        <span class="comment"># 任意指定一个端口供dashboard监听（此应用作为一个服务端提供接口）</span></span><br><span class="line"><span class="attr">        port:</span> <span class="number">8101</span></span><br><span class="line">        <span class="comment"># sentinel dashboard启动的端口</span></span><br><span class="line"><span class="attr">        dashboard:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8100</span></span><br><span class="line"></span><br><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="comment"># 开启Feign对sentinel的支持</span></span><br><span class="line"><span class="attr">  sentinel:</span></span><br><span class="line"><span class="attr">    enabled:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务端口</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8082</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 监听端点</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line"><span class="attr">  endpoints:</span></span><br><span class="line"><span class="attr">    web:</span></span><br><span class="line"><span class="attr">      exposure:</span></span><br><span class="line"><span class="attr">        include:</span> <span class="string">"*"</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意：</p>
+<ul>
+<li><code>sentinel.transport.port</code>：让此服务暴露一个端口供<code>Sentinel</code>监听，也就是此服务作为生产者，<code>Sentinel</code>作为消费者监听生产者。</li>
+<li><code>sentinel.transport.dashboard</code>：Sentinel Dashboard的IP端口。</li>
+<li><code>feign.sentinel.enabled</code>：当前此<code>consumer</code>服务作为消费者要通过Feign从生产者<code>provider</code>拿数据，因此必须要Feign允许Sentinel监控服务间通信。</li>
+</ul>
+<h3 id="创建Feign-Service接口"><a href="#创建Feign-Service接口" class="headerlink" title="创建Feign Service接口"></a>创建Feign Service接口</h3><p>前面提到了，此<code>consumer</code>消费者是从<code>provider</code>生产者服务那里拿数据的，两者必要通信，而服务间通信采用Feign。那么按照Feign的要求，<code>consumer</code>消费者仅需要写一个Feign接口，便可调用<code>provider</code>中的数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Feign访问接口</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> tycoding</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// `nacos-provider`和对应服务的`spring.name`相同</span></span><br><span class="line"><span class="meta">@FeignClient</span>(value = <span class="string">"nacos-provider"</span>, fallback = NacosProviderFallback.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NacosProviderService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 和`服务消费者`Controller接口Path相同，保证`服务消费者`从`服务提供者`获取数据</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> author 传递参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 该Feign接口自动将数据返回</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/start/&#123;author&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">start</span><span class="params">(@PathVariable(value = <span class="string">"author"</span>)</span> String author)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和之前使用<code>Hystrix</code>一样，此处<code>@FeignClient</code>注解中要指定<code>fallback</code>熔断机制，这里我们采用的<code>Sentinel</code>作为熔断器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sentinel 服务熔断机制</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> tycoding</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosProviderFallback</span> <span class="keyword">implements</span> <span class="title">NacosProviderService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">start</span><span class="params">(String author)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"request error, this from sentinel"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当<code>provider</code>生产者服务连接不上，<code>Sentinel</code>将直接与服务熔断，避免其他服务再调用。</p>
+<h3 id="创建Controller"><a href="#创建Controller" class="headerlink" title="创建Controller"></a>创建<code>Controller</code></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosConsumerController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> NacosProviderService nacosProviderService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 直接调用Feign提供的接口</span></span><br><span class="line"><span class="comment">     * providerService(`consumer`服务) -&gt; feign -&gt;  providerController(`provider`服务)</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/start"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> nacosProviderService.start(<span class="string">"tycoding"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到：如果请求<code>consumer</code>服务的<code>/start</code>接口，则通过<code>Feign</code>将此请求转发到<code>provider</code>服务中，最终<code>provider</code>服务将响应结果返回。</p>
+<p>说到这里，你是否有点晕了？下面我简单画图解释下：</p>
+<p><img src="http://cdn.tycoding.cn/20200625223128.png" alt="image-20200625223127750"></p>
+<p>如果<code>Feign Service</code>调用<code>Provider1</code>发现连接失败，则将触发<code>Sentinel Fallback</code>熔断与<code>Provider1</code>的通信，继续调用<code>Provider2</code>….</p>
+<p>那么在代码中是如何体现的？下图分析：</p>
+<p><img src="http://cdn.tycoding.cn/20200625224220.png" alt="image-20200625224220659"></p>
+<h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><p>首先先正常启动<code>cloud-alibaba-start-nacos-provider</code>和<code>cloud-alibaba-start-nacos-consumer</code>两个服务：</p>
+<p><img src="http://cdn.tycoding.cn/20200625224437.png" alt="image-20200625224436785"></p>
+<p>访问<code>localhost:8082/start</code>：</p>
+<p><img src="http://cdn.tycoding.cn/20200625224600.png" alt="image-20200625224600727"></p>
+<p>可以看到，虽然请求的<code>8082</code>服务，但最终响应的是<code>8081</code>服务的数据。如果此时关闭<code>8081</code>服务，再请求此接口：</p>
+<p><img src="http://cdn.tycoding.cn/20200625224755.png" alt="image-20200625224755411"></p>
+<p><img src="http://cdn.tycoding.cn/20200625224737.png" alt="image-20200625224736950"></p>
+<p>可以看到请求立即被<code>Sentinel</code>熔断了，并返回熔断器响应数据。</p>
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh.jpg" alt="TyCoding wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎关注公众号：程序员涂陌</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你觉得这篇文章帮助到了你，你可以帮作者买一杯果汁表示鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="TyCoding WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="TyCoding Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/25/cloud/cloud-alibaba-start/teamplate/" rel="next" title="teamplate">
+                <i class="fa fa-chevron-left"></i> teamplate
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+  <hr>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+    
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">Contents</li>
+          <li class="sidebar-nav-overview" data-target="site-overview">Overview</li>
+        </ul>
+      
+
+  
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-overview">
+          <div class="sidebar-sticky sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+              <div class="author__avatar">
+                
+                  <img itemprop="image" src="/images/avatar.jpg" alt="TyCoding"> 
+                
+              </div>
+              <div class="author__content">
+                <h3 class="author__name" itemprop="name">TyCoding</h3>
+                <p class="author__bio" itemprop="description">Life is short, just coding</p>
+              </div>
+              
+                <div class="author__urls-wrapper">
+                  <button class="btn btn--inverse">Follow</button>
+                  <ul class="author__urls social-icons">
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding" target="_blank" title="GitHub">
+                            
+                              <i class="fa fa-fw fa-github"></i>&nbsp;&nbsp;GitHub</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo" target="_blank" title="Tumo">
+                            
+                              <i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;Tumo</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/cloud-template" target="_blank" title="SpringCloud">
+                            
+                              <i class="fa fa-fw fa-cloud"></i>&nbsp;&nbsp;SpringCloud</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://github.com/TyCoding/tumo-next" target="_blank" title="Blog Theme">
+                            
+                              <i class="fa fa-fw fa-dashboard"></i>&nbsp;&nbsp;Blog Theme</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/music" target="_blank" title="Music">
+                            
+                              <i class="fa fa-fw fa-music"></i>&nbsp;&nbsp;Music</a>
+                      </li>
+                    
+                      <li>
+                        <a href="https://tycoding.cn/cdn/love" target="_blank" title="Love">
+                            
+                              <i class="fa fa-fw fa-heart"></i>&nbsp;&nbsp;Love</a>
+                      </li>
+                    
+
+                    
+                      <li class="menu-item menu-item-search">
+                        
+                          <a href="javascript:;" class="popup-trigger">
+                          <i class="fa fa-fw fa-search"></i>&nbsp;&nbsp;
+                        
+                          
+                          
+                          Search
+                        </a>
+                      </li>
+                    
+
+                    
+                      <div class="site-search">
+                        
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+                      </div>
+                    
+
+                  </ul>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Cloud-Alibaba-Start"><span class="nav-number">1.</span> <span class="nav-text">Spring Cloud Alibaba Start</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Intruduction"><span class="nav-number">1.1.</span> <span class="nav-text">Intruduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cloud-alibaba-start-dependencies"><span class="nav-number">1.2.</span> <span class="nav-text">cloud-alibaba-start-dependencies</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nacos"><span class="nav-number">1.3.</span> <span class="nav-text">Nacos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载与安装"><span class="nav-number">1.3.1.</span> <span class="nav-text">下载与安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">1.3.2.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cloud-alibaba-start-nacos-provider"><span class="nav-number">1.4.</span> <span class="nav-text">cloud-alibaba-start-nacos-provider</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入依赖"><span class="nav-number">1.4.1.</span> <span class="nav-text">导入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Application"><span class="nav-number">1.4.2.</span> <span class="nav-text">创建Application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建application-yml"><span class="nav-number">1.4.3.</span> <span class="nav-text">创建application.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">1.4.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cloud-alibaba-start-nacos-consumer"><span class="nav-number">1.5.</span> <span class="nav-text">cloud-alibaba-start-nacos-consumer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sentinel"><span class="nav-number">1.5.1.</span> <span class="nav-text">Sentinel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入依赖-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">导入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Application-1"><span class="nav-number">1.5.3.</span> <span class="nav-text">创建Application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建application-yml-1"><span class="nav-number">1.5.4.</span> <span class="nav-text">创建application.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Feign-Service接口"><span class="nav-number">1.5.5.</span> <span class="nav-text">创建Feign Service接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Controller"><span class="nav-number">1.5.6.</span> <span class="nav-text">创建Controller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试-1"><span class="nav-number">1.5.7.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交流"><span class="nav-number">2.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联系"><span class="nav-number">3.</span> <span class="nav-text">联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备18015694号</a>
+<br>
+<div class="copyright" style="display: inline-block">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">TyCoding</span>
+
+  
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+</div>
+
+        
+<div class="busuanzi-count" style="display: inline-block">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      UV
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      PV
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <span style="font-family:'Source Sans Pro','Helvetica Neue',Arial,sans-serif;font-size:1.2em;font-weight:600">TOP</span>
+    </div>
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RfrXFjpg2cghYo3z7dypcSdy-gzGzoHsz',
+        appKey: 'JwNt0o6aEvm6WsQ78LGWFz06',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/mo.min.js"></script>
+  <script>$(function(){$("a").not(".nav-link,.cloud-tie-join-count,.ignore-href,.jstree-anchor").addClass("animsition-link")});var burst1=new mojs.Burst({left:0,top:0,radius:{5:40},children:{shape:"circle",fill:["red","cyan","orange"],fillOpacity:.8,radiusX:3.5,radiusY:3.5}});document.addEventListener("click",function(a){null==a.target.href&&"footer"!=a.target.className&&"copyright"!=a.target.className&&"author__urls social-icons"!=a.target.className&&"author__avatar"!=a.target.className&&"sidebar sidebar-active"!=a.target.className&&burst1.tune({x:a.pageX,y:a.pageY}).generate().replay()})</script>
+  <div data-name="mojs-shape"></div>
+</body>
+</html>

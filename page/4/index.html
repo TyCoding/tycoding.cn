@@ -245,6 +245,299 @@ var _hmt = _hmt || [];
   
   
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/02/26/boot/spring-boot-thymeleaf-mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/boot/spring-boot-thymeleaf-mybatis/" itemprop="url">（五）SpringBoot整合Mybatis通用Mapper</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T19:17:53+08:00">
+                2019-02-26
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="SpringBoot整合Thymeleaf、Mybatis"><a href="#SpringBoot整合Thymeleaf、Mybatis" class="headerlink" title="SpringBoot整合Thymeleaf、Mybatis"></a>SpringBoot整合Thymeleaf、Mybatis</h1><p>:tada: :tada: :tada: <strong>这里有丰富的 Spring 框架学习案例</strong></p>
+<p><strong>仓库地址：<a href="https://github.com/TyCoding/spring-learn" target="_blank" rel="noopener">spring-learn</a></strong><br><strong>欢迎star、fork，给作者一些鼓励</strong></p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>前面我们学习了 <a href="https://github.com/TyCoding/spring-boot-learn/tree/master/spring-boot-mybatis" target="_blank" rel="noopener">SpringBoot整合Mybatis</a> 基础CRUD，这里我们结合上一篇文章实战CRUD业务。</p>
+<p>其实之前我已经写过一个SpringBoot整合Mybatis的案例：<a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">传送门</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/26/boot/spring-boot-thymeleaf-mybatis/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/02/26/boot/spring-boot-mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/boot/spring-boot-mybatis/" itemprop="url">（四）Spring Boot整合Mybatis</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T19:13:36+08:00">
+                2019-02-26
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Spring-Boot整合Mybatis"><a href="#Spring-Boot整合Mybatis" class="headerlink" title="Spring Boot整合Mybatis"></a>Spring Boot整合Mybatis</h1><p>:tada: :tada: :tada: <strong>这里有丰富的 Spring 框架学习案例</strong></p>
+<p><strong>仓库地址：<a href="https://github.com/TyCoding/spring-learn" target="_blank" rel="noopener">spring-learn</a></strong><br><strong>欢迎star、fork，给作者一些鼓励</strong></p>
+<p>之前讲到 <a href="https://github.com/TyCoding/spring-boot-learn/tree/master/spring-boot-jpa" target="_blank" rel="noopener">Spring Boot整合JPA</a> ，其实对我个人而言还是不够熟悉JPA、hibernate，所以觉得这两种框架使用起来好麻烦啊。一直用的Mybatis作为持久层框架，JPA(Hibernate)主张所有的SQL都用Java代码生成，而Mybatis则更主张用原生SQL。</p>
+<p>我也觉得Mybatis这种用XML的方式学习成本更低一些吧，但是熟悉JPA能很大程度简化项目开发。</p>
+<p>之前已经用Spring Boot整合Thymeleaf、Mybatis实现了基础的CRUD，并且前端使用Vue.js开发，这里先送上仓库地址：<a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">传送门</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/26/boot/spring-boot-mybatis/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/boot/spring-boot-jpa/" itemprop="url">（三）Spring Boot 整合 JPA</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T19:09:48+08:00">
+                2019-02-26
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="spring-boot-整合-JPA"><a href="#spring-boot-整合-JPA" class="headerlink" title="spring-boot 整合 JPA"></a>spring-boot 整合 JPA</h1><p>:tada: :tada: :tada: <strong>这里有丰富的 Spring 框架学习案例</strong></p>
+<p><strong>仓库地址：<a href="https://github.com/TyCoding/spring-learn" target="_blank" rel="noopener">spring-learn</a></strong><br><strong>欢迎star、fork，给作者一些鼓励</strong></p>
+<blockquote>
+<p>Jpa(Java Persistence API)是一套规范，而Hibernate是基于Jpa实现的一套产品</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/26/boot/spring-boot-jpa/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2019/02/26/boot/spring-boot-thymeleaf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -892,294 +1185,6 @@ var _hmt = _hmt || [];
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/01/03/project/tumo-vue/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/11/28/cloud/docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/28/cloud/docker/" itemprop="url">部署神器Docker</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-28T07:24:32+08:00">
-                2018-11-28
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="/2018/11/28/cloud/docker/logo.png" alt></p>
-<p> <strong>Docker</strong>是一种容器技术，它的存在就是为了解决容器技术本身的复杂性。Docker容器拥有很高的性能，同时同一台宿主机中可以运行更多的容器，是用户尽可能的充分利用系统资源。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/28/cloud/docker/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/11/27/other/nginx/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/27/other/nginx/" itemprop="url">高性能HTTP服务器Nginx</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T12:29:09+08:00">
-                2018-11-27
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="/2018/11/27/other/nginx/logo.jpg" alt></p>
-<p>Nginx是一款高性能HTTP服务器、反向代理服务器及电子邮件（IMAP、POP3）代理服务器，官方测试nginx能够支持5万并发连接。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/27/other/nginx/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/11/05/project/tumo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/05/project/tumo/" itemprop="url">简洁美观的Tumo Blog开源了</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T11:49:34+08:00">
-                2018-11-05
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Tumo-Blog"><a href="#Tumo-Blog" class="headerlink" title="Tumo Blog"></a>Tumo Blog</h1><p><img src="http://cdn.tycoding.cn/tumo.png" alt></p>
-<p>Base on SpringBoot-2.x framework’s java Blog system open source. Simple design, beautiful interface. Tumo Blog development is beginning, you can pull requests or pull issue on Github if you have better design.</p>
-<p>演示站点: <a href="http://tumo.tycoding.cn" target="_blank" rel="noopener">http://tumo.tycoding.cn</a></p>
-<p>项目地址：<a href="https://github.com/TyCoding/tumo" target="_blank" rel="noopener">https://github.com/TyCoding/tumo</a></p>
-<p>如果你喜欢，或是对你的学习有所帮助，欢迎点击右上角star、fork 给作者一些鼓励。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/05/project/tumo/#more" rel="contents">
               READ MORE &raquo;
             </a>
           </div>
