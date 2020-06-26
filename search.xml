@@ -27,7 +27,7 @@
 <h2 id="Docker-install"><a href="#Docker-install" class="headerlink" title="Docker install"></a>Docker install</h2><ol>
 <li>卸载旧版本</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install \</span></span><br><span class="line">    linux-image-extra-$(uname -r) \</span><br><span class="line">    linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> sudo apt-get install \</span><br><span class="line">    linux-image-extra-$(uname -r) \</span><br><span class="line">    linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>安装一些必要工具</li>
@@ -52,32 +52,32 @@
 <ol start="6">
 <li>启动Docker CE</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo service docker start</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> sudo service docker start</span><br></pre></td></tr></table></figure>
 
 <ol start="7">
 <li>建立docker用户组</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo groupadd docker</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> sudo groupadd docker</span><br></pre></td></tr></table></figure>
 
 <ol start="8">
 <li>将当前用户加入docker组</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo usermod -aG docker <span class="variable">$USER</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure>
 
 <ol start="9">
 <li>配置Docker镜像加速器</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi /etc/docker/daemon.json</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "registry-mirrors": [</span><br><span class="line">    "https://registry.docker-cn.com"</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> vi /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "registry-mirrors": [</span><br><span class="line">    "https://registry.docker-cn.com"</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="10">
 <li>重启Docker服务</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl daemon-reload</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl restart docker</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> sudo systemctl daemon-reload</span><br><span class="line"><span class="meta">$</span> sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
 <ol start="11">
 <li>查看docker安装是否正常</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker info</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker info</span><br></pre></td></tr></table></figure>
 
 <p>出现一大堆docker的配置信息则证明安装正常。</p>
 <h2 id="Docker-Compose-install"><a href="#Docker-Compose-install" class="headerlink" title="Docker Compose install"></a>Docker Compose install</h2><p>官方安装教程：<a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">https://docs.docker.com/compose/install/</a></p>
@@ -419,78 +419,6 @@
 ]]></content>
       <categories>
         <category>SpringCloud</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Ant Design Vue Pro</title>
-    <url>/2020/06/18/project/ant-design-vue-pro/</url>
-    <content><![CDATA[<p><strong>当CV成了习惯 ……</strong></p>
-<ol>
-<li>你是否还在苦于使用Vue开发但Vue生态中UI库仅ElementUI成熟可用？</li>
-<li>你是否还在苦于使用ElementUI开发大型项目时，官方提供的组件太少了？</li>
-<li>你是否了解过Ant Design？</li>
-<li>你是否还在苦于Ant Design咋还要学React？</li>
-<li>你是否在发现Ant Design Vue后，还在苦于没有成熟的脚手架项目？</li>
-<li>你是否在在用过<code>vue-element-admin</code>项目后觉得Ant Design Vue官方提供的<code>ant-design-vue-pro</code>封装的对后端并不友好？</li>
-<li>你是否喜欢使用<code>vue-element-admin</code>中对<code>vue-router</code>、<code>axios</code>、<code>vuex</code>的封装，又同时使用Ant Design Vue中的组件？</li>
-<li><strong>那么它来了</strong>。</li>
-</ol>
-<p><strong>开源地址：</strong> <a href="https://github.com/TyCoding/ant-design-vue-pro" target="_blank" rel="noopener">https://github.com/TyCoding/ant-design-vue-pro</a> </p>
-<a id="more"></a>
-
-<h1 id="Ant-Design-Vue-Pro"><a href="#Ant-Design-Vue-Pro" class="headerlink" title="Ant Design Vue Pro"></a>Ant Design Vue Pro</h1><h2 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h2><p>本项目基于<a href="https://github.com/PanJiaChen/vue-element-admin" target="_blank" rel="noopener">vue-element-admin</a>开发， 请开发者先阅读<a href="https://panjiachen.gitee.io/vue-element-admin-site/zh/" target="_blank" rel="noopener">vue-element-admin文档</a>。</p>
-<p>本项目为解决后端开发者使用Element时组件太少的尴尬，Ant-design也有Vue版本，但是Antv官方并没有写Pro版本后台管理系统。Antv官方推荐了<a href="https://github.com/vueComponent/ant-design-vue-pro" target="_blank" rel="noopener">vue-design-vue-pro (@sendya)</a>版本， 但相比vue-element-admin，我觉得封装的并不是很友好（个人看法），于是诞生了本项目。</p>
-<p>本项目在vue-element-admin的基础上将组件完全替换为AntV， 当然Api肯定会有不同，但项目中对于vue-router、axios、vuex的封装基本相同。</p>
-<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
-<li>提供最简洁的脚手架项目</li>
-<li>移除原项目中：主题、国际化、TagsView、等组件</li>
-<li>项目中关于<code>vue-router</code>、<code>axios</code>、<code>vuex</code>的封装已尽可能符合Java后端开发要求</li>
-</ul>
-<p>本人能力有限，欢迎大家对项目二次封装，或提issue、pr。</p>
-<p>项目文档正在写，请关注公众号<strong>程序员涂陌</strong>第一时间获取项目文档~</p>
-<table>
-<thead>
-<tr>
-<th>程序员涂陌</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><img src="http://cdn.tycoding.cn/20200610184737.jpg" alt="qrcode_for_gh"></td>
-</tr>
-</tbody></table>
-<h2 id="Docs"><a href="#Docs" class="headerlink" title="Docs"></a>Docs</h2><ul>
-<li><a href="https://www.antdv.com/docs/vue/introduce-cn/" target="_blank" rel="noopener">Ant Design Vue 文档</a></li>
-<li><a href="https://github.com/vueComponent/ant-design-vue-pro" target="_blank" rel="noopener">Ant Design Vue Pro（官方推荐版本）</a></li>
-<li><a href="https://github.com/PanJiaChen/vue-element-admin" target="_blank" rel="noopener">Vue Element Admin 源码</a></li>
-<li><a href="https://panjiachen.gitee.io/vue-element-admin-site/zh/" target="_blank" rel="noopener">Vue Element Admin 文档</a></li>
-</ul>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p><img src="http://cdn.tycoding.cn/20200618215554.png" alt="截屏2020-06-18 下午9.55.51"></p>
-<h2 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># clone the project</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TyCoding/ant-design-vue-pro.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># enter the project directory</span></span><br><span class="line"><span class="built_in">cd</span> ant-design-vue-pro</span><br><span class="line"></span><br><span class="line"><span class="comment"># install dependency</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># develop</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
-
-<p>This will automatically open <a href="http://localhost:9527" target="_blank" rel="noopener">http://localhost:9527</a></p>
-<h2 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># build for test environment</span></span><br><span class="line">npm run build:stage</span><br><span class="line"></span><br><span class="line"><span class="comment"># build for production environment</span></span><br><span class="line">npm run build:prod</span><br></pre></td></tr></table></figure>
-
-<h2 id="Donation"><a href="#Donation" class="headerlink" title="Donation"></a>Donation</h2><table>
-<thead>
-<tr>
-<th>Alipay</th>
-<th>WechatPay</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><img src="http://cdn.tycoding.cn/20200610132929.png" alt="alipay_258px"></td>
-<td><img src="http://cdn.tycoding.cn/20200610132940.png" alt="wechat_258px"></td>
-</tr>
-</tbody></table>
-<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
-<p>WeChatGroup:  关注公众号查看</p>
-<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
-<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
-<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>ant</category>
       </categories>
   </entry>
   <entry>
