@@ -1,6 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>03-Ubuntu18&Docker安装与配置</title>
+    <url>/2020/06/26/cloud/cloud-alibaba-start/03.Ubuntu&amp;Docker/</url>
+    <content><![CDATA[<h1 id="Ubuntu-install-Docker"><a href="#Ubuntu-install-Docker" class="headerlink" title="Ubuntu install Docker"></a>Ubuntu install Docker</h1><h2 id="Test-Env"><a href="#Test-Env" class="headerlink" title="Test Env"></a>Test Env</h2><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ubuntu server</td>
+<td>18.04.4</td>
+</tr>
+</tbody></table>
+<h2 id="Ubuntu-install"><a href="#Ubuntu-install" class="headerlink" title="Ubuntu install"></a>Ubuntu install</h2><p>下载<code>ubuntu server</code>：</p>
+<ul>
+<li>官方地址：<a href="https://ubuntu.com/server" target="_blank" rel="noopener">https://ubuntu.com/server</a></li>
+<li>历史版本：<a href="http://ftp.sjtu.edu.cn/ubuntu-cd/" target="_blank" rel="noopener">http://ftp.sjtu.edu.cn/ubuntu-cd/</a> （速度快）</li>
+</ul>
+<a id="more"></a>
+
+<p><strong>Tips</strong></p>
+<p>建议大家使用低版本开发。</p>
+<h2 id="Docker-install"><a href="#Docker-install" class="headerlink" title="Docker install"></a>Docker install</h2><ol>
+<li>卸载旧版本</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install \</span></span><br><span class="line">    linux-image-extra-$(uname -r) \</span><br><span class="line">    linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装一些必要工具</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>安装GPG证书</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>写入软件源信息</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>更新并安装Docker CE</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get -y update</span><br><span class="line">sudo apt-get -y install docker-ce</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>启动Docker CE</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo service docker start</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>建立docker用户组</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo groupadd docker</span></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>将当前用户加入docker组</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo usermod -aG docker <span class="variable">$USER</span></span></span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>配置Docker镜像加速器</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi /etc/docker/daemon.json</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "registry-mirrors": [</span><br><span class="line">    "https://registry.docker-cn.com"</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>重启Docker服务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl daemon-reload</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl restart docker</span></span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>查看docker安装是否正常</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker info</span></span><br></pre></td></tr></table></figure>
+
+<p>出现一大堆docker的配置信息则证明安装正常。</p>
+<h2 id="Docker-Compose-install"><a href="#Docker-Compose-install" class="headerlink" title="Docker Compose install"></a>Docker Compose install</h2><p>官方安装教程：<a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">https://docs.docker.com/compose/install/</a></p>
+<p>在其中找到最新的release版本安装。以下使用<code>1.26.0</code>版本：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-Shell"><a href="#Docker-Shell" class="headerlink" title="Docker Shell"></a>Docker Shell</h2><table>
+<thead>
+<tr>
+<th>Shell</th>
+<th>Tips</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>docker info</code></td>
+<td>查看当前<code>docker</code>信息</td>
+</tr>
+<tr>
+<td><code>docker ps</code></td>
+<td>查看当前启动的容器</td>
+</tr>
+<tr>
+<td><code>docker images</code></td>
+<td>查看当前<code>docker</code>中所有镜像列表</td>
+</tr>
+<tr>
+<td><code>docker image stop [id]</code></td>
+<td>删除指定<code>id</code>的镜像</td>
+</tr>
+<tr>
+<td><code>docker container ls</code></td>
+<td>查看当前<code>docker</code>中所有容器</td>
+</tr>
+<tr>
+<td><code>docker container stop [id]</code></td>
+<td>停止正在运行的指定<code>id</code>容器</td>
+</tr>
+<tr>
+<td><code>docker container restart [id]</code></td>
+<td>重启指定<code>id</code>容器</td>
+</tr>
+<tr>
+<td><code>docker container start [id]</code></td>
+<td>运行指定<code>id</code>容器</td>
+</tr>
+<tr>
+<td><code>docker exec -it [id] bash</code></td>
+<td>进入容器</td>
+</tr>
+<tr>
+<td><code>docker-compose up</code></td>
+<td>运行所有容器</td>
+</tr>
+<tr>
+<td><code>docker-compose up -d</code></td>
+<td>后台运行所有容器</td>
+</tr>
+<tr>
+<td><code>docker-compose down</code></td>
+<td>停止<code>up</code>命令启动的所有容器，并移除网络</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Ubuntu-Shell"><a href="#Ubuntu-Shell" class="headerlink" title="Ubuntu Shell"></a>Ubuntu Shell</h2><p><strong>防火墙<code>ufw</code>命令：</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tycoding@tycoding:~$ ufw -h</span><br><span class="line">ERROR: Invalid syntax</span><br><span class="line"></span><br><span class="line">Usage: ufw COMMAND</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line"> enable                          enables the firewall</span><br><span class="line"> disable                         disables the firewall</span><br><span class="line"> default ARG                     set default policy</span><br><span class="line"> logging LEVEL                   set logging to LEVEL</span><br><span class="line"> allow ARGS                      add allow rule</span><br><span class="line"> deny ARGS                       add deny rule</span><br><span class="line"> reject ARGS                     add reject rule</span><br><span class="line"> limit ARGS                      add limit rule</span><br><span class="line"> delete RULE|NUM                 delete RULE</span><br><span class="line"> insert NUM RULE                 insert RULE at NUM</span><br><span class="line"> route RULE                      add route RULE</span><br><span class="line"> route delete RULE|NUM           delete route RULE</span><br><span class="line"> route insert NUM RULE           insert route RULE at NUM</span><br><span class="line"> reload                          reload firewall</span><br><span class="line"> reset                           reset firewall</span><br><span class="line"> status                          show firewall status</span><br><span class="line"> status numbered                 show firewall status as numbered list of RULES</span><br><span class="line"> status verbose                  show verbose firewall status</span><br><span class="line"> show ARG                        show firewall report</span><br><span class="line"> version                         display version information</span><br><span class="line"></span><br><span class="line">Application profile commands:</span><br><span class="line"> app list                        list application profiles</span><br><span class="line"> app info PROFILE                show information on PROFILE</span><br><span class="line"> app update PROFILE              update PROFILE</span><br><span class="line"> app default ARG                 set default application policy</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Ubuntu18设置 <code>ufw</code>防火墙允许ssh连接</p>
+</blockquote>
+<p>当你在本地用<code>ssh user@ip</code>连接虚拟机一直连接不上时，可能是虚拟机没有防火墙没有开放<code>22</code>端口：</p>
+<p><img src="http://cdn.tycoding.cn/20200625092926.png" alt="image-20200625092920308"></p>
+<p>你可以尝试关闭<code>ufw</code>防火墙，或开放<code>22</code>端口：</p>
+<p><img src="http://cdn.tycoding.cn/20200625093046.png" alt="image-20200625093046745"></p>
+<p>这两种方式都可以让你正常用ssh连接。</p>
+<blockquote>
+<p>允许ssh使用root账户登录</p>
+</blockquote>
+<p>在安装Ubuntu虚拟机时，一般要求我们设置登录账户和密码，但用户名却不允许设置为<code>root</code>，因为Ubuntu内置了<code>root</code>账户，且密码你随机的。</p>
+<ol>
+<li>重置<code>root</code>账户密码为<code>root</code>：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.tycoding.cn/20200625093506.png" alt="image-20200625093506683"></p>
+<ol start="2">
+<li>编辑<code>/etc/ssh/ssh_config</code>文件，允许<code>root</code>账户登录</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vi /etc/ssh/ssh_config</span><br></pre></td></tr></table></figure>
+
+<p>将<code>PermitRootLogin prohibit-password</code>修改为<code>PermitRootLogin yes</code></p>
+<p><img src="http://cdn.tycoding.cn/20200625093750.png" alt="image-20200625093750132"></p>
+<p>重启<code>ssh</code>服务：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart sshd</span><br></pre></td></tr></table></figure>
+
+<p>那么就能使用<code>ssh root@ip</code>账户登录了:</p>
+<p><img src="http://cdn.tycoding.cn/20200625093905.png" alt="image-20200625093905847"></p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>在Ubuntu虚拟机上操作<code>docker</code>中可能会出现一些问题：</p>
+<blockquote>
+<p> <strong>在<code>docker</code>上启动了容器，但在本地连接不上指定的ip端口</strong></p>
+</blockquote>
+<p>栗子：本人在<code>docker</code>上部署的<code>elastcisearch</code>启动后，在本地浏览器上死活无法无法连接<code>9200</code>端口。</p>
+<p>可以尝试关闭防火墙；或重启虚拟机（之前是直接将虚拟机挂起的）</p>
+<h2 id="Docs"><a href="#Docs" class="headerlink" title="Docs"></a>Docs</h2><ul>
+<li><a href="https://www.funtl.com/zh/docs-docker/" target="_blank" rel="noopener">https://www.funtl.com/zh/docs-docker/</a> docker教程</li>
+<li><a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a> docekr仓库</li>
+<li><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">https://docs.docker.com/compose/install/</a> docker compose安装</li>
+<li><a href="https://www.cnblogs.com/milton/p/10138998.html" target="_blank" rel="noopener">https://www.cnblogs.com/milton/p/10138998.html</a> 防火墙管理</li>
+</ul>
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringCloud</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>02-SpringCloud Alibaba Start-Config</title>
+    <url>/2020/06/26/cloud/cloud-alibaba-start/02.Nacos-Config/</url>
+    <content><![CDATA[<h1 id="Spring-Cloud-Alibaba-Start"><a href="#Spring-Cloud-Alibaba-Start" class="headerlink" title="Spring Cloud Alibaba Start"></a>Spring Cloud Alibaba Start</h1><blockquote>
+<p>Spring Cloud Alibaba入门</p>
+</blockquote>
+<p><strong>开源地址：<a href="https://github.com/TyCoding/spring-learn/tree/master/cloud-alibaba-start" target="_blank" rel="noopener">https://github.com/TyCoding/spring-learn/tree/master/cloud-alibaba-start</a> 欢迎star、fork支持作者</strong></p>
+<h2 id="Intruduction"><a href="#Intruduction" class="headerlink" title="Intruduction"></a>Intruduction</h2><p>在学习SpringCloud Alibaba之前，你应该具有SpringCloud项目开发经验，那么学习起来将很轻松。如果读者对SpringCloud不是很熟悉，请移步看我的这个SpringCloud基础项目：<a href="https://github.com/TyCoding/cloud-template" target="_blank" rel="noopener">https://github.com/TyCoding/cloud-template</a></p>
+<a id="more"></a>
+
+<p>Spring Cloud Alibaba官方介绍：<a href="https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md" target="_blank" rel="noopener">https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md</a> </p>
+<p>这里不再赘述，直接开始实战。</p>
+<h2 id="Nacos-Config"><a href="#Nacos-Config" class="headerlink" title="Nacos Config"></a>Nacos Config</h2><p>在上一篇文章中 <a href="https://github.com/TyCoding/spring-learn/blob/master/cloud-alibaba-start/docs/01.Nacos-install.md" target="_blank" rel="noopener">https://github.com/TyCoding/spring-learn/blob/master/cloud-alibaba-start/docs/01.Nacos-install.md</a> 我们讲到了如何安装和部署<code>Nacos</code>服务注册与发现。在SpringCloud开发阶段，我们使用<code>spring-cloud-config-</code>依赖安装SpringCloud Config服务端和客户端，当每个服务都引入了<code>spring-cloud-config-client</code>依赖就表示该服务作为Config客户端可以冲Config服务端通过API接口直接拿到Config文件；Config Server端则需需要引入<code>spring-cloud-config-server</code>依赖，作为一个单独的服务，管理各个服务的Config文件，并且支持Git、Local本地存储。</p>
+<p>那么在今天我们学习了Spring Cloud Alibaba，使用Nacos作为服务注册与发现，就不需要再手动配置Config Server了。Nacos已经提供了Config Server，可以直接在Nacos控制面板新建Config文件，我们的项目则通过连接Nacos而拿到Nacos存储的指定Config文件。</p>
+<p><img src="http://cdn.tycoding.cn/20200626090000.png" alt="image-20200626085954049"></p>
+<p>此页面便是Config的管理页面，在右侧可以新建Config文件。下面我将新建<code>cloud-alibaba-start-nacos-config</code>项目讲解如何使用Nacos Config。</p>
+<h2 id="cloud-alibaba-start-nacos-config"><a href="#cloud-alibaba-start-nacos-config" class="headerlink" title="cloud-alibaba-start-nacos-config"></a>cloud-alibaba-start-nacos-config</h2><p><strong>注意：</strong></p>
+<p>和学习SpringCloud类似，如果你想让该服务的Config存储在Naco Config上，那就是说该服务不需要再配置Config，需要在Nacos控制面板上新建Config文件，该服务仅需配置如何连接到Nacos上指定的Config文件，这样该项目启动时就直接从Nacos上获取Config文件。</p>
+<p>这里创建的<code>cloud-alibaba-start-nacos-config</code>仅是用来演示，该项目作为Config的Client端（Nacos作为Config的Server端）可以是任意的服务。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 演示Nacos配置中心客户端端</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> tycoding</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosConfigApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(NacosConfigApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Nacos-Config-1"><a href="#Nacos-Config-1" class="headerlink" title="Nacos-Config"></a>Nacos-Config</h3><p>启动Nacos后，在Nacos控制面板进入<code>配置列表</code>页面：</p>
+<p><img src="http://cdn.tycoding.cn/20200626091108.png" alt="image-20200626091108014"></p>
+<p>选择新建配置，并按照<code>cloud-alibaba-start-nacos-provider</code>服务的<code>application.yml</code>创建<code>cloud-alibaba-start-nacos-config</code>服务的配置：</p>
+<p><img src="http://cdn.tycoding.cn/20200626091722.png" alt="image-20200626091722107"></p>
+<p><strong>注意</strong></p>
+<ul>
+<li><code>Data ID</code>选项代表配置文件名称，可以随便填，但后缀格式需要和<code>配置格式</code>选项相同。并且后续<code>cloud-alibaba-start-nacos-config</code>需要根据该名称连接到该配置文件。</li>
+<li><code>配置内容</code>选项按照之前<code>cloud-alibaba-start-nacos-provider</code>中<code>application.yml</code>填写，注意修改服务名称<code>name</code>、端口<code>port</code>，而此时的<code>server-addr</code>仍然填写你连接Nacos的IP端口。</li>
+</ul>
+<p><img src="http://cdn.tycoding.cn/20200626092214.png" alt="image-20200626092214270"></p>
+<h3 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h3><p>创建<code>cloud-alibaba-start-nacos-config</code>并写入<code>pom.xml</code>：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.tycoding<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cloud-alibaba-start-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cloud-alibaba-start-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里仅多了<code>spring-cloud-starter-alibaba-nacos-config</code>（注意此依赖<code>groupId</code>是<code>com.alibaba.cloud</code>，在一些文档中使用的低版本可能是<code>org.springframework.cloud</code>）。导入了此依赖，那么此项目将作为Nacos Config的Client端。</p>
+<h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><p>上面是在Nacos Config上的写配置文件（Config Servr端），下面需要在本地项目中使用这个配置文件（Config Client端）。在开始写之前，需要搞清楚一个概念：</p>
+<p>SpringBoot项目中经常见到<code>application.yml</code>、<code>application.properties</code>、<code>bootstrap.yml</code>等文件，你会发现这些配置文件命名都是固定的，而在SpringBoot中项目加载配置文件有一定优先级顺序：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bootstrap.properties &gt; bootstrap.yml &gt; application.properties &gt; application.yml</span><br></pre></td></tr></table></figure>
+
+<p>可见，<code>application.yml</code>文件的优先级最低，<code>bootstrap.properties</code>的优先级最高。那么如果你在<code>application.yml</code>中配置了<code>server.port=8080</code>，而在<code>bootstrap.properties</code>中配置了<code>server.port=8081</code>，你的SpringBoot项目将按照<code>8081</code>端口启动，<code>application.yml</code>中的配置可能永远无法生效。</p>
+<p>创建<code>bootstrap.properties</code>，此文件用于连接Nacos上指定的Config文件（也就是我们刚才创建的<code>nacos-config.yaml</code>）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 这里`name`应该和Nacos Config指定配置中服务名称`spring.application.name`相同</span><br><span class="line">spring.application.name=nacos-config</span><br><span class="line"># 指定配置文件后缀</span><br><span class="line">spring.cloud.nacos.config.file-extension=yaml</span><br><span class="line"># Nacos Server</span><br><span class="line">spring.cloud.nacos.config.server-addr=127.0.0.1:8848</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>此处的<code>application.name</code>不再代表应用名称，而是Nacos上指定Config文件的名称。</li>
+<li>同理，<code>config.file-extension</code>就是Nacos上指定Config文件的后缀名。</li>
+<li><code>config.server-addr</code>代表Nacos连接的IP端口（必须连接到Nacos才能得到其存储的Config文件）。</li>
+</ul>
+<p><img src="http://cdn.tycoding.cn/20200626093517.png" alt="image-20200626093517565"></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>创建Controller，提供一个测试接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ConfigurableApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/config"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">config</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getEnvironment().getProperty(<span class="string">"server.port"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<p>在之前获取配置文件中的信息，比如获取服务端口号采用：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line"><span class="keyword">private</span> String port;</span><br></pre></td></tr></table></figure>
+
+<p>SpringBoot识别了<code>@Value(&quot;${server.port}&quot;)</code>将自动把<code>server.port</code>装配到<code>port</code>变量中，那是因为项目的配置文件在本地<code>resources</code>目录下。而在本项目中，配置文件存储在Nacos上，因此必须要从<code>ConfigurableApplicationContext</code>对象中获取配置文件信息（项目启动时会从Nacos获取配置文件并装配到这个上下文对象中）。</p>
+<p>启动该项目，访问：<code>localhost:8083/config</code>：</p>
+<p><img src="http://cdn.tycoding.cn/20200626094439.png" alt="image-20200626094439170"></p>
+<p>端口成功获取到。</p>
+<h3 id="动态修改"><a href="#动态修改" class="headerlink" title="动态修改"></a>动态修改</h3><p>将配置文件放在云端（Nacos）的一大好处就是可以动态修改（此时本地项目作为Config Client端实时从Nacos上更新Config文件信息）。那我们修改Nacos上<code>nacos-config.yaml</code>新增一个节点：</p>
+<p><img src="http://cdn.tycoding.cn/20200626094757.png" alt="image-20200626094757062"></p>
+<p>为了测试，修改Controller：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从Spring上下文环境中获取配置信息，保证配置实时更新</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ConfigurableApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/config"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">config</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> applicationContext.getEnvironment().getProperty(<span class="string">"server.port"</span>) </span><br><span class="line">                + <span class="string">"， author: "</span> </span><br><span class="line">                + applicationContext.getEnvironment().getProperty(<span class="string">"author"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为修改了代码，肯定要重启项目（这里重启并不是因为Nacos配置文件修改了，而是因为我们为了测试修改了代码所以必须重启项目。配置文件数据是动态获取的，修改后并不需要重启项目便能得到更新后的数据）</p>
+<p><img src="http://cdn.tycoding.cn/20200626095116.png" alt="image-20200626095116569"></p>
+<h3 id="多环境配置"><a href="#多环境配置" class="headerlink" title="多环境配置"></a>多环境配置</h3><p>开发SpringBoot项目时，你也可能经常遇到<code>resources</code>下有<code>application.yml</code>、<code>application-dev.yml</code>、<code>application-prod.yml</code>等配置，其实根据后缀你大概能猜到：</p>
+<ul>
+<li><code>-dev</code> 代表开发环境</li>
+<li><code>-prod</code> 代表生产环境</li>
+</ul>
+<p>这其实并不能说是写死固定的，后缀名称你可以自定义，因为最后还是需要在<code>spring.profiles.active</code>中指定后缀，仅需要按照<code>application-x.yml</code>这种格式命名即可，他识别是最后一个<code>-</code>紧挨的名称。</p>
+<p>在Nacos控制面板新建<code>nacos-config-prod.yaml</code>文件，年内容和<code>nacos-config.yaml</code>一样，为了测试我们仅修改端口号即可：</p>
+<p><img src="http://cdn.tycoding.cn/20200626100013.png" alt="image-20200626100013377"></p>
+<p><img src="http://cdn.tycoding.cn/20200626100143.png" alt="image-20200626100143715"></p>
+<p>在该项目<code>resources</code>下创建<code>bootstrap-prod.properties</code>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 指定`active-prod`表示启用生产环境配置，</span><br><span class="line">spring.profiles.active=prod</span><br><span class="line"># 因为此文件与之前区别仅是增加`-prod`，因此文件名称前面的部分不变，服务名称也不需要改变</span><br><span class="line">spring.application.name=nacos-config</span><br><span class="line">spring.cloud.nacos.config.file-extension=yaml</span><br><span class="line">spring.cloud.nacos.config.server-addr=127.0.0.1:8848</span><br></pre></td></tr></table></figure>
+
+<p>仅多了<code>spring.profiles.active=prod</code>指定配置文件后缀。</p>
+<p>以上我们创建了一个<code>prod</code>环境的配置文件，那么如何让项目按照<code>prod</code>文件的配置启动呢？</p>
+<p><img src="http://cdn.tycoding.cn/20200626100515.png" alt="image-20200626100515826"></p>
+<p>在IDEA上指定<code>Active profiles</code>即可：</p>
+<p><img src="http://cdn.tycoding.cn/20200626100609.png" alt="image-20200626100609652"></p>
+<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
+<p>WeChatGroup:  关注公众号查看</p>
+<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
+<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
+<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringCloud</category>
+      </categories>
+  </entry>
+  <entry>
     <title>01-SpringCloud Alibaba Start-Nacos</title>
     <url>/2020/06/25/cloud/cloud-alibaba-start/01.Nacos-install/</url>
     <content><![CDATA[<h1 id="Spring-Cloud-Alibaba-Start"><a href="#Spring-Cloud-Alibaba-Start" class="headerlink" title="Spring Cloud Alibaba Start"></a>Spring Cloud Alibaba Start</h1><blockquote>
@@ -125,17 +420,6 @@
       <categories>
         <category>SpringCloud</category>
       </categories>
-  </entry>
-  <entry>
-    <title>teamplate</title>
-    <url>/2020/06/25/cloud/cloud-alibaba-start/teamplate/</url>
-    <content><![CDATA[<h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
-<p>WeChatGroup:  关注公众号查看</p>
-<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><ul>
-<li><a href="http://www.tycoding.cn">http://www.tycoding.cn</a></li>
-<li><a href="https://github.com/TyCoding" target="_blank" rel="noopener">https://github.com/TyCoding</a></li>
-</ul>
-]]></content>
   </entry>
   <entry>
     <title>Ant Design Vue Pro</title>
