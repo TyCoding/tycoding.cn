@@ -72,21 +72,21 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Nginx是一款高性能HTTP服务器、反向代理服务器及电子邮件（IMAP、POP3）代理服务器，官方测试nginx能够支持5万并发连接。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/logo.jpg">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/9.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095236.jpg">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095243.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095247.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095253.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095257.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095307.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095310.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095316.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095320.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095325.png">
+<meta property="og:updated_time" content="2020-06-29T01:53:31.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高性能HTTP服务器Nginx">
 <meta name="twitter:description" content="Nginx是一款高性能HTTP服务器、反向代理服务器及电子邮件（IMAP、POP3）代理服务器，官方测试nginx能够支持5万并发连接。">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/11/27/other/nginx/logo.jpg">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629095236.jpg">
 
 
 
@@ -305,7 +305,7 @@ var _hmt = _hmt || [];
       
 
       
-        <p><img src="/2018/11/27/other/nginx/logo.jpg" alt></p>
+        <p><img src="http://cdn.tycoding.cn/20200629095236.jpg" alt></p>
 <p>Nginx是一款高性能HTTP服务器、反向代理服务器及电子邮件（IMAP、POP3）代理服务器，官方测试nginx能够支持5万并发连接。</p>
 <a id="more"></a>
 
@@ -376,9 +376,9 @@ var _hmt = _hmt || [];
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd nginx-1.12.2</span><br><span class="line">[root@localhost nginx-1.12.2]# ./configure</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/11/27/other/nginx/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095243.png" alt></p>
 <p>完成后可以看到Makefile文件：</p>
-<p><img src="/2018/11/27/other/nginx/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095247.png" alt></p>
 <p><strong>拓展</strong></p>
 <p>Makefile是一种配置文件，Makefile定义了一系列的规则来指定，哪些文件需要先编译，哪些文件需要后编译…。Makefile就像一个Shell脚本一样。</p>
 <ol start="3">
@@ -397,7 +397,7 @@ var _hmt = _hmt || [];
 <br>
 
 <h1 id="Nginx启动与访问"><a href="#Nginx启动与访问" class="headerlink" title="Nginx启动与访问"></a>Nginx启动与访问</h1><p>上面我本编译安装的Nginx其实默认被安装在CentOS7系统的<code>/usr/local/nginx</code>目录。</p>
-<p><img src="/2018/11/27/other/nginx/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095253.png" alt></p>
 <p><strong>启动Nginx</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx]# cd sbin</span><br><span class="line">[root@localhost sbin]# ./nginx</span><br></pre></td></tr></table></figure>
 
@@ -414,7 +414,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sbin]# systemctl stop firewalld.service #停止firewall</span><br><span class="line">[root@localhost sbin]# systemctl disable firewalld.service #禁止firewall开机启动</span><br><span class="line">[root@localhost sbin]# firewall-cmd --state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）</span><br></pre></td></tr></table></figure>
 
 <p>一般情况下就能访问到了：</p>
-<p><img src="/2018/11/27/other/nginx/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095257.png" alt></p>
 <p><strong>查看Nginx进程</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sbin]# ps aux|grep nginx</span><br></pre></td></tr></table></figure>
 
@@ -496,12 +496,12 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>正向代理</p>
 </blockquote>
-<p><img src="/2018/11/27/other/nginx/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095307.png" alt></p>
 <p><strong>正向代理</strong>，主要针对客户端。当用户通过PC向Internet发送请求时，可以通过一个代理服务器来统一处理请求并转发给Internet，比如一个教室的所有学生机都需要通过老师的教师机才能实现联网，那么这个教师机就相当于一个代理服务器，负责将PC的网络请求转发给Internet，然后Internet将相应的数据再通过代理服务器转发给不同的PC。</p>
 <blockquote>
 <p>反向代理</p>
 </blockquote>
-<p><img src="/2018/11/27/other/nginx/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095310.png" alt></p>
 <p><strong>反向代理</strong>的过程则刚好相反，主要针对服务器。当用户通过网络请求不同的资源，而这些资源被分布在不同的服务器上，那么不同的请求就应该指向对应不同的服务器，那么就需要一个中介：反向代理服务器。通过反向代理服务器将不同的资源请求信息发送给不同的服务器，然后服务器将不同的信心都返回给反向代理服务器，最后通过反向代理服务器将这些结果信息展示在Internet上。</p>
 <br>
 
@@ -530,7 +530,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Hello&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h2&gt;Hello Tomcat!&lt;/h2&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
 <p>保存并退出，再次访问<code>http://192.168.148.132:8080/</code>发现展示的即是我们刚创建的页面</p>
-<p><img src="/2018/11/27/other/nginx/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095316.png" alt></p>
 <ol start="3">
 <li>配置反向代理</li>
 </ol>
@@ -543,7 +543,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.148.132 site.tumo.xixi</span><br></pre></td></tr></table></figure>
 
 <p>这时我们访问<code>site.tumo.xixi</code>默认进入nginx的欢迎页，这是正确的。</p>
-<p><img src="/2018/11/27/other/nginx/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095320.png" alt></p>
 <p>注意：此时的<code>site.tumo.xixi</code>是<code>tumo.xixi</code>的一个二级子域名。</p>
 <ul>
 <li>3.2 修改服务器Nginx的配置文件，添加如下配置</li>
@@ -553,7 +553,7 @@ var _hmt = _hmt || [];
 <p>注意，其中<code>server {}</code>节点下的<code>proxy_pass</code>表示反向代理的地址，其中<code>http://site</code>这个<code>site</code>其实是指向上面<code>upstream site {}</code>节点的<code>site</code>名称，因此要保持两者名称一致。但实际上我们不采用这种方式也能实现反向代理：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># upstream site &#123;</span><br><span class="line">#         server 192.168.148.132:8080;</span><br><span class="line"># &#125;</span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name site.tumo.xixi;</span><br><span class="line">        location / &#123;</span><br><span class="line">       		# proxy_pass http://site;</span><br><span class="line">        	proxy_pass http://192.168.148.132:8080;</span><br><span class="line">        	index index.html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/11/27/other/nginx/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095325.png" alt></p>
 <p>两者的区别就是第一种方式通过<em>指向</em>的方式可以配置更多，必须实现<strong>负载均衡</strong>就需要在<code>upstream site {}</code>节点下配置。</p>
 <br>
 

@@ -72,29 +72,29 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Spring Boot整合ElasticSearch:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励https://github.com/TyCoding/spring-learn) 之前我们已经学习了 Spring Boot整合Solr。而今天学习的ElasticSearch，是一个分布式">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/10.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/11.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/12.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/14.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/15.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/16.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/17.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/18.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/19.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090849.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090853.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090857.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090902.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090906.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090912.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090916.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090921.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090927.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090931.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090948.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091010.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091020.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091027.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091034.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091038.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091046.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091051.png">
+<meta property="og:updated_time" content="2020-06-29T01:10:56.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（十四）Spring Boot整合ElasticSearch">
 <meta name="twitter:description" content="Spring Boot整合ElasticSearch:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励https://github.com/TyCoding/spring-learn) 之前我们已经学习了 Spring Boot整合Solr。而今天学习的ElasticSearch，是一个分布式">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/03/23/boot/spring-boot-es/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629090849.png">
 
 
 
@@ -330,34 +330,34 @@ var _hmt = _hmt || [];
 <li>Solr在传统的搜索应用中效率优于ElasticSearch，但ElasticSearch更适用于新兴的实时搜索应用。</li>
 </ol>
 <h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><p>直接去 <a href="https://www.elastic.co/downloads/" target="_blank" rel="noopener">官网</a> 下载最新版的ElasticSearch安装包，这里使用最新版-6.6.2。解压后的文件如下：</p>
-<p><img src="/2019/03/23/boot/spring-boot-es/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090849.png" alt></p>
 <h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>在命令行中进入ElasticSearch安装目录的<code>bin</code>文件夹下，执行命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./elasticsearch</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/03/23/boot/spring-boot-es/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090853.png" alt></p>
 <p>如上证明启动成功。在浏览器上访问：<code>127.0.0.1:9200</code>即会输出ElasticSearch的版本信息。</p>
-<p><img src="/2019/03/23/boot/spring-boot-es/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090857.png" alt></p>
 <h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><blockquote>
 <p>新建索引</p>
 </blockquote>
 <p><strong>PUT</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:9200/索引名</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/03/23/boot/spring-boot-es/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090902.png" alt></p>
 <blockquote>
 <p>新建文档</p>
 </blockquote>
 <p><strong>POST</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:9200/索引名/文档名</span><br><span class="line"></span><br><span class="line">body: &#123;&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/03/23/boot/spring-boot-es/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090906.png" alt></p>
 <blockquote>
 <p>查询全部文档</p>
 </blockquote>
 <p><strong>GET</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:9200/索引名/文档名/_search</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/03/23/boot/spring-boot-es/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090912.png" alt></p>
 <ul>
 <li><code>took：</code>本次操作花费的时间，单位为毫秒。</li>
 <li><code>timed_out：</code>请求是否超时_</li>
@@ -375,9 +375,9 @@ var _hmt = _hmt || [];
 <p><strong>PUT</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:9200/索引名/文档名/ID</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/03/23/boot/spring-boot-es/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090916.png" alt></p>
 <p><strong>如果该ID指定的文档不存在，就以该ID创建新的文档</strong></p>
-<p><img src="/2019/03/23/boot/spring-boot-es/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090921.png" alt></p>
 <blockquote>
 <p>按ID查询</p>
 </blockquote>
@@ -431,7 +431,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt server</span><br></pre></td></tr></table></figure>
 
 <p>浏览器访问：<code>localhost:9100</code></p>
-<p><img src="/2019/03/23/boot/spring-boot-es/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090927.png" alt></p>
 <h2 id="安装IK分词器"><a href="#安装IK分词器" class="headerlink" title="安装IK分词器"></a>安装IK分词器</h2><p>和Solr一样，ElasticSearch也需要安装IK分析器以实现对中文更好的分词支持。</p>
 <blockquote>
 <p>去Github下载最新版elasticsearch-ik</p>
@@ -442,13 +442,13 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>解压文件，并将文件夹重命名为<code>ik</code></p>
 </blockquote>
-<p><img src="/2019/03/23/boot/spring-boot-es/10.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090931.png" alt></p>
 <blockquote>
 <p>将<code>ik</code>文件夹放在<code>elasticsearch/plugins</code>目录下，重启elasticsearch</p>
 </blockquote>
 <p>在ElasticSearch6之前的版本，直接访问：<code>http://127.0.0.1:9200/_analyze?analyzer=ik_max_word&amp;pretty=true&amp;text=测试IK分词器</code> 即可展示分词效果。</p>
 <p>但是在ElasticSearch6开始的版本中，分词查询要用GET、POST请求，但要把请求参数写在body中，且需要JSON格式。</p>
-<p><img src="/2019/03/23/boot/spring-boot-es/11.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090948.png" alt></p>
 <h3 id="扩展词典"><a href="#扩展词典" class="headerlink" title="扩展词典"></a>扩展词典</h3><p>在<code>elasticsearch/plugins/ik/config</code>下新建<code>my.dic</code>文件，在<code>my.dic</code>中写入想要分词识别的文字；修改<code>IKAnalyzer.cfg.xml</code>文件，在<code>&lt;entry key=&quot;ext_dict&quot;&gt;</code>中指定<code>my.dic</code>。</p>
 <p>重启elasticsearch即可看到分词效果。</p>
 <h1 id="Spring-Data-ElasticSearch"><a href="#Spring-Data-ElasticSearch" class="headerlink" title="Spring Data ElasticSearch"></a>Spring Data ElasticSearch</h1><p>Spring Data家族对ElasticSearch也进行了封装支持，使用<strong>spring-data-elasticsearch</strong>，就像使用<strong>spring-data-jpa</strong>,<strong>spring-data-solr</strong>,<strong>spring-data-redis</strong>,<strong>spring-data-mongodb</strong>等一样操作简单，他们封装的方法类似，提供的接口格式都基本相同，所以开发流程也基本是一样的。</p>
@@ -469,7 +469,7 @@ var _hmt = _hmt || [];
 <h2 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">EsRepository</span> <span class="keyword">extends</span> <span class="title">ElasticsearchRepository</span>&lt;<span class="title">Article</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据文章标题或内容模糊查询</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> content</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pageable</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Page&lt;Article&gt; <span class="title">findByTitleOrContentLike</span><span class="params">(String title, String content, Pageable pageable)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>联想solr,redis,jpa,mongodb，基本都是依赖继承一个<code>XxxRepository</code>接口即可，并且对于IDEA，如果继承了<code>XxxRepository</code>接口，IDEA会自动提示自定义查询方法的构建：</p>
-<p><img src="/2019/03/23/boot/spring-boot-es/12.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091010.png" alt></p>
 <p>如上的<code>findByTitleOrContentLike</code>就是根据<code>Title</code>或者<code>Cotent</code>字段<code>Like</code>模糊查询。</p>
 <h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QueryPage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 当前页</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Integer current;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 每页记录数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Integer size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -489,7 +489,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>解压文件，并在其根目录下创建<code>mysqletc</code>文件夹（名称随意）</p>
 </blockquote>
-<p><img src="/2019/03/23/boot/spring-boot-es/14.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091020.png" alt></p>
 <blockquote>
 <p>在<code>mysqletc</code>文件夹下创建<code>mysql.conf</code>（名称随意）</p>
 </blockquote>
@@ -506,7 +506,7 @@ var _hmt = _hmt || [];
 <p>在终端中切换到<code>logstash</code>根目录下</p>
 </blockquote>
 <p>执行<code>logstash -f ../mysqletc/mysql.conf</code>：</p>
-<p><img src="/2019/03/23/boot/spring-boot-es/15.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091027.png" alt></p>
 <p>并且查询语句会每分钟执行一次。</p>
 <h1 id="Docker中部署ElasticSearch"><a href="#Docker中部署ElasticSearch" class="headerlink" title="Docker中部署ElasticSearch"></a>Docker中部署ElasticSearch</h1><blockquote>
 <p>拉取elasticsearch镜像</p>
@@ -548,9 +548,9 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart vm_es</span><br></pre></td></tr></table></figure>
 
 <p>执行这个重启命令，通过<code>docker ps</code>命令发现，ES服务启动一会就又关闭了，</p>
-<p><img src="/2019/03/23/boot/spring-boot-es/16.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091034.png" alt></p>
 <p>执行<code>docker logs vm_es</code>查看<code>vm_es</code>容器的日志：</p>
-<p><img src="/2019/03/23/boot/spring-boot-es/17.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091038.png" alt></p>
 <p>此时，心里真TM一万个草泥马在奔腾。只好<code>docker rm vm_es</code>删除镜像，重新创建。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker run -di --name=vm_es -p 9200:9200 -p 9300:9300 elasticsearch:6.6.2</span><br></pre></td></tr></table></figure>
 
@@ -587,8 +587,8 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>重启ES容器</p>
 </blockquote>
-<p><img src="/2019/03/23/boot/spring-boot-es/18.png" alt></p>
-<p><img src="/2019/03/23/boot/spring-boot-es/19.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091046.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091051.png" alt></p>
 <h1 id="连接远程ElasticSearch服务"><a href="#连接远程ElasticSearch服务" class="headerlink" title="连接远程ElasticSearch服务"></a>连接远程ElasticSearch服务</h1><p>上面在远程服务器Docker上部署了ElasticSearch服务，下面我们可以测试用<code>spring-data-elasticsearch</code>连接远程ES服务。</p>
 <h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  data:</span></span><br><span class="line"><span class="attr">    elasticsearch:</span></span><br><span class="line">      <span class="comment"># cluster-nodes: 127.0.0.1:9300</span></span><br><span class="line"><span class="attr">      cluster-nodes:</span> <span class="number">192.168</span><span class="number">.160</span><span class="number">.128</span><span class="string">:9300</span></span><br><span class="line"><span class="attr">      cluster-name:</span> <span class="string">docker-cluster</span></span><br></pre></td></tr></table></figure>
 

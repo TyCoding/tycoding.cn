@@ -72,23 +72,23 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="maven起步 maven作为一个项目管理工具被用于管理项目中的jar包，因此能大大的减轻我们项目的体积。要知道项目体积大基本就是项目的jar依赖体积过大造成的，刨去这些依赖文件，实际编写的代码占用的空间很小很小。接下来我们会实战在IDEA上搭建一个maven项目，快来看看吧！">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/10.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/11.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/12.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100211.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100215.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100221.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100226.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100231.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100235.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100239.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100243.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100247.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100254.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100306.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100312.png">
+<meta property="og:updated_time" content="2020-06-29T02:03:16.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用IDEA搭建一个maven项目">
 <meta name="twitter:description" content="maven起步 maven作为一个项目管理工具被用于管理项目中的jar包，因此能大大的减轻我们项目的体积。要知道项目体积大基本就是项目的jar依赖体积过大造成的，刨去这些依赖文件，实际编写的代码占用的空间很小很小。接下来我们会实战在IDEA上搭建一个maven项目，快来看看吧！">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/06/01/ssm/maven/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629100211.png">
 
 
 
@@ -310,14 +310,14 @@ var _hmt = _hmt || [];
         <p><strong>maven起步</strong></p>
 <p><strong>maven</strong>作为一个项目管理工具被用于管理项目中的jar包，因此能大大的减轻我们项目的体积。要知道项目体积大基本就是项目的jar依赖体积过大造成的，刨去这些依赖文件，实际编写的代码占用的空间很小很小。<br>接下来我们会实战在IDEA上搭建一个maven项目，快来看看吧！</p>
 <a id="more"></a>
-<h1 id="关联maven"><a href="#关联maven" class="headerlink" title="关联maven"></a>关联maven</h1><h2 id="前期配置"><a href="#前期配置" class="headerlink" title="前期配置"></a>前期配置</h2><p>打开IDEA后在右下角<code>Configure</code>中选择如下<code>setting</code>进入设置界面（选择<code>project Defaults</code>可以让以后新建的项目都使用这个默认的配置，这样就不用每次新建项目都关联maven路径了）：<br><img src="/2018/06/01/ssm/maven/1.png" alt><br>在setting界面中线在搜索框中查询<em>maven</em>，然后选择本机的maven的位置和<code>seetings.xml</code>位置以及本地仓库的位置<br><img src="/2018/06/01/ssm/maven/2.png" alt></p>
-<p>设置完毕我们开始新建项目<code>new project</code>。记住选择图中的三点：<br><img src="/2018/06/01/ssm/maven/3.png" alt><br>下面设置本项目坐标值，至于groupid和artifactid具体指什么大家可以自行百度一下，在这里我们理解为：groupid为项目坐标的域；artifactid为本项目的名称。<br><img src="/2018/06/01/ssm/maven/4.png" alt></p>
-<p>继续next，下一步可以看到我们新建的项目已经关联到了本机的maven。这里我们还需要新建一个<code>properties</code>参数：<code>archetypeCatalog=internal</code>目的是为了提高maven下载的速度。<br><img src="/2018/06/01/ssm/maven/5.png" alt></p>
-<p>下面就是设置项目的存放路径以及项目名称：<br><img src="/2018/06/01/ssm/maven/6.png" alt></p>
-<p>最后finish完成maven项目的最基本配置。<br><img src="/2018/06/01/ssm/maven/7.png" alt></p>
+<h1 id="关联maven"><a href="#关联maven" class="headerlink" title="关联maven"></a>关联maven</h1><h2 id="前期配置"><a href="#前期配置" class="headerlink" title="前期配置"></a>前期配置</h2><p>打开IDEA后在右下角<code>Configure</code>中选择如下<code>setting</code>进入设置界面（选择<code>project Defaults</code>可以让以后新建的项目都使用这个默认的配置，这样就不用每次新建项目都关联maven路径了）：<br><img src="http://cdn.tycoding.cn/20200629100211.png" alt><br>在setting界面中线在搜索框中查询<em>maven</em>，然后选择本机的maven的位置和<code>seetings.xml</code>位置以及本地仓库的位置<br><img src="http://cdn.tycoding.cn/20200629100215.png" alt></p>
+<p>设置完毕我们开始新建项目<code>new project</code>。记住选择图中的三点：<br><img src="http://cdn.tycoding.cn/20200629100221.png" alt><br>下面设置本项目坐标值，至于groupid和artifactid具体指什么大家可以自行百度一下，在这里我们理解为：groupid为项目坐标的域；artifactid为本项目的名称。<br><img src="http://cdn.tycoding.cn/20200629100226.png" alt></p>
+<p>继续next，下一步可以看到我们新建的项目已经关联到了本机的maven。这里我们还需要新建一个<code>properties</code>参数：<code>archetypeCatalog=internal</code>目的是为了提高maven下载的速度。<br><img src="http://cdn.tycoding.cn/20200629100231.png" alt></p>
+<p>下面就是设置项目的存放路径以及项目名称：<br><img src="http://cdn.tycoding.cn/20200629100235.png" alt></p>
+<p>最后finish完成maven项目的最基本配置。<br><img src="http://cdn.tycoding.cn/20200629100239.png" alt></p>
 <h1 id="规范目录结构"><a href="#规范目录结构" class="headerlink" title="规范目录结构"></a>规范目录结构</h1><p>因为maven项目硬性规定了你必须使用它规定的项目目录结构，不然就不能正常编译项目。我们首先需要点击<code>main</code>文件夹，右键new两个<code>Directory</code>，名字为<code>resources</code>和<code>java</code>:
-<img src="/2018/06/01/ssm/maven/8.png" alt><br>新建完毕，我们需要指定这个<code>resources</code>目录为配置文件目录，只需要点击<code>resources</code>文件夹，选择<code>Mark Directory as</code>，点击<code>Resources Root</code>;同时要指定<code>java</code>文件夹为存放源代码的文件夹，在<code>Mark Directory as</code>中点击<code>Sources Root</code><br><img src="/2018/06/01/ssm/maven/9.png" alt><br><img src="/2018/06/01/ssm/maven/10.png" alt><br>当然我们还可以，新建一个文件夹<code>Test</code>作为测试文件的存放目录，但是要注意<code>java</code>和<code>resources</code>目录都是在<code>mian</code>文件夹下的，而<code>Test</code>是和<code>main</code>目录同一级的。同样我们需要设置其为<code>Resources Test Root</code></p>
-<p>最终设置完毕我们互发现文件夹的颜色已经改变，这也是我们最终的项目目录结构<br><img src="/2018/06/01/ssm/maven/11.png" alt></p>
+<img src="http://cdn.tycoding.cn/20200629100243.png" alt><br>新建完毕，我们需要指定这个<code>resources</code>目录为配置文件目录，只需要点击<code>resources</code>文件夹，选择<code>Mark Directory as</code>，点击<code>Resources Root</code>;同时要指定<code>java</code>文件夹为存放源代码的文件夹，在<code>Mark Directory as</code>中点击<code>Sources Root</code><br><img src="http://cdn.tycoding.cn/20200629100247.png" alt><br><img src="http://cdn.tycoding.cn/20200629100254.png" alt><br>当然我们还可以，新建一个文件夹<code>Test</code>作为测试文件的存放目录，但是要注意<code>java</code>和<code>resources</code>目录都是在<code>mian</code>文件夹下的，而<code>Test</code>是和<code>main</code>目录同一级的。同样我们需要设置其为<code>Resources Test Root</code></p>
+<p>最终设置完毕我们互发现文件夹的颜色已经改变，这也是我们最终的项目目录结构<br><img src="http://cdn.tycoding.cn/20200629100306.png" alt></p>
 <p><strong>介绍：</strong></p>
 <ol>
 <li><code>java</code>目录使我们存放所有java代码的地方。（当然里面也可以存在xml配置，但是需要配置参数，后面会介绍）。</li>
@@ -328,7 +328,7 @@ var _hmt = _hmt || [];
 <h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>我们还需要在<code>pom.xml</code>的<code>&lt;build&gt;</code>节点下添加这一段配置：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;basedir&#125;/src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;basedir&#125;/src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>如图所示（我删除了原本<code>pom.xml</code>的<code>&lt;build&gt;</code>节点下默认生成的配置）<br><img src="/2018/06/01/ssm/maven/12.png" alt><br>这段配置是为了让IDEA检测到非<code>resources</code>目录下的配置文件，比如你写在<code>java</code>文件夹下的配置文件。</p>
+<p>如图所示（我删除了原本<code>pom.xml</code>的<code>&lt;build&gt;</code>节点下默认生成的配置）<br><img src="http://cdn.tycoding.cn/20200629100312.png" alt><br>这段配置是为了让IDEA检测到非<code>resources</code>目录下的配置文件，比如你写在<code>java</code>文件夹下的配置文件。</p>
 <p><strong>综上</strong><br>我们已经完成了IDEA下maven项目的搭建。如果需要导入项目依赖jar文件，只需要在maven<a href="http://mvnrepository.com/" target="_blank" rel="noopener">中心仓库</a>中找到该依赖jar的坐标值，copy到项目的<code>pom.xml</code>的<code>dependencies</code>下即可。这一点相对于<em>eclipse</em>方便了太多太多。</p>
 <p>好了，到目前为止，我们基本完成了在IDEA搭建一个maven项目的案例，接下来就愉快的码项目吧！！</p>
 <br>
@@ -403,10 +403,6 @@ var _hmt = _hmt || [];
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/05/31/ssm/Spring-6/" rel="next" title="SpringMVC之文件上传和下载">
-                <i class="fa fa-chevron-left"></i> SpringMVC之文件上传和下载
-              </a>
             
           </div>
 

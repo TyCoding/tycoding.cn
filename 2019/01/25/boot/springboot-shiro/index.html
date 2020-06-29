@@ -72,21 +72,21 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="SpringBoot + Shiro + Vue.JS:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 Shiro-Session Shiro提供会话管理实现用户于应用之间保持连接关系，在多次交互中能够识别当前访问的用户是谁，而这些会话信息由SessionManager管理。 springb">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/9.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093336.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093343.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093348.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093355.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093400.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093403.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093408.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093414.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093421.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629093426.png">
+<meta property="og:updated_time" content="2020-06-29T01:35:02.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（七）在基于SpringBoot的前后端分离项目中使用Shiro">
 <meta name="twitter:description" content="SpringBoot + Shiro + Vue.JS:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 Shiro-Session Shiro提供会话管理实现用户于应用之间保持连接关系，在多次交互中能够识别当前访问的用户是谁，而这些会话信息由SessionManager管理。 springb">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/01/25/boot/springboot-shiro/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629093336.png">
 
 
 
@@ -310,7 +310,7 @@ var _hmt = _hmt || [];
 <p><strong>Shiro-Session</strong></p>
 <p>Shiro提供<em>会话</em>管理实现用户于应用之间保持连接关系，在多次交互中能够识别当前访问的用户是谁，而这些会话信息由<code>SessionManager</code>管理。</p>
 <h2 id="springboot-shiro-vue"><a href="#springboot-shiro-vue" class="headerlink" title="springboot+shiro+vue"></a>springboot+shiro+vue</h2><h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>首先我简易的画一张登录校验的流程图：</p>
-<p><img src="/2019/01/25/boot/springboot-shiro/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093336.png" alt></p>
 <a id="more"></a>
 
 <h4 id="Shiro-Config"><a href="#Shiro-Config" class="headerlink" title="Shiro Config"></a>Shiro Config</h4><p>在前后端分离项目中，后端使用SpringBoot+Shiro，前端使用Vue.js；所有的请求都是通过ajax，如果我们要维持Shiro会话状态，就应该保证每次请求的<code>SessionId</code>都相同。</p>
@@ -321,7 +321,7 @@ var _hmt = _hmt || [];
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shiro<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shiro-ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shiro<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shiro-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>按照上面的方式，我们还需要定义<code>EhCache</code>缓存的配置文件：<code>shiro-ehcache.xml</code></p>
-<p><img src="/2019/01/25/boot/springboot-shiro/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093343.png" alt></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ehcache</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">            <span class="attr">maxElementsInMemory</span>=<span class="string">"10000"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">eternal</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">timeToIdleSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">timeToLiveSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">overflowToDisk</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">diskPersistent</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">diskExpiryThreadIntervalSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 登录记录缓存锁定10分钟 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">name</span>=<span class="string">"passwordRetryCache"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">maxEntriesLocalHeap</span>=<span class="string">"2000"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">eternal</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">timeToIdleSeconds</span>=<span class="string">"3600"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">timeToLiveSeconds</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">overflowToDisk</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">statistics</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="LoginController"><a href="#LoginController" class="headerlink" title="LoginController"></a>LoginController</h4><p>在上面已经介绍了，如果用户登录成功，后端应该返回给前端一个<code>Token</code>值，于是，这个<code>Token</code>值应该是Shiro生成的<code>sessionId</code>，那么我们在<code>LoginController.java</code>中这样定义：</p>
@@ -329,16 +329,16 @@ var _hmt = _hmt || [];
 
 <h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><p>上面介绍了后端接口设计，这里我们看一下前端ajax的请求格式和后端的响应数据：</p>
 <p><strong>login</strong></p>
-<p><img src="/2019/01/25/boot/springboot-shiro/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093348.png" alt></p>
 <p>响应数据：</p>
-<p><img src="/2019/01/25/boot/springboot-shiro/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093355.png" alt></p>
 <br>
 
 <p><strong>登录后的ajax请求</strong></p>
-<p><img src="/2019/01/25/boot/springboot-shiro/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093400.png" alt></p>
 <p>你会发现上面的请求竟然是<code>302</code>重定向了，也就是说这个请求被Shiro拦截了，而我们在上上图中已经登过了啊，为什么还会被Shiro拦截呢？(记得之前配置了自定义拦截器链<code>/** = user</code>)。</p>
 <p>紧接着你会发现浏览器会跳转到另一个请求地址：</p>
-<p><img src="/2019/01/25/boot/springboot-shiro/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093403.png" alt></p>
 <h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>为什么会自动跳转到<code>http://127.0.0.1:8080/login.jsp;JSESSIONID=XX</code>这个地址？</p>
 <ul>
 <li>因为我们自定义配置的拦截器链<code>/** user</code>拦截了这个请求，Shiro默认将拦截的请求都跳转到loginUrl地址（默认是<code>login.jsp</code>）。</li>
@@ -358,7 +358,7 @@ var _hmt = _hmt || [];
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">service.interceptors.request.use(</span><br><span class="line">  config =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (store.getters.token) &#123;</span><br><span class="line">      config.headers[<span class="string">'X-Token'</span>] = getToken() <span class="comment">// 让每个请求携带自定义token 请根据实际情况自行修改</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>利用<code>Vuex</code>技术，会将用户已登录的Token信息写入全局store中，这样前端每次的<code>axios</code>请求的<code>Request Headers</code>中都将包含<code>X-Token</code>这个属性，其值是后端返回的sessionId。</p>
-<p><img src="/2019/01/25/boot/springboot-shiro/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093408.png" alt></p>
 <p>那么后端应该如何接收呢？</p>
 <h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p>为了保证前端的每次请求都是已登录用户的请求，后端应该接收<code>Request Headers</code>中<code>X-Token</code>的值，并以它作为sessionId让Shiro去验证用户的请求。</p>
 <p>因为Shiro的<code>Session</code>由管理器<code>org.apache.shiro.session.mgt.SessionManager</code>进行统一管理，所以应该修改其的sessionId值，又因为<code>SessionManager</code>只是一个接口，通常用它的<code>DefaultWebSessionManager</code>实现类来管理Session，所以我们改造一下<code>DefaultWebSessionManager</code>即可：</p>
@@ -371,8 +371,8 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义SessionManager</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> SessionManager <span class="title">sessionManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MySessionManager mySessionManager = <span class="keyword">new</span> MySessionManager();</span><br><span class="line">    mySessionManager.setCacheManager(cacheManager());</span><br><span class="line">    mySessionManager.setSessionIdUrlRewritingEnabled(<span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">return</span> mySessionManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样，再次请求接口：</p>
-<p><img src="/2019/01/25/boot/springboot-shiro/7.png" alt></p>
-<p><img src="/2019/01/25/boot/springboot-shiro/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093414.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093421.png" alt></p>
 <p>就解决了Shiro重定向的问题了。</p>
 <h2 id="Shiro使用Redis做缓存"><a href="#Shiro使用Redis做缓存" class="headerlink" title="Shiro使用Redis做缓存"></a>Shiro使用Redis做缓存</h2><p>上面我们使用了<code>EhCache</code>作为缓存，那么我们也可整合Redis，把Shiro的缓存信息储存到Redis中。</p>
 <p>使用<a href="https://gitee.com/iherus/shiro-redis" target="_blank" rel="noopener">shiro-redis</a>开源插件，导入依赖：</p>
@@ -394,7 +394,7 @@ var _hmt = _hmt || [];
 
 <p>至此，Shiro-Redis的配置已完成，下面，需要在本地电脑上安装Redis（同时可以选择安装操作Redis的可视化工具）。<br>可以参考这篇教程：<a href="https://tycoding.cn/2018/09/24/other/redis/#more" target="_blank" rel="noopener">Redis及Spring-Data-Redis</a></p>
 <p>先启动本地Redis服务，再启动项目，登录系统，发现Redis数据库中就缓存了登录的<code>session</code>数据：</p>
-<p><img src="/2019/01/25/boot/springboot-shiro/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629093426.png" alt></p>
 <br>
 
 <p>上述是我个人在整合SpringBoot+Shiro+VueJS过程中遇到的问题，并（收集）整理的解决办法。</p>
@@ -472,8 +472,8 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/08/java/algorithm-sort-1/" rel="next" title="算法学习之各种排序算法（一）">
-                <i class="fa fa-chevron-left"></i> 算法学习之各种排序算法（一）
+              <a href="/2019/01/03/project/tumo-vue/" rel="next" title="tumo-vue">
+                <i class="fa fa-chevron-left"></i> tumo-vue
               </a>
             
           </div>
@@ -482,8 +482,8 @@ var _hmt = _hmt || [];
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/30/ssm/shiro/shiro-tree/" rel="prev" title="Shiro权限管理项目中，如何构建权限菜单？">
-                Shiro权限管理项目中，如何构建权限菜单？ <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/26/boot/spring-boot-thymeleaf/" rel="prev" title="（二）Spring Boot整合Thymeleaf">
+                （二）Spring Boot整合Thymeleaf <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

@@ -72,12 +72,12 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content=":tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 Spring Security OAuth2概念引入​    OAUTH协议为用户资源的授权提供了一个安全的、开放而又简易的标准。与以往的授权方式不同之处是OAUTH的授权不会使第三方触及到用户的帐号信息（如用户名与密码），即第三方无需使用用">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2-start/QQ20190422-081517.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092039.png">
+<meta property="og:updated_time" content="2020-06-29T01:20:45.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Security OAuth2概念引入">
 <meta name="twitter:description" content=":tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 Spring Security OAuth2概念引入​    OAUTH协议为用户资源的授权提供了一个安全的、开放而又简易的标准。与以往的授权方式不同之处是OAUTH的授权不会使第三方触及到用户的帐号信息（如用户名与密码），即第三方无需使用用">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2-start/QQ20190422-081517.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629092039.png">
 
 
 
@@ -304,7 +304,7 @@ var _hmt = _hmt || [];
 <p>上面摘选自百度百科。想象一下，我们开发了一个微信小程序，他的功能是可以批量修改(美化)用户相册中的照片，那么这小程序就要获取用户相册数据。如果按照传统方式直接让用户通过用户名密码登录该小程序，那么该小程序通过用户名密码就能获取到用户的全部数据，这就造成了密码泄露的风险，且想要弃用这个小程序只能修改密码。这种方式显然不好。</p>
 <p>而OAuth协议的出现正是解决了这些问题。他将用户名密码授权方式改为通过<code>令牌</code>授权，第三方应用请求访问资源，资源所有者(用户)同意授权后，再次访问服务提供商(微信官方)去向认证服务器申请令牌(Token)，认证服务器同意后发放令牌(Token)，然后第三方应用再拿这个令牌(Token)去向资源服务器(微信官方)申请想要的资源，资源服务器验证通过后开放这个应用所需的资源。</p>
 <p>我们可以以下图简单的了解下Oauth2</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2-start/QQ20190422-081517.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092039.png" alt></p>
 <p> 这种方式就完全避免了把用户名密码暴露给第三方应用的风险。</p>
 <p>下面我们把重点放在右侧<strong>资源提供商(Provider)</strong></p>
 <h1 id="服务提供商-Provider"><a href="#服务提供商-Provider" class="headerlink" title="服务提供商 Provider"></a>服务提供商 Provider</h1><p>Spring Security Oauth2的服务提供商实际上分为：</p>

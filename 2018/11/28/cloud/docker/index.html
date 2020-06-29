@@ -72,23 +72,23 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Docker是一种容器技术，它的存在就是为了解决容器技术本身的复杂性。Docker容器拥有很高的性能，同时同一台宿主机中可以运行更多的容器，是用户尽可能的充分利用系统资源。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/logo.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/10.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/11.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094159.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094204.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094208.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094213.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094218.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094223.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094227.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094234.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094242.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094247.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094251.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094257.png">
+<meta property="og:updated_time" content="2020-06-29T01:43:04.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="部署神器Docker">
 <meta name="twitter:description" content="Docker是一种容器技术，它的存在就是为了解决容器技术本身的复杂性。Docker容器拥有很高的性能，同时同一台宿主机中可以运行更多的容器，是用户尽可能的充分利用系统资源。">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/11/28/cloud/docker/logo.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629094159.png">
 
 
 
@@ -307,7 +307,7 @@ var _hmt = _hmt || [];
       
 
       
-        <p><img src="/2018/11/28/cloud/docker/logo.png" alt></p>
+        <p><img src="http://cdn.tycoding.cn/20200629094159.png" alt></p>
 <p> <strong>Docker</strong>是一种容器技术，它的存在就是为了解决容器技术本身的复杂性。Docker容器拥有很高的性能，同时同一台宿主机中可以运行更多的容器，是用户尽可能的充分利用系统资源。</p>
 <a id="more"></a>
 
@@ -339,18 +339,18 @@ var _hmt = _hmt || [];
 <br>
 
 <h2 id="Docker组件"><a href="#Docker组件" class="headerlink" title="Docker组件"></a>Docker组件</h2><h3 id="Docker客户端和服务器"><a href="#Docker客户端和服务器" class="headerlink" title="Docker客户端和服务器"></a>Docker客户端和服务器</h3><p>Docker是一个客户端-服务器（C/S）架构程序。Docker客户端只需要向Docker服务器或守护进程发出请求，服务器或守护进程将完成所有工作并返回结果。Docker提供了一个命令行工具Docker以及一整套RESTful API。你可以在同一台宿主机上运行Docker守护进程和客户端，也可以从本地的Docker客户端连接到运行在另一台宿主机上的远程Docker守护进程。</p>
-<p><img src="/2018/11/28/cloud/docker/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094204.png" alt></p>
 <h3 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h3><p><strong>镜像</strong> 是构建Docker的基石。用户及基于镜像来运行自己的容器。镜像也是Docker声明周期中的“构建”部分。奖项是基于联合文件系统的一种层式结构，由一系列指令一步一步构建出来。</p>
 <h3 id="Registry-注册中心"><a href="#Registry-注册中心" class="headerlink" title="Registry 注册中心"></a>Registry 注册中心</h3><p>Docker用Registry来保存用户构建的镜像。Registry分为共有和私有两种。Docker公司运营公共的Registry叫做Docker Hub。</p>
 <h3 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h3><p>Docker可以帮助你构建和部署容器，你只需要把你的程序打包放进容器即可。容器是基于镜像启动的，容器找那个可以运行一个或多个进程。我们可以认为，镜像是Docker生命周期中构建和打包阶段，而容器则是启动或执行阶段。容器基于镜像启动。</p>
-<p><img src="/2018/11/28/cloud/docker/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094208.png" alt></p>
 <br>
 
 <h1 id="Docker的安装与启动"><a href="#Docker的安装与启动" class="headerlink" title="Docker的安装与启动"></a>Docker的安装与启动</h1><p>本例中使用了CentOS7作为服务器，有关VMware安装CentOS7的教程请看我的这篇文章：<a href="https://tycoding.cn/2018/08/29/ssm/fastdfs/" target="_blank" rel="noopener">FastDFS系统搭建</a> 。</p>
 <p>通过以下命令在线在CentOS7中安装Docker：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install docker</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/11/28/cloud/docker/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094213.png" alt></p>
 <p><strong>查看Docker版本</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker -v</span><br><span class="line">Docker version 1.13.1, build 8633870/1.13.1</span><br></pre></td></tr></table></figure>
 
@@ -393,13 +393,13 @@ var _hmt = _hmt || [];
 <br>
 
 <h2 id="Docker镜像操作"><a href="#Docker镜像操作" class="headerlink" title="Docker镜像操作"></a>Docker镜像操作</h2><p>Docker镜像由文件系统堆叠而成（是一种文件的储存形式）。最低端是一个文件引导系统，即bootfs。实际上，当一个容器启动后，它将会被移动到内存中，而引导文件系统则会被卸载，以留出更多的内存供磁盘镜像使用。Docker容器启动是需要一些文件的，而这些文件就可以被称为Docker镜像。</p>
-<p><img src="/2018/11/28/cloud/docker/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094218.png" alt></p>
 <ol>
 <li>列出镜像</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker images</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/11/28/cloud/docker/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094223.png" alt></p>
 <ul>
 <li>REPOSITORY: 镜像所在的仓库名称</li>
 <li>TAG： 镜像标签</li>
@@ -413,7 +413,7 @@ var _hmt = _hmt || [];
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker search 镜像名称</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/11/28/cloud/docker/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094227.png" alt></p>
 <ol start="3">
 <li>从Docker Hub拉取镜像</li>
 </ol>
@@ -485,7 +485,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker run -it --name=mycentos5 centos:7 /bin/bash</span><br><span class="line">[root@53f33e279914 /]#</span><br></pre></td></tr></table></figure>
 
 <p>此时我们可以新建一个连接，通过<code>docker ps</code>命令看到刚才创建的容器正在启动中：</p>
-<p><img src="/2018/11/28/cloud/docker/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094234.png" alt></p>
 <p>通过<code>exit</code>命令可以退出当前容器：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@53f33e279914 /]# exit</span><br><span class="line">exit</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
 
@@ -545,7 +545,7 @@ var _hmt = _hmt || [];
 <ol start="4">
 <li>远程连接MySQL</li>
 </ol>
-<p><img src="/2018/11/28/cloud/docker/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094242.png" alt></p>
 <h2 id="Tomcat部署"><a href="#Tomcat部署" class="headerlink" title="Tomcat部署"></a>Tomcat部署</h2><ol>
 <li>拉取Tomcat-8 &amp;&amp; JDK-8 镜像</li>
 </ol>
@@ -563,13 +563,13 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker run -di --name=docker_tomcat -p 9000:8080 -v /root/site/:/usr/local/tomcat/webapps/ROOT --privileged=true tomcat:8-jre8</span><br></pre></td></tr></table></figure>
 
 <p>以上就创建一个Tomcat容器，其容器名称Wie<code>docker_tomcat</code>，<code>-di</code>表示是一个守护式容器；<code>-p 9000:8080</code>表示此容器端口映射为<code>9000-&gt;8080</code>，即对外的端口是9000，映射到容器里Tomcat服务器的端口8080，<code>--privileged</code>是以root权限运行。</p>
-<p><img src="/2018/11/28/cloud/docker/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094247.png" alt></p>
 <p>通过命令看到，当我们启动了容器，其中的Tomcat服务器也自动启动了。当然对于部署Nginx或MySQL的Docker容器，当启动容器时都会启动对应的服务。</p>
 <p><strong>注意</strong></p>
 <p>上面我们指定了宿主机的<code>/root/site/</code>目录映射到<code>docker_tomcat</code>容器的<code>/usr/local/tomcat/webapps/ROOT</code>目录，为什么是这个目录呢？</p>
 <p>Docker虚拟化，它会在内部虚拟一个操作系统，是在其宿主机内核上的一层空间，所有有一定的目录结构，我们可以通过<code>docker exec -it docker_tomcat /bin/bash</code>命令进入到<code>docker_tomcat</code>容器内部，通过<code>ls</code>命令查看目录会发现其Tomcat服务器确实安装在<code>docker_tomcat</code>容器的<code>/usr/local/tomcat</code>目录下。</p>
 <p>最后，我们在浏览器上访问：<code>http://192.168.148.132:9000/</code>，即发现页面展示了我们刚才在<code>/root/site/</code>目录下创建的<code>index.html</code>网页：</p>
-<p><img src="/2018/11/28/cloud/docker/10.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094251.png" alt></p>
 <p>所以，如果你想要修改容器中Tomcat的端口号，直接进入容器的<code>/usr/local/tomcat/conf/server.xml</code>自改即可。</p>
 <br>
 
@@ -586,7 +586,7 @@ var _hmt = _hmt || [];
 <ol start="3">
 <li>测试</li>
 </ol>
-<p><img src="/2018/11/28/cloud/docker/11.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094257.png" alt></p>
 <p>在浏览器上访问：<code>http://192.168.148.132/</code>可以进入到Nginx的欢迎页。</p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>以上我们介绍了MySQL、Tomcat、Nginx容器的创建，对于其他的服务，如Redis等操作基本相同，不再阐述。</p>
 <br>

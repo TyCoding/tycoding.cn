@@ -245,7 +245,7 @@ var _hmt = _hmt || [];
   
   
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/23/vue/vue-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TyCoding">
@@ -264,7 +264,7 @@ var _hmt = _hmt || [];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/25/ssm/ssm-redis-solr/" itemprop="url">使用SSM+Solr优雅的实现电商项目中的搜索功能</a></h1>
+                <a class="post-title-link" href="/2018/07/23/vue/vue-3/" itemprop="url">Vue组件</a></h1>
         
 
         <div class="post-meta">
@@ -276,8 +276,8 @@ var _hmt = _hmt || [];
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-25T16:17:26+08:00">
-                2018-09-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-23T20:36:38+08:00">
+                2018-07-23
               </time>
             
           </span>
@@ -296,596 +296,15 @@ var _hmt = _hmt || [];
 
       
         
-          <p>在学习了<a href="http://www.tycoding.cn/2018/09/24/other/redis/">Redis&amp;Spring-Data-Redis入门</a>和<a href="http://tycoding.cn/2018/09/24/other/solr/" target="_blank" rel="noopener">Solr&amp;Spring-Data-Solr入门</a>后，接下来就该是项目实战了。这次我们用Vue.JS和ElementUI写前端页面，优雅的整合SSM-Shiro-Redis-Solr框架。</p>
-<p><strong>手摸手教你优雅的实现电商项目中的Solr搜索功能，整合SSM框架和Shiro安全框架；教你用Vue.JS和ElementUI写出超漂亮的页面</strong></p>
-<p><strong>项目开源地址：<a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">SSM整合Solr实现电商项目中的搜索功能</a></strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/25/ssm/ssm-redis-solr/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/09/24/other/redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/24/other/redis/" itemprop="url">Redis及Spring-Data-Redis入门学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-24T19:34:09+08:00">
-                2018-09-24
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>继上一篇<a href="http://tycoding.cn/2018/09/24/other/solr/" target="_blank" rel="noopener">Solr和Spring Data Solr学习</a>，我们思考一个问题，使用Solr的目的是什么？肯定是为了加快服务器的相应速度。因为即使不适用Solr，通过请求数据库我们一样能完成搜索功能，但是这样会给服务器造成很大的压力。</p>
-<p>而Solr仅仅是在搜索功能中用到了，但是大量请求的数据不仅仅出现在搜索中，比如用户的登录信息，虽然数据量很小，但是整个项目每刷新一次页面都要请求一次用户登录的Token信息，也会拖慢服务器的响应速度。我们通常有两中解决方式：1.数据缓存；2.网页静态化。</p>
-<p>其实我们在<a href="https://github.com/TyCoding/shiro" target="_blank" rel="noopener">Shiro实现用户-角色-权限管理系统</a>中已经用到了缓存技术，今天我们了解一下Redis缓存技术。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/24/other/redis/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/09/24/other/solr/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/24/other/solr/" itemprop="url">Solr及Spring-Data-Solr入门学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-24T16:09:09+08:00">
-                2018-09-24
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>Solr的安装与配置</strong></p>
-<p>多数搜索引擎应用都必须具有某种搜索功能，而搜索功能往往大量的消耗资源导致应用程序运行缓慢。为此，出现了各种用于构建搜索的应用程序，我们要学习的solr正是其中的一款开源搜索平台。</p>
-<p>Apache Solr 是建立在Lucene(全文搜索引擎)之上，帮助我从大量的数据中寻找所需信息。不仅限于搜索，Solr也可用于储存目的。像其他NoSQL数据库一样，它是一种非关系数据储存和处理技术。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/24/other/solr/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/09/18/ssm/shiro/ssm-shiro/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/18/ssm/shiro/ssm-shiro/" itemprop="url">SSM框架整合Shiro后的开发</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-18T20:43:04+08:00">
-                2018-09-18
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>手摸手教你SSM框架整合Shiro后的开发</strong></p>
-<p>前面，我们学习了<a href="http://tycoding.cn/2018/09/15/ssm/shiro/shiro-database/" target="_blank" rel="noopener">Shiro实现权限管理之表结构设计</a>以及<a href="http://tycoding.cn/2018/09/17/ssm/ztree/" target="_blank" rel="noopener">JQuery-Ztree.js使用范例</a> ，接下来就详细介绍一下SSM框架整合Shiro框架后的开发。同样推荐大家参看张开涛老师的 <a href="http://jinnianshilongnian.iteye.com/blog/2049092" target="_blank" rel="noopener">跟我学Shiro</a> ，或者可以看我的笔记：<a href="http://tycoding.cn/2018/07/08/ssm/shiro/shiro-3/#more" target="_blank" rel="noopener">Shiro实现授权</a>、<a href="http://tycoding.cn/2018/07/07/ssm/shiro/shiro-2/#more" target="_blank" rel="noopener">Shiro实现身份认证</a>。</p>
-<p>如果你对SSM框架的整合不是很熟悉，你或许可以参看我的这个项目<a href="https://github.com/TyCoding/ssm" target="_blank" rel="noopener">SSM框架整合</a>。</p>
-<p>下面我们就开始实现一个SSM+Shiro的权限管理项目吧！</p>
-<p><strong>开源项目地址</strong> 请看我的Github仓库: <a href="https://github.com/TyCoding/shiro" target="_blank" rel="noopener">SSM框架整合Shiro后的开发</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/18/ssm/shiro/ssm-shiro/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/09/15/ssm/shiro/shiro-database/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/15/ssm/shiro/shiro-database/" itemprop="url">Shiro实现权限管理之表结构设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-15T21:43:28+08:00">
-                2018-09-15
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>权限框架Shiro学习之表结构设计</strong></p>
-<p>Shiro是一款优秀的开源安全框架，学习Shiro大家可以参考张开涛老师的博客:<a href="http://jinnianshilongnian.iteye.com/blog/2049092" target="_blank" rel="noopener">跟我学Shiro</a>，当然也可参考我之前的笔记：<a href="http://tycoding.cn/2018/07/07/ssm/shiro/shiro-2/" target="_blank" rel="noopener">Shiro实现身份认证</a>、<a href="http://tycoding.cn/2018/07/08/ssm/shiro/shiro-3/" target="_blank" rel="noopener">Shiro实现授权</a>。</p>
-<p>在学习完基础的Shiro入门知识，我们可以动手写一个小Demo了，这次我们将以一个用户-角色-权限管理的Demo来进一步学习Shiro。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/15/ssm/shiro/shiro-database/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/08/29/ssm/fastdfs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/29/ssm/fastdfs/" itemprop="url">FastDFS系统搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T08:20:57+08:00">
-                2018-08-29
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="手摸手教你搭建FasfDFS分布式文件系统"><a href="#手摸手教你搭建FasfDFS分布式文件系统" class="headerlink" title="手摸手教你搭建FasfDFS分布式文件系统"></a>手摸手教你搭建FasfDFS分布式文件系统</h1><p>由于正在学习的分布式项目中用到了<code>FastDFS</code>文件系统，因为各种原因就只好手动搭建环境。搭建过程确实很复杂，我也是折腾了好长时间才解决的，看了网上的教程，但很少有直接就能搭建成功得博文教程，所以这里自己写了一个完成的教程，并附带了所需的配置文件。</p>
-<p>需要注意的是Linux系统、版本的问题，我这里使用的是CentOS7的版本，如果大家搭建请尽量保证版本一致。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/ssm/fastdfs/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/08/05/vue/vue-7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/05/vue/vue-7/" itemprop="url">Vue+ElementUI+SpringMVC实现图片上传和回显</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-05T08:38:59+08:00">
-                2018-08-05
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Vue+ElementUI+SpringMVC实现图片上传和table回显</p>
-<p>在之前我们已经讲过了 <a href="http://tycoding.cn/2018/07/30/vue-6/#more" target="_blank" rel="noopener">Vue+ElementUI+SpringMVC实现分页</a> 。</p>
-<p>而我们也常遇到表单中包含图片上传的需求，并且需要在table中显示图片，所以这里我就讲一下结合后端的SpringMVC框架如何实现图片上传并提交到表单中，在table表格中回显照片。</p>
-<p>本案例对应的<strong>开源项目地址</strong>请看我的GitHub仓库：</p>
+          <h1 id="Vue创建组件"><a href="#Vue创建组件" class="headerlink" title="Vue创建组件"></a>Vue创建组件</h1><h2 id="什么是组件"><a href="#什么是组件" class="headerlink" title="什么是组件"></a>什么是组件</h2><p>什么是组件？组件的出现，就是为了拆分Vue实例的代码量的，能够让我们以不同的组件，来划分不同的功能模块，将来我们需要什么样地方功能，就可以去调用对应的组件即可。</p>
+<p>组件化和模块化的区别：</p>
 <ul>
-<li><p><a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">优雅的入门SpringBoot+Mybatis，实现简单的CRUD </a></p>
-</li>
-<li><p><a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">优雅的实现电商项目中搜索功能，整合SSM+Redis+Shiro+Solr框架，教你使用Vue+ElementUI写一个炫酷的后端页面 </a></p>
-</li>
+<li>模块化：是从代码逻辑的角度进行划分的，方便代码分层开发，保证每个功能模块的只能单一；</li>
+<li>组件化：是从UI界面的角度进行划分的；前端的组件化，方便了UI组件的重用；</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/05/vue/vue-7/#more" rel="contents">
+            <a class="btn" href="/2018/07/23/vue/vue-3/#more" rel="contents">
               READ MORE &raquo;
             </a>
           </div>
@@ -925,7 +344,7 @@ var _hmt = _hmt || [];
   
   
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/30/vue/vue-6/">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/22/vue/vue-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TyCoding">
@@ -944,7 +363,7 @@ var _hmt = _hmt || [];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/30/vue/vue-6/" itemprop="url">Vue+ElementUI+SpringMVC实现分页</a></h1>
+                <a class="post-title-link" href="/2018/07/22/vue/vue-2/" itemprop="url">Vue过滤器和vue-resource</a></h1>
         
 
         <div class="post-meta">
@@ -956,8 +375,8 @@ var _hmt = _hmt || [];
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-30T16:25:42+08:00">
-                2018-07-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-22T22:02:36+08:00">
+                2018-07-22
               </time>
             
           </span>
@@ -976,18 +395,12 @@ var _hmt = _hmt || [];
 
       
         
-          <h1 id="Vue-ElementUI-SpringMVC实现分页"><a href="#Vue-ElementUI-SpringMVC实现分页" class="headerlink" title="Vue + ElementUI + SpringMVC实现分页"></a>Vue + ElementUI + SpringMVC实现分页</h1><p>这一段时间写项目用到了Vue+ElementUI，这里记录一下使用ElementUI内置分页插件结合后端SSM框架的实现思路和实现过程。</p>
-<p>其中遇到了很多坑，我会尽量把见到的坑都记录下来，希望对你有所帮助。</p>
-<p>本案例对应的<strong>开源项目地址</strong>请看我的GitHub仓库：</p>
-<ul>
-<li><p><a href="https://github.com/TyCoding/spring-boot" target="_blank" rel="noopener">优雅的入门SpringBoot+Mybatis，实现简单的CRUD </a></p>
-</li>
-<li><p><a href="https://github.com/TyCoding/ssm-redis-solr" target="_blank" rel="noopener">优雅的实现电商项目中搜索功能，整合SSM+Redis+Shiro+Solr框架，教你使用Vue+ElementUI写一个炫酷的后端页面 </a></p>
-</li>
-</ul>
+          <h1 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h1><p>之前我们学习了Vue的 <a href="http://tycoding.cn/2018/07/21/vue-1/#more" target="_blank" rel="noopener">vue基本指令</a> 进阶学习，我们需要了解Vue的过滤器：Vue.js允许你自定义过滤器，可被用作一些常见元素的格式化。过滤器可以用在两个地方：mustache插值<code></code>和<code>v-bind</code>表达式。</p>
+<p>用法： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; 过滤器名称 | function &#125;&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/30/vue/vue-6/#more" rel="contents">
+            <a class="btn" href="/2018/07/22/vue/vue-2/#more" rel="contents">
               READ MORE &raquo;
             </a>
           </div>
@@ -1027,7 +440,7 @@ var _hmt = _hmt || [];
   
   
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/27/vue/vue-5/">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/21/vue/vue-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TyCoding">
@@ -1046,7 +459,7 @@ var _hmt = _hmt || [];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/27/vue/vue-5/" itemprop="url">Vue实现前后端分离项目的初体验</a></h1>
+                <a class="post-title-link" href="/2018/07/21/vue/vue-1/" itemprop="url">初识Vue</a></h1>
         
 
         <div class="post-meta">
@@ -1058,8 +471,8 @@ var _hmt = _hmt || [];
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-27T15:33:16+08:00">
-                2018-07-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-21T20:58:12+08:00">
+                2018-07-21
               </time>
             
           </span>
@@ -1078,19 +491,15 @@ var _hmt = _hmt || [];
 
       
         
-          <p><strong>Vue实现前后端分离项目的初体验</strong></p>
-<p>经过之前学习的Vue的知识：</p>
+          <p><strong>什么是Vue.js</strong></p>
 <ul>
-<li><a href="http://tycoding.cn/2018/07/21/vue-1/#more" target="_blank" rel="noopener">vue基本指令</a></li>
-<li><a href="http://tycoding.cn/2018/07/23/vue-3/#more" target="_blank" rel="noopener">vue组件</a></li>
-<li><a href="http://tycoding.cn/2018/07/22/vue-2/#more" target="_blank" rel="noopener">vue-resource</a></li>
-<li><a href="http://tycoding.cn/2018/07/23/vue-3/#more" target="_blank" rel="noopener">vue路由</a></li>
+<li>Vue.js是目前很火的前端框架；与Angular.js、React.js并称为前端三大主流框架。</li>
+<li>Vue.js是一套构建用户界面的框架，只关注视图层（MVC中的V层）；它易于上手，便于和第三方库或既有项目整合，</li>
+<li>在Vue中，一个核心的概念就是减少对DOM元素的操作，让程序员更多的去关注业务逻辑。</li>
 </ul>
-<p>其实我们已经可以开始实战运用到实际的Web项目中了，由于本人是Java后端开发的，所以后端是基于SpringMVC的。</p>
-<p>以下我们将演示如何使用Vue组件实现一个用户登录系统。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/27/vue/vue-5/#more" rel="contents">
+            <a class="btn" href="/2018/07/21/vue/vue-1/#more" rel="contents">
               READ MORE &raquo;
             </a>
           </div>
@@ -1130,7 +539,7 @@ var _hmt = _hmt || [];
   
   
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/25/vue/vue-4/">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/06/04/ssm/ssm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TyCoding">
@@ -1149,7 +558,7 @@ var _hmt = _hmt || [];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/25/vue/vue-4/" itemprop="url">Vue路由</a></h1>
+                <a class="post-title-link" href="/2018/06/04/ssm/ssm/" itemprop="url">Spring、SpringMVC、Mybatis整合之工程的搭建</a></h1>
         
 
         <div class="post-meta">
@@ -1161,8 +570,8 @@ var _hmt = _hmt || [];
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-25T10:04:15+08:00">
-                2018-07-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-04T00:00:00+08:00">
+                2018-06-04
               </time>
             
           </span>
@@ -1181,16 +590,107 @@ var _hmt = _hmt || [];
 
       
         
-          <h1 id="Vue路由"><a href="#Vue路由" class="headerlink" title="Vue路由"></a>Vue路由</h1><p><strong>什么是Vue路由？</strong></p>
-<ul>
-<li><p><strong>后端路由：</strong>即请求的URL地址都对应后端的接口，请求URL响应对应的服务器的资源。</p>
-</li>
-<li><p><strong>前段路由：</strong>对于单页面程序来说，主要通过URL中的hash(#号)来实现不同页面之间的切换，同时，hash有一个特点：HTTP请求中不会包含hash相关的内容；所以单页面程序中的页面跳转主要通过hash实现。</p>
-</li>
-</ul>
+          <p><strong>SSM框架整合之环境配置部分</strong></p>
+<p>学习完了Spring、SpringMVC、Mybatis框架，我们就可以尝试系统将三者进行整合。整合并不复杂，我们只需要实现最基础的配置，即可轻松的掌握SSM框架是如何实际项目中使用的。<br>基于上一篇博文：<a href="http://tycoding.cn/2018/06/01/ssm/maven/" target="_blank" rel="noopener">maven起步</a>，我们应该知道了如何搭建maven项目，那么在此基础上，手把手教你搭建Spring、SpringMVC、Mybatis框架的环境。</p>
+<p>源码请 <a href="https://github.com/TyCoding/ssm" target="_blank" rel="noopener">点击这里</a> 前往我的GitHub。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/25/vue/vue-4/#more" rel="contents">
+            <a class="btn" href="/2018/06/04/ssm/ssm/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/06/01/ssm/maven/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/01/ssm/maven/" itemprop="url">使用IDEA搭建一个maven项目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-01T13:32:29+08:00">
+                2018-06-01
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>maven起步</strong></p>
+<p><strong>maven</strong>作为一个项目管理工具被用于管理项目中的jar包，因此能大大的减轻我们项目的体积。要知道项目体积大基本就是项目的jar依赖体积过大造成的，刨去这些依赖文件，实际编写的代码占用的空间很小很小。<br>接下来我们会实战在IDEA上搭建一个maven项目，快来看看吧！</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/01/ssm/maven/#more" rel="contents">
               READ MORE &raquo;
             </a>
           </div>
@@ -1226,7 +726,7 @@ var _hmt = _hmt || [];
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
   </nav>
 
 

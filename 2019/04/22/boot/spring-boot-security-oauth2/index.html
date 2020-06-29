@@ -72,24 +72,24 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="在前面我们讲了：Spring Security OAuth2概念引入 这次我们讲解如何在Spring Boot中使用Spring Security OAuth2搭建权限脚手架项目。 :tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-203819.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-203951.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-204235.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-210819.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-214710.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215027.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190423-140351.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215547.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215702.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215825.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215954.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-152231.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-154436.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092110.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092113.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092117.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092121.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092124.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092129.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092133.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092137.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092140.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092143.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092147.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092154.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092157.png">
+<meta property="og:updated_time" content="2020-06-29T01:22:24.312Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Security OAuth2实战">
 <meta name="twitter:description" content="在前面我们讲了：Spring Security OAuth2概念引入 这次我们讲解如何在Spring Boot中使用Spring Security OAuth2搭建权限脚手架项目。 :tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-203819.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629092110.png">
 
 
 
@@ -361,38 +361,38 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello, this is test interface"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/info/&#123;name&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">info</span><span class="params">(@PathVariable String name)</span> </span>&#123;</span><br><span class="line">        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello "</span> + name + <span class="string">", this your info"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>访问<code>localhost:8080/hello</code>:</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-203819.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092110.png" alt></p>
 <p>不拦截，正常。</p>
 <p>访问：<code>localhost:8080/info/tycoding</code>:</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-203951.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092113.png" alt></p>
 <p>为授权，被拦截，正常。</p>
 <h3 id="oauth-token获取Token"><a href="#oauth-token获取Token" class="headerlink" title="/oauth/token获取Token"></a><code>/oauth/token</code>获取Token</h3><p>在Postman上测试<code>localhost:8080/oauth/token?username=user_1&amp;password=123456&amp;grant_type=password</code>接口：</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-204235.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092117.png" alt></p>
 <p>可以看到依然被拦截，这是因为Spring Security配置中默认食用Basic认证方式。我们直接将这个请求粘贴到浏览器上：</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-210819.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092121.png" alt></p>
 <p>要解决这个问题，Postman提供模拟Basic登陆的效果：</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-214710.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092124.png" alt></p>
 <h3 id="使用Token访问受保护的资源"><a href="#使用Token访问受保护的资源" class="headerlink" title="使用Token访问受保护的资源"></a>使用Token访问受保护的资源</h3><p>按照上述方式获取到了<code>access_token</code>值，在浏览器上直接访问<code>localhost:8080/info/tycoding?access_token=xxx</code>:</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215027.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092129.png" alt></p>
 <p>看到，还是被拦截，按道理，既然第三方应用拿到了Token值，通过这个Token值应该可以获取到受保护的资源。</p>
 <p>这时就需要配置Resource Server了，前面我们仅仅提到了，并没有配置，那么这里创建Resource Server的配置：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableResourceServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResourceServerConfig</span> <span class="keyword">extends</span> <span class="title">ResourceServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果启用了<code>@EnableResourceServer</code>的配置，那么应该重写<code>configure(HttpSecurity http)</code>方法，和<code>@EnableWebSecurity</code>标记类的配置类似，我们这里要配置不需要拦截的请求。如果你仅仅是在<code>@EnableWebSecurity</code>配置类中配置了<code>/hello</code>请求不拦截，而你启用了<code>@EnableResourceServer</code>配置，但并没有配置<code>HttpSecurity</code>的过滤配置，那么默认OAuth还是拦截所有，直接访问<code>/hello</code>反而也被拦截到：</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190423-140351.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092133.png" alt></p>
 <p>所以，应该配置为：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableResourceServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResourceServerConfig</span> <span class="keyword">extends</span> <span class="title">ResourceServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/hello"</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .anyRequest()</span><br><span class="line">                .authenticated()</span><br><span class="line"></span><br><span class="line">                .and()</span><br><span class="line">                .csrf().disable();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>重新运行项目，获取到Token值，直接去浏览器访问：<code>localhost:8080/info/tycoding?access_token=xx</code>:</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215547.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092137.png" alt></p>
 <p>出现这个错误可能是你的Token值需要更新了。</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215702.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092140.png" alt></p>
 <p>正常访问</p>
 <h3 id="oauth-check-token"><a href="#oauth-check-token" class="headerlink" title="/oauth/check_token"></a><code>/oauth/check_token</code></h3><p>这个接口用于校验此token是否过期</p>
 <p>如果错误或过期：</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215825.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092143.png" alt></p>
 <p>如果正确为过期：</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-215954.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092147.png" alt></p>
 <p>显示该Token对应第三方应用和用户的数据。</p>
 <h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><p>以下是我们在整合Spring Security OAuth2常见的错误：</p>
 <h3 id="Request-method-39-GET-39-not-supported”"><a href="#Request-method-39-GET-39-not-supported”" class="headerlink" title="Request method &#39;GET&#39; not supported”"></a>Request method &#39;GET&#39; not supported”</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"error"</span>: <span class="string">"method_not_allowed"</span>,</span><br><span class="line">  <span class="attr">"error_description"</span>: <span class="string">"Request method &amp;#39;GET&amp;#39; not supported"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -436,13 +436,13 @@ var _hmt = _hmt || [];
 <li>错误描述</li>
 </ol>
 <p>如果是使用的Postman工具请求的URL，报这个错误，通常是因为配置的Spring Security拦截了这个请求，并启用了Basic的验证方式，我们直接将这个URL放在浏览器上访问，则会弹出Basic密码验证框：</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-152231.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092154.png" alt></p>
 <p>正确输入客户端(Client)的账户（clientId）、密码(secret)，即可访问。</p>
 <ol start="2">
 <li>解决方案</li>
 </ol>
 <p>要解决这个问题，就要考虑怎么能让Postman请求不经过Basic登录框这个验证方式，这就需要知道Basic的加密方式。其实Basic登录框最终是将输入的用户名和密码通过Base64加密，然后在前面加上<code>Basic base64</code>，然后去请求这个URL接口，所以我们需要在 <a href="http://tool.oschina.net/encrypt?type=3" target="_blank" rel="noopener">在线加密解密网站</a> 将Client用户名和密码按照：<code>name:password</code>格式加密，最终在Postman中设置请求头<code>Authorization: Basic xxx</code>，这个xxx是按照<code>name:password</code>格式加密的数据：</p>
-<p><img src="/2019/04/22/boot/spring-boot-security-oauth2/QQ20190422-154436.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092157.png" alt></p>
 <h3 id="Full-authentication-is-required-to-access-this-resource"><a href="#Full-authentication-is-required-to-access-this-resource" class="headerlink" title="Full authentication is required to access this resource"></a>Full authentication is required to access this resource</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"error"</span>: <span class="string">"unauthorized"</span>,</span><br><span class="line">    <span class="attr">"error_description"</span>: <span class="string">"Full authentication is required to access this resource"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol>

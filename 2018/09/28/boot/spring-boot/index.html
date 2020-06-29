@@ -72,18 +72,18 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="初识Spring Boot:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 在之前我们一直使用Spring、SpringMVC进行开发，的确，Spring让我们认识到了项目开发原来可以这么方便。但是大量的配置文件却是令人头痛的，即使我们想写一个简单的请求映射并在浏览器上发送Get请求测试，那">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/28/boot/spring-boot/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/28/boot/spring-boot/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/28/boot/spring-boot/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/28/boot/spring-boot/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/28/boot/spring-boot/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/28/boot/spring-boot/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/28/boot/spring-boot/7.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090621.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090721.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090731.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090737.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090743.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090750.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629090756.png">
+<meta property="og:updated_time" content="2020-06-29T01:08:05.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（一）Spring-Boot入门之工程搭建">
 <meta name="twitter:description" content="初识Spring Boot:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 在之前我们一直使用Spring、SpringMVC进行开发，的确，Spring让我们认识到了项目开发原来可以这么方便。但是大量的配置文件却是令人头痛的，即使我们想写一个简单的请求映射并在浏览器上发送Get请求测试，那">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/09/28/boot/spring-boot/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629090621.png">
 
 
 
@@ -319,15 +319,15 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>1.选择Spring Initializr，并选择本地的JDK版本</p>
 </blockquote>
-<p><img src="/2018/09/28/boot/spring-boot/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090621.png" alt></p>
 <blockquote>
 <p>2.Next，指定Group和Artifact名称，并选择本机JDK版本</p>
 </blockquote>
-<p><img src="/2018/09/28/boot/spring-boot/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090721.png" alt></p>
 <blockquote>
 <p>3.选择项目所需依赖</p>
 </blockquote>
-<p><img src="/2018/09/28/boot/spring-boot/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090731.png" alt></p>
 <p><strong>解释</strong></p>
 <p><code>devtools</code>: SpringBoot提供的热部署插件，可以避免每次修改代码都要重新启动项目。。</p>
 <p><code>lomback</code>: 使用Lomback可以减少项目中很多重复代码的书写，比如getter/setter/toString等方法的书写（虽然这些可能我们都是用的快捷键生成的代码）。具体用法可以参考博文：<a href="https://blog.csdn.net/motui/article/details/79012846" target="_blank" rel="noopener">lomback介绍</a></p>
@@ -335,7 +335,7 @@ var _hmt = _hmt || [];
 <p><strong>注意：</strong> 以上依赖非必选，如果仅仅想尝试一下Spring Boot-HelloWorld，只需要选择其中的<code>web</code>依赖即可。</p>
 <br>
 
-<h1 id="SpringBoot起步"><a href="#SpringBoot起步" class="headerlink" title="SpringBoot起步"></a>SpringBoot起步</h1><p><img src="/2018/09/28/boot/spring-boot/4.png" alt></p>
+<h1 id="SpringBoot起步"><a href="#SpringBoot起步" class="headerlink" title="SpringBoot起步"></a>SpringBoot起步</h1><p><img src="http://cdn.tycoding.cn/20200629090737.png" alt></p>
 <p>以上是新创建的Spring Boot项目。在SpringBoot中有一个启动器（引导类）的概念，我们首先看一下<code>SpringbootApplication.java</code>:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringbootApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(SpringbootApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -349,9 +349,9 @@ var _hmt = _hmt || [];
 <p>So,</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Run SpringBootApplication</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/09/28/boot/spring-boot/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090743.png" alt></p>
 <p>发现报错，说<code>DataSource</code>数据源的url地址没有配置。之前我们提到了SpringBoot的特性就是自动化配置，它会根据你的依赖文件来配置项目，我们再看一下我们的<code>pom.xml</code>：</p>
-<p><img src="/2018/09/28/boot/spring-boot/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090750.png" alt></p>
 <p>其中最上层的<code>&lt;parent&gt;</code>节点约束了整个下面所有spring-boot依赖的版本，即这里使用了SpringBoot-2.0.5。然后关注<code>&lt;dependencies&gt;</code>节点下的前四个依赖：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -363,7 +363,7 @@ var _hmt = _hmt || [];
 <p><code>mybatis-spring-boot-starter</code>: 整合spring-mybatis依赖。</p>
 <p>前面我们强调的一点是Spring Boot能实现自动化配置，那么项目的依赖就决定了Spring Boot将如何自动配置项目，Spring Boot的启动器就决定了项目会以什么样的配置启动项目；如此，我们会明白这个报错是为什么了。</p>
 <p>因为我们配置配置JDBC连接的数据库，所以报错，注释掉<code>spring-boot-starter-jdbc</code>和<code>mybatis-spring-boot-starter</code>依赖，再次启动<code>SpringBootApplication</code>:</p>
-<p><img src="/2018/09/28/boot/spring-boot/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629090756.png" alt></p>
 <p>启动成功。</p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>在<code>src/main/java/cn/tycoding/springboot/</code>下创建<code>controller</code>文件夹并创建<code>LoginController.java</code>类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestParam(<span class="string">"username"</span>)</span> String username, @<span class="title">RequestParam</span><span class="params">(<span class="string">"password"</span>)</span> String password) </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"username:"</span> + username + <span class="string">", password:"</span> + password);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

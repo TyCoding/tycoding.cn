@@ -72,26 +72,26 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Vue实现前后端分离项目的初体验 经过之前学习的Vue的知识：  vue基本指令 vue组件 vue-resource vue路由  其实我们已经可以开始实战运用到实际的Web项目中了，由于本人是Java后端开发的，所以后端是基于SpringMVC的。 以下我们将演示如何使用Vue组件实现一个用户登录系统。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/10.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/11.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/15.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/12.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/13.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/14.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094858.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094901.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094907.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094911.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094914.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094920.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094924.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094928.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094934.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094938.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094946.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094953.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094958.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095005.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095008.png">
+<meta property="og:updated_time" content="2020-06-29T01:50:12.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue实现前后端分离项目的初体验">
 <meta name="twitter:description" content="Vue实现前后端分离项目的初体验 经过之前学习的Vue的知识：  vue基本指令 vue组件 vue-resource vue路由  其实我们已经可以开始实战运用到实际的Web项目中了，由于本人是Java后端开发的，所以后端是基于SpringMVC的。 以下我们将演示如何使用Vue组件实现一个用户登录系统。">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/07/27/vue/vue-5/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629094858.png">
 
 
 
@@ -337,8 +337,8 @@ var _hmt = _hmt || [];
 <li><a href="http://element.eleme.io/#/zh-CN" target="_blank" rel="noopener">element-ui</a></li>
 </ul>
 <p>以上技术都是比较常用的，<code>webpack</code>类似一个打包工具，它会将你项目中的Vue组件打包为一个庞大的<code>js</code>文件（当然我们是看不懂的），而我们的前端项目是部署在<code>node.js</code>提供的web容器中的。</p>
-<p>即前后端分离的实际效果是这样的：<br><img src="/2018/07/27/vue/vue-5/1.png" alt="index.html"></p>
-<p><img src="/2018/07/27/vue/vue-5/2.png" alt="index"></p>
+<p>即前后端分离的实际效果是这样的：<br><img src="http://cdn.tycoding.cn/20200629094858.png" alt="index.html"></p>
+<p><img src="http://cdn.tycoding.cn/20200629094901.png" alt="index"></p>
 <p>有没有感觉很神奇，哈哈，反正我第一次见到的时候就是觉得很神奇，因为<code>html</code>中完全看不到任何js、css代码，但是却能渲染出来这么好看的页面。下面我们就讲一下，怎么实现这个过程吧！！</p>
 <br>
 
@@ -357,22 +357,22 @@ var _hmt = _hmt || [];
 <p>具体安装流程可以参看：<a href="https://blog.csdn.net/qq_36711388/article/details/79405402" target="_blank" rel="noopener">博文</a></p>
 <p>由于<strong>VueCLI脚手架</strong>已经帮我们安装好了<code>webpack</code>、以及相关的node依赖包，所以我们不需要再手动安装了。</p>
 <h2 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h2><p>如果安装完成，我们可以看到出现如下目录结构：</p>
-<p><img src="/2018/07/27/vue/vue-5/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094907.png" alt></p>
 <h3 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h3><p>在终端项目路径下输入<code>npm run dev</code>命令；正常情况下，会出现如下信息：</p>
-<p><img src="/2018/07/27/vue/vue-5/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094911.png" alt></p>
 <p>在浏览器中输入指定的URL，会出现如下页面：</p>
-<p><img src="/2018/07/27/vue/vue-5/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094914.png" alt></p>
 <p>我们继续观察，打开项目中的<code>index.html</code></p>
-<p><img src="/2018/07/27/vue/vue-5/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094920.png" alt></p>
 <p>我们看到，这个HTML中没有任何代码，甚至没有引入js、css，但是页面中的视图是怎样渲染出来的呢？</p>
 <p>仔细看项目结构，我们能看到在<code>src/components/</code>下有一个<code>HelloWorld.vue</code>程序，我们页面中的程序就是通过这些<code>.vue</code>组件来渲染出来的。</p>
 <h3 id="打包项目"><a href="#打包项目" class="headerlink" title="打包项目"></a>打包项目</h3><p>如果我们想将项目部署到服务器上，你放一堆<code>.vue</code>程序，浏览器是无法解析出来的，所以我们需要了解一下<code>webpack</code>的打包命令：</p>
 <blockquote>
 <p>npm run build</p>
 </blockquote>
-<p><img src="/2018/07/27/vue/vue-5/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094924.png" alt></p>
 <p>正常情况下，会显示上图中的信息，表示打包成功了，会在项目根目录中生成一个叫<code>dist</code>的文件夹，里面是生成的静态项目：</p>
-<p><img src="/2018/07/27/vue/vue-5/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094928.png" alt></p>
 <p>我们双击<code>dist/index.html</code>，会看到和之前一样的页面，但是其中引入了一个<code>XX.js</code>文件</p>
 <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>经过上面的步骤我们应该了解到了所谓前端分离的简易概念，其实在之前的博文： <a href="http://tycoding.cn/2018/07/23/vue-3/#more" target="_blank" rel="noopener">Vue组件</a> 我们已经了解到了Vue的模块化开发流程。配合<code>.vue</code>组件，其实思路还是相同的。</p>
 <h2 id="搭建前端"><a href="#搭建前端" class="headerlink" title="搭建前端"></a>搭建前端</h2><p>开始之前，我们首先要安装<code>vue-resource</code>（<code>element-ui</code>），执行：</p>
@@ -386,9 +386,9 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">	router,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>完整代码：</p>
-<p><img src="/2018/07/27/vue/vue-5/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094934.png" alt></p>
 <h3 id="第二步：修改router-index-js"><a href="#第二步：修改router-index-js" class="headerlink" title="第二步：修改router/index.js"></a>第二步：修改router/index.js</h3><p>这是有关Vue路由的配置，前面我们也已经讲过了vue的路由，这里不再多说，代码如下：</p>
-<p><img src="/2018/07/27/vue/vue-5/10.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094938.png" alt></p>
 <p>如上就配置了，如果你访问<code>localhost:8081/</code>，那么就会自动路由跳转到<code>login.vue</code>组件中，提示我们登录;其中的<code>/home</code>表示，如果登录成功，就跳转到<code>home.vue</code>组件中，相当于登录成功后跳转到后台页面。</p>
 <h3 id="第三步：创建login-vue"><a href="#第三步：创建login-vue" class="headerlink" title="第三步：创建login.vue"></a>第三步：创建login.vue</h3><p>在<code>src/components/</code>下创建<code>login.vue</code>组件。</p>
 <p>login组件中表单样式就不再讲了，我们主要看一下怎样利用<code>v-model</code>绑定表单数据，并请求后端</p>
@@ -403,7 +403,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>为什么不关注其他的？<br>注意，这个案例由于我使用了<code>element-ui</code>，从标签中就能看出来，其中涉及到了一些element-ui提供的js校验，我们只需要关注Vue的逻辑即可。</p>
 <p><strong>提交表单</strong></p>
-<p>关于上面提到的element-ui的校验部分<br><img src="/2018/07/27/vue/vue-5/11.png" alt></p>
+<p>关于上面提到的element-ui的校验部分<br><img src="http://cdn.tycoding.cn/20200629094946.png" alt></p>
 <p>表单提交方法部分</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">    submitForm(login) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$refs[login].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">                <span class="comment">//提交表单</span></span><br><span class="line">                <span class="keyword">this</span>.$http.post(<span class="string">'http://127.0.0.1:8080/login.do'</span>, &#123;</span><br><span class="line">                    username: <span class="keyword">this</span>.login.username,</span><br><span class="line">                    password: <span class="keyword">this</span>.login.password</span><br><span class="line">                &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(result);</span><br><span class="line">                    <span class="keyword">if</span> (result.bodyText === <span class="string">'index'</span>) &#123;</span><br><span class="line">                        <span class="keyword">this</span>.$router.push(&#123; <span class="attr">path</span>: <span class="string">'home'</span> &#125;); <span class="comment">//跳转到home组件中</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">"登录失败"</span>);</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -431,7 +431,7 @@ var _hmt = _hmt || [];
 </li>
 </ul>
 <h3 id="第四部：创建home-vue"><a href="#第四部：创建home-vue" class="headerlink" title="第四部：创建home.vue"></a>第四部：创建home.vue</h3><p>在<code>src/components/</code>下创建<code>home.vue</code>组件</p>
-<p><img src="/2018/07/27/vue/vue-5/15.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094953.png" alt></p>
 <br>
 <br>
 
@@ -442,7 +442,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--配置允许跨域访问--&gt;</span><br><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CorsFilter&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;org.apache.catalina.filters.CorsFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;CorsFilter&lt;/filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p>讲了那么多，终于到了Controller层，这里就比较简单了，就是根据获取到的参数判断数据库中有没有对应的用户，有就登录成功，否者亏登录失败。</p>
-<p><img src="/2018/07/27/vue/vue-5/12.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094958.png" alt></p>
 <p>由于我这里使用了shiro，需要将密码加密处理，所以没有直接传入到service层，当然思路是相同的。</p>
 <p><strong>注意：</strong></p>
 <ul>
@@ -450,9 +450,9 @@ var _hmt = _hmt || [];
 <li>接受的参数要用<code>@RequestParam</code>注解标记，不然会接受不到前端传递的数据</li>
 </ul>
 <p><strong>请求成功</strong></p>
-<p><img src="/2018/07/27/vue/vue-5/13.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095005.png" alt></p>
 <p>跳转到home组件中：</p>
-<p><img src="/2018/07/27/vue/vue-5/14.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095008.png" alt></p>
 <br>
 
 <h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>

@@ -72,21 +72,21 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Solr的安装与配置 多数搜索引擎应用都必须具有某种搜索功能，而搜索功能往往大量的消耗资源导致应用程序运行缓慢。为此，出现了各种用于构建搜索的应用程序，我们要学习的solr正是其中的一款开源搜索平台。 Apache Solr 是建立在Lucene(全文搜索引擎)之上，帮助我从大量的数据中寻找所需信息。不仅限于搜索，Solr也可用于储存目的。像其他NoSQL数据库一样，它是一种非关系数据储存和处理技">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/solr/10.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095442.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095448.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095452.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095457.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095509.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095513.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095516.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095521.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095526.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095529.png">
+<meta property="og:updated_time" content="2020-06-29T01:55:47.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Solr及Spring-Data-Solr入门学习">
 <meta name="twitter:description" content="Solr的安装与配置 多数搜索引擎应用都必须具有某种搜索功能，而搜索功能往往大量的消耗资源导致应用程序运行缓慢。为此，出现了各种用于构建搜索的应用程序，我们要学习的solr正是其中的一款开源搜索平台。 Apache Solr 是建立在Lucene(全文搜索引擎)之上，帮助我从大量的数据中寻找所需信息。不仅限于搜索，Solr也可用于储存目的。像其他NoSQL数据库一样，它是一种非关系数据储存和处理技">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/09/24/other/solr/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629095442.png">
 
 
 
@@ -327,7 +327,7 @@ var _hmt = _hmt || [];
 
 <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>在 <a href="http://mirrors.hust.edu.cn/apache/lucene/solr/7.4.0/" target="_blank" rel="noopener">Apache Solr官网</a>  下载最新版的Solr，在 <a href="https://tomcat.apache.org/download-80.cgi" target="_blank" rel="noopener">Apache Tomcat官网</a> 下载Tomcat。</p>
 <p>解压solr，发现其中有如下目录结构</p>
-<p><img src="/2018/09/24/other/solr/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095442.png" alt></p>
 <p>新版本的Solr和老版本的不同，老版本中直接提供的是war文件，新版本则是提供了直接可运行的项目；其次需要导入项目中的的文件也有所不同的。下面我们介绍一下完整的配置和Solr项目的启动：</p>
 <ul>
 <li>1、将<code>solr-7.4.0/server/solr-webapp/</code>下的<code>webapp</code>文件夹拷贝到Tomcat下的<code>webapps</code>目录下（并重命名为solr）。</li>
@@ -336,23 +336,23 @@ var _hmt = _hmt || [];
 <li>4、将<code>solr/7.4.0/server/solr</code>文件夹复制到任意一个位置并重命名为<code>solrhome</code>。</li>
 <li>5、修改<code>tomcat/webapps/solr/WEB-INF/web.xml</code>文件的第41行，指定solrhome所在的目录。</li>
 </ul>
-<p><img src="/2018/09/24/other/solr/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095448.png" alt></p>
 <ul>
 <li>6、在<code>webapps/solr/WEB-INF/web.xml</code>下的第125行出添加注释，也就是注释<code>&lt;security-constraint&gt;&lt;/secirity-constraint&gt;</code>节点下的配置。</li>
 </ul>
-<p><img src="/2018/09/24/other/solr/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095452.png" alt></p>
 <ul>
 <li>7、启动Tomcat，在浏览器中访问<code>http://localhost:8080/solr/index.html</code>即可访问到<code>solr Admin</code></li>
 </ul>
-<p><img src="/2018/09/24/other/solr/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095457.png" alt></p>
 <p>如上所示，你会发现其左下角显示的是<code>No cores</code>，这和老版本的可能又有所差别，所以我们点击<code>No cores</code>，创建一个新的<code>cores</code>，那么会在我们指定的<code>solrhome</code>文件夹内产生一个<code>new_core</code>的空文件夹，并且页面会报错：<code>Can&#39;t find resource &#39;solrconfig.xml&#39; in xxx</code>，表示的就是在这个新core下的conf文件夹下没有找到solrconfig.xml文件：</p>
-<p><img src="/2018/09/24/other/solr/5.png" alt></p>
-<p><img src="/2018/09/24/other/solr/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095509.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095513.png" alt></p>
 <p>我们需要将复制来的<code>configsets/_default/conf</code>这个文件夹（或者<code>solr-7.4.0/server/solr/configsets/_default/conf</code>文件夹）复制到<code>solrhome/new_core/</code>文件夹下。</p>
 <ul>
 <li>8、重启Tomcat服务器，发现还是没有出现新的core，点击<code>No cores</code>那里点击<code>add core</code>，此时就会完整的创建一个新的core，在<code>solrhome/new_core</code>文件夹下会生成新的文件：</li>
 </ul>
-<p><img src="/2018/09/24/other/solr/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095516.png" alt></p>
 <ul>
 <li>至此Solr已经安装完成。</li>
 </ul>
@@ -372,11 +372,11 @@ var _hmt = _hmt || [];
 <ul>
 <li>6、重启Tomcat服务器，重新访问项目，点击<code>new_core</code>下的Schema功能，在select下拉框中输入<code>text_ik</code>如果出现刚创建的<code>text_ik</code>，说明IK中文分词器安装成功。</li>
 </ul>
-<p><img src="/2018/09/24/other/solr/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095521.png" alt></p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>未使用分词器效果：</p>
-<p><img src="/2018/09/24/other/solr/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095526.png" alt></p>
 <p>使用了分词器的效果显而易见：</p>
-<p><img src="/2018/09/24/other/solr/10.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095529.png" alt></p>
 <br>
 
 <h2 id="配置域"><a href="#配置域" class="headerlink" title="配置域"></a>配置域</h2><p>solr和其他NoSQL数据库一样可以实现数据存储，所以我们可以以数据库的思想想象一下solr，之前我们新创建的<code>core</code>就类似一个数据库，那么下面要配置的<code>域</code>就相当于数据库的表字段，因此要手动的去定义系统中需要的字段Field（域）。</p>
@@ -543,8 +543,8 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/18/ssm/shiro/ssm-shiro/" rel="next" title="SSM框架整合Shiro后的开发">
-                <i class="fa fa-chevron-left"></i> SSM框架整合Shiro后的开发
+              <a href="/2018/08/05/vue/vue-7/" rel="next" title="Vue+ElementUI+SpringMVC实现图片上传和回显">
+                <i class="fa fa-chevron-left"></i> Vue+ElementUI+SpringMVC实现图片上传和回显
               </a>
             
           </div>

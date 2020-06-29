@@ -72,15 +72,15 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="秒杀系统在如今电商项目中是很常见的，最近在学习电商项目时讲到了秒杀系统的实现，于是打算使用SpringBoot框架学习一下秒杀系统（本项目基于慕课网的一套免费视频教程：Java高并发秒杀API，视频教程中讲解的很详细，非常感谢这位讲师）。也是因为最近学习了SpringBoot框架（GitHub教程：SpringBoot入门之CRUD ），觉得SpringBoot框架确实比传统SSM框架方便了很多，">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/show-1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/show-2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/show-3.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100416.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100428.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100432.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100436.png">
+<meta property="og:updated_time" content="2020-06-29T02:04:40.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot实现Java高并发秒杀系统之DAO层开发（一）">
 <meta name="twitter:description" content="秒杀系统在如今电商项目中是很常见的，最近在学习电商项目时讲到了秒杀系统的实现，于是打算使用SpringBoot框架学习一下秒杀系统（本项目基于慕课网的一套免费视频教程：Java高并发秒杀API，视频教程中讲解的很详细，非常感谢这位讲师）。也是因为最近学习了SpringBoot框架（GitHub教程：SpringBoot入门之CRUD ），觉得SpringBoot框架确实比传统SSM框架方便了很多，">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629100416.png">
 
 
 
@@ -377,7 +377,7 @@ var _hmt = _hmt || [];
 <br>
 
 <p>DAO层开发，即DAO层接口开发，主要设计需要和数据库交互的数据有哪些？应该用什么返回值类型接收查询到的数据？所以包含的方法有哪些？带着这些问题，我们先看一下秒杀系统的业务流程：</p>
-<p><img src="/2018/10/12/ssm/seckill-dao/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629100416.png" alt></p>
 <p>由上图可以看出，相对与本项目而言和数据库打交道的主要涉及两个操作：1.减库存（秒杀商品表）；2.记录购买明细（订单表）。</p>
 <ul>
 <li><p>减库存，顾名思义就是减少当前被秒杀到的商品的库存数量，这也是秒杀系统中一个处理难点的地方。实现减库存即count-1，但是我们需要考虑Mysql的事务特性引发的种种问题、需要考虑如何避免同一用户重复秒杀的行为。</p>
@@ -462,9 +462,9 @@ var _hmt = _hmt || [];
 <p>SpringBoot的测试类和传统Spring框架测试类的最大区别就是不再使用<code>@ContextConfiguration()</code>注解去加载配置文件，取而代之的是使用<code>@SpringBootTest</code>注解。因为SpringBoot已经严格规定了配置文件放在<code>resources</code>目录下，且一般是<code>.properties</code>或<code>.yml</code>结尾。如果你再使用<code>@ContextConfiguration()</code>注解加载配置文件反而会报错。</p>
 <br>
 
-<p><img src="/2018/10/12/ssm/seckill-dao/show-1.png" alt></p>
-<p><img src="/2018/10/12/ssm/seckill-dao/show-2.png" alt></p>
-<p><img src="/2018/10/12/ssm/seckill-dao/show-3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629100428.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629100432.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629100436.png" alt></p>
 <br>
 
 <h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
@@ -538,8 +538,8 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/30/ssm/activemq/" rel="next" title="消息中间件ActiveMQ入门学习">
-                <i class="fa fa-chevron-left"></i> 消息中间件ActiveMQ入门学习
+              <a href="/2018/09/30/boot/springboot-mybatis/" rel="next" title="SpringBoot整合Mybatis实现CRUD">
+                <i class="fa fa-chevron-left"></i> SpringBoot整合Mybatis实现CRUD
               </a>
             
           </div>

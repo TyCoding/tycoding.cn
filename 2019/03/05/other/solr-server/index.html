@@ -72,23 +72,23 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Solr最新版安装部署教程:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 写在前面 本案例使用Solr默认提供的Jetty容器运行Solr，如果你想将Solr部署到Tomcat容器中，过程稍微复杂些，请看我的这篇文档： Solr及Spring-Data-Solr入门">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/10.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/11.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/12.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095559.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095602.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095606.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095611.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095615.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095620.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095624.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095631.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095638.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095645.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095710.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095716.png">
+<meta property="og:updated_time" content="2020-06-29T01:57:20.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（十一）手摸手教你部署Solr-7.7.1">
 <meta name="twitter:description" content="Solr最新版安装部署教程:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 写在前面 本案例使用Solr默认提供的Jetty容器运行Solr，如果你想将Solr部署到Tomcat容器中，过程稍微复杂些，请看我的这篇文档： Solr及Spring-Data-Solr入门">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/03/05/other/solr-server/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629095559.png">
 
 
 
@@ -321,20 +321,20 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>解压文件</p>
 </blockquote>
-<p><img src="/2019/03/05/other/solr-server/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095559.png" alt></p>
 <p>其中有如上文件，展开<code>/bin</code>文件夹，其中就是直接可运行的脚本程序：</p>
-<p><img src="/2019/03/05/other/solr-server/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095602.png" alt></p>
 <blockquote>
 <p>运行Solr</p>
 </blockquote>
 <p>上面基本下载完成，由于作者使用的是MacOS系统，所以使用命令行在<code>/bin</code>目录下执行<code>./solr start</code>命令:</p>
-<p><img src="/2019/03/05/other/solr-server/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095606.png" alt></p>
 <p>如图就启动了Solr服务器（警告信息忽略，我本地电脑原因）。如果是WIN系统，就双击<code>solr.cmd</code>。</p>
 <blockquote>
 <p>测试</p>
 </blockquote>
 <p>上面启动了Solr服务器，可以在浏览器上访问：<code>localhost:8983</code>：</p>
-<p><img src="/2019/03/05/other/solr-server/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095611.png" alt></p>
 <p>进入到Solr-Admin管理界面，在这里可以对Solr数据进行CRUD。</p>
 <blockquote>
 <p>命令</p>
@@ -347,17 +347,17 @@ var _hmt = _hmt || [];
 <p>1.在<code>solr-7.7.1/server/solr/</code>目录下创建<code>new_core</code>文件夹</p>
 </blockquote>
 <p>其中<code>new_core</code>就相当于数据库名：</p>
-<p><img src="/2019/03/05/other/solr-server/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095615.png" alt></p>
 <blockquote>
 <p>2.将<code>solr-7.7.1/example/example-DIH/solr/db</code>下的<code>conf</code>文件夹copy到<code>new_core</code>文件夹下</p>
 </blockquote>
 <p>copy了<code>conf</code>文件夹，再手动创建<code>data</code>文件夹：</p>
-<p><img src="/2019/03/05/other/solr-server/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095620.png" alt></p>
 <blockquote>
 <p>3.新建core</p>
 </blockquote>
 <p>重启Solr服务器，刷新页面，点击Core Admin，选择Add Core，名称默认就是<code>new_core</code>无需修改：</p>
-<p><img src="/2019/03/05/other/solr-server/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095624.png" alt></p>
 <p>出现如上页面就证明你新建core成功！</p>
 <h2 id="配置IK分词器"><a href="#配置IK分词器" class="headerlink" title="配置IK分词器"></a>配置IK分词器</h2><p>Solr新版本默认提供了分词器，但是没有IK分词器好使，所以可以配置IK分词器：</p>
 <ul>
@@ -375,7 +375,7 @@ var _hmt = _hmt || [];
 <ol start="3">
 <li>重启Solr服务器</li>
 </ol>
-<p><img src="/2019/03/05/other/solr-server/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095631.png" alt></p>
 <p>在<code>new_core</code>的<code>Analysis</code>选项中输入<code>text_ik</code>如果下拉菜单中显示了就证明IK分词器安装成功。</p>
 <h2 id="导入数据库数据"><a href="#导入数据库数据" class="headerlink" title="导入数据库数据"></a>导入数据库数据</h2><p>Solr提供了一个功能实现将Mysql数据库中的数据一键导入到Solr数据库中。</p>
 <blockquote>
@@ -395,7 +395,7 @@ var _hmt = _hmt || [];
 </blockquote>
 <p><code>managed-schema</code>其实就是XML文档，在solr5之前的老版本中用<code>schema.xml</code>来管理，其实也就是<code>managed-schema</code>文件，所以我们直接编辑<code>managed-schema</code>文件：</p>
 <p>定位到<code>managed-schema</code>文件的124行，看到<code>managed-schema</code>中默认定义了很多字段信息，为了避免字段重复冲突，可以将其删除：</p>
-<p><img src="/2019/03/05/other/solr-server/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095638.png" alt></p>
 <p>注意，不要乱删，一些常见的名词，比如：name, age, title, author 这些一看就是示例的字段可以删除，特殊的不要删。当然可以都不删除，报错了再删除也不迟。</p>
 <p>并在其中添加如下内容：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span> <span class="attr">required</span>=<span class="string">"true"</span> <span class="attr">multiValued</span>=<span class="string">"false"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"qq"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">type</span>=<span class="string">"string"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">field</span> <span class="attr">name</span>=<span class="string">"keyword"</span> <span class="attr">type</span>=<span class="string">"text_ik"</span> <span class="attr">indexed</span>=<span class="string">"true"</span> <span class="attr">stored</span>=<span class="string">"false"</span> <span class="attr">multiValued</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">copyField</span> <span class="attr">source</span>=<span class="string">"username"</span> <span class="attr">dest</span>=<span class="string">"keyword"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">copyField</span> <span class="attr">source</span>=<span class="string">"email"</span> <span class="attr">dest</span>=<span class="string">"keyword"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uniqueKey</span>&gt;</span>id<span class="tag">&lt;/<span class="name">uniqueKey</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -413,13 +413,13 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>4.重启服务</p>
 </blockquote>
-<p><img src="/2019/03/05/other/solr-server/10.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095645.png" alt></p>
 <p>在<code>new_core</code>的<code>Dataimport</code>选项中可以看到连接数据库的配置，它的功能就是通过连接本地的MySQL数据库，依据配置的<code>db-data-config.xml</code>查询数据库表中的数据，并根据<code>managed-schema</code>中的<code>&lt;field&gt;</code>将匹配的字段数据存入到solr中。</p>
 <p>执行<code>Execute</code>导入数据，可以<code>Refresh Status</code>刷新状态。</p>
 <p>然后点击Query，如果数据库连接成功、jar文件都导入了且Solr配置正确，那么查询当前<code>new_core</code>中的数据：</p>
-<p><img src="/2019/03/05/other/solr-server/11.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095710.png" alt></p>
 <p>点击Query查询：</p>
-<p><img src="/2019/03/05/other/solr-server/12.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095716.png" alt></p>
 <p>即为数据库中新增的数据，现在导入到了solr数据库中。</p>
 <h2 id="多core配置"><a href="#多core配置" class="headerlink" title="多core配置"></a>多core配置</h2><p>我们可以吧core认为是solr数据库的一个数据库，那么必然可以配置多个数据库，步骤请按照上面创建<code>new_core</code>的过程进行重复即可。</p>
 <h1 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h1><p>官网下载的Solr内置了Jetty服务器，所以操作都比较简单了，如果想把Solr部署到Tomcat服务器中，需要配置的地方比较多，请看我的这篇文档：<a href="https://tycoding.cn/2018/09/24/other/solr/" target="_blank" rel="noopener">Solr及Spring-Data-Solr入门</a></p>

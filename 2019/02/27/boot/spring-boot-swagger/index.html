@@ -72,15 +72,15 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Spring Boot2整合Swagger2.9.2:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 在学习或开发一些项目时，常会遇到前端需要一份详细的后端API说明文档，因此Swagger的诞生就是为了实现这个需求的。Swagger提供了非常好看的界面，并且提供了API测试工具，类似Pos">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/27/boot/spring-boot-swagger/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/27/boot/spring-boot-swagger/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/27/boot/spring-boot-swagger/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/27/boot/spring-boot-swagger/4.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092920.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092927.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092931.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092936.png">
+<meta property="og:updated_time" content="2020-06-29T01:29:39.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（十）Spring Boot2整合Swagger2.9.2">
 <meta name="twitter:description" content="Spring Boot2整合Swagger2.9.2:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 在学习或开发一些项目时，常会遇到前端需要一份详细的后端API说明文档，因此Swagger的诞生就是为了实现这个需求的。Swagger提供了非常好看的界面，并且提供了API测试工具，类似Pos">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/02/27/boot/spring-boot-swagger/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629092920.png">
 
 
 
@@ -335,7 +335,7 @@ var _hmt = _hmt || [];
 <p>发现它能支持4中方式按照路径生成API文档：1.任何路径都生成；2.任何路径都不生成；3.正则匹配路径；4.ant模式匹配。</p>
 <p>上面我们就是配置的正则匹配路径，按照正则标准，Swagger扫描对应的API接口并生成文档。</p>
 <p>如果你还有疑惑，可以先看一下项目整体结构：</p>
-<p><img src="/2019/02/27/boot/spring-boot-swagger/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092920.png" alt></p>
 <h1 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h1><p>既然都用到了Swagger，那就必然要遵循Restful接口规范，最基本的规范：</p>
 <table>
 <thead>
@@ -382,11 +382,11 @@ var _hmt = _hmt || [];
 
 <p>如上，我们完成了基础操作。</p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>启动项目，访问<code>localhost:8080/swagger-ui.html</code>：</p>
-<p><img src="/2019/02/27/boot/spring-boot-swagger/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092927.png" alt></p>
 <p>是不是很神奇呢，这么炫酷漂亮的界面Swagger已经帮我们写好了，根据刚才配置的<code>.apis(RequestHandlerSelectors.basePackage(&quot;cn.tycoding.controller&quot;))</code>Swagger扫描到了<code>ArticleController</code>这个控制器类，根据刚才配置的<code>.paths(PathSelectors.regex(&quot;/.*&quot;))</code>Swagger扫描了这个控制器的所有请求映射路径，并且生成API文档。</p>
 <p>更神奇的在这里：</p>
 <p>任意点开一个接口，点击左侧的Try it out，可以直接测试这个接口，就像Postman工具一样，并且旗下有丰富的接口文档信息</p>
-<p><img src="/2019/02/27/boot/spring-boot-swagger/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092931.png" alt></p>
 <p>可以看到我们模拟的接口请求成功，并且返回了响应数据。</p>
 <h2 id="进阶配置"><a href="#进阶配置" class="headerlink" title="进阶配置"></a>进阶配置</h2><blockquote>
 <p>修改<code>ArticleController</code></p>
@@ -401,7 +401,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>查看配置效果</p>
 </blockquote>
-<p><img src="/2019/02/27/boot/spring-boot-swagger/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092936.png" alt></p>
 <p>如上图所示，我在图中标记了Swagger注解对应的配置效果</p>
 <h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><blockquote>
 <p>在控制器类</p>

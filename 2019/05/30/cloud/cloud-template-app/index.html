@@ -72,20 +72,20 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Spring Cloud Template 分布式微服务系统 – 前端项目地址：Spring-Cloud-Template 欢迎star, fork支持作者 注意 请仔细阅读vue-admin-template项目官方文档：传送门 如何食用 vue-admin-template 前端模板？">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/2019052872704.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/2019052872808.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/2019052872828.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/2019052880003.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/2019052880030.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/2019052880107.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/20190528211740.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/20190528213839.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/20190529084410.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094048.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094052.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094057.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094105.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094110.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094116.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094122.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094131.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629094140.png">
+<meta property="og:updated_time" content="2020-06-29T01:41:45.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud Template微服务前端">
 <meta name="twitter:description" content="Spring Cloud Template 分布式微服务系统 – 前端项目地址：Spring-Cloud-Template 欢迎star, fork支持作者 注意 请仔细阅读vue-admin-template项目官方文档：传送门 如何食用 vue-admin-template 前端模板？">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/05/30/cloud/cloud-template-app/2019052872704.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629094048.png">
 
 
 
@@ -352,9 +352,9 @@ var _hmt = _hmt || [];
 <li><a href="https://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/">Spring Security OAuth2数据持久化</a></li>
 </ol>
 <p>Security-OAuth2中提供的默认获取Token的接口：<code>/oauth/token</code>，下面是使用Postman工具模拟请求的示例图：</p>
-<p><img src="/2019/05/30/cloud/cloud-template-app/2019052872704.png" alt></p>
-<p><img src="/2019/05/30/cloud/cloud-template-app/2019052872808.png" alt></p>
-<p><img src="/2019/05/30/cloud/cloud-template-app/2019052872828.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094048.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094052.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094057.png" alt></p>
 <blockquote>
 <p>  <code>/oauth/token</code>接口是谁提供的？</p>
 </blockquote>
@@ -396,10 +396,10 @@ var _hmt = _hmt || [];
 
 <p>上面设置了一个请求头参数<code>Authorization</code>，他的值是对<code>username: client, password: 123456</code>即<code>client:123456</code>按照Base64加密后的值。因为整个项目仅仅是个人使用的，所以这个写死也并无大碍，毕竟数据库中写死了客户端信息。</p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>上面基本介绍了登录请求的流程和注意事项，下面使用浏览器F12看一下实际的请求信息：</p>
-<p><img src="/2019/05/30/cloud/cloud-template-app/2019052880003.png" alt></p>
-<p><img src="/2019/05/30/cloud/cloud-template-app/2019052880030.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094105.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094110.png" alt></p>
 <p>如果登录请求响应成功，想要进入系统的第二关就是调用获取用户信息的接口，全局设置用户信息(用户名、头像…) 。所以，<code>vue-admin-template</code>会立即再请求获取用户信息的接口：</p>
-<p><img src="/2019/05/30/cloud/cloud-template-app/2019052880107.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094116.png" alt></p>
 <p>可看到，如果登录成功，可携带<code>access_token</code>访问应用的其他接口，只需要在请求时将请求头<code>Authorization</code>设置为<code>access_token</code>信息即可。</p>
 <h2 id="CRUD业务"><a href="#CRUD业务" class="headerlink" title="CRUD业务"></a>CRUD业务</h2><p>一旦解决了登录功能，相信你对<code>vue-admin-template</code>这个前端模板项目有一定理解了，后端其他的业务也相对简单很多了。涉及Axios请求部分，只需要关注：</p>
 <ol>
@@ -424,7 +424,7 @@ var _hmt = _hmt || [];
 <ol>
 <li>在<code>src/components</code>下引入该组件</li>
 </ol>
-<p><img src="/2019/05/30/cloud/cloud-template-app/20190528211740.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094122.png" alt></p>
 <ol start="2">
 <li>在<code>src/api/user.js</code>中定义分页查询接口</li>
 </ol>
@@ -467,7 +467,7 @@ var _hmt = _hmt || [];
 <h3 id="栗子-1"><a href="#栗子-1" class="headerlink" title="栗子"></a>栗子</h3><ol>
 <li>除了创建用户管理的组件，新增一个封装了用户信息编辑框的组件：</li>
 </ol>
-<p><img src="/2019/05/30/cloud/cloud-template-app/20190528213839.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094131.png" alt></p>
 <p>其中的<code>save.vue</code>就是封装了用户信息编辑框的组件。</p>
 <ol start="2">
 <li>在用户管理组件中引入用户信息编辑框的组件</li>
@@ -501,7 +501,7 @@ var _hmt = _hmt || [];
 <ol>
 <li>在<code>src/views/</code>下新增一个<code>.vue</code>组件</li>
 </ol>
-<p><img src="/2019/05/30/cloud/cloud-template-app/20190529084410.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629094140.png" alt></p>
 <ol start="2">
 <li>在<code>src/router/index.js</code>下新增一条路由：</li>
 </ol>

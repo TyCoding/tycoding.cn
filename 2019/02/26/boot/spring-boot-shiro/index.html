@@ -72,13 +72,13 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Spring Boot整合Shiro:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 写在前面 之前有写过SSM整合Shiro的示例：SSM权限管理示例 而在Spring Boot中使用Shiro，就是需要把之前SSM的XML配置转换成Java代码配置，下面我举例用Spring Boot2.">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-shiro/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-shiro/2.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092621.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092625.png">
+<meta property="og:updated_time" content="2020-06-29T01:26:29.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（六）Spring Boot整合Shiro">
 <meta name="twitter:description" content="Spring Boot整合Shiro:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 写在前面 之前有写过SSM整合Shiro的示例：SSM权限管理示例 而在Spring Boot中使用Shiro，就是需要把之前SSM的XML配置转换成Java代码配置，下面我举例用Spring Boot2.">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-shiro/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629092621.png">
 
 
 
@@ -351,7 +351,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>创建<code>index.html</code>和<code>login.html</code>两个页面：</p>
 </blockquote>
-<p><img src="/2019/02/26/boot/spring-boot-shiro/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092621.png" alt></p>
 <blockquote>
 <p>创建<code>LoginController.java</code>，编写路由导航地址</p>
 </blockquote>
@@ -364,7 +364,7 @@ var _hmt = _hmt || [];
 <li><code>@GetMapping</code>标记该请求是Get请求，如果用Post请求则会报错no support</li>
 </ul>
 <p>启动项目，在浏览器上访问<code>localhost:8080</code>或者<code>localhost:8080/index</code>发现页面均会跳转到<code>/login</code>这个请求上：</p>
-<p><img src="/2019/02/26/boot/spring-boot-shiro/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092625.png" alt></p>
 <p>细心地你会发现请求地址中可能会拼接一个<code>JSESSIONID</code>，并且所有的的请求中均会携带一个<code>Cookie= JSESSIONID</code>。这其实是Shiro用于身份验证用的，Shiro默认生成一个会话ID，并储存在Cookie中，这样浏览器每次的请求头中都将携带这个Cookie数据，Shiro拦截请求，发现这个Cookie值是有效的会话(Session) ID，就判定这个请求是合法的请求，然后再根据自定义拦截器链决定是否对该请求放行。</p>
 <h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><blockquote>
 <p>编写一个form表单</p>

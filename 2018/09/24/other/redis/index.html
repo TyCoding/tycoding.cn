@@ -72,16 +72,16 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="继上一篇Solr和Spring Data Solr学习，我们思考一个问题，使用Solr的目的是什么？肯定是为了加快服务器的相应速度。因为即使不适用Solr，通过请求数据库我们一样能完成搜索功能，但是这样会给服务器造成很大的压力。 而Solr仅仅是在搜索功能中用到了，但是大量请求的数据不仅仅出现在搜索中，比如用户的登录信息，虽然数据量很小，但是整个项目每刷新一次页面都要请求一次用户登录的Token信">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/redis/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/redis/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/redis/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/redis/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/24/other/redis/5.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095345.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095352.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095401.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095407.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629095411.png">
+<meta property="og:updated_time" content="2020-06-29T01:54:29.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis及Spring-Data-Redis入门学习">
 <meta name="twitter:description" content="继上一篇Solr和Spring Data Solr学习，我们思考一个问题，使用Solr的目的是什么？肯定是为了加快服务器的相应速度。因为即使不适用Solr，通过请求数据库我们一样能完成搜索功能，但是这样会给服务器造成很大的压力。 而Solr仅仅是在搜索功能中用到了，但是大量请求的数据不仅仅出现在搜索中，比如用户的登录信息，虽然数据量很小，但是整个项目每刷新一次页面都要请求一次用户登录的Token信">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/09/24/other/redis/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629095345.png">
 
 
 
@@ -319,13 +319,13 @@ var _hmt = _hmt || [];
 
 <p>建议使用第二个命令，用第二个命令启动了redis server后能继续输入命令，使用第一个命令则不行。</p>
 <p>如果终端中显示如下logo表示redis启动成功：</p>
-<p><img src="/2018/09/24/other/redis/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095345.png" alt></p>
 <br>
 
 <h2 id="操纵Redis"><a href="#操纵Redis" class="headerlink" title="操纵Redis"></a>操纵Redis</h2><p>上面仅仅是启动了Redis Server，但Redis是一种Key-Value型数据库，也包含了一些查询数据库的命令，操作redis命令的入口就是: <code>redis/bin/redis-cli</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bin/redis-cli</span><br><span class="line"></span><br><span class="line">redis-cli</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/09/24/other/redis/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095352.png" alt></p>
 <ol>
 <li>查看当前(db0)数据库中所有的key值： <code>keys *</code></li>
 <li>清空当前数据库中所有的数据： <code>flushall</code></li>
@@ -369,17 +369,17 @@ ListOperations: 针对List类型的数据操作</code></pre></li>
 <h4 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValue</span><span class="params">()</span></span>&#123;</span><br><span class="line">    redisTemplate.boundValueOps(<span class="string">"name"</span>).set(<span class="string">"tycoding"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果配置都正常的情况下，运行此方法就能向db0数据库中添加一条key为<code>name</code>的记录；那么我们在redis命令行中查看所有的key：</p>
-<p><img src="/2018/09/24/other/redis/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095401.png" alt></p>
 <p>奇怪，我添加的key明明是<code>name</code>，为什么查出来的确实一堆乱码值呢？我们再使用redis命令行单独添加一条记录：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set testK testV</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/09/24/other/redis/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095407.png" alt></p>
 <p>此时我们又发现，使用redis原生命令添加的数据是不会乱码的；那么就肯定是Spring Data Redis的原因了。经查询是因为redisTemplate模板类在操作redis序列化的原因，我们要手动配置序列化方式为：<code>StringRedisSerializer</code></p>
 <p>修改之前创建的<code>spring-redis.xml</code>配置文件：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"redisTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.core.RedisTemplate"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connectionFactory"</span> <span class="attr">ref</span>=<span class="string">"jedisConnectionFactory"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 序列化策略 推荐使用StringRedisSerializer --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"keySerializer"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.serializer.StringRedisSerializer"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"valueSerializer"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.serializer.StringRedisSerializer"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hashKeySerializer"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hashValueSerializer"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>再次添加数据</p>
-<p><img src="/2018/09/24/other/redis/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629095411.png" alt></p>
 <h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getValue</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Object name = redisTemplate.boundValueOps(<span class="string">"name"</span>).get();</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteValue</span><span class="params">()</span></span>&#123;</span><br><span class="line">    redisTemplate.delete(<span class="string">"name"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

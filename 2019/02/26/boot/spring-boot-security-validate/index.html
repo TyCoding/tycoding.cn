@@ -72,18 +72,18 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="SpringSecurity图形验证码校验:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 接着上一篇文章：SpringBoot整合SpringSecurity，这次我们学习Spring Security如何实现图形验证码校验。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-security-validate/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-security-validate/19.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-security-validate/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-security-validate/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-security-validate/19.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-security-validate/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-security-validate/5.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092250.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092254.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092301.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092307.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092310.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092315.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092318.png">
+<meta property="og:updated_time" content="2020-06-29T01:23:29.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（十六）SpringSecurity实现图形验证码校验">
 <meta name="twitter:description" content="SpringSecurity图形验证码校验:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励 接着上一篇文章：SpringBoot整合SpringSecurity，这次我们学习Spring Security如何实现图形验证码校验。">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-security-validate/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629092250.png">
 
 
 
@@ -345,9 +345,9 @@ var _hmt = _hmt || [];
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/auth/login"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">placeholder</span>=<span class="string">"Username"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">placeholder</span>=<span class="string">"Password"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"code"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">placeholder</span>=<span class="string">"Code"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"/code/image"</span> <span class="attr">style</span>=<span class="string">"margin-bottom: -12px;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Login"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>启动项目：</p>
-<p><img src="/2019/02/26/boot/spring-boot-security-validate/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092250.png" alt></p>
 <p>至此，我们仅仅完成了图形验证码的绘制即展示，即使在Controller层将验证码对象储存在Session中，但是，并没有任何地方使用了这个Session。</p>
-<h2 id="验证码过滤器"><a href="#验证码过滤器" class="headerlink" title="验证码过滤器"></a>验证码过滤器</h2><p><img src="/2019/02/26/boot/spring-boot-security-validate/19.png" alt></p>
+<h2 id="验证码过滤器"><a href="#验证码过滤器" class="headerlink" title="验证码过滤器"></a>验证码过滤器</h2><p><img src="http://cdn.tycoding.cn/20200629092254.png" alt></p>
 <p>在之前学习的Spring Security过滤器链中，我们说<code>SecurityContextPersistenceFilter</code>是直接与请求交互的最前端的过滤器，<code>UsernamePasswordAuthenticationFilter</code>用于处理这个请求，而因为加了验证码校验，应该在<code>UsernamePasswordAuthenticationFilter</code>过滤器前面再判断如果验证码校验通过再校验用户名和密码，否者就直接抛出异常。</p>
 <p>所以，我们需要创建一个验证码过滤器用于专门校验输入的验证码值；并且，这个验证码过滤器应该放在<code>UsernamePasswordAuthenticationFilter</code>过滤器前面执行。</p>
 <p>在<code>cn/tycoding/filter/</code>下创建<code>ValidateCodeFilter</code>并继承<code>OncePerRequestFilter</code>(表示这个过滤器只执行一次，避免了每次请求都会执行这个过滤器)：</p>
@@ -373,12 +373,12 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">        .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)</span><br><span class="line">        .formLogin()</span><br><span class="line">        .loginPage(<span class="string">"/login"</span>)</span><br><span class="line">        .loginProcessingUrl(<span class="string">"/auth/login"</span>)</span><br><span class="line">        .successHandler(authenticationSuccessHandler)</span><br><span class="line">        .failureHandler(authenticationFailureHandler)</span><br></pre></td></tr></table></figure>
 
 <h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h2><p>启动项目，在页面输入用户名密码、验证码登录，在<code>ValidateCodeFilter</code>过滤器处打断点：</p>
-<p><img src="/2019/02/26/boot/spring-boot-security-validate/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092301.png" alt></p>
 <h1 id="SpringSecurity记住我"><a href="#SpringSecurity记住我" class="headerlink" title="SpringSecurity记住我"></a>SpringSecurity记住我</h1><p>记住我，顾名思义，即系统能在一段时间内记住当前登录的用户信息，避免用户频繁的输入用户名密码登录系统。在Shiro学习中，记住我功能需要配置<code>RememberCookie</code>，将其注入到<code>RememberMeManager</code>，最终由Shiro内部对这个rememberMe数据管理。</p>
 <p>而在Spring Security中，Spring Security内部提供了对rememberMe数据的JDBC工具封装，也就是说如果需要记住我，那么Spring Security会将用户信息都持久化到数据库中。再次请求时会根据请求中携带的Cookie信息和数据库中储存的信息比对来判断当前用户是否已登录。</p>
-<p><img src="/2019/02/26/boot/spring-boot-security-validate/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092307.png" alt></p>
 <p>并且，我们再回顾之前的Spring Security过滤器链：</p>
-<p><img src="/2019/02/26/boot/spring-boot-security-validate/19.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092310.png" alt></p>
 <p>这个记住我相关的过滤器配置应该放在<code>UsernamePasswordAuthenticationFilter</code>过滤器的后面。当用户登录后，再次发送请求，此时并不是一个认证请求，Spring Security就不再执行<code>UsernamePasswordAuthenticationFilter</code>，而是直接调用<code>RememberMeAuthenticationFilter</code>过滤器，查询数据库中储存的Token，和浏览器携带的Cookie信息比对。</p>
 <h2 id="创建一个Repository"><a href="#创建一个Repository" class="headerlink" title="创建一个Repository"></a>创建一个Repository</h2><p>创建一个<code>PersistentTokenRepository</code>对象用于配置JDBC相关信息，实现Token数据保存到数据库中：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> PersistentTokenRepository <span class="title">persistentTokenRepository</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    JdbcTokenRepositoryImpl tokenRepository = <span class="keyword">new</span> JdbcTokenRepositoryImpl();</span><br><span class="line">    tokenRepository.setDataSource(dataSource);</span><br><span class="line">    tokenRepository.setCreateTableOnStartup(<span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">return</span> tokenRepository;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -398,12 +398,12 @@ var _hmt = _hmt || [];
 </blockquote>
 <p>在登录界面勾选记住我并输入用户名密码进入系统。</p>
 <p>可以看到数据库<code>springboot_security</code>中生成了一张表：</p>
-<p><img src="/2019/02/26/boot/spring-boot-security-validate/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092315.png" alt></p>
 <blockquote>
 <p>2.关闭浏览器，重新打开并访问系统</p>
 </blockquote>
 <p>在<code>RememberMeAuthenticationFilter</code>中打断点：</p>
-<p><img src="/2019/02/26/boot/spring-boot-security-validate/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092318.png" alt></p>
 <p>可以看到此时过滤器得到了RememberMe记住的数据，那么这次访问就不需要登录直接可进入系统了。</p>
 <br>
 

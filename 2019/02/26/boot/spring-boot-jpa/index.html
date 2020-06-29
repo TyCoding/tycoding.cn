@@ -72,23 +72,23 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="spring-boot 整合 JPA:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励  Jpa(Java Persistence API)是一套规范，而Hibernate是基于Jpa实现的一套产品">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/10.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/11.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/12.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/13.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091443.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091446.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091451.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091457.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091500.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091504.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091509.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091512.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091517.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091521.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091529.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091533.png">
+<meta property="og:updated_time" content="2020-06-29T01:16:18.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（三）Spring Boot 整合 JPA">
 <meta name="twitter:description" content="spring-boot 整合 JPA:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励  Jpa(Java Persistence API)是一套规范，而Hibernate是基于Jpa实现的一套产品">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/02/26/boot/spring-boot-jpa/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629091443.png">
 
 
 
@@ -383,14 +383,14 @@ var _hmt = _hmt || [];
 </tbody></table>
 <p>如果你想要Entity中的某个属性不被识别为表字段，可以用<code>@Transient</code>注解标记。</p>
 <p>如上已经完成了配置，下面直接启动项目的<code>main</code>方法，数据表<code>demo</code>会自动生成，</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091443.png" alt></p>
 <p>发现莫名其妙的创建了一个表：<code>hibernate_sequence</code></p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091446.png" alt></p>
 <p>避免自动创建<code>hibernate_sequence</code>表，修改之前的<code>Test.entity</code>主键自增策略:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)</span><br><span class="line"><span class="keyword">private</span> Long id;</span><br></pre></td></tr></table></figure>
 
 <h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><p><strong>But</strong>，细心的你会发现，Entity中定义的字段顺序和JPA生成的表字段顺序不同，JPA生成的表中按照字段首字母排序：</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091451.png" alt></p>
 <p>所以，坑，暂时没有解决，应该是Hibernate自身问题。</p>
 <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="创建User-java"><a href="#创建User-java" class="headerlink" title="创建User.java"></a>创建User.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"create_time"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date createTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"update_time"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date updateTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Lob</span></span><br><span class="line">    <span class="meta">@Basic</span>(fetch = FetchType.LAZY)</span><br><span class="line">    <span class="meta">@Column</span>(columnDefinition = <span class="string">"text"</span>)</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -441,12 +441,12 @@ var _hmt = _hmt || [];
 <h2 id="创建UserDao-java"><a href="#创建UserDao-java" class="headerlink" title="创建UserDao.java"></a>创建UserDao.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;  &#125;</span><br></pre></td></tr></table></figure>
 
 <p>可能你会见到有的案例中<code>extends CrudRepository&lt;T, ID&gt;</code>等，其实都是可以的，翻看源码就知道，继承<code>JpaRepository</code>也可以使用<code>CrudRepository</code>的方法：</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091457.png" alt></p>
 <p><strong>注意</strong><code>JpaRepository&lt;T, ID&gt;</code>，要指定泛型类型，否则Spring注入这个Bean的时候发现该Bean泛型类型不定而注入失败。</p>
 <p>下面我们看一下<code>JpaRepository</code>中提供的方法：</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091500.png" alt></p>
 <p><code>CrudRepository</code>:</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091504.png" alt></p>
 <p>顾名思义，看了方法名应该就知道这个方法的具体作用了。</p>
 <h2 id="创建UserDaoTest-java"><a href="#创建UserDaoTest-java" class="headerlink" title="创建UserDaoTest.java"></a>创建UserDaoTest.java</h2><p>使用Idea的话，在<code>UserDao.java</code>接口名前按<code>Alt + Enter</code>键(mac)，快速生成测试类<code>UserDaoTest.java</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -457,17 +457,17 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查询所有</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;User&gt; list = userDao.findAll();</span><br><span class="line">    list.forEach(user -&gt; &#123;</span><br><span class="line">        logger.info(<span class="string">"user=&#123;&#125;"</span>, user);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>list.forEach(i -&gt; {})</code>是JDK8新特性</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091509.png" alt></p>
 <h2 id="findById"><a href="#findById" class="headerlink" title="findById"></a>findById</h2><p>根据<code>Id</code>主键查询：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据ID查询</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindById</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    User user = userDao.findById(<span class="number">1L</span>).get();</span><br><span class="line">    logger.info(<span class="string">"user=&#123;&#125;"</span>, user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/02/26/boot/spring-boot-jpa/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091512.png" alt></p>
 <p><code>findById</code>得到一个<code>Optional</code>对象，通过<code>.get()</code>可获取到其中封装的<code>User</code>对象。</p>
 <p><strong>But</strong></p>
 <p>还要一个方法：</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/10.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091517.png" alt></p>
 <p>看似<code>getOne()</code>刚好返回一个<code>User</code>对象，但是查询<code>getOne()</code>方法的实现：</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/11.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091521.png" alt></p>
 <p>可以看到这个方法其实返回一个<code>reference</code>代理对象，并不是真正的<code>User</code>对象，所以，如果你调用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User user = userDao.getOne(<span class="number">1L</span>)</span><br></pre></td></tr></table></figure>
 
@@ -485,11 +485,11 @@ var _hmt = _hmt || [];
 
 <h1 id="自定义简单查询"><a href="#自定义简单查询" class="headerlink" title="自定义简单查询"></a>自定义简单查询</h1><p>自定义简单查询就是根据方法名自动生成SQL。前面是用JPA内置的方法进行简单的CRUD，下面可以自定义方法名实现自定义SQL：</p>
 <p>主要语法是：<code>findByXX</code>,<code>readByXX</code>,<code>queryByXX</code>,<code>countByXX</code>。<code>XX</code>代表属性名，如：</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/12.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091529.png" alt></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">User <span class="title">findByUsername</span><span class="params">(String username)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p>或者加一些关键字：</p>
-<p><img src="/2019/02/26/boot/spring-boot-jpa/13.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091533.png" alt></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">User <span class="title">findByUsernameOrPassword</span><span class="params">(String username, String password)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p>基本上SQL体系中的关键字在JPA上都有对应的，具体的关键字和使用方法生成的SQL如下表：</p>

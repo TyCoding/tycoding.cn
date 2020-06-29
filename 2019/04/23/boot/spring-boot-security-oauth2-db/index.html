@@ -72,23 +72,23 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="在上一篇文章 Spring Security OAuth2实战 中我们尝试配置了一个最基础的Security OAuth2环境，但其中的用户数据都是模拟储存在内存中的，而实际开发中，这些数据应该是从数据库中获取的。这次我们就结合数据库、Redis进一步配置Security OAuth2环境。 :tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-155923.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-174851.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-181918.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182050.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182423.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182538.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182722.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182821.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182918.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-183138.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-183304.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-183511.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091849.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091857.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091903.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091909.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091914.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091919.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091922.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091926.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091930.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091937.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091942.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629091946.png">
+<meta property="og:updated_time" content="2020-06-29T01:20:12.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Security OAuth2数据持久化">
 <meta name="twitter:description" content="在上一篇文章 Spring Security OAuth2实战 中我们尝试配置了一个最基础的Security OAuth2环境，但其中的用户数据都是模拟储存在内存中的，而实际开发中，这些数据应该是从数据库中获取的。这次我们就结合数据库、Redis进一步配置Security OAuth2环境。 :tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-155923.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629091849.png">
 
 
 
@@ -345,7 +345,7 @@ var _hmt = _hmt || [];
 <ul>
 <li>注入<code>RedisConnectionFactory</code>用户OAuth2将Token数据储存到Redis数据库中，我们并不需要配置具体的实现，Security-OAuth2本身提供了很多种方式储存Token数据</li>
 </ul>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-155923.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091849.png" alt></p>
 <ul>
 <li>注入<code>UserDetailsService</code>，他用于初始化用户数据，我们仅仅在这里注入了<code>UserDetailsService</code>接口，而需要在其他地方注入实现了<code>UserDetailsService</code>接口的实现类。这样Security OAuth2会自动使用这个实现类中的配置。</li>
 <li>在<code>configure(AuthorizationServerEndpointsConfigurer endpoints)</code>中配置<code>UserDetailsService</code>，配置<code>tokenStore()</code>，使用Security OAuth的<code>RedisTokenStore</code>实现，将<code>RedisConnectionFactory</code>连接工厂注入即可。</li>
@@ -361,7 +361,7 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line">    <span class="function">UserDetails <span class="title">loadUserByUsername</span><span class="params">(String var1)</span> <span class="keyword">throws</span> UsernameNotFoundException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看到这个接口直接一个方法，这个方法用于根据用户名加载用户数据，最后需要返回一个<code>UserDetails</code>对象，可以看到<code>UserDetailsService</code>接口默认的实现：</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-174851.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091857.png" alt></p>
 <p>如上，可以通过<code>InMemoryUserDetailsManager</code>从内存中获取数据、通过<code>JdbcUserDetailsManager</code>通过封装的JDBC操作从数据库中获取数据…。</p>
 <blockquote>
 <p>重写这个方法，该怎么返回一个<code>UserDetails</code>对象呢？</p>
@@ -388,27 +388,27 @@ var _hmt = _hmt || [];
 
 <p>最后，我们准备好了<code>UserDetails</code>接口所需的全部数据，直接<code>return AuthUser(…)</code>即可。</p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>打开本地Redis</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-181918.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091903.png" alt></p>
 <p>启动项目，观察断点:</p>
 <p>首先，观察启动项目时<code>configure(AuthorizationServerEndpointsConfigurer endpoints)</code>方法：</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182050.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091909.png" alt></p>
 <p>此时，我们<code>@Autowire</code>的<code>UserDetailsService</code>对象已经包含了我们设置的一写逻辑 ==&gt; 通过Mybatis调用<code>findByUsername</code>方法查询数据库得到用户对象。</p>
 <p>访问：<code>localhost:8080/hello</code>:</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182423.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091914.png" alt></p>
 <p>访问：<code>localhost:8080/info/tycoding</code>:</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182538.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091919.png" alt></p>
 <p>使用Postman工具访问<code>localhost:8080/oauth/token</code>接口获取Token：</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182722.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091922.png" alt></p>
 <p>注意Basic认证：</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182821.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091926.png" alt></p>
 <p>查看断点，经过自定义实现了<code>UserDetailsService</code>接口的实现类：</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-182918.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091930.png" alt></p>
 <p>这里根据<code>findByUsername</code>查询到了用户数据，最终将数据封装到<code>AuthUser</code>对象中再返回即可：</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-183138.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091937.png" alt></p>
 <p>再次访问：<code>localhost:8080/info/tycoding?access_token=xxx</code>:</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-183304.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091942.png" alt></p>
 <p>查看Redis，可以看到认证数据已经储存在Redis中：</p>
-<p><img src="/2019/04/23/boot/spring-boot-security-oauth2-db/QQ20190423-183511.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629091946.png" alt></p>
 <br>
 
 <h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>

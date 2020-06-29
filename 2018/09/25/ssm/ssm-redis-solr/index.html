@@ -72,22 +72,22 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="在学习了Redis&amp;amp;Spring-Data-Redis入门和Solr&amp;amp;Spring-Data-Solr入门后，接下来就该是项目实战了。这次我们用Vue.JS和ElementUI写前端页面，优雅的整合SSM-Shiro-Redis-Solr框架。 手摸手教你优雅的实现电商项目中的Solr搜索功能，整合SSM框架和Shiro安全框架；教你用Vue.JS和ElementUI写出超漂亮的页">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/10.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/11.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/4.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:58.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100937.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100951.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629100959.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629101007.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629101016.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629101020.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629101027.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629101031.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629101036.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629101041.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629101046.png">
+<meta property="og:updated_time" content="2020-06-29T02:10:49.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用SSM+Solr优雅的实现电商项目中的搜索功能">
 <meta name="twitter:description" content="在学习了Redis&amp;amp;Spring-Data-Redis入门和Solr&amp;amp;Spring-Data-Solr入门后，接下来就该是项目实战了。这次我们用Vue.JS和ElementUI写前端页面，优雅的整合SSM-Shiro-Redis-Solr框架。 手摸手教你优雅的实现电商项目中的Solr搜索功能，整合SSM框架和Shiro安全框架；教你用Vue.JS和ElementUI写出超漂亮的页">
-<meta name="twitter:image" content="http://www.tycoding.cn/2018/09/25/ssm/ssm-redis-solr/5.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629100937.png">
 
 
 
@@ -354,7 +354,7 @@ var _hmt = _hmt || [];
 <h2 id="Redis-amp-Spring-Data-Redis"><a href="#Redis-amp-Spring-Data-Redis" class="headerlink" title="Redis &amp; Spring-Data-Redis"></a>Redis &amp; Spring-Data-Redis</h2><p>关于Redis安装配置和Spring-Data-Redis的入门Demo请查看博文：<a href="http://tycoding.cn/2018/09/24/other/redis/" target="_blank" rel="noopener">Redis和Spring-Data-Redis的入门学习</a></p>
 <br>
 
-<h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><h2 id="启动Solr和Redis"><a href="#启动Solr和Redis" class="headerlink" title="启动Solr和Redis"></a>启动Solr和Redis</h2><p><img src="/2018/09/25/ssm/ssm-redis-solr/5.png" alt></p>
+<h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><h2 id="启动Solr和Redis"><a href="#启动Solr和Redis" class="headerlink" title="启动Solr和Redis"></a>启动Solr和Redis</h2><p><img src="http://cdn.tycoding.cn/20200629100937.png" alt></p>
 <p>如果访问<code>localhost:8080/solr/index.html</code>出现Solr Admin页则启动成功。</p>
 <br>
 
@@ -392,7 +392,7 @@ var _hmt = _hmt || [];
 <h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringJUnit4ClassRunner.class)</span><br><span class="line"><span class="meta">@ContextConfiguration</span>(locations = <span class="string">"classpath:spring/spring-solr.xml"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestSolrTemplate</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SolrTemplate solrTemplate;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Goods goods = <span class="keyword">new</span> Goods(<span class="number">1L</span>, <span class="string">"IPhone SE"</span>, <span class="string">"120"</span>, <span class="string">"手机"</span>, <span class="string">"Apple"</span>, <span class="string">"Apple"</span>);</span><br><span class="line">        solrTemplate.saveBean(goods);</span><br><span class="line">        solrTemplate.commit(); <span class="comment">//提交</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>关于Goods实体类定义，请看<a href="https://github.com/TyCoding/ssm-redis-solr/blob/master/src/main/java/cn/tycoding/entity/Goods.java" target="_blank" rel="noopener">/java/cn/tycoding/entity/Goods.java</a><br>然后我们在浏览器中访问<code>localhost:8080/solr/index.html</code>，点击Query可以看到：</p>
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/6.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629100951.png" alt></p>
 <br>
 
 <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="数据库数据批量导入Solr索引库"><a href="#数据库数据批量导入Solr索引库" class="headerlink" title="数据库数据批量导入Solr索引库"></a>数据库数据批量导入Solr索引库</h2><p>上面已经完成了SSM-Shiro-Redis-Solr的集成环境配置，那么思考：既然用Solr完成搜索功能，那么怎么实现呢？</p>
@@ -428,7 +428,7 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">search</span><span class="params">(Map searchMap)</span> </span>&#123;</span><br><span class="line">  Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">  Query query = <span class="keyword">new</span> SimpleQuery();</span><br><span class="line">  <span class="comment">//添加查询条件</span></span><br><span class="line">  Criteria criteria = <span class="keyword">new</span> Criteria(<span class="string">"item_keywords"</span>).is(searchMap.get(<span class="string">"keywords"</span>));</span><br><span class="line">  query.addCriteria(criteria);</span><br><span class="line">  ScoredPage&lt;Goods&gt; page = solrTemplate.queryForPage(query, Goods.class);</span><br><span class="line">  map.put(<span class="string">"rows"</span>, page.getContent()); <span class="comment">//返回查询到的数据</span></span><br><span class="line">  <span class="keyword">return</span> map;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>启动项目，再搜索框中输入<code>苹果</code>回车即出现：</p>
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/7.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629100959.png" alt></p>
 <p>但是发现页面中只显示10条数据（实际我们添加的苹果手机数据不止10条），为了更优雅的显示，我们实现分页</p>
 <br>
 
@@ -444,7 +444,7 @@ var _hmt = _hmt || [];
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    searchMap: &#123;</span><br><span class="line">        keywords: <span class="string">''</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//分页选项</span></span><br><span class="line">        pageCode: <span class="string">''</span>, <span class="comment">//当前页</span></span><br><span class="line">        pageSize: <span class="string">''</span>, <span class="comment">//每页的记录数</span></span><br><span class="line">    &#125;</span><br><span class="line">    pageConf: &#123;</span><br><span class="line">        <span class="comment">//设置一些初始值(会被覆盖)</span></span><br><span class="line">        pageCode: <span class="number">1</span>, <span class="comment">//当前页</span></span><br><span class="line">        pageSize: <span class="number">18</span>, <span class="comment">//每页显示的记录数</span></span><br><span class="line">        totalPage: <span class="number">20</span>, <span class="comment">//总记录数</span></span><br><span class="line">        pageOption: [<span class="number">18</span>, <span class="number">25</span>, <span class="number">30</span>], <span class="comment">//分页选项</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">methods: &#123;</span><br><span class="line">    <span class="comment">//pageSize改变时触发的函数</span></span><br><span class="line">    handleSizeChange(val) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(val);</span><br><span class="line">        <span class="keyword">this</span>.searchMap.pageSize = val;</span><br><span class="line">        <span class="keyword">this</span>.searchMap.pageCode = <span class="keyword">this</span>.pageConf.pageCode;</span><br><span class="line">        <span class="keyword">this</span>.search(<span class="keyword">this</span>.pageConf.pageCode, val);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//当前页改变时触发的函数</span></span><br><span class="line">    handleCurrentChange(val) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(val);</span><br><span class="line">        <span class="keyword">this</span>.searchMap.pageCode = val;</span><br><span class="line">        <span class="keyword">this</span>.searchMap.pageSize = <span class="keyword">this</span>.pageConf.pageSize;</span><br><span class="line">        <span class="keyword">this</span>.search(val, <span class="keyword">this</span>.searchMap.pageSize);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们只需要修改以上JavaScript代码即可，因为<code>search</code>方法传给后台的是<code>searchMap</code>这个对象数据，只要其中包含了<code>pageCode</code>和<code>pageSize</code>这两个参数，就会被封装到后端接收的Map集合中。<br>其中点击上一页，下一页按钮触发的函数在<code>&lt;el-pagination&gt;</code>中已经定义了，如果点击上一页下一页触发<code>handleCurrentChange()</code>函数，如果点击每页5条记录变成10条记录就会触发<code>handleSizeChange()</code>函数；两个函数都又调用了<code>search()</code>方法，当点击分页按钮时就发送数据给后端，其中包含当前点击的<code>pageCode</code>和<code>pageSize</code>的值，后端接收到这两个值进行分页计算，并将数据返回给前端。</p>
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/8.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629101007.png" alt></p>
 <br>
 
 <h4 id="实现条件过滤"><a href="#实现条件过滤" class="headerlink" title="实现条件过滤"></a>实现条件过滤</h4><p>上面讲了分页查询，仅仅是单方面的查询，并没有任何条件限制。这一功能在SSM中我们直接通过<code>concat()</code>模糊条件过滤，但在Solr中提供了<code>FilterQuery()</code>实现条件过滤查询：</p>
@@ -468,11 +468,11 @@ var _hmt = _hmt || [];
 <p>修改<a href="https://github.com/TyCoding/ssm-redis-solr/blob/master/src/main/webapp/static/js/index.js" target="_blank" rel="noopener">index.js</a></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">searchMap: &#123;</span><br><span class="line">  price: <span class="string">''</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">selectMethod(val) &#123;</span><br><span class="line">  <span class="keyword">this</span>.searchMap.price = <span class="keyword">this</span>.change.sort[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/9.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629101016.png" alt></p>
 <br>
 
 <h4 id="实现查询结果高亮显示"><a href="#实现查询结果高亮显示" class="headerlink" title="实现查询结果高亮显示"></a>实现查询结果高亮显示</h4><p>实现高亮显示，我们先看一下效果：</p>
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/10.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629101020.png" alt></p>
 <p>可看到根据关键字<code>苹果</code>查询出来的记录中<code>苹果</code>字样都被标记为红色斜体样式，这即是我们的目的，你可以查看淘宝的查询，也是查询字样以红色显示出来。</p>
 <p>如果使用高亮查询，那么之前的<code>Query query = new SimpleQuery()</code>就不在满足需求了；高亮查询使用<code>HighlightQuery query = new SimpleHighlightQuery();</code></p>
 <p>修改<a href="https://github.com/TyCoding/ssm-redis-solr/blob/master/src/main/java/cn/tycoding/service/impl/GoodsServiceImpl.java" target="_blank" rel="noopener">GoodsServiceImpl.java</a>中的<code>Search()</code>方法：</p>
@@ -501,14 +501,14 @@ var _hmt = _hmt || [];
 <p>因为Redis在本项目中并没有用到实际的应用中，为何？首先我们要考虑为什么要用Redis？</p>
 <p>Redis缓存嘛，不就是缓存哪些大批量的数据减轻服务器压力的。但是，并不是说所有的大批量的数据都得去缓存，虽然我们项目中的<em>商品管理功能</em>中已经出现了900多条数据，但是这些数据都需要频繁的正删改，而缓存技术中一个难点就是缓存同步问题，你的缓存数据必须时刻和数据库（真实的数据）保持一致，如果每修改一条记录就去更新一遍缓存势必会给缓存服务器造成很大压力。</p>
 <p>什么数据适合放进缓存？不常修改的数据。比如商品的分类列表数据：</p>
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/11.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629101027.png" alt></p>
 <p>但是原谅我，我只是想简单的实现以下Solr的搜索功能，真实项目中商品的分类数据肯定是存在另一张表中，由于我并没有实现，所以Redis在本项目中的应用就比较少了。</p>
 <br>
 
-<h1 id="项目截图"><a href="#项目截图" class="headerlink" title="项目截图"></a>项目截图</h1><p><img src="/2018/09/25/ssm/ssm-redis-solr/1.png" alt></p>
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/2.png" alt></p>
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/3.png" alt></p>
-<p><img src="/2018/09/25/ssm/ssm-redis-solr/4.png" alt></p>
+<h1 id="项目截图"><a href="#项目截图" class="headerlink" title="项目截图"></a>项目截图</h1><p><img src="http://cdn.tycoding.cn/20200629101031.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629101036.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629101041.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629101046.png" alt></p>
 <br>
 
 <h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>

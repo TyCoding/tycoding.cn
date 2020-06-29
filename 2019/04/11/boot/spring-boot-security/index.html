@@ -72,31 +72,31 @@
 <meta property="og:site_name" content="TyCoding&#39;s Blog">
 <meta property="og:description" content="Spring Boot整合SpringSecurity:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励  写在前面  之前都是在用Shiro做权限管理框架，并且写过一个不错的项目：permission (欢迎star,fork)。 这次我们学习下Spring Security权限框架。注意，">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/1.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/2.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/3.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/4.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/6.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/5.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/7.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/8.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/9.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/10.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/11.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/12.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/13.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/14.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/15.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/16.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/17.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/18.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/19.png">
-<meta property="og:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/20.png">
-<meta property="og:updated_time" content="2019-12-15T23:19:56.000Z">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092351.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092359.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092403.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092407.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092421.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092429.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092432.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092438.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092446.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092459.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092506.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092510.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092514.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092518.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092522.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092527.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092531.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092535.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092540.png">
+<meta property="og:image" content="http://cdn.tycoding.cn/20200629092544.png">
+<meta property="og:updated_time" content="2020-06-29T01:26:06.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（十五）SpringBoot2.x整合SpringSecurity">
 <meta name="twitter:description" content="Spring Boot整合SpringSecurity:tada: :tada: :tada: 这里有丰富的 Spring 框架学习案例 仓库地址：spring-learn欢迎star、fork，给作者一些鼓励  写在前面  之前都是在用Shiro做权限管理框架，并且写过一个不错的项目：permission (欢迎star,fork)。 这次我们学习下Spring Security权限框架。注意，">
-<meta name="twitter:image" content="http://www.tycoding.cn/2019/04/11/boot/spring-boot-security/1.png">
+<meta name="twitter:image" content="http://cdn.tycoding.cn/20200629092351.png">
 
 
 
@@ -330,7 +330,7 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello I'm TyCoding, this is Login test"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>启动项目，在浏览器上访问：<code>127.0.0.1:8080/test</code>接口： </p>
-<p><img src="/2019/04/11/boot/spring-boot-security/1.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092351.png" alt></p>
 <blockquote>
 <p>可以看到，URL立即跳转到<code>/login</code>，并且，这个接口和页面并不是我们写的。</p>
 </blockquote>
@@ -342,14 +342,14 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Using generated security password: 8b0e38a6-6af6-40cd-8882-a8c697fd803e</span><br></pre></td></tr></table></figure>
 
 <p>这个就是Spring Security默认进行URL拦截并默认提供的登录密码，用户名是<code>user</code>。在登录页面上输入<code>user</code>和<code>8b0e38a6-6af6-40cd-8882-a8c697fd803e</code>，登录成功:</p>
-<p><img src="/2019/04/11/boot/spring-boot-security/2.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092359.png" alt></p>
 <h3 id="简单的配置"><a href="#简单的配置" class="headerlink" title="简单的配置"></a>简单的配置</h3><p>新建<code>cn/tycoding/config</code>，创建<code>WebSecurityConfig.java</code>继承<code>WebSecurityConfigurerAdapter</code>，并重写<code>void configure(HttpSecurity http)</code>方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * fromLogin(): 表单认证</span></span><br><span class="line"><span class="comment">         * httpBasic(): 弹出框认证</span></span><br><span class="line"><span class="comment">         * authorizeRequests() 身份认证请求</span></span><br><span class="line"><span class="comment">         * anyRequest(): 所有请求</span></span><br><span class="line"><span class="comment">         * authenticated(): 身份认证</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        http.formLogin()</span></span><br><span class="line">        http.httpBasic()</span><br><span class="line">                .and()</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .anyRequest()</span><br><span class="line">                .authenticated();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>最开始演示的是Spring Security默认的表单认证方式，当我们修改为<code>http.httpBasic()</code>后：</p>
-<p><img src="/2019/04/11/boot/spring-boot-security/3.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092403.png" alt></p>
 <h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>Spring Security基础的过滤器：</p>
-<p><img src="/2019/04/11/boot/spring-boot-security/4.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092407.png" alt></p>
 <p>当请求经过Spring Security，就会经过Spring Security的一系列过滤器，当都满足过滤器的条件，最终通过请求，响应请求。其中：</p>
 <ul>
 <li><code>UsernamePassword</code>是最前端的过滤器，用于处理基础的表单login请求</li>
@@ -432,26 +432,26 @@ var _hmt = _hmt || [];
 <p>3.测试</p>
 </blockquote>
 <p>启动项目，分别模拟登录成功和登录失败的情况。</p>
-<p><img src="/2019/04/11/boot/spring-boot-security/6.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/5.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092421.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092429.png" alt></p>
 <hr>
-<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><h3 id="身份校验流程"><a href="#身份校验流程" class="headerlink" title="身份校验流程"></a>身份校验流程</h3><p><img src="/2019/04/11/boot/spring-boot-security/7.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/8.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/9.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/10.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/11.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/12.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/13.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/14.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/15.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/16.png" alt></p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><h3 id="身份校验流程"><a href="#身份校验流程" class="headerlink" title="身份校验流程"></a>身份校验流程</h3><p><img src="http://cdn.tycoding.cn/20200629092432.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092438.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092446.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092459.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092506.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092510.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092514.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092518.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092522.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092527.png" alt></p>
 <h3 id="认证结果在多个请求中共享"><a href="#认证结果在多个请求中共享" class="headerlink" title="认证结果在多个请求中共享"></a>认证结果在多个请求中共享</h3><p>通常保证认证信息能在多个请求获取，会将认证信息储存在Session中。</p>
-<p><img src="/2019/04/11/boot/spring-boot-security/17.png" alt></p>
-<p><img src="/2019/04/11/boot/spring-boot-security/18.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092531.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092535.png" alt></p>
 <p><code>SecurityContext</code>其实是<code>Authentication</code>的一个封装，而<code>SecurityContextHolder</code>是<code>ThreadLocal</code>的一个封装。</p>
 <p>一般情况下一个请求和响应都是在一个线程中的，而通过<code>SecurityContextHolder</code>将认证信息放到了当前线程中，那么在任何使用该线程的地方调用<code>SecurityContextHolder</code>都能获取到认证数据。</p>
 <p>那么最终是由<code>SecurityontextPersistenceFilter</code>使用<code>SecurityContextHolder</code>进行认证信息的读取。</p>
-<p><img src="/2019/04/11/boot/spring-boot-security/19.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092540.png" alt></p>
 <p><code>SecurityontextPersistenceFilter</code>过滤器位于<code>UsernamePasswordAuthenticationFilter</code>过滤器前面，请求和响应都会经过这个过滤器。</p>
 <ul>
 <li><strong>请求</strong>：检查Session，如果有认证信息，就把认证信息放到当前线程中</li>
@@ -461,7 +461,7 @@ var _hmt = _hmt || [];
 <p>修改<code>UserController.java</code>，创建一个新的接口：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取当前登录用户信息</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> authentication 封装了当前登录用户信息的Authentication对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 用户信息集合对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/info"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getCurrentUser</span><span class="params">(Authentication authentication)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> authentication;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/04/11/boot/spring-boot-security/20.png" alt></p>
+<p><img src="http://cdn.tycoding.cn/20200629092544.png" alt></p>
 <br>
 
 <h1 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h1><p>QQGroup：671017003   </p>
