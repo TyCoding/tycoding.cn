@@ -245,6 +245,102 @@ var _hmt = _hmt || [];
   
   
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/13/ssm/seckill-service/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyCoding">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TyCoding's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/13/ssm/seckill-service/" itemprop="url">SpringBoot实现Java高并发秒杀系统之Service层开发（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-13T08:59:41+08:00">
+                2018-10-13
+              </time>
+            
+          </span>
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>继上一篇文章：<a href="http://tycoding.cn/2018/10/12/ssm/seckill-dao/" target="_blank" rel="noopener">SpringBoot实现Java高并发秒杀系统之DAO层开发</a> 我们创建了SpringBoot项目并熟悉了秒杀系统的表设计，下面我们将讲解一下秒杀系统的核心部分：Service业务层的开发。</p>
+<p>Service层又称为业务层，在Spring阶段主要是由<code>@Service</code>注解标记的一层，包含Service业务接口的开发和业务接口实现类的开发，这里我们将讲解如何优雅的设计业务层接口以及针对秒杀系统业务层的优化技术等和针对高并发的解决方案。</p>
+<p>本项目的源码请参看：<a href="https://github.com/TyCoding/springboot-seckill" target="_blank" rel="noopener">springboot-seckill</a>  如果觉得不错可以star一下哦(#^.^#)</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/13/ssm/seckill-service/#more" rel="contents">
+              READ MORE &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+  <hr>
+
+    
+      
+
+  
+
+  
+  
+  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/10/12/ssm/seckill-dao/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1101,106 +1197,6 @@ var _hmt = _hmt || [];
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/07/27/vue/vue-5/#more" rel="contents">
-              READ MORE &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-  <hr>
-
-    
-      
-
-  
-
-  
-  
-  
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tycoding.cn/2018/07/25/vue/vue-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyCoding">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TyCoding's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/25/vue/vue-4/" itemprop="url">Vue路由</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-25T10:04:15+08:00">
-                2018-07-25
-              </time>
-            
-          </span>
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Vue路由"><a href="#Vue路由" class="headerlink" title="Vue路由"></a>Vue路由</h1><p><strong>什么是Vue路由？</strong></p>
-<ul>
-<li><p><strong>后端路由：</strong>即请求的URL地址都对应后端的接口，请求URL响应对应的服务器的资源。</p>
-</li>
-<li><p><strong>前段路由：</strong>对于单页面程序来说，主要通过URL中的hash(#号)来实现不同页面之间的切换，同时，hash有一个特点：HTTP请求中不会包含hash相关的内容；所以单页面程序中的页面跳转主要通过hash实现。</p>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/25/vue/vue-4/#more" rel="contents">
               READ MORE &raquo;
             </a>
           </div>

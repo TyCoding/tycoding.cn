@@ -370,7 +370,7 @@ var _hmt = _hmt || [];
 <li>如果在以上整个过程任意地方出现错误就直接<code>return;</code>不再往下执行过滤器链。</li>
 </ol>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>将当前的<code>ValidateCodeFilter</code>过滤器配置到<code>UsernamePasswordFilter</code>过滤器前面执行：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">        .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)</span><br><span class="line">        .formLogin()</span><br><span class="line">        .loginPage(<span class="string">"/login"</span>)</span><br><span class="line">        .loginProcessingUrl(<span class="string">"/auth/login"</span>)</span><br><span class="line">        .successHandler(authenticationSuccessHandler)</span><br><span class="line">        .failureHandler(authenticationFailureHandler)</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">        .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">        .<span class="title">formLogin</span>()</span></span><br><span class="line">        .loginPage("/login")</span><br><span class="line">        .loginProcessingUrl(<span class="string">"/auth/login"</span>)</span><br><span class="line">        .successHandler(authenticationSuccessHandler)</span><br><span class="line">        .failureHandler(authenticationFailureHandler)</span><br></pre></td></tr></table></figure>
 
 <h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h2><p>启动项目，在页面输入用户名密码、验证码登录，在<code>ValidateCodeFilter</code>过滤器处打断点：</p>
 <p><img src="http://cdn.tycoding.cn/20200629092301.png" alt></p>
@@ -385,7 +385,7 @@ var _hmt = _hmt || [];
 
 <p><code>setCreateTableOnStartup</code>如果数据库中不存在<code>persistent_logins</code>这张表，就设为true，下次执行会在数据库中创建该表，如果存在，就将该配置去掉。</p>
 <p>添加数据库相关的配置：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://127.0.0.1:3306/springboot_security?useUnicode=true&amp;characterEncoding=UTF-8</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/springboot_security?useUnicode=true&amp;characterEncoding=UTF-8</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br></pre></td></tr></table></figure>
 
 <p>注入RememberMe的相关配置：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> UserDetailsService userDetailsService;</span><br><span class="line"></span><br><span class="line">http</span><br><span class="line">    .and()</span><br><span class="line">    .rememberMe()</span><br><span class="line">    .tokenRepository(persistentTokenRepository())</span><br><span class="line">    .tokenValiditySeconds(<span class="number">60</span>) <span class="comment">//60s</span></span><br><span class="line">    .userDetailsService(userDetailsService)</span><br></pre></td></tr></table></figure>
@@ -478,8 +478,8 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/26/boot/spring-boot-shiro/" rel="next" title="（六）Spring Boot整合Shiro">
-                <i class="fa fa-chevron-left"></i> （六）Spring Boot整合Shiro
+              <a href="/2019/02/26/boot/spring-boot-thymeleaf-mybatis/" rel="next" title="（五）SpringBoot整合Mybatis通用Mapper">
+                <i class="fa fa-chevron-left"></i> （五）SpringBoot整合Mybatis通用Mapper
               </a>
             
           </div>
@@ -488,8 +488,8 @@ var _hmt = _hmt || [];
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/26/boot/spring-boot-redis/" rel="prev" title="（八）Spring Boot整合Redis">
-                （八）Spring Boot整合Redis <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/26/boot/spring-boot-shiro/" rel="prev" title="（六）Spring Boot整合Shiro">
+                （六）Spring Boot整合Shiro <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
